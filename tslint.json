@@ -1,0 +1,9 @@
+{
+    "extends": "tslint:latest",
+    "linterOptions": {
+        "exclude": [
+            "bin",
+            "src/types/**/*"
+        ]
+    }
+  }
