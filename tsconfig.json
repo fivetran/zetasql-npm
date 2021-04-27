@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"target": "es2019",
+		"lib": ["es2019"],
+		"moduleResolution": "node",
+		"outDir": "lib",
+		"rootDir": "src",
+		"declaration": true,
+		"sourceMap": true
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"include": ["src"],
+	"exclude": ["node_modules", "**/__tests__/*", ".vscode-test"]
+}
