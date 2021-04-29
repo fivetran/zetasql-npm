@@ -5,11 +5,11 @@ function copy() {
     cp $1 $2
 }
 
-copy bazel-out/k8-fastbuild/bin/external/com_google_protobuf/_virtual_imports/descriptor_proto/google/protobuf/descriptor.proto protos/zetasql/descriptor_proto/google/protobuf/descriptor.proto
-copy bazel-out/k8-fastbuild/bin/external/com_google_protobuf/_virtual_imports/empty_proto/google/protobuf/empty.proto protos/zetasql/empty_proto/google/protobuf/empty.proto
-copy bazel-out/k8-fastbuild/bin/external/com_google_protobuf/_virtual_imports/timestamp_proto/google/protobuf/timestamp.proto protos/zetasql/timestamp_proto/google/protobuf/timestamp.proto
-copy bazel-out/k8-fastbuild/bin/zetasql/resolved_ast/_virtual_imports/resolved_ast_proto/zetasql/resolved_ast/resolved_ast.proto protos/zetasql/resolved_ast/resolved_ast.proto
-copy bazel-out/k8-fastbuild/bin/zetasql/resolved_ast/_virtual_imports/resolved_node_kind_proto/zetasql/resolved_ast/resolved_node_kind.proto protos/zetasql/resolved_ast/resolved_node_kind.proto
+copy bazel-bin/external/com_google_protobuf/_virtual_imports/descriptor_proto/google/protobuf/descriptor.proto protos/zetasql/descriptor_proto/google/protobuf/descriptor.proto
+copy bazel-bin/external/com_google_protobuf/_virtual_imports/empty_proto/google/protobuf/empty.proto protos/zetasql/empty_proto/google/protobuf/empty.proto
+copy bazel-bin/external/com_google_protobuf/_virtual_imports/timestamp_proto/google/protobuf/timestamp.proto protos/zetasql/timestamp_proto/google/protobuf/timestamp.proto
+copy bazel-bin/zetasql/resolved_ast/_virtual_imports/resolved_ast_proto/zetasql/resolved_ast/resolved_ast.proto protos/zetasql/resolved_ast/resolved_ast.proto
+copy bazel-bin/zetasql/resolved_ast/_virtual_imports/resolved_node_kind_proto/zetasql/resolved_ast/resolved_node_kind.proto protos/zetasql/resolved_ast/resolved_node_kind.proto
 copy zetasql/local_service/local_service.proto protos/local_service.proto
 copy zetasql/proto/function.proto protos/zetasql/proto/function.proto
 copy zetasql/proto/options.proto protos/zetasql/proto/options.proto
