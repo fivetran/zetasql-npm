@@ -70,9 +70,7 @@ jobs:
         working-directory: ./build/zetasql-macos
         id: vars
         shell: bash
-        run: |
-          echo ${{ github.ref }}
-          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
 
       - name: Cache build results
         id: cache-zetasql-macos
