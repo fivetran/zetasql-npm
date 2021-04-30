@@ -33,7 +33,8 @@
     "package.json",
     "binding.gyp",
     "server.cc",
-    "zetasql/**/*",
+    "zetasql/darwin-x86-64/libremote_server.dylib",
+    "zetasql/linux-x86-64/libremote_server.so",
     "lib/**/*",
     "protos/**/*"
   ]
