@@ -1,9 +1,11 @@
 name: CI
 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
+  # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main ]
+    tags:
+      - '*'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -39,13 +41,13 @@ jobs:
           key: ${{ runner.os }}-${{ steps.vars.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
 
       - name: Install Bazel
-        if: steps.cache-zetasql.outputs.cache-hit != 'true'
+        if: steps.cache-zetasql.outputs.cache-hit == 'false'
         uses: abhinavsingh/setup-bazel@v3
         with:
           version: 3.7.2
 
       - name: Build
-        if: steps.cache-zetasql.outputs.cache-hit != 'true'
+        if: steps.cache-zetasql.outputs.cache-hit == 'false'
         working-directory: ./build/zetasql-linux
         run: bazel build ...
 
@@ -89,18 +91,18 @@ jobs:
           key: Linux-${{ steps.vars.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
 
       - name: Install Bazel
-        if: steps.cache-zetasql-macos.outputs.cache-hit != 'true'
+        if: steps.cache-zetasql-macos.outputs.cache-hit == 'false'
         uses: abhinavsingh/setup-bazel@v3
         with:
           version: 3.7.2
 
       - name: Build ZetaSQL
-        if: steps.cache-zetasql-macos.outputs.cache-hit != 'true'
+        if: steps.cache-zetasql-macos.outputs.cache-hit == 'false'
         working-directory: ./build/zetasql-macos
         run: bazel build //zetasql/local_service:libremote_server.dylib --copt="-Wno-error=c99-extensions"
         
       - name: Collect proto files
-        if: steps.cache-zetasql-macos.outputs.cache-hit != 'true'
+        if: steps.cache-zetasql-macos.outputs.cache-hit == 'false'
         working-directory: ./build/zetasql-macos
         shell: bash
         run: |
@@ -115,9 +117,26 @@ jobs:
           cp zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so zetasql-npm/zetasql/linux-x86-64/
           cp -R zetasql-macos/protos zetasql-npm/protos
 
-      - name: Build TypeScript
+      - name: Build and Test
         working-directory: ./build/zetasql-npm
-        shell: bash
         run: |
+          echo ${{ github.ref }}
           npm install
-          npm run build:all
+          npm run compile
+          npm run test
+          
+      # Setup .npmrc file to publish to npm
+      - uses: actions/setup-node@v2
+        if: startsWith(github.ref, 'refs/tags/v')
+        with:
+          node-version: '14.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Publish
+        if: startsWith(github.ref, 'refs/tags/v')
+        working-directory: ./build/zetasql-npm
+        run: |
+          npm publish
+          env:
+            NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
