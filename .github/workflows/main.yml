@@ -135,8 +135,7 @@ jobs:
       - name: Publish
         if: startsWith(github.ref, 'refs/tags/v')
         working-directory: ./build/zetasql-npm
-        run: |
-          npm publish
-          env:
-            NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
