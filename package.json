@@ -1,6 +1,6 @@
 {
   "name": "@fivetrandevelopers/zetasql",
-  "version": "1.0.0-alpha",
+  "version": "1.0.0-alpha.0",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "dependencies": {
@@ -29,6 +29,9 @@
     "lint": "tslint -p tsconfig.json",
     "test": "jest --config jestconfig.json"
   },
+  "publishConfig": {
+		"access": "public"
+	},
   "files": [
     "package.json",
     "binding.gyp",

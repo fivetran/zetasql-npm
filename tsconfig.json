@@ -9,9 +9,6 @@
 		"declaration": true,
 		"sourceMap": true
 	},
-	"publishConfig": {
-		"access": "public"
-	},
 	"include": ["src"],
 	"exclude": ["node_modules", "**/__tests__/*", ".vscode-test"]
 }
