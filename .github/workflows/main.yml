@@ -51,7 +51,7 @@ jobs:
         working-directory: ./build/zetasql-linux
         run: bazel build ...
 
-  build:
+  build-on-mac-and-publish-npm:
     runs-on: macos-latest
 
     needs: build-zetasql-linux
@@ -109,13 +109,14 @@ jobs:
           chmod +x ../zetasql-npm/combine_protos.sh
           ../zetasql-npm/combine_protos.sh
 
-      - name: Copy files to zetasql-npm
+      - name: Copy files and set install name
         working-directory: ./build
         shell: bash
         run: |
           cp zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib zetasql-npm/zetasql/darwin-x86-64/
           cp zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so zetasql-npm/zetasql/linux-x86-64/
           cp -R zetasql-macos/protos zetasql-npm/protos
+          install_name_tool -id "@loader_path/libremote_server.dylib" zetasql-npm/zetasql/darwin-x86-64/libremote_server.dylib
 
       - name: Build and Test
         working-directory: ./build/zetasql-npm
