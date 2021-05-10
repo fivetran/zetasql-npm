@@ -16,7 +16,7 @@ export interface ResolvedImportStmtProto {
 
 export interface ResolvedImportStmtProto__Output {
   'parent': (_zetasql_ResolvedStatementProto__Output | null);
-  'importKind': (keyof typeof _zetasql_ResolvedImportStmtEnums_ImportKind);
+  'importKind': (_zetasql_ResolvedImportStmtEnums_ImportKind);
   'namePath': (string)[];
   'filePath': (string);
   'aliasPath': (string)[];

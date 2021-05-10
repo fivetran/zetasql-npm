@@ -16,5 +16,5 @@ export interface ResolvedDropStmtProto__Output {
   'objectType': (string);
   'isIfExists': (boolean);
   'namePath': (string)[];
-  'dropMode': (keyof typeof _zetasql_ResolvedDropStmtEnums_DropMode);
+  'dropMode': (_zetasql_ResolvedDropStmtEnums_DropMode);
 }

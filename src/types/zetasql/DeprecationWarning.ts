@@ -16,5 +16,5 @@ export interface DeprecationWarning {
 }
 
 export interface DeprecationWarning__Output {
-  'kind': (keyof typeof _zetasql_DeprecationWarning_Kind);
+  'kind': (_zetasql_DeprecationWarning_Kind);
 }

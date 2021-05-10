@@ -15,7 +15,7 @@ export interface ResolvedJoinScanProto {
 
 export interface ResolvedJoinScanProto__Output {
   'parent': (_zetasql_ResolvedScanProto__Output | null);
-  'joinType': (keyof typeof _zetasql_ResolvedJoinScanEnums_JoinType);
+  'joinType': (_zetasql_ResolvedJoinScanEnums_JoinType);
   'leftScan': (_zetasql_AnyResolvedScanProto__Output | null);
   'rightScan': (_zetasql_AnyResolvedScanProto__Output | null);
   'joinExpr': (_zetasql_AnyResolvedExprProto__Output | null);

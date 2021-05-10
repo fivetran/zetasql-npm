@@ -14,6 +14,6 @@ export interface ResolvedCreateStatementProto {
 export interface ResolvedCreateStatementProto__Output {
   'parent': (_zetasql_ResolvedStatementProto__Output | null);
   'namePath': (string)[];
-  'createMode': (keyof typeof _zetasql_ResolvedCreateStatementEnums_CreateMode);
-  'createScope': (keyof typeof _zetasql_ResolvedCreateStatementEnums_CreateScope);
+  'createMode': (_zetasql_ResolvedCreateStatementEnums_CreateMode);
+  'createScope': (_zetasql_ResolvedCreateStatementEnums_CreateScope);
 }

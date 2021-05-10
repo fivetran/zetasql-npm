@@ -12,6 +12,6 @@ export interface ResolvedWindowFrameExprProto {
 
 export interface ResolvedWindowFrameExprProto__Output {
   'parent': (_zetasql_ResolvedArgumentProto__Output | null);
-  'boundaryType': (keyof typeof _zetasql_ResolvedWindowFrameExprEnums_BoundaryType);
+  'boundaryType': (_zetasql_ResolvedWindowFrameExprEnums_BoundaryType);
   'expression': (_zetasql_AnyResolvedExprProto__Output | null);
 }

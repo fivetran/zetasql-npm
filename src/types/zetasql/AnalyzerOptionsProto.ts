@@ -55,19 +55,19 @@ export interface AnalyzerOptionsProto__Output {
   'queryParameters': (_zetasql_AnalyzerOptionsProto_QueryParameterProto__Output)[];
   'expressionColumns': (_zetasql_AnalyzerOptionsProto_QueryParameterProto__Output)[];
   'inScopeExpressionColumn': (_zetasql_AnalyzerOptionsProto_QueryParameterProto__Output | null);
-  'errorMessageMode': (keyof typeof _zetasql_ErrorMessageMode);
+  'errorMessageMode': (_zetasql_ErrorMessageMode);
   'defaultTimezone': (string);
   'recordParseLocations': (boolean);
   'pruneUnusedColumns': (boolean);
   'allowUndeclaredParameters': (boolean);
   'allowedHintsAndOptions': (_zetasql_AllowedHintsAndOptionsProto__Output | null);
   'positionalQueryParameters': (_zetasql_TypeProto__Output)[];
-  'parameterMode': (keyof typeof _zetasql_ParameterMode);
-  'statementContext': (keyof typeof _zetasql_StatementContext);
+  'parameterMode': (_zetasql_ParameterMode);
+  'statementContext': (_zetasql_StatementContext);
   'ddlPseudoColumns': (_zetasql_AnalyzerOptionsProto_QueryParameterProto__Output)[];
   'preserveColumnAliases': (boolean);
   'systemVariables': (_zetasql_AnalyzerOptionsProto_SystemVariableProto__Output)[];
   'targetColumnTypes': (_zetasql_TypeProto__Output)[];
   'createNewColumnForEachProjectedOutput': (boolean);
-  'enabledRewrites': (keyof typeof _zetasql_ResolvedASTRewrite)[];
+  'enabledRewrites': (_zetasql_ResolvedASTRewrite)[];
 }

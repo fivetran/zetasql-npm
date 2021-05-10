@@ -18,9 +18,9 @@ export interface TableValuedFunctionProto {
 export interface TableValuedFunctionProto__Output {
   'namePath': (string)[];
   'signature': (_zetasql_FunctionSignatureProto__Output | null);
-  'type': (keyof typeof _zetasql_FunctionEnums_TableValuedFunctionType);
+  'type': (_zetasql_FunctionEnums_TableValuedFunctionType);
   'argumentName': (string)[];
   'parseResumeLocation': (_zetasql_ParseResumeLocationProto__Output | null);
   'customContext': (string);
-  'volatility': (keyof typeof _zetasql_FunctionEnums_Volatility);
+  'volatility': (_zetasql_FunctionEnums_Volatility);
 }

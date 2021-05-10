@@ -26,7 +26,7 @@ export interface ResolvedInsertStmtProto {
 export interface ResolvedInsertStmtProto__Output {
   'parent': (_zetasql_ResolvedStatementProto__Output | null);
   'tableScan': (_zetasql_ResolvedTableScanProto__Output | null);
-  'insertMode': (keyof typeof _zetasql_ResolvedInsertStmtEnums_InsertMode);
+  'insertMode': (_zetasql_ResolvedInsertStmtEnums_InsertMode);
   'assertRowsModified': (_zetasql_ResolvedAssertRowsModifiedProto__Output | null);
   'insertColumnList': (_zetasql_ResolvedColumnProto__Output)[];
   'query': (_zetasql_AnyResolvedScanProto__Output | null);

@@ -12,5 +12,5 @@ export interface ResolvedSetTransactionStmtProto {
 export interface ResolvedSetTransactionStmtProto__Output {
   'parent': (_zetasql_ResolvedStatementProto__Output | null);
   'isolationLevelList': (string)[];
-  'readWriteMode': (keyof typeof _zetasql_ResolvedBeginStmtEnums_ReadWriteMode);
+  'readWriteMode': (_zetasql_ResolvedBeginStmtEnums_ReadWriteMode);
 }

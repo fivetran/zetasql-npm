@@ -22,5 +22,5 @@ export interface ResolvedMergeStmtProto__Output {
   'fromScan': (_zetasql_AnyResolvedScanProto__Output | null);
   'mergeExpr': (_zetasql_AnyResolvedExprProto__Output | null);
   'whenClauseList': (_zetasql_ResolvedMergeWhenProto__Output)[];
-  'columnAccessList': (keyof typeof _zetasql_ResolvedStatementEnums_ObjectAccess)[];
+  'columnAccessList': (_zetasql_ResolvedStatementEnums_ObjectAccess)[];
 }

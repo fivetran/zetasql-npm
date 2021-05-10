@@ -13,7 +13,7 @@ export interface ResolvedRecursiveScanProto {
 
 export interface ResolvedRecursiveScanProto__Output {
   'parent': (_zetasql_ResolvedScanProto__Output | null);
-  'opType': (keyof typeof _zetasql_ResolvedRecursiveScanEnums_RecursiveSetOperationType);
+  'opType': (_zetasql_ResolvedRecursiveScanEnums_RecursiveSetOperationType);
   'nonRecursiveTerm': (_zetasql_ResolvedSetOperationItemProto__Output | null);
   'recursiveTerm': (_zetasql_ResolvedSetOperationItemProto__Output | null);
 }

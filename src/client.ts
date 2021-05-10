@@ -12,7 +12,6 @@ export class Client {
 
   private constructor() {
     const packageDefinition = protoLoader.loadSync('local_service.proto', {
-      enums: String,
       defaults: true,
       oneofs: true,
       includeDirs: [__dirname + '/../protos'],

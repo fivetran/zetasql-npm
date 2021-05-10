@@ -19,7 +19,7 @@ export interface ResolvedCreateRowAccessPolicyStmtProto {
 
 export interface ResolvedCreateRowAccessPolicyStmtProto__Output {
   'parent': (_zetasql_ResolvedStatementProto__Output | null);
-  'createMode': (keyof typeof _zetasql_ResolvedCreateStatementEnums_CreateMode);
+  'createMode': (_zetasql_ResolvedCreateStatementEnums_CreateMode);
   'name': (string);
   'targetNamePath': (string)[];
   'granteeList': (string)[];

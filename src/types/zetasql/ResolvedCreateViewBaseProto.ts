@@ -25,7 +25,7 @@ export interface ResolvedCreateViewBaseProto__Output {
   'isValueTable': (boolean);
   'query': (_zetasql_AnyResolvedScanProto__Output | null);
   'sql': (string);
-  'sqlSecurity': (keyof typeof _zetasql_ResolvedCreateStatementEnums_SqlSecurity);
+  'sqlSecurity': (_zetasql_ResolvedCreateStatementEnums_SqlSecurity);
   'recursive': (boolean);
   'hasExplicitColumns': (boolean);
 }

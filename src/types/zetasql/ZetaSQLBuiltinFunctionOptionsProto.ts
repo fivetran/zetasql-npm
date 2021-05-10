@@ -11,6 +11,6 @@ export interface ZetaSQLBuiltinFunctionOptionsProto {
 
 export interface ZetaSQLBuiltinFunctionOptionsProto__Output {
   'languageOptions': (_zetasql_LanguageOptionsProto__Output | null);
-  'includeFunctionIds': (keyof typeof _zetasql_FunctionSignatureId)[];
-  'excludeFunctionIds': (keyof typeof _zetasql_FunctionSignatureId)[];
+  'includeFunctionIds': (_zetasql_FunctionSignatureId)[];
+  'excludeFunctionIds': (_zetasql_FunctionSignatureId)[];
 }

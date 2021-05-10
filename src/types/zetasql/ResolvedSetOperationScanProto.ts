@@ -12,6 +12,6 @@ export interface ResolvedSetOperationScanProto {
 
 export interface ResolvedSetOperationScanProto__Output {
   'parent': (_zetasql_ResolvedScanProto__Output | null);
-  'opType': (keyof typeof _zetasql_ResolvedSetOperationScanEnums_SetOperationType);
+  'opType': (_zetasql_ResolvedSetOperationScanEnums_SetOperationType);
   'inputItemList': (_zetasql_ResolvedSetOperationItemProto__Output)[];
 }

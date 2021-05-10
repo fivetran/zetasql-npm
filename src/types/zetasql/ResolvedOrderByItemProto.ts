@@ -18,5 +18,5 @@ export interface ResolvedOrderByItemProto__Output {
   'columnRef': (_zetasql_ResolvedColumnRefProto__Output | null);
   'collationName': (_zetasql_AnyResolvedExprProto__Output | null);
   'isDescending': (boolean);
-  'nullOrder': (keyof typeof _zetasql_ResolvedOrderByItemEnums_NullOrderMode);
+  'nullOrder': (_zetasql_ResolvedOrderByItemEnums_NullOrderMode);
 }

@@ -30,7 +30,7 @@ export interface FunctionArgumentTypeOptionsProto {
 }
 
 export interface FunctionArgumentTypeOptionsProto__Output {
-  'cardinality': (keyof typeof _zetasql_FunctionEnums_ArgumentCardinality);
+  'cardinality': (_zetasql_FunctionEnums_ArgumentCardinality);
   'mustBeConstant': (boolean);
   'mustBeNonNull': (boolean);
   'isNotAggregate': (boolean);
@@ -43,7 +43,7 @@ export interface FunctionArgumentTypeOptionsProto__Output {
   'argumentName': (string);
   'argumentNameParseLocation': (_zetasql_ParseLocationRangeProto__Output | null);
   'argumentTypeParseLocation': (_zetasql_ParseLocationRangeProto__Output | null);
-  'procedureArgumentMode': (keyof typeof _zetasql_FunctionEnums_ProcedureArgumentMode);
+  'procedureArgumentMode': (_zetasql_FunctionEnums_ProcedureArgumentMode);
   'argumentNameIsMandatory': (boolean);
   'descriptorResolutionTableOffset': (number);
   'defaultValue': (_zetasql_ValueProto__Output | null);

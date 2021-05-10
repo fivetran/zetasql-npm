@@ -23,7 +23,7 @@ export interface ResolvedFunctionCallBaseProto__Output {
   'function': (_zetasql_FunctionRefProto__Output | null);
   'signature': (_zetasql_FunctionSignatureProto__Output | null);
   'argumentList': (_zetasql_AnyResolvedExprProto__Output)[];
-  'errorMode': (keyof typeof _zetasql_ResolvedFunctionCallBaseEnums_ErrorMode);
+  'errorMode': (_zetasql_ResolvedFunctionCallBaseEnums_ErrorMode);
   'genericArgumentList': (_zetasql_ResolvedFunctionArgumentProto__Output)[];
   'hintList': (_zetasql_ResolvedOptionProto__Output)[];
 }

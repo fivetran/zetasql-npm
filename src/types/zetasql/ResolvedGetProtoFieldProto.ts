@@ -22,6 +22,6 @@ export interface ResolvedGetProtoFieldProto__Output {
   'fieldDescriptor': (_zetasql_FieldDescriptorRefProto__Output | null);
   'defaultValue': (_zetasql_ValueWithTypeProto__Output | null);
   'getHasBit': (boolean);
-  'format': (keyof typeof _zetasql_FieldFormat_Format);
+  'format': (_zetasql_FieldFormat_Format);
   'returnDefaultValueWhenUnset': (boolean);
 }

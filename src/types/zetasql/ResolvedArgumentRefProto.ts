@@ -12,5 +12,5 @@ export interface ResolvedArgumentRefProto {
 export interface ResolvedArgumentRefProto__Output {
   'parent': (_zetasql_ResolvedExprProto__Output | null);
   'name': (string);
-  'argumentKind': (keyof typeof _zetasql_ResolvedArgumentDefEnums_ArgumentKind);
+  'argumentKind': (_zetasql_ResolvedArgumentDefEnums_ArgumentKind);
 }

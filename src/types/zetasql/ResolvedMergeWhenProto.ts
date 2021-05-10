@@ -20,9 +20,9 @@ export interface ResolvedMergeWhenProto {
 
 export interface ResolvedMergeWhenProto__Output {
   'parent': (_zetasql_ResolvedArgumentProto__Output | null);
-  'matchType': (keyof typeof _zetasql_ResolvedMergeWhenEnums_MatchType);
+  'matchType': (_zetasql_ResolvedMergeWhenEnums_MatchType);
   'matchExpr': (_zetasql_AnyResolvedExprProto__Output | null);
-  'actionType': (keyof typeof _zetasql_ResolvedMergeWhenEnums_ActionType);
+  'actionType': (_zetasql_ResolvedMergeWhenEnums_ActionType);
   'insertColumnList': (_zetasql_ResolvedColumnProto__Output)[];
   'insertRow': (_zetasql_ResolvedInsertRowProto__Output | null);
   'updateItemList': (_zetasql_ResolvedUpdateItemProto__Output)[];

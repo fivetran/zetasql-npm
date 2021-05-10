@@ -35,15 +35,15 @@ export interface FieldOptions {
 }
 
 export interface FieldOptions__Output {
-  'ctype': (keyof typeof _google_protobuf_FieldOptions_CType);
+  'ctype': (_google_protobuf_FieldOptions_CType);
   'packed': (boolean);
   'deprecated': (boolean);
   'lazy': (boolean);
-  'jstype': (keyof typeof _google_protobuf_FieldOptions_JSType);
+  'jstype': (_google_protobuf_FieldOptions_JSType);
   'weak': (boolean);
   'uninterpretedOption': (_google_protobuf_UninterpretedOption__Output)[];
   '.zetasql.useDefaults': (boolean);
-  '.zetasql.type': (keyof typeof _zetasql_FieldFormat_Format);
-  '.zetasql.encoding': (keyof typeof _zetasql_DeprecatedEncoding_Encoding);
-  '.zetasql.format': (keyof typeof _zetasql_FieldFormat_Format);
+  '.zetasql.type': (_zetasql_FieldFormat_Format);
+  '.zetasql.encoding': (_zetasql_DeprecatedEncoding_Encoding);
+  '.zetasql.format': (_zetasql_FieldFormat_Format);
 }

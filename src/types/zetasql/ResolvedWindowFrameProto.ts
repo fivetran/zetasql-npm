@@ -13,7 +13,7 @@ export interface ResolvedWindowFrameProto {
 
 export interface ResolvedWindowFrameProto__Output {
   'parent': (_zetasql_ResolvedArgumentProto__Output | null);
-  'frameUnit': (keyof typeof _zetasql_ResolvedWindowFrameEnums_FrameUnit);
+  'frameUnit': (_zetasql_ResolvedWindowFrameEnums_FrameUnit);
   'startExpr': (_zetasql_ResolvedWindowFrameExprProto__Output | null);
   'endExpr': (_zetasql_ResolvedWindowFrameExprProto__Output | null);
 }

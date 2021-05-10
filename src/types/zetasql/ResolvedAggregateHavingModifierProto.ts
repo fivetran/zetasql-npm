@@ -12,6 +12,6 @@ export interface ResolvedAggregateHavingModifierProto {
 
 export interface ResolvedAggregateHavingModifierProto__Output {
   'parent': (_zetasql_ResolvedArgumentProto__Output | null);
-  'kind': (keyof typeof _zetasql_ResolvedAggregateHavingModifierEnums_HavingModifierKind);
+  'kind': (_zetasql_ResolvedAggregateHavingModifierEnums_HavingModifierKind);
   'havingExpr': (_zetasql_AnyResolvedExprProto__Output | null);
 }

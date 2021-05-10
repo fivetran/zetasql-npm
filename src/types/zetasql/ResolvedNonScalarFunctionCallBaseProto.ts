@@ -16,7 +16,7 @@ export interface ResolvedNonScalarFunctionCallBaseProto {
 export interface ResolvedNonScalarFunctionCallBaseProto__Output {
   'parent': (_zetasql_ResolvedFunctionCallBaseProto__Output | null);
   'distinct': (boolean);
-  'nullHandlingModifier': (keyof typeof _zetasql_ResolvedNonScalarFunctionCallBaseEnums_NullHandlingModifier);
+  'nullHandlingModifier': (_zetasql_ResolvedNonScalarFunctionCallBaseEnums_NullHandlingModifier);
   'withGroupRowsSubquery': (_zetasql_AnyResolvedScanProto__Output | null);
   'withGroupRowsParameterList': (_zetasql_ResolvedColumnRefProto__Output)[];
 }

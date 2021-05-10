@@ -31,7 +31,7 @@ export interface FileOptions {
 export interface FileOptions__Output {
   'javaPackage': (string);
   'javaOuterClassname': (string);
-  'optimizeFor': (keyof typeof _google_protobuf_FileOptions_OptimizeMode);
+  'optimizeFor': (_google_protobuf_FileOptions_OptimizeMode);
   'javaMultipleFiles': (boolean);
   'goPackage': (string);
   'ccGenericServices': (boolean);
