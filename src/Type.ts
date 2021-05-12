@@ -3,7 +3,7 @@ import { TypeKind } from './types/zetasql/TypeKind';
 import { TypeProto } from './types/zetasql/TypeProto';
 
 export abstract class Type {
-  private kind: TypeKind;
+  kind: TypeKind;
 
   constructor(kind: TypeKind) {
     this.kind = kind;
@@ -27,13 +27,13 @@ export abstract class Type {
     return this.typeName(ProductMode.PRODUCT_INTERNAL);
   }
 
-  public serizlize(): TypeProto {
+  serialize(): TypeProto {
     return {
       typeKind: this.getKind(),
     };
   }
 
-  public static TYPE_KIND_NAMES: string[] = [
+  static TYPE_KIND_NAMES: string[] = [
     'UNKNOWN', // Not a valid type.
     'INT32',
     'INT64',
