@@ -15,6 +15,6 @@ export interface ResolvedMakeProtoFieldProto {
 export interface ResolvedMakeProtoFieldProto__Output {
   'parent': (_zetasql_ResolvedArgumentProto__Output | null);
   'fieldDescriptor': (_zetasql_FieldDescriptorRefProto__Output | null);
-  'format': (keyof typeof _zetasql_FieldFormat_Format);
+  'format': (_zetasql_FieldFormat_Format);
   'expr': (_zetasql_AnyResolvedExprProto__Output | null);
 }

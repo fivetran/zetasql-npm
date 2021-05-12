@@ -30,6 +30,6 @@ export interface ResolvedUpdateStmtProto__Output {
   'updateItemList': (_zetasql_ResolvedUpdateItemProto__Output)[];
   'fromScan': (_zetasql_AnyResolvedScanProto__Output | null);
   'arrayOffsetColumn': (_zetasql_ResolvedColumnHolderProto__Output | null);
-  'columnAccessList': (keyof typeof _zetasql_ResolvedStatementEnums_ObjectAccess)[];
+  'columnAccessList': (_zetasql_ResolvedStatementEnums_ObjectAccess)[];
   'returning': (_zetasql_ResolvedReturningClauseProto__Output | null);
 }

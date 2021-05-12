@@ -18,7 +18,7 @@ export interface ResolvedSubqueryExprProto {
 
 export interface ResolvedSubqueryExprProto__Output {
   'parent': (_zetasql_ResolvedExprProto__Output | null);
-  'subqueryType': (keyof typeof _zetasql_ResolvedSubqueryExprEnums_SubqueryType);
+  'subqueryType': (_zetasql_ResolvedSubqueryExprEnums_SubqueryType);
   'parameterList': (_zetasql_ResolvedColumnRefProto__Output)[];
   'inExpr': (_zetasql_AnyResolvedExprProto__Output | null);
   'subquery': (_zetasql_AnyResolvedScanProto__Output | null);

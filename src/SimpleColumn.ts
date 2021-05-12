@@ -3,11 +3,11 @@ import { Type } from './Type';
 import { SimpleColumnProto } from './types/zetasql/SimpleColumnProto';
 
 export class SimpleColumn implements Column {
-  private name: string;
-  private fullName: string;
-  private type: Type;
-  private pseudoColumn: boolean;
-  private writableColumn: boolean;
+  name: string;
+  fullName: string;
+  type: Type;
+  pseudoColumn: boolean;
+  writableColumn: boolean;
 
   /**
    * @param tableName name of the table this column belongs to.
@@ -30,7 +30,7 @@ export class SimpleColumn implements Column {
   serialize(): SimpleColumnProto {
     return {
       name: this.getName(),
-      type: this.type.serizlize(),
+      type: this.type.serialize(),
       isPseudoColumn: this.isPseudoColumn(),
       isWritableColumn: this.isWritableColumn(),
     };

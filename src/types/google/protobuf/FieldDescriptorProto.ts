@@ -50,8 +50,8 @@ export interface FieldDescriptorProto__Output {
   'name': (string);
   'extendee': (string);
   'number': (number);
-  'label': (keyof typeof _google_protobuf_FieldDescriptorProto_Label);
-  'type': (keyof typeof _google_protobuf_FieldDescriptorProto_Type);
+  'label': (_google_protobuf_FieldDescriptorProto_Label);
+  'type': (_google_protobuf_FieldDescriptorProto_Type);
   'typeName': (string);
   'defaultValue': (string);
   'options': (_google_protobuf_FieldOptions__Output | null);

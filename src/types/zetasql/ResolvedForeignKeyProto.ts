@@ -27,9 +27,9 @@ export interface ResolvedForeignKeyProto__Output {
   'referencingColumnOffsetList': (Long)[];
   'referencedTable': (_zetasql_TableRefProto__Output | null);
   'referencedColumnOffsetList': (Long)[];
-  'matchMode': (keyof typeof _zetasql_ResolvedForeignKeyEnums_MatchMode);
-  'updateAction': (keyof typeof _zetasql_ResolvedForeignKeyEnums_ActionOperation);
-  'deleteAction': (keyof typeof _zetasql_ResolvedForeignKeyEnums_ActionOperation);
+  'matchMode': (_zetasql_ResolvedForeignKeyEnums_MatchMode);
+  'updateAction': (_zetasql_ResolvedForeignKeyEnums_ActionOperation);
+  'deleteAction': (_zetasql_ResolvedForeignKeyEnums_ActionOperation);
   'enforced': (boolean);
   'optionList': (_zetasql_ResolvedOptionProto__Output)[];
   'referencingColumnList': (string)[];

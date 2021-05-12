@@ -21,7 +21,7 @@
   },
   "scripts": {
     "compile": "tsc -b",
-    "build:proto": "proto-loader-gen-types --enums=String --defaults --oneofs --grpcLib=@grpc/grpc-js --includeDirs=protos --outDir=src/types local_service.proto",
+    "build:proto": "proto-loader-gen-types --defaults --oneofs --grpcLib=@grpc/grpc-js --includeDirs=protos --outDir=src/types local_service.proto",
     "precompile": "npm run build:proto",
     "build:server": "tar -xzvf zetasql/darwin-x86-64/libremote_server.dylib.tar.gz -C zetasql/darwin-x86-64/ && tar -xzvf zetasql/linux-x86-64/libremote_server.so.tar.gz -C zetasql/linux-x86-64/ && node-gyp configure && node-gyp rebuild -v",
     "build:all": "npm run build:server && npm run format && npm run compile",

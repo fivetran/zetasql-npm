@@ -9,5 +9,5 @@ export interface LanguageOptionsRequest {
 
 export interface LanguageOptionsRequest__Output {
   'maximumFeatures': (boolean);
-  'languageVersion': (keyof typeof _zetasql_LanguageVersion);
+  'languageVersion': (_zetasql_LanguageVersion);
 }

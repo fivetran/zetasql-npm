@@ -18,7 +18,7 @@ export interface FunctionProto {
 export interface FunctionProto__Output {
   'namePath': (string)[];
   'group': (string);
-  'mode': (keyof typeof _zetasql_FunctionEnums_Mode);
+  'mode': (_zetasql_FunctionEnums_Mode);
   'signature': (_zetasql_FunctionSignatureProto__Output)[];
   'options': (_zetasql_FunctionOptionsProto__Output | null);
   'templatedSqlFunctionArgumentName': (string)[];

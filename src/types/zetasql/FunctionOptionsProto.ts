@@ -26,16 +26,16 @@ export interface FunctionOptionsProto {
 
 export interface FunctionOptionsProto__Output {
   'supportsOverClause': (boolean);
-  'windowOrderingSupport': (keyof typeof _zetasql_FunctionEnums_WindowOrderSupport);
+  'windowOrderingSupport': (_zetasql_FunctionEnums_WindowOrderSupport);
   'supportsWindowFraming': (boolean);
   'argumentsAreCoercible': (boolean);
   'isDeprecated': (boolean);
   'aliasName': (string);
   'sqlName': (string);
   'allowExternalUsage': (boolean);
-  'volatility': (keyof typeof _zetasql_FunctionEnums_Volatility);
+  'volatility': (_zetasql_FunctionEnums_Volatility);
   'supportsOrderBy': (boolean);
-  'requiredLanguageFeature': (keyof typeof _zetasql_LanguageFeature)[];
+  'requiredLanguageFeature': (_zetasql_LanguageFeature)[];
   'supportsLimit': (boolean);
   'supportsNullHandlingModifier': (boolean);
   'supportsSafeErrorMode': (boolean);

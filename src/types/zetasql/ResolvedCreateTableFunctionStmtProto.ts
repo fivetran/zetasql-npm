@@ -31,6 +31,6 @@ export interface ResolvedCreateTableFunctionStmtProto__Output {
   'query': (_zetasql_AnyResolvedScanProto__Output | null);
   'outputColumnList': (_zetasql_ResolvedOutputColumnProto__Output)[];
   'isValueTable': (boolean);
-  'sqlSecurity': (keyof typeof _zetasql_ResolvedCreateStatementEnums_SqlSecurity);
+  'sqlSecurity': (_zetasql_ResolvedCreateStatementEnums_SqlSecurity);
   'hasExplicitReturnSchema': (boolean);
 }

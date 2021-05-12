@@ -22,7 +22,7 @@ export interface ResolvedSampleScanProto__Output {
   'inputScan': (_zetasql_AnyResolvedScanProto__Output | null);
   'method': (string);
   'size': (_zetasql_AnyResolvedExprProto__Output | null);
-  'unit': (keyof typeof _zetasql_ResolvedSampleScanEnums_SampleUnit);
+  'unit': (_zetasql_ResolvedSampleScanEnums_SampleUnit);
   'repeatableArgument': (_zetasql_AnyResolvedExprProto__Output | null);
   'weightColumn': (_zetasql_ResolvedColumnHolderProto__Output | null);
   'partitionByList': (_zetasql_AnyResolvedExprProto__Output)[];

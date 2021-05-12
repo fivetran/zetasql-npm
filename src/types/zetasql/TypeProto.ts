@@ -17,7 +17,7 @@ export interface TypeProto {
 }
 
 export interface TypeProto__Output {
-  'typeKind': (keyof typeof _zetasql_TypeKind);
+  'typeKind': (_zetasql_TypeKind);
   'arrayType': (_zetasql_ArrayTypeProto__Output | null);
   'structType': (_zetasql_StructTypeProto__Output | null);
   'protoType': (_zetasql_ProtoTypeProto__Output | null);

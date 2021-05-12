@@ -14,7 +14,7 @@ export interface FunctionArgumentTypeProto {
 }
 
 export interface FunctionArgumentTypeProto__Output {
-  'kind': (keyof typeof _zetasql_SignatureArgumentKind);
+  'kind': (_zetasql_SignatureArgumentKind);
   'type': (_zetasql_TypeProto__Output | null);
   'options': (_zetasql_FunctionArgumentTypeOptionsProto__Output | null);
   'numOccurrences': (number);

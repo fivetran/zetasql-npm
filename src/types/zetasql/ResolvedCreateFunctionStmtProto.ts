@@ -36,7 +36,7 @@ export interface ResolvedCreateFunctionStmtProto__Output {
   'aggregateExpressionList': (_zetasql_ResolvedComputedColumnProto__Output)[];
   'signature': (_zetasql_FunctionSignatureProto__Output | null);
   'argumentNameList': (string)[];
-  'sqlSecurity': (keyof typeof _zetasql_ResolvedCreateStatementEnums_SqlSecurity);
+  'sqlSecurity': (_zetasql_ResolvedCreateStatementEnums_SqlSecurity);
   'hasExplicitReturnType': (boolean);
-  'determinismLevel': (keyof typeof _zetasql_ResolvedCreateStatementEnums_DeterminismLevel);
+  'determinismLevel': (_zetasql_ResolvedCreateStatementEnums_DeterminismLevel);
 }

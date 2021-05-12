@@ -15,10 +15,10 @@ export interface LanguageOptionsProto {
 }
 
 export interface LanguageOptionsProto__Output {
-  'nameResolutionMode': (keyof typeof _zetasql_NameResolutionMode);
-  'productMode': (keyof typeof _zetasql_ProductMode);
+  'nameResolutionMode': (_zetasql_NameResolutionMode);
+  'productMode': (_zetasql_ProductMode);
   'errorOnDeprecatedSyntax': (boolean);
-  'enabledLanguageFeatures': (keyof typeof _zetasql_LanguageFeature)[];
-  'supportedStatementKinds': (keyof typeof _zetasql_ResolvedNodeKind)[];
+  'enabledLanguageFeatures': (_zetasql_LanguageFeature)[];
+  'supportedStatementKinds': (_zetasql_ResolvedNodeKind)[];
   'supportedGenericEntityTypes': (string)[];
 }

@@ -13,6 +13,6 @@ export interface FunctionSignatureOptionsProto {
 export interface FunctionSignatureOptionsProto__Output {
   'isDeprecated': (boolean);
   'additionalDeprecationWarning': (_zetasql_FreestandingDeprecationWarning__Output)[];
-  'requiredLanguageFeature': (keyof typeof _zetasql_LanguageFeature)[];
+  'requiredLanguageFeature': (_zetasql_LanguageFeature)[];
   'isAliasedSignature': (boolean);
 }

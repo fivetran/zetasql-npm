@@ -13,5 +13,5 @@ export interface ResolvedGeneratedColumnInfoProto {
 export interface ResolvedGeneratedColumnInfoProto__Output {
   'parent': (_zetasql_ResolvedArgumentProto__Output | null);
   'expression': (_zetasql_AnyResolvedExprProto__Output | null);
-  'storedMode': (keyof typeof _zetasql_ResolvedGeneratedColumnInfoEnums_StoredMode);
+  'storedMode': (_zetasql_ResolvedGeneratedColumnInfoEnums_StoredMode);
 }
