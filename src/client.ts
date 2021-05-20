@@ -44,7 +44,7 @@ export class Client {
           return false;
         }
       }
-      await this.delay(400);
+      await this.delay(500);
     }
     return false;
   }
