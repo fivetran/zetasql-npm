@@ -73,8 +73,13 @@ export class SimpleCatalog {
     }
 
     this.builtinFunctionOptions = options.serialize();
-    const response = await Client.INSTANCE.getBuiltinFunctions(this.builtinFunctionOptions);
-    this.processGetBuiltinFunctionsResponse(response);
+
+    try {
+      const response = await Client.INSTANCE.getBuiltinFunctions(this.builtinFunctionOptions);
+      this.processGetBuiltinFunctionsResponse(response);
+    } catch (e) {
+      throw new Error(e);
+    }
   }
 
   processGetBuiltinFunctionsResponse(response: GetBuiltinFunctionsResponse) {

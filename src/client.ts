@@ -26,7 +26,7 @@ export class Client {
       includeDirs: [__dirname + '/../protos'],
     });
 
-    const proto = (grpc.loadPackageDefinition(packageDefinition) as unknown) as ProtoGrpcType;
+    const proto = grpc.loadPackageDefinition(packageDefinition) as unknown as ProtoGrpcType;
 
     Client.api = new proto.zetasql.local_service.ZetaSqlLocalService(
       Client.HOST,
@@ -44,7 +44,7 @@ export class Client {
           return false;
         }
       }
-      await this.delay(400);
+      await this.delay(500);
     }
     return false;
   }
