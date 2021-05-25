@@ -4,7 +4,7 @@ import { SimpleTable } from '../SimpleTable';
 describe('SimpleCatalogTest', () => {
   it('serialize', () => {
     let catalog = new SimpleCatalog('catalog1');
-    catalog.addSimpleTable(new SimpleTable('table1'));
+    catalog.addSimpleTable('table1', new SimpleTable('table1'));
 
     let result = catalog.serialize();
 
