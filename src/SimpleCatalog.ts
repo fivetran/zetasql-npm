@@ -15,6 +15,7 @@ export class SimpleCatalog {
   // All String keys are stored in lower case.
   tables = new Map<string, SimpleTable>();
   types = new Map<string, Type>();
+  catalogs = new Map<string, SimpleCatalog>();
   tablesById = new Map<Long, SimpleTable>();
   registeredId: Long;
   registered = false;
@@ -29,13 +30,26 @@ export class SimpleCatalog {
   /**
    * Add simple table into this catalog. Table names are case insensitive.
    */
-  addSimpleTable(table: SimpleTable): void {
+  addSimpleTable(name: string, table: SimpleTable): void {
     this.checkAlreadyRegistered();
-    if (this.tables.has(table.name.toLowerCase())) {
+    if (this.tables.has(name.toLowerCase())) {
       throw new Error(`duplicate key: ${table.name}`);
     }
-    this.tables.set(table.name.toLowerCase(), table);
+    this.tables.set(name.toLowerCase(), table);
     this.tablesById.set(table.tableId, table);
+  }
+
+  /**
+   * Add sub catalog into this catalog. Catalog names are case insensitive.
+   *
+   * @param catalog
+   */
+  addSimpleCatalog(catalog: SimpleCatalog): void {
+    this.checkAlreadyRegistered();
+    if (this.catalogs.has(catalog.name.toLowerCase())) {
+      throw new Error(`duplicate key: ${catalog.name}`);
+    }
+    this.catalogs.set(catalog.name.toLowerCase(), catalog);
   }
 
   /**
@@ -115,6 +129,13 @@ export class SimpleCatalog {
         type: type.serialize(),
       };
       simpleCatalog.namedType.push(namedTypeProto);
+    }
+
+    if (this.catalogs.size > 0) {
+      simpleCatalog.catalog = [];
+      for (const [name, catalog] of this.catalogs) {
+        simpleCatalog.catalog.push(catalog.serialize());
+      }
     }
 
     return simpleCatalog;
