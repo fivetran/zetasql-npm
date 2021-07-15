@@ -1,5 +1,5 @@
 export * from './server';
-export * from './Client';
+export * from './ZetaSQLClient';
 export * from './SimpleCatalog';
 export * from './SimpleColumn';
 export * from './SimpleTable';

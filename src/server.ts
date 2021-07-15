@@ -15,5 +15,7 @@ export function runServer() {
 }
 
 export function terminateServer() {
-  worker?.terminate();
+  worker?.terminate().then(status => {
+    console.log(`ZetaSQS server has been canceled with status: ${status}`);
+  });
 }

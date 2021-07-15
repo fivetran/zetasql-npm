@@ -1,4 +1,4 @@
-import { Client } from './Client';
+import { ZetaSQLClient } from './ZetaSQLClient';
 import { SimpleTable } from './SimpleTable';
 import { Type } from './Type';
 import { TypeFactory } from './TypeFactory';
@@ -63,7 +63,7 @@ export class SimpleCatalog {
     };
 
     try {
-      const response = await Client.INSTANCE.registerCatalog(request);
+      const response = await ZetaSQLClient.INSTANCE.registerCatalog(request);
       this.registeredId = response.registeredId;
     } catch (e) {
       throw new Error(e);
@@ -89,7 +89,9 @@ export class SimpleCatalog {
     this.builtinFunctionOptions = options.serialize();
 
     try {
-      const response = await Client.INSTANCE.getBuiltinFunctions(this.builtinFunctionOptions);
+      const response = await ZetaSQLClient.INSTANCE.getBuiltinFunctions(
+        this.builtinFunctionOptions,
+      );
       this.processGetBuiltinFunctionsResponse(response);
     } catch (e) {
       throw new Error(e);

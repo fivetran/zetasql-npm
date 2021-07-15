@@ -9,11 +9,12 @@ import { ZetaSQLBuiltinFunctionOptionsProto } from './types/zetasql/ZetaSQLBuilt
 import { RegisterCatalogRequest } from './types/zetasql/local_service/RegisterCatalogRequest';
 import { FormatSqlRequest } from './types/zetasql/local_service/FormatSqlRequest';
 import { AnalyzeRequest } from '.';
+import { ExtractTableNamesFromStatementRequest } from './types/zetasql/local_service/ExtractTableNamesFromStatementRequest';
 
-export class Client {
+export class ZetaSQLClient {
   static HOST = 'localhost:50051'; // TOOD: customize port
 
-  static INSTANCE = new Client();
+  static INSTANCE = new ZetaSQLClient();
 
   static api: ZetaSqlLocalServiceClient;
 
@@ -28,8 +29,8 @@ export class Client {
 
     const proto = grpc.loadPackageDefinition(packageDefinition) as unknown as ProtoGrpcType;
 
-    Client.api = new proto.zetasql.local_service.ZetaSqlLocalService(
-      Client.HOST,
+    ZetaSQLClient.api = new proto.zetasql.local_service.ZetaSqlLocalService(
+      ZetaSQLClient.HOST,
       grpc.credentials.createInsecure(),
     );
   }
@@ -54,29 +55,33 @@ export class Client {
   }
 
   registerCatalog(request: RegisterCatalogRequest) {
-    return this.promisify(request, Client.api.registerCatalog);
+    return this.promisify(request, ZetaSQLClient.api.registerCatalog);
   }
 
   analyze(request: AnalyzeRequest) {
-    return this.promisify(request, Client.api.analyze);
+    return this.promisify(request, ZetaSQLClient.api.analyze);
   }
 
   getLanguageOptions(request: LanguageOptionsRequest) {
-    return this.promisify(request, Client.api.getLanguageOptions);
+    return this.promisify(request, ZetaSQLClient.api.getLanguageOptions);
   }
 
   getBuiltinFunctions(request: ZetaSQLBuiltinFunctionOptionsProto) {
-    return this.promisify(request, Client.api.getBuiltinFunctions);
+    return this.promisify(request, ZetaSQLClient.api.getBuiltinFunctions);
   }
 
   formatSql(request: FormatSqlRequest) {
-    return this.promisify(request, Client.api.formatSql);
+    return this.promisify(request, ZetaSQLClient.api.formatSql);
+  }
+
+  extractTableNamesFromStatement(request: ExtractTableNamesFromStatementRequest) {
+    return this.promisify(request, ZetaSQLClient.api.extractTableNamesFromStatement);
   }
 
   promisify<T1, TResult>(
     request: T1,
     fn: (request: T1, callback: (err: any, result: TResult) => void) => grpc.ClientUnaryCall,
   ): Promise<TResult> {
-    return promisify<T1, TResult>(fn).bind(Client.api)(request);
+    return promisify<T1, TResult>(fn).bind(ZetaSQLClient.api)(request);
   }
 }

@@ -1,4 +1,4 @@
-import { Client } from './Client';
+import { ZetaSQLClient } from './ZetaSQLClient';
 import { LanguageFeature } from './types/zetasql/LanguageFeature';
 import { LanguageOptionsProto } from './types/zetasql/LanguageOptionsProto';
 
@@ -12,7 +12,7 @@ export class LanguageOptions {
       const request = {
         maximumFeatures: true,
       };
-      LanguageOptions.maxFeatures = await Client.INSTANCE.getLanguageOptions(request);
+      LanguageOptions.maxFeatures = await ZetaSQLClient.INSTANCE.getLanguageOptions(request);
     }
     return LanguageOptions.maxFeatures;
   }
