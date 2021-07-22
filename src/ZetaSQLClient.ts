@@ -10,6 +10,7 @@ import { RegisterCatalogRequest } from './types/zetasql/local_service/RegisterCa
 import { FormatSqlRequest } from './types/zetasql/local_service/FormatSqlRequest';
 import { AnalyzeRequest } from '.';
 import { ExtractTableNamesFromStatementRequest } from './types/zetasql/local_service/ExtractTableNamesFromStatementRequest';
+import { UnregisterRequest } from './types/zetasql/local_service/UnregisterRequest';
 
 export class ZetaSQLClient {
   static HOST = 'localhost:50051'; // TOOD: customize port
@@ -56,6 +57,10 @@ export class ZetaSQLClient {
 
   registerCatalog(request: RegisterCatalogRequest) {
     return this.promisify(request, ZetaSQLClient.api.registerCatalog);
+  }
+
+  unRegisterCatalog(request: UnregisterRequest) {
+    return this.promisify(request, ZetaSQLClient.api.unregisterCatalog);
   }
 
   analyze(request: AnalyzeRequest) {

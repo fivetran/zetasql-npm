@@ -7,6 +7,8 @@ import { RegisterCatalogRequest } from './types/zetasql/local_service/RegisterCa
 import { SimpleCatalogProto } from './types/zetasql/SimpleCatalogProto';
 import { ZetaSQLBuiltinFunctionOptionsProto } from './types/zetasql/ZetaSQLBuiltinFunctionOptionsProto';
 import { ZetaSQLBuiltinFunctionOptions } from './ZetaSQLBuiltinFunctionOptions';
+import { UnregisterRequest } from './types/zetasql/local_service/UnregisterRequest';
+import Long = require('long');
 
 export class SimpleCatalog {
   name: string;
@@ -41,8 +43,6 @@ export class SimpleCatalog {
 
   /**
    * Add sub catalog into this catalog. Catalog names are case insensitive.
-   *
-   * @param catalog
    */
   addSimpleCatalog(catalog: SimpleCatalog): void {
     this.checkAlreadyRegistered();
@@ -58,6 +58,7 @@ export class SimpleCatalog {
    */
   async register() {
     this.checkAlreadyRegistered();
+
     const request: RegisterCatalogRequest = {
       simpleCatalog: this.serialize(),
     };
@@ -70,6 +71,25 @@ export class SimpleCatalog {
     }
 
     this.registered = true;
+  }
+
+  async unregister() {
+    if (!this.registered) {
+      ('Catalog should be registered first');
+    }
+
+    const request: UnregisterRequest = {
+      registeredId: this.registeredId,
+    };
+
+    try {
+      await ZetaSQLClient.INSTANCE.unRegisterCatalog(request);
+    } catch (e) {
+      console.log('Failed to unregister catalog: ' + e.getMessage());
+    } finally {
+      this.registered = false;
+      this.registeredId = new Long(-1);
+    }
   }
 
   /**
