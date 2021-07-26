@@ -13,6 +13,7 @@ export abstract class TypeFactory {
   static SIMPLE_TYPE_KIND_NAMES: Map<string, TypeKind> = new Map<string, TypeKind>([
     ['int32', TypeKind.TYPE_INT32],
     ['int64', TypeKind.TYPE_INT64], // external
+    ['integer', TypeKind.TYPE_INT64], // external
     ['uint32', TypeKind.TYPE_UINT32],
     ['uint64', TypeKind.TYPE_UINT64],
     ['bool', TypeKind.TYPE_BOOL], // external
@@ -20,6 +21,7 @@ export abstract class TypeFactory {
     ['float', TypeKind.TYPE_FLOAT],
     ['float32', TypeKind.TYPE_FLOAT],
     ['double', TypeKind.TYPE_DOUBLE],
+    ['float', TypeKind.TYPE_DOUBLE], // external
     ['float64', TypeKind.TYPE_DOUBLE], // external
     ['string', TypeKind.TYPE_STRING], // external
     ['bytes', TypeKind.TYPE_BYTES], // external
