@@ -1,6 +1,7 @@
 import { ZetaSQLClient } from './ZetaSQLClient';
 import { LanguageFeature } from './types/zetasql/LanguageFeature';
 import { LanguageOptionsProto } from './types/zetasql/LanguageOptionsProto';
+import { LanguageVersion } from './types/zetasql/LanguageVersion';
 
 export class LanguageOptions {
   static maxFeatures: LanguageOptionsProto = null;
@@ -11,6 +12,7 @@ export class LanguageOptions {
     if (LanguageOptions.maxFeatures == null) {
       const request = {
         maximumFeatures: true,
+        languageVersion: LanguageVersion.VERSION_1_3,
       };
       LanguageOptions.maxFeatures = await ZetaSQLClient.INSTANCE.getLanguageOptions(request);
     }
