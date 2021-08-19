@@ -75,7 +75,7 @@ export class SimpleCatalog {
 
   async unregister() {
     if (!this.registered) {
-      ('Catalog should be registered first');
+      throw new Error('Catalog should be registered first');
     }
 
     const request: UnregisterRequest = {
