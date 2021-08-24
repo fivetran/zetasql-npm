@@ -113,8 +113,8 @@ jobs:
         working-directory: ./build
         shell: bash
         run: |
-          cp zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib zetasql-npm/
-          cp zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so zetasql-npm/
+          cp zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib zetasql-npm/zetasql/
+          cp zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so zetasql-npm/zetasql/
           cp -R zetasql-macos/protos zetasql-npm/protos
           install_name_tool -id "@loader_path/libremote_server.dylib" zetasql-npm/zetasql/libremote_server.dylib
 
