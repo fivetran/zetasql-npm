@@ -3,7 +3,7 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [main]
     tags:
       - '*'
 
@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
     inputs:
       logLevel:
-        description: 'Log level'     
+        description: 'Log level'
         required: true
         default: 'warning'
 
@@ -19,7 +19,7 @@ on:
 jobs:
   build-zetasql-linux:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout zetasql
         uses: actions/checkout@v2
@@ -100,7 +100,7 @@ jobs:
         if: steps.cache-zetasql-macos.outputs.cache-hit != 'true'
         working-directory: ./build/zetasql-macos
         run: bazel build //zetasql/local_service:libremote_server.dylib --copt="-Wno-error=c99-extensions"
-        
+
       - name: Collect proto files
         if: steps.cache-zetasql-macos.outputs.cache-hit != 'true'
         working-directory: ./build/zetasql-macos
@@ -113,10 +113,10 @@ jobs:
         working-directory: ./build
         shell: bash
         run: |
-          cp zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib zetasql-npm/zetasql/darwin-x86-64/
-          cp zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so zetasql-npm/zetasql/linux-x86-64/
+          cp zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib zetasql-npm/
+          cp zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so zetasql-npm/
           cp -R zetasql-macos/protos zetasql-npm/protos
-          install_name_tool -id "@loader_path/libremote_server.dylib" zetasql-npm/zetasql/darwin-x86-64/libremote_server.dylib
+          install_name_tool -id "@loader_path/libremote_server.dylib" zetasql-npm/zetasql/libremote_server.dylib
 
       - name: Build and Test
         working-directory: ./build/zetasql-npm
@@ -125,7 +125,7 @@ jobs:
           npm install
           npm run compile
           npm run test
-          
+
       # Setup .npmrc file to publish to npm
       - uses: actions/setup-node@v2
         if: startsWith(github.ref, 'refs/tags/v')
@@ -139,4 +139,3 @@ jobs:
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-

@@ -13,7 +13,6 @@
     "@types/jest": "^26.0.22",
     "@types/node": "^12.20.13",
     "jest": "^26.6.3",
-    "node-gyp": "^8.0.0",
     "prettier": "^2.3.0",
     "ts-jest": "^26.5.6",
     "tslint": "^6.1.3",
@@ -24,7 +23,7 @@
     "compile": "tsc -b",
     "build:proto": "proto-loader-gen-types --defaults --oneofs --grpcLib=@grpc/grpc-js --includeDirs=protos --outDir=src/types local_service.proto",
     "precompile": "npm run build:proto",
-    "build:server": "tar -xzvf zetasql/darwin-x86-64/libremote_server.dylib.tar.gz -C zetasql/darwin-x86-64/ && tar -xzvf zetasql/linux-x86-64/libremote_server.so.tar.gz -C zetasql/linux-x86-64/ && node-gyp configure && node-gyp rebuild -v",
+    "build:server": "tar -xzvf zetasql/darwin-x86-64/libremote_server.dylib.tar.gz -C zetasql/ && tar -xzvf zetasql/linux-x86-64/libremote_server.so.tar.gz -C zetasql/",
     "build:all": "npm run build:server && npm run format && npm run compile",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
@@ -35,10 +34,8 @@
   },
   "files": [
     "package.json",
-    "binding.gyp",
-    "server.cc",
-    "zetasql/darwin-x86-64/libremote_server.dylib",
-    "zetasql/linux-x86-64/libremote_server.so",
+    "zetasql/libremote_server.dylib",
+    "zetasql/libremote_server.so",
     "lib/**/*",
     "protos/**/*"
   ]

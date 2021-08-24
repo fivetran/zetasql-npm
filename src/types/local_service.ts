@@ -1,5 +1,5 @@
 import type * as grpc from '@grpc/grpc-js';
-import type { ServiceDefinition, EnumTypeDefinition, MessageTypeDefinition } from '@grpc/proto-loader';
+import type { EnumTypeDefinition, MessageTypeDefinition } from '@grpc/proto-loader';
 
 import type { ZetaSqlLocalServiceClient as _zetasql_local_service_ZetaSqlLocalServiceClient, ZetaSqlLocalServiceDefinition as _zetasql_local_service_ZetaSqlLocalServiceDefinition } from './zetasql/local_service/ZetaSqlLocalService';
 
