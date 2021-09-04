@@ -8,6 +8,8 @@ export enum _zetasql_ResolvedSubqueryExprEnums_SubqueryType {
   ARRAY = 1,
   EXISTS = 2,
   IN = 3,
+  LIKE_ANY = 4,
+  LIKE_ALL = 5,
 }
 
 export interface ResolvedSubqueryExprEnums {

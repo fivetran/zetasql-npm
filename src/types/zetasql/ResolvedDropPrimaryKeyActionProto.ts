@@ -2,14 +2,12 @@
 
 import type { ResolvedAlterActionProto as _zetasql_ResolvedAlterActionProto, ResolvedAlterActionProto__Output as _zetasql_ResolvedAlterActionProto__Output } from '../zetasql/ResolvedAlterActionProto';
 
-export interface ResolvedSetAsActionProto {
+export interface ResolvedDropPrimaryKeyActionProto {
   'parent'?: (_zetasql_ResolvedAlterActionProto | null);
-  'entityBodyJson'?: (string);
-  'entityBodyText'?: (string);
+  'isIfExists'?: (boolean);
 }
 
-export interface ResolvedSetAsActionProto__Output {
+export interface ResolvedDropPrimaryKeyActionProto__Output {
   'parent': (_zetasql_ResolvedAlterActionProto__Output | null);
-  'entityBodyJson': (string);
-  'entityBodyText': (string);
+  'isIfExists': (boolean);
 }

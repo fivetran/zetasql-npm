@@ -106,6 +106,7 @@ export interface ProtoGrpcType {
     ResolvedAlterAllRowAccessPoliciesStmtProto: MessageTypeDefinition
     ResolvedAlterColumnDropNotNullActionProto: MessageTypeDefinition
     ResolvedAlterColumnOptionsActionProto: MessageTypeDefinition
+    ResolvedAlterColumnSetDataTypeActionProto: MessageTypeDefinition
     ResolvedAlterDatabaseStmtProto: MessageTypeDefinition
     ResolvedAlterEntityStmtProto: MessageTypeDefinition
     ResolvedAlterMaterializedViewStmtProto: MessageTypeDefinition
@@ -135,6 +136,7 @@ export interface ProtoGrpcType {
     ResolvedCastProto: MessageTypeDefinition
     ResolvedCheckConstraintProto: MessageTypeDefinition
     ResolvedCloneDataStmtProto: MessageTypeDefinition
+    ResolvedCollationProto: MessageTypeDefinition
     ResolvedColumnAnnotationsProto: MessageTypeDefinition
     ResolvedColumnDefinitionProto: MessageTypeDefinition
     ResolvedColumnHolderProto: MessageTypeDefinition
@@ -156,6 +158,7 @@ export interface ProtoGrpcType {
     ResolvedCreateProcedureStmtProto: MessageTypeDefinition
     ResolvedCreateRowAccessPolicyStmtProto: MessageTypeDefinition
     ResolvedCreateSchemaStmtProto: MessageTypeDefinition
+    ResolvedCreateSnapshotTableStmtProto: MessageTypeDefinition
     ResolvedCreateStatementEnums: MessageTypeDefinition
     ResolvedCreateStatementProto: MessageTypeDefinition
     ResolvedCreateTableAsSelectStmtProto: MessageTypeDefinition
@@ -174,7 +177,10 @@ export interface ProtoGrpcType {
     ResolvedDropConstraintActionProto: MessageTypeDefinition
     ResolvedDropFunctionStmtProto: MessageTypeDefinition
     ResolvedDropMaterializedViewStmtProto: MessageTypeDefinition
+    ResolvedDropPrimaryKeyActionProto: MessageTypeDefinition
     ResolvedDropRowAccessPolicyStmtProto: MessageTypeDefinition
+    ResolvedDropSearchIndexStmtProto: MessageTypeDefinition
+    ResolvedDropSnapshotTableStmtProto: MessageTypeDefinition
     ResolvedDropStmtEnums: MessageTypeDefinition
     ResolvedDropStmtProto: MessageTypeDefinition
     ResolvedDropTableFunctionStmtProto: MessageTypeDefinition
@@ -330,6 +336,7 @@ export interface ProtoGrpcType {
       AnalyzerOptionsRequest: MessageTypeDefinition
       BuildSqlRequest: MessageTypeDefinition
       BuildSqlResponse: MessageTypeDefinition
+      DescriptorPoolIdList: MessageTypeDefinition
       DescriptorPoolListProto: MessageTypeDefinition
       EvaluateRequest: MessageTypeDefinition
       EvaluateRequestBatch: MessageTypeDefinition

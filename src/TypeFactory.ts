@@ -34,7 +34,7 @@ export abstract class TypeFactory {
     ['numeric', TypeKind.TYPE_NUMERIC], // external
     ['bignumeric', TypeKind.TYPE_BIGNUMERIC], // external
     ['json', TypeKind.TYPE_JSON], // external
-    ['tokenset', TypeKind.TYPE_TOKENSET], // external
+    ['tokenlist', TypeKind.TYPE_TOKENLIST], // external
   ]);
 
   static EXTERNAL_MODE_SIMPLE_TYPE_KIND_NAMES = new Set([
@@ -53,7 +53,7 @@ export abstract class TypeFactory {
     'numeric',
     'bignumeric',
     'json',
-    'tokenset',
+    'tokenlist',
   ]);
 
   static SIMPLE_TYPE_KINDS = new Set<TypeKind>(TypeFactory.SIMPLE_TYPE_KIND_NAMES.values());

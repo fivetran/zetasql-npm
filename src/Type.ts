@@ -62,6 +62,6 @@ export abstract class Type {
     'EXTENDED',
     'JSON',
     'INTERVAL',
-    'TOKENSET',
+    'TOKENLIST',
   ];
 }

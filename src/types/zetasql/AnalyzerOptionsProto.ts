@@ -8,6 +8,23 @@ import type { ParameterMode as _zetasql_ParameterMode } from '../zetasql/Paramet
 import type { StatementContext as _zetasql_StatementContext } from '../zetasql/StatementContext';
 import type { ResolvedASTRewrite as _zetasql_ResolvedASTRewrite } from '../zetasql/ResolvedASTRewrite';
 
+// Original file: protos/zetasql/proto/options.proto
+
+export enum _zetasql_AnalyzerOptionsProto_ParseLocationOptionsProto_FunctionCallRecordType {
+  FUNCTION_NAME = 0,
+  FUNCTION_CALL = 1,
+}
+
+export interface _zetasql_AnalyzerOptionsProto_ParseLocationOptionsProto {
+  'recordParseLocations'?: (boolean);
+  'functionCallRecordType'?: (_zetasql_AnalyzerOptionsProto_ParseLocationOptionsProto_FunctionCallRecordType | keyof typeof _zetasql_AnalyzerOptionsProto_ParseLocationOptionsProto_FunctionCallRecordType);
+}
+
+export interface _zetasql_AnalyzerOptionsProto_ParseLocationOptionsProto__Output {
+  'recordParseLocations': (boolean);
+  'functionCallRecordType': (_zetasql_AnalyzerOptionsProto_ParseLocationOptionsProto_FunctionCallRecordType);
+}
+
 export interface _zetasql_AnalyzerOptionsProto_QueryParameterProto {
   'name'?: (string);
   'type'?: (_zetasql_TypeProto | null);
@@ -48,6 +65,7 @@ export interface AnalyzerOptionsProto {
   'targetColumnTypes'?: (_zetasql_TypeProto)[];
   'createNewColumnForEachProjectedOutput'?: (boolean);
   'enabledRewrites'?: (_zetasql_ResolvedASTRewrite | keyof typeof _zetasql_ResolvedASTRewrite)[];
+  'parseLocationOptions'?: (_zetasql_AnalyzerOptionsProto_ParseLocationOptionsProto | null);
 }
 
 export interface AnalyzerOptionsProto__Output {
@@ -70,4 +88,5 @@ export interface AnalyzerOptionsProto__Output {
   'targetColumnTypes': (_zetasql_TypeProto__Output)[];
   'createNewColumnForEachProjectedOutput': (boolean);
   'enabledRewrites': (_zetasql_ResolvedASTRewrite)[];
+  'parseLocationOptions': (_zetasql_AnalyzerOptionsProto_ParseLocationOptionsProto__Output | null);
 }

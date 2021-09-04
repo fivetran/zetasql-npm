@@ -7,10 +7,12 @@ export interface AnnotationMapProto {
   'annotations'?: (_zetasql_AnnotationProto)[];
   'arrayElement'?: (_zetasql_AnnotationMapProto | null);
   'structFields'?: (_zetasql_AnnotationMapProto)[];
+  'isNull'?: (boolean);
 }
 
 export interface AnnotationMapProto__Output {
   'annotations': (_zetasql_AnnotationProto__Output)[];
   'arrayElement': (_zetasql_AnnotationMapProto__Output | null);
   'structFields': (_zetasql_AnnotationMapProto__Output)[];
+  'isNull': (boolean);
 }

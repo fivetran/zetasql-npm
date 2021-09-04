@@ -1,20 +1,17 @@
 // Original file: protos/zetasql/resolved_ast/resolved_ast.proto
 
 import type { ResolvedCreateStatementProto as _zetasql_ResolvedCreateStatementProto, ResolvedCreateStatementProto__Output as _zetasql_ResolvedCreateStatementProto__Output } from '../zetasql/ResolvedCreateStatementProto';
+import type { AnyResolvedScanProto as _zetasql_AnyResolvedScanProto, AnyResolvedScanProto__Output as _zetasql_AnyResolvedScanProto__Output } from '../zetasql/AnyResolvedScanProto';
 import type { ResolvedOptionProto as _zetasql_ResolvedOptionProto, ResolvedOptionProto__Output as _zetasql_ResolvedOptionProto__Output } from '../zetasql/ResolvedOptionProto';
 
-export interface ResolvedCreateEntityStmtProto {
+export interface ResolvedCreateSnapshotTableStmtProto {
   'parent'?: (_zetasql_ResolvedCreateStatementProto | null);
-  'entityType'?: (string);
-  'entityBodyJson'?: (string);
+  'cloneFrom'?: (_zetasql_AnyResolvedScanProto | null);
   'optionList'?: (_zetasql_ResolvedOptionProto)[];
-  'entityBodyText'?: (string);
 }
 
-export interface ResolvedCreateEntityStmtProto__Output {
+export interface ResolvedCreateSnapshotTableStmtProto__Output {
   'parent': (_zetasql_ResolvedCreateStatementProto__Output | null);
-  'entityType': (string);
-  'entityBodyJson': (string);
+  'cloneFrom': (_zetasql_AnyResolvedScanProto__Output | null);
   'optionList': (_zetasql_ResolvedOptionProto__Output)[];
-  'entityBodyText': (string);
 }

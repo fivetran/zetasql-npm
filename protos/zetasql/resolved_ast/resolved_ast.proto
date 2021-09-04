@@ -73,7 +73,6 @@ message AnyResolvedArgumentProto {
     ResolvedFunctionSignatureHolderProto resolved_function_signature_holder_node = 84;
     ResolvedAggregateHavingModifierProto resolved_aggregate_having_modifier_node = 85;
     ResolvedColumnDefinitionProto resolved_column_definition_node = 91;
-    ResolvedPrimaryKeyProto resolved_primary_key_node = 92;
     ResolvedGroupingSetProto resolved_grouping_set_node = 93;
     ResolvedSetOperationItemProto resolved_set_operation_item_node = 94;
     ResolvedIndexItemProto resolved_index_item_node = 96;
@@ -789,8 +788,19 @@ message ResolvedReplaceFieldProto {
 //     must be INT64 and the other UINT64).  NOT will be expressed as a $not
 //     FunctionCall wrapping this SubqueryExpr.
 //
-// The subquery for a SCALAR or ARRAY or IN subquery must have exactly one
-// output column.
+//  LIKE
+//     Usage: <in_expr> [NOT] LIKE ANY|SOME|ALL ( <subquery> )
+//     The output type is always bool. The result is true when <in_expr>
+//     matches at least one row for LIKE ANY|SOME or matches all rows for
+//     LIKE ALL, and false otherwise.  The <subquery> row contains only one
+//     column, and the types of <in_expr> and the subquery column must
+//     exactly match a built-in signature for the relevant '$like_any' or
+//     '$like_all' comparison function (both must be the same type of either
+//     STRING or BYTES).  NOT will be expressed as a $not FunctionCall
+//     wrapping this SubqueryExpr.
+//
+// The subquery for a SCALAR, ARRAY, IN or LIKE subquery must have exactly
+// one output column.
 // The output type for a SCALAR or ARRAY subquery is that column's type or
 // an array of that column's type.  (The subquery scan may include a Project
 // with a MakeStruct or MakeProto expression to construct a single value
@@ -800,11 +810,12 @@ message ResolvedSubqueryExprProto {
 
   optional ResolvedSubqueryExprEnums.SubqueryType subquery_type = 2;
   repeated ResolvedColumnRefProto parameter_list = 3;
-  // Field is only populated for subquery of type IN.
+  // Field is only populated for subqueries of type IN or LIKE
+  // ANY|SOME|ALL.
   optional AnyResolvedExprProto in_expr = 4;
   optional AnyResolvedScanProto subquery = 5;
-  // Note: Hints currently happen only for EXISTS or IN subquery but
-  // not for ARRAY or SCALAR subquery.
+  // Note: Hints currently happen only for EXISTS, IN, or a LIKE
+  // expression subquery but not for ARRAY or SCALAR subquery.
   repeated ResolvedOptionProto hint_list = 6;
 }
 
@@ -1023,6 +1034,15 @@ message ResolvedGroupingSetProto {
 // Group by keys in <group_by_list>.  If <group_by_list> is empty,
 // aggregate all input rows into one output row.
 //
+// <collation_list> is either empty to indicate that all the elements in
+// <group_by_list> have the default collation, or <collation_list> has the
+// same number of elements as <group_by_list>.  Each element is the collation
+// for the element in <group_by_list> with the same index, or can be empty to
+// indicate default collation or when the type is not collatable.
+// <collation_list> is only set when FEATURE_V_1_3_COLLATION_SUPPORT is
+// enabled.
+// See (broken link).
+//
 // Compute all aggregations in <aggregate_list>.  All expressions in
 // <aggregate_list> have a ResolvedAggregateFunctionCall with mode
 // Function::AGGREGATE as their outermost node.
@@ -1042,6 +1062,7 @@ message ResolvedAggregateScanBaseProto {
 
   optional AnyResolvedScanProto input_scan = 2;
   repeated ResolvedComputedColumnProto group_by_list = 3;
+  repeated ResolvedCollationProto collation_list = 5;
   repeated ResolvedComputedColumnProto aggregate_list = 4;
 }
 
@@ -1255,9 +1276,20 @@ message ResolvedComputedColumnProto {
 // This represents one column of an ORDER BY clause, with the requested
 // ordering direction.
 //
-// <collation_name> indicates the COLLATE specific rules of ordering.
-// If non-NULL, must be a string literal or a string parameter.
-// See (broken link).
+// <collation_name> is the ORDER BY COLLATE expression, and could be a string
+// literal or query parameter.  <collation_name> can only be set when the
+// FEATURE_V_1_1_ORDER_BY_COLLATE is enabled.
+// See (broken link) for COLLATE clause.
+// <collation> (only set when FEATURE_V_1_3_COLLATION_SUPPORT is enabled) is
+// the derived collation to use.  It comes from the <column_ref> and COLLATE
+// clause.  It is unset if COLLATE is present and set to a parameter.
+// See (broken link) for general Collation Support.
+// When both features are enabled, if <collation_name> is present and is
+// - a parameter, then <collation> is empty
+// - a non-parameter, then <collation> is set to the same collation
+// An engine which supports both features could read the fields as:
+//   If <collation> is set then use it, otherwise use <collation_name>, which
+//   must be a query parameter if set.
 //
 // <null_order> indicates the ordering of NULL values relative to non-NULL
 // values. NULLS_FIRST indicates that NULLS sort prior to non-NULL values,
@@ -1269,6 +1301,7 @@ message ResolvedOrderByItemProto {
   optional AnyResolvedExprProto collation_name = 3;
   optional bool is_descending = 4;
   optional ResolvedOrderByItemEnums.NullOrderMode null_order = 5;
+  optional ResolvedCollationProto collation = 6;
 }
 
 // This is used in CREATE TABLE statements to provide column annotations
@@ -1357,23 +1390,10 @@ message ResolvedColumnDefinitionProto {
   optional AnyResolvedExprProto default_expression = 8;
 }
 
-// This represents the PRIMARY KEY constraint on a table.
-// <column_offset_list> provides the offsets of the column definitions that
-//                      comprise the primary key. This is empty when a
-//                      0-element primary key is defined.
-//
-// <unenforced> specifies whether the constraint is unenforced.
-message ResolvedPrimaryKeyProto {
-  optional ResolvedArgumentProto parent = 1;
-
-  repeated int64 column_offset_list = 2;
-  repeated ResolvedOptionProto option_list = 3;
-  optional bool unenforced = 4;
-}
-
 // Intermediate class for resolved constraints.
 message AnyResolvedConstraintProto {
   oneof node {
+    ResolvedPrimaryKeyProto resolved_primary_key_node = 92;
     ResolvedForeignKeyProto resolved_foreign_key_node = 110;
     ResolvedCheckConstraintProto resolved_check_constraint_node = 113;
   }
@@ -1382,6 +1402,25 @@ message AnyResolvedConstraintProto {
 message ResolvedConstraintProto {
   optional ResolvedArgumentProto parent = 1;
 
+}
+
+// This represents the PRIMARY KEY constraint on a table.
+// <column_offset_list> provides the offsets of the column definitions that
+//                      comprise the primary key. This is empty when a
+//                      0-element primary key is defined or when the altered
+//                      table does not exist.
+// <unenforced> specifies whether the constraint is unenforced.
+// <constraint_name> specifies the constraint name, if present
+// <column_name_list> provides the column names used in column definitions
+//                    that comprise the primary key.
+message ResolvedPrimaryKeyProto {
+  optional ResolvedConstraintProto parent = 1;
+
+  repeated int64 column_offset_list = 2;
+  repeated ResolvedOptionProto option_list = 3;
+  optional bool unenforced = 4;
+  optional string constraint_name = 5;
+  repeated string column_name_list = 6;
 }
 
 // This represents the FOREIGN KEY constraint on a table. It is of the form:
@@ -1655,6 +1694,8 @@ message AnyResolvedStatementProto {
     ResolvedDropTableFunctionStmtProto resolved_drop_table_function_stmt_node = 175;
     ResolvedCloneDataStmtProto resolved_clone_data_stmt_node = 177;
     ResolvedAnalyzeStmtProto resolved_analyze_stmt_node = 180;
+    ResolvedDropSnapshotTableStmtProto resolved_drop_snapshot_table_stmt_node = 183;
+    ResolvedDropSearchIndexStmtProto resolved_drop_search_index_stmt_node = 190;
   }
 }
 
@@ -1729,6 +1770,7 @@ message AnyResolvedCreateStatementProto {
     ResolvedCreateProcedureStmtProto resolved_create_procedure_stmt_node = 125;
     ResolvedCreateEntityStmtProto resolved_create_entity_stmt_node = 154;
     ResolvedCreateSchemaStmtProto resolved_create_schema_stmt_node = 157;
+    ResolvedCreateSnapshotTableStmtProto resolved_create_snapshot_table_stmt_node = 182;
   }
 }
 
@@ -1887,6 +1929,7 @@ message ResolvedCreateTableStmtBaseProto {
 //              explicit options will take precedence.
 //              The 'clone_from.column_list' field may be set, but should be
 //              ignored.
+//              Cannot be value table.
 message ResolvedCreateTableStmtProto {
   optional ResolvedCreateTableStmtBaseProto parent = 1;
 
@@ -2046,12 +2089,39 @@ message ResolvedWithPartitionColumnsProto {
 }
 
 // This statement:
+//   CREATE SNAPSHOT TABLE [IF NOT EXISTS] <name> [OPTIONS (...)]
+//   CLONE <name>
+//           [FOR SYSTEM_TIME AS OF <time_expr>]
+//
+// <clone_from> the source data to clone data from.
+//              ResolvedTableScan will represent the source table, with an
+//              optional for_system_time_expr.
+//              The ResolvedTableScan may be wrapped inside a
+//              ResolvedFilterScan if the source table has a where clause.
+//              No other Scan types are allowed here.
+//              By default, all fields (column names, types, constraints,
+//              partition, clustering, options etc.) will be inherited from
+//              the source table. If table options are explicitly set, the
+//              explicit options will take precedence.
+//              The 'clone_from.column_list' field may be set, but should be
+//              ignored.
+message ResolvedCreateSnapshotTableStmtProto {
+  optional ResolvedCreateStatementProto parent = 1;
+
+  optional AnyResolvedScanProto clone_from = 2;
+  repeated ResolvedOptionProto option_list = 3;
+}
+
+// This statement:
 // CREATE [TEMP] EXTERNAL TABLE <name> [(column type, ...)]
-// [WITH PARTITION COLUMN [(column type, ...)]] OPTIONS (...)
+// [WITH PARTITION COLUMN [(column type, ...)]]
+// [WITH CONNECTION connection_name]
+// OPTIONS (...)
 message ResolvedCreateExternalTableStmtProto {
   optional ResolvedCreateTableStmtBaseProto parent = 1;
 
   optional ResolvedWithPartitionColumnsProto with_partition_columns = 2;
+  optional ResolvedConnectionProto connection = 3;
 }
 
 // This statement:
@@ -2250,6 +2320,18 @@ message ResolvedDropStmtProto {
 //             dropped.
 // <is_if_exists> silently ignore the "name_path does not exist" error.
 message ResolvedDropMaterializedViewStmtProto {
+  optional ResolvedStatementProto parent = 1;
+
+  optional bool is_if_exists = 3;
+  repeated string name_path = 4;
+}
+
+// This statement: DROP SNAPSHOT TABLE [IF EXISTS] <name_path>;
+//
+// <name_path> is a vector giving the identifier path for the object to be
+//             dropped.
+// <is_if_exists> silently ignore the "name_path does not exist" error.
+message ResolvedDropSnapshotTableStmtProto {
   optional ResolvedStatementProto parent = 1;
 
   optional bool is_if_exists = 3;
@@ -3098,6 +3180,8 @@ message AnyResolvedAlterActionProto {
     ResolvedDropConstraintActionProto resolved_drop_constraint_action_node = 164;
     ResolvedAlterColumnOptionsActionProto resolved_alter_column_options_action_node = 169;
     ResolvedAlterColumnDropNotNullActionProto resolved_alter_column_drop_not_null_action_node = 178;
+    ResolvedAlterColumnSetDataTypeActionProto resolved_alter_column_set_data_type_action_node = 181;
+    ResolvedDropPrimaryKeyActionProto resolved_drop_primary_key_action_node = 184;
   }
 }
 
@@ -3141,6 +3225,13 @@ message ResolvedDropConstraintActionProto {
   optional string name = 3;
 }
 
+// DROP PRIMARY KEY [IF EXISTS] for ALTER TABLE statement
+message ResolvedDropPrimaryKeyActionProto {
+  optional ResolvedAlterActionProto parent = 1;
+
+  optional bool is_if_exists = 2;
+}
+
 // This ALTER action:
 //   ALTER COLUMN [IF EXISTS] <column> SET OPTIONS <options_list>
 //
@@ -3170,6 +3261,23 @@ message ResolvedAlterColumnDropNotNullActionProto {
   optional string column = 2;
 }
 
+// ALTER COLUMN SET DATA TYPE action for ALTER TABLE statement.
+message ResolvedAlterColumnSetDataTypeActionProto {
+  optional ResolvedAlterActionProto parent = 1;
+
+  // Indicates whether the IF EXISTS clause was included in the
+  // ALTER COLUMN expression.
+  optional bool is_if_exists = 2;
+  // The name of the column whose data type is changing.
+  optional string column = 3;
+  // The new type for the column.
+  optional TypeProto updated_type = 4;
+  // The new type parameters for the column, if the new type has
+  // parameters. Note that unlike with CREATE TABLE, the child_list is
+  // populated for ARRAY and STRUCT types.
+  optional TypeParametersProto updated_type_parameters = 5;
+}
+
 // DROP COLUMN action for ALTER TABLE statement
 //
 // <name> is the name of the column to drop.
@@ -3181,12 +3289,15 @@ message ResolvedDropColumnActionProto {
 }
 
 // SET AS action for generic ALTER <entity_type> statement.
+// Exactly one of <entity_body_json>, <entity_body_text> should be non-empty.
 //
 // <entity_body_json> is a JSON literal to be interpreted by engine.
+// <entity_body_text> is a text literal to be interpreted by engine.
 message ResolvedSetAsActionProto {
   optional ResolvedAlterActionProto parent = 1;
 
   optional string entity_body_json = 2;
+  optional string entity_body_text = 3;
 }
 
 // This statement:
@@ -3280,6 +3391,19 @@ message ResolvedDropRowAccessPolicyStmtProto {
   optional bool is_if_exists = 3;
   optional string name = 4;
   repeated string target_name_path = 5;
+}
+
+// DROP SEARCH INDEX [IF EXISTS] <name> [ON <table_name_path>];
+//
+// <name> is the name of the search index to be dropped.
+// <table_name_path> is a vector giving the identifier path of the target
+//                   table.
+message ResolvedDropSearchIndexStmtProto {
+  optional ResolvedStatementProto parent = 1;
+
+  optional bool is_if_exists = 2;
+  optional string name = 3;
+  repeated string table_name_path = 4;
 }
 
 // GRANT TO action for ALTER ROW ACCESS POLICY statement
@@ -3896,8 +4020,11 @@ message ResolvedAssignmentStmtProto {
 // [OPTIONS <option_list>]
 // [AS <entity_body_json>];
 //
+// At most one of <entity_body_json>, <entity_body_text> can be non-empty.
+//
 // <entity_type> engine-specific entity type to be created.
 // <entity_body_json> is a JSON literal to be interpreted by engine.
+// <entity_body_text> is a text literal to be interpreted by engine.
 // <option_list> has engine-specific directives for how to
 //               create this entity.
 message ResolvedCreateEntityStmtProto {
@@ -3905,6 +4032,7 @@ message ResolvedCreateEntityStmtProto {
 
   optional string entity_type = 2;
   optional string entity_body_json = 3;
+  optional string entity_body_text = 5;
   repeated ResolvedOptionProto option_list = 4;
 }
 
@@ -4099,7 +4227,7 @@ message ResolvedUnpivotScanProto {
 
 // CLONE DATA INTO <table_name> FROM ...
 //
-// <target_table> the table to clone data into.
+// <target_table> the table to clone data into. Cannot be value table.
 // <clone_from> The source table(s) to clone data from.
 //              For a single table, the scan is TableScan, with an optional
 //                  for_system_time_expr;
@@ -4114,6 +4242,7 @@ message ResolvedUnpivotScanProto {
 //                All source tables and target table must have equal number
 //                of columns, with positionally identical column names and
 //                types.
+//                Cannot be value table.
 message ResolvedCloneDataStmtProto {
   optional ResolvedStatementProto parent = 1;
 

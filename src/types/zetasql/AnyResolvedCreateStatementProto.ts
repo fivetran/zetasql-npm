@@ -10,6 +10,7 @@ import type { AnyResolvedCreateViewBaseProto as _zetasql_AnyResolvedCreateViewBa
 import type { ResolvedCreateProcedureStmtProto as _zetasql_ResolvedCreateProcedureStmtProto, ResolvedCreateProcedureStmtProto__Output as _zetasql_ResolvedCreateProcedureStmtProto__Output } from '../zetasql/ResolvedCreateProcedureStmtProto';
 import type { ResolvedCreateEntityStmtProto as _zetasql_ResolvedCreateEntityStmtProto, ResolvedCreateEntityStmtProto__Output as _zetasql_ResolvedCreateEntityStmtProto__Output } from '../zetasql/ResolvedCreateEntityStmtProto';
 import type { ResolvedCreateSchemaStmtProto as _zetasql_ResolvedCreateSchemaStmtProto, ResolvedCreateSchemaStmtProto__Output as _zetasql_ResolvedCreateSchemaStmtProto__Output } from '../zetasql/ResolvedCreateSchemaStmtProto';
+import type { ResolvedCreateSnapshotTableStmtProto as _zetasql_ResolvedCreateSnapshotTableStmtProto, ResolvedCreateSnapshotTableStmtProto__Output as _zetasql_ResolvedCreateSnapshotTableStmtProto__Output } from '../zetasql/ResolvedCreateSnapshotTableStmtProto';
 
 export interface AnyResolvedCreateStatementProto {
   'resolvedCreateFunctionStmtNode'?: (_zetasql_ResolvedCreateFunctionStmtProto | null);
@@ -22,7 +23,8 @@ export interface AnyResolvedCreateStatementProto {
   'resolvedCreateProcedureStmtNode'?: (_zetasql_ResolvedCreateProcedureStmtProto | null);
   'resolvedCreateEntityStmtNode'?: (_zetasql_ResolvedCreateEntityStmtProto | null);
   'resolvedCreateSchemaStmtNode'?: (_zetasql_ResolvedCreateSchemaStmtProto | null);
-  'node'?: "resolvedCreateFunctionStmtNode"|"resolvedCreateTableFunctionStmtNode"|"resolvedCreateIndexStmtNode"|"resolvedCreateConstantStmtNode"|"resolvedCreateTableStmtBaseNode"|"resolvedCreateModelStmtNode"|"resolvedCreateViewBaseNode"|"resolvedCreateProcedureStmtNode"|"resolvedCreateEntityStmtNode"|"resolvedCreateSchemaStmtNode";
+  'resolvedCreateSnapshotTableStmtNode'?: (_zetasql_ResolvedCreateSnapshotTableStmtProto | null);
+  'node'?: "resolvedCreateFunctionStmtNode"|"resolvedCreateTableFunctionStmtNode"|"resolvedCreateIndexStmtNode"|"resolvedCreateConstantStmtNode"|"resolvedCreateTableStmtBaseNode"|"resolvedCreateModelStmtNode"|"resolvedCreateViewBaseNode"|"resolvedCreateProcedureStmtNode"|"resolvedCreateEntityStmtNode"|"resolvedCreateSchemaStmtNode"|"resolvedCreateSnapshotTableStmtNode";
 }
 
 export interface AnyResolvedCreateStatementProto__Output {
@@ -36,5 +38,6 @@ export interface AnyResolvedCreateStatementProto__Output {
   'resolvedCreateProcedureStmtNode'?: (_zetasql_ResolvedCreateProcedureStmtProto__Output | null);
   'resolvedCreateEntityStmtNode'?: (_zetasql_ResolvedCreateEntityStmtProto__Output | null);
   'resolvedCreateSchemaStmtNode'?: (_zetasql_ResolvedCreateSchemaStmtProto__Output | null);
-  'node': "resolvedCreateFunctionStmtNode"|"resolvedCreateTableFunctionStmtNode"|"resolvedCreateIndexStmtNode"|"resolvedCreateConstantStmtNode"|"resolvedCreateTableStmtBaseNode"|"resolvedCreateModelStmtNode"|"resolvedCreateViewBaseNode"|"resolvedCreateProcedureStmtNode"|"resolvedCreateEntityStmtNode"|"resolvedCreateSchemaStmtNode";
+  'resolvedCreateSnapshotTableStmtNode'?: (_zetasql_ResolvedCreateSnapshotTableStmtProto__Output | null);
+  'node': "resolvedCreateFunctionStmtNode"|"resolvedCreateTableFunctionStmtNode"|"resolvedCreateIndexStmtNode"|"resolvedCreateConstantStmtNode"|"resolvedCreateTableStmtBaseNode"|"resolvedCreateModelStmtNode"|"resolvedCreateViewBaseNode"|"resolvedCreateProcedureStmtNode"|"resolvedCreateEntityStmtNode"|"resolvedCreateSchemaStmtNode"|"resolvedCreateSnapshotTableStmtNode";
 }
