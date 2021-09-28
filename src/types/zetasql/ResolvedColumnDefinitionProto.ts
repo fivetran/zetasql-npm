@@ -5,7 +5,7 @@ import type { TypeProto as _zetasql_TypeProto, TypeProto__Output as _zetasql_Typ
 import type { ResolvedColumnAnnotationsProto as _zetasql_ResolvedColumnAnnotationsProto, ResolvedColumnAnnotationsProto__Output as _zetasql_ResolvedColumnAnnotationsProto__Output } from '../zetasql/ResolvedColumnAnnotationsProto';
 import type { ResolvedColumnProto as _zetasql_ResolvedColumnProto, ResolvedColumnProto__Output as _zetasql_ResolvedColumnProto__Output } from '../zetasql/ResolvedColumnProto';
 import type { ResolvedGeneratedColumnInfoProto as _zetasql_ResolvedGeneratedColumnInfoProto, ResolvedGeneratedColumnInfoProto__Output as _zetasql_ResolvedGeneratedColumnInfoProto__Output } from '../zetasql/ResolvedGeneratedColumnInfoProto';
-import type { AnyResolvedExprProto as _zetasql_AnyResolvedExprProto, AnyResolvedExprProto__Output as _zetasql_AnyResolvedExprProto__Output } from '../zetasql/AnyResolvedExprProto';
+import type { ResolvedColumnDefaultValueProto as _zetasql_ResolvedColumnDefaultValueProto, ResolvedColumnDefaultValueProto__Output as _zetasql_ResolvedColumnDefaultValueProto__Output } from '../zetasql/ResolvedColumnDefaultValueProto';
 
 export interface ResolvedColumnDefinitionProto {
   'parent'?: (_zetasql_ResolvedArgumentProto | null);
@@ -15,7 +15,7 @@ export interface ResolvedColumnDefinitionProto {
   'isHidden'?: (boolean);
   'column'?: (_zetasql_ResolvedColumnProto | null);
   'generatedColumnInfo'?: (_zetasql_ResolvedGeneratedColumnInfoProto | null);
-  'defaultExpression'?: (_zetasql_AnyResolvedExprProto | null);
+  'defaultValue'?: (_zetasql_ResolvedColumnDefaultValueProto | null);
 }
 
 export interface ResolvedColumnDefinitionProto__Output {
@@ -26,5 +26,5 @@ export interface ResolvedColumnDefinitionProto__Output {
   'isHidden': (boolean);
   'column': (_zetasql_ResolvedColumnProto__Output | null);
   'generatedColumnInfo': (_zetasql_ResolvedGeneratedColumnInfoProto__Output | null);
-  'defaultExpression': (_zetasql_AnyResolvedExprProto__Output | null);
+  'defaultValue': (_zetasql_ResolvedColumnDefaultValueProto__Output | null);
 }

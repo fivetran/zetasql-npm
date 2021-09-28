@@ -7,6 +7,7 @@ import type { AnyResolvedExprProto as _zetasql_AnyResolvedExprProto, AnyResolved
 import type { _zetasql_ResolvedFunctionCallBaseEnums_ErrorMode } from '../zetasql/ResolvedFunctionCallBaseEnums';
 import type { ResolvedFunctionArgumentProto as _zetasql_ResolvedFunctionArgumentProto, ResolvedFunctionArgumentProto__Output as _zetasql_ResolvedFunctionArgumentProto__Output } from '../zetasql/ResolvedFunctionArgumentProto';
 import type { ResolvedOptionProto as _zetasql_ResolvedOptionProto, ResolvedOptionProto__Output as _zetasql_ResolvedOptionProto__Output } from '../zetasql/ResolvedOptionProto';
+import type { ResolvedCollationProto as _zetasql_ResolvedCollationProto, ResolvedCollationProto__Output as _zetasql_ResolvedCollationProto__Output } from '../zetasql/ResolvedCollationProto';
 
 export interface ResolvedFunctionCallBaseProto {
   'parent'?: (_zetasql_ResolvedExprProto | null);
@@ -16,6 +17,7 @@ export interface ResolvedFunctionCallBaseProto {
   'errorMode'?: (_zetasql_ResolvedFunctionCallBaseEnums_ErrorMode | keyof typeof _zetasql_ResolvedFunctionCallBaseEnums_ErrorMode);
   'genericArgumentList'?: (_zetasql_ResolvedFunctionArgumentProto)[];
   'hintList'?: (_zetasql_ResolvedOptionProto)[];
+  'collationList'?: (_zetasql_ResolvedCollationProto)[];
 }
 
 export interface ResolvedFunctionCallBaseProto__Output {
@@ -26,4 +28,5 @@ export interface ResolvedFunctionCallBaseProto__Output {
   'errorMode': (_zetasql_ResolvedFunctionCallBaseEnums_ErrorMode);
   'genericArgumentList': (_zetasql_ResolvedFunctionArgumentProto__Output)[];
   'hintList': (_zetasql_ResolvedOptionProto__Output)[];
+  'collationList': (_zetasql_ResolvedCollationProto__Output)[];
 }

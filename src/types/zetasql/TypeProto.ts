@@ -14,6 +14,7 @@ export interface TypeProto {
   'protoType'?: (_zetasql_ProtoTypeProto | null);
   'enumType'?: (_zetasql_EnumTypeProto | null);
   'fileDescriptorSet'?: (_google_protobuf_FileDescriptorSet)[];
+  'extendedTypeName'?: (string);
 }
 
 export interface TypeProto__Output {
@@ -23,4 +24,5 @@ export interface TypeProto__Output {
   'protoType': (_zetasql_ProtoTypeProto__Output | null);
   'enumType': (_zetasql_EnumTypeProto__Output | null);
   'fileDescriptorSet': (_google_protobuf_FileDescriptorSet__Output)[];
+  'extendedTypeName': (string);
 }

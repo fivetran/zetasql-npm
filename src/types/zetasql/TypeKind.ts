@@ -26,5 +26,4 @@ export enum TypeKind {
   TYPE_EXTENDED = 25,
   TYPE_JSON = 26,
   TYPE_INTERVAL = 27,
-  TYPE_TOKENLIST = 28,
 }

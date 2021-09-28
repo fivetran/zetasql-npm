@@ -11,6 +11,15 @@ export enum _zetasql_FunctionEnums_ArgumentCardinality {
 
 // Original file: protos/zetasql/public/function.proto
 
+export enum _zetasql_FunctionEnums_ArgumentCollationMode {
+  AFFECTS_NONE = 0,
+  AFFECTS_OPERATION = 1,
+  AFFECTS_PROPAGATION = 2,
+  AFFECTS_OPERATION_AND_PROPAGATION = 3,
+}
+
+// Original file: protos/zetasql/public/function.proto
+
 export enum _zetasql_FunctionEnums_Mode {
   SCALAR = 1,
   AGGREGATE = 2,

@@ -8,6 +8,8 @@ export interface FunctionSignatureOptionsProto {
   'additionalDeprecationWarning'?: (_zetasql_FreestandingDeprecationWarning)[];
   'requiredLanguageFeature'?: (_zetasql_LanguageFeature | keyof typeof _zetasql_LanguageFeature)[];
   'isAliasedSignature'?: (boolean);
+  'propagatesCollation'?: (boolean);
+  'usesOperationCollation'?: (boolean);
 }
 
 export interface FunctionSignatureOptionsProto__Output {
@@ -15,4 +17,6 @@ export interface FunctionSignatureOptionsProto__Output {
   'additionalDeprecationWarning': (_zetasql_FreestandingDeprecationWarning__Output)[];
   'requiredLanguageFeature': (_zetasql_LanguageFeature)[];
   'isAliasedSignature': (boolean);
+  'propagatesCollation': (boolean);
+  'usesOperationCollation': (boolean);
 }

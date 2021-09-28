@@ -9,6 +9,7 @@ export interface ResolvedCreateTableStmtProto {
   'partitionByList'?: (_zetasql_AnyResolvedExprProto)[];
   'clusterByList'?: (_zetasql_AnyResolvedExprProto)[];
   'cloneFrom'?: (_zetasql_AnyResolvedScanProto | null);
+  'copyFrom'?: (_zetasql_AnyResolvedScanProto | null);
 }
 
 export interface ResolvedCreateTableStmtProto__Output {
@@ -16,4 +17,5 @@ export interface ResolvedCreateTableStmtProto__Output {
   'partitionByList': (_zetasql_AnyResolvedExprProto__Output)[];
   'clusterByList': (_zetasql_AnyResolvedExprProto__Output)[];
   'cloneFrom': (_zetasql_AnyResolvedScanProto__Output | null);
+  'copyFrom': (_zetasql_AnyResolvedScanProto__Output | null);
 }

@@ -19,6 +19,7 @@ export interface ResolvedCreateIndexStmtProto {
   'unnestExpressionsList'?: (_zetasql_ResolvedUnnestItemProto)[];
   'storingExpressionList'?: (_zetasql_AnyResolvedExprProto)[];
   'isSearch'?: (boolean);
+  'indexAllColumns'?: (boolean);
 }
 
 export interface ResolvedCreateIndexStmtProto__Output {
@@ -32,4 +33,5 @@ export interface ResolvedCreateIndexStmtProto__Output {
   'unnestExpressionsList': (_zetasql_ResolvedUnnestItemProto__Output)[];
   'storingExpressionList': (_zetasql_AnyResolvedExprProto__Output)[];
   'isSearch': (boolean);
+  'indexAllColumns': (boolean);
 }

@@ -34,7 +34,6 @@ export abstract class TypeFactory {
     ['numeric', TypeKind.TYPE_NUMERIC], // external
     ['bignumeric', TypeKind.TYPE_BIGNUMERIC], // external
     ['json', TypeKind.TYPE_JSON], // external
-    ['tokenlist', TypeKind.TYPE_TOKENLIST], // external
   ]);
 
   static EXTERNAL_MODE_SIMPLE_TYPE_KIND_NAMES = new Set([

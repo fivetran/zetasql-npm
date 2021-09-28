@@ -87,6 +87,7 @@ export interface ProtoGrpcType {
     OneofDescriptorRefProto: MessageTypeDefinition
     ParameterMode: EnumTypeDefinition
     ParseLocationRangeProto: MessageTypeDefinition
+    ParseLocationRecordType: EnumTypeDefinition
     ParseResumeLocationProto: MessageTypeDefinition
     ProcedureProto: MessageTypeDefinition
     ProcedureRefProto: MessageTypeDefinition
@@ -130,6 +131,8 @@ export interface ProtoGrpcType {
     ResolvedAssertRowsModifiedProto: MessageTypeDefinition
     ResolvedAssertStmtProto: MessageTypeDefinition
     ResolvedAssignmentStmtProto: MessageTypeDefinition
+    ResolvedAuxLoadDataStmtEnums: MessageTypeDefinition
+    ResolvedAuxLoadDataStmtProto: MessageTypeDefinition
     ResolvedBeginStmtEnums: MessageTypeDefinition
     ResolvedBeginStmtProto: MessageTypeDefinition
     ResolvedCallStmtProto: MessageTypeDefinition
@@ -138,6 +141,7 @@ export interface ProtoGrpcType {
     ResolvedCloneDataStmtProto: MessageTypeDefinition
     ResolvedCollationProto: MessageTypeDefinition
     ResolvedColumnAnnotationsProto: MessageTypeDefinition
+    ResolvedColumnDefaultValueProto: MessageTypeDefinition
     ResolvedColumnDefinitionProto: MessageTypeDefinition
     ResolvedColumnHolderProto: MessageTypeDefinition
     ResolvedColumnProto: MessageTypeDefinition
@@ -256,6 +260,7 @@ export interface ProtoGrpcType {
     ResolvedRecursiveScanEnums: MessageTypeDefinition
     ResolvedRecursiveScanProto: MessageTypeDefinition
     ResolvedRelationArgumentScanProto: MessageTypeDefinition
+    ResolvedRenameColumnActionProto: MessageTypeDefinition
     ResolvedRenameStmtProto: MessageTypeDefinition
     ResolvedRenameToActionProto: MessageTypeDefinition
     ResolvedReplaceFieldItemProto: MessageTypeDefinition
@@ -269,6 +274,7 @@ export interface ProtoGrpcType {
     ResolvedSampleScanProto: MessageTypeDefinition
     ResolvedScanProto: MessageTypeDefinition
     ResolvedSetAsActionProto: MessageTypeDefinition
+    ResolvedSetCollateClauseProto: MessageTypeDefinition
     ResolvedSetOperationItemProto: MessageTypeDefinition
     ResolvedSetOperationScanEnums: MessageTypeDefinition
     ResolvedSetOperationScanProto: MessageTypeDefinition
@@ -322,6 +328,7 @@ export interface ProtoGrpcType {
     TVFSignatureOptionsProto: MessageTypeDefinition
     TVFSignatureProto: MessageTypeDefinition
     TableRefProto: MessageTypeDefinition
+    TableValuedFunctionOptionsProto: MessageTypeDefinition
     TableValuedFunctionProto: MessageTypeDefinition
     TableValuedFunctionRefProto: MessageTypeDefinition
     TypeKind: EnumTypeDefinition

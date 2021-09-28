@@ -7,23 +7,7 @@ import type { TypeProto as _zetasql_TypeProto, TypeProto__Output as _zetasql_Typ
 import type { ParameterMode as _zetasql_ParameterMode } from '../zetasql/ParameterMode';
 import type { StatementContext as _zetasql_StatementContext } from '../zetasql/StatementContext';
 import type { ResolvedASTRewrite as _zetasql_ResolvedASTRewrite } from '../zetasql/ResolvedASTRewrite';
-
-// Original file: protos/zetasql/proto/options.proto
-
-export enum _zetasql_AnalyzerOptionsProto_ParseLocationOptionsProto_FunctionCallRecordType {
-  FUNCTION_NAME = 0,
-  FUNCTION_CALL = 1,
-}
-
-export interface _zetasql_AnalyzerOptionsProto_ParseLocationOptionsProto {
-  'recordParseLocations'?: (boolean);
-  'functionCallRecordType'?: (_zetasql_AnalyzerOptionsProto_ParseLocationOptionsProto_FunctionCallRecordType | keyof typeof _zetasql_AnalyzerOptionsProto_ParseLocationOptionsProto_FunctionCallRecordType);
-}
-
-export interface _zetasql_AnalyzerOptionsProto_ParseLocationOptionsProto__Output {
-  'recordParseLocations': (boolean);
-  'functionCallRecordType': (_zetasql_AnalyzerOptionsProto_ParseLocationOptionsProto_FunctionCallRecordType);
-}
+import type { ParseLocationRecordType as _zetasql_ParseLocationRecordType } from '../zetasql/ParseLocationRecordType';
 
 export interface _zetasql_AnalyzerOptionsProto_QueryParameterProto {
   'name'?: (string);
@@ -52,7 +36,6 @@ export interface AnalyzerOptionsProto {
   'inScopeExpressionColumn'?: (_zetasql_AnalyzerOptionsProto_QueryParameterProto | null);
   'errorMessageMode'?: (_zetasql_ErrorMessageMode | keyof typeof _zetasql_ErrorMessageMode);
   'defaultTimezone'?: (string);
-  'recordParseLocations'?: (boolean);
   'pruneUnusedColumns'?: (boolean);
   'allowUndeclaredParameters'?: (boolean);
   'allowedHintsAndOptions'?: (_zetasql_AllowedHintsAndOptionsProto | null);
@@ -65,7 +48,7 @@ export interface AnalyzerOptionsProto {
   'targetColumnTypes'?: (_zetasql_TypeProto)[];
   'createNewColumnForEachProjectedOutput'?: (boolean);
   'enabledRewrites'?: (_zetasql_ResolvedASTRewrite | keyof typeof _zetasql_ResolvedASTRewrite)[];
-  'parseLocationOptions'?: (_zetasql_AnalyzerOptionsProto_ParseLocationOptionsProto | null);
+  'parseLocationRecordType'?: (_zetasql_ParseLocationRecordType | keyof typeof _zetasql_ParseLocationRecordType);
 }
 
 export interface AnalyzerOptionsProto__Output {
@@ -75,7 +58,6 @@ export interface AnalyzerOptionsProto__Output {
   'inScopeExpressionColumn': (_zetasql_AnalyzerOptionsProto_QueryParameterProto__Output | null);
   'errorMessageMode': (_zetasql_ErrorMessageMode);
   'defaultTimezone': (string);
-  'recordParseLocations': (boolean);
   'pruneUnusedColumns': (boolean);
   'allowUndeclaredParameters': (boolean);
   'allowedHintsAndOptions': (_zetasql_AllowedHintsAndOptionsProto__Output | null);
@@ -88,5 +70,5 @@ export interface AnalyzerOptionsProto__Output {
   'targetColumnTypes': (_zetasql_TypeProto__Output)[];
   'createNewColumnForEachProjectedOutput': (boolean);
   'enabledRewrites': (_zetasql_ResolvedASTRewrite)[];
-  'parseLocationOptions': (_zetasql_AnalyzerOptionsProto_ParseLocationOptionsProto__Output | null);
+  'parseLocationRecordType': (_zetasql_ParseLocationRecordType);
 }

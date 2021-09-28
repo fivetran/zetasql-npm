@@ -12,6 +12,7 @@ export interface LanguageOptionsProto {
   'enabledLanguageFeatures'?: (_zetasql_LanguageFeature | keyof typeof _zetasql_LanguageFeature)[];
   'supportedStatementKinds'?: (_zetasql_ResolvedNodeKind | keyof typeof _zetasql_ResolvedNodeKind)[];
   'supportedGenericEntityTypes'?: (string)[];
+  'reservedKeywords'?: (string)[];
 }
 
 export interface LanguageOptionsProto__Output {
@@ -21,4 +22,5 @@ export interface LanguageOptionsProto__Output {
   'enabledLanguageFeatures': (_zetasql_LanguageFeature)[];
   'supportedStatementKinds': (_zetasql_ResolvedNodeKind)[];
   'supportedGenericEntityTypes': (string)[];
+  'reservedKeywords': (string)[];
 }

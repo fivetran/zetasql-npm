@@ -6,6 +6,7 @@ import type { ParseLocationRangeProto as _zetasql_ParseLocationRangeProto, Parse
 import type { _zetasql_FunctionEnums_ProcedureArgumentMode } from '../zetasql/FunctionEnums';
 import type { ValueProto as _zetasql_ValueProto, ValueProto__Output as _zetasql_ValueProto__Output } from '../zetasql/ValueProto';
 import type { TypeProto as _zetasql_TypeProto, TypeProto__Output as _zetasql_TypeProto__Output } from '../zetasql/TypeProto';
+import type { _zetasql_FunctionEnums_ArgumentCollationMode } from '../zetasql/FunctionEnums';
 import type { Long } from '@grpc/proto-loader';
 
 export interface FunctionArgumentTypeOptionsProto {
@@ -27,6 +28,8 @@ export interface FunctionArgumentTypeOptionsProto {
   'descriptorResolutionTableOffset'?: (number);
   'defaultValue'?: (_zetasql_ValueProto | null);
   'defaultValueType'?: (_zetasql_TypeProto | null);
+  'argumentCollationMode'?: (_zetasql_FunctionEnums_ArgumentCollationMode | keyof typeof _zetasql_FunctionEnums_ArgumentCollationMode);
+  'usesArrayElementForCollation'?: (boolean);
 }
 
 export interface FunctionArgumentTypeOptionsProto__Output {
@@ -48,4 +51,6 @@ export interface FunctionArgumentTypeOptionsProto__Output {
   'descriptorResolutionTableOffset': (number);
   'defaultValue': (_zetasql_ValueProto__Output | null);
   'defaultValueType': (_zetasql_TypeProto__Output | null);
+  'argumentCollationMode': (_zetasql_FunctionEnums_ArgumentCollationMode);
+  'usesArrayElementForCollation': (boolean);
 }

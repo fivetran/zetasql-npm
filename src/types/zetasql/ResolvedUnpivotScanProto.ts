@@ -5,6 +5,7 @@ import type { AnyResolvedScanProto as _zetasql_AnyResolvedScanProto, AnyResolved
 import type { ResolvedColumnProto as _zetasql_ResolvedColumnProto, ResolvedColumnProto__Output as _zetasql_ResolvedColumnProto__Output } from '../zetasql/ResolvedColumnProto';
 import type { ResolvedLiteralProto as _zetasql_ResolvedLiteralProto, ResolvedLiteralProto__Output as _zetasql_ResolvedLiteralProto__Output } from '../zetasql/ResolvedLiteralProto';
 import type { ResolvedUnpivotArgProto as _zetasql_ResolvedUnpivotArgProto, ResolvedUnpivotArgProto__Output as _zetasql_ResolvedUnpivotArgProto__Output } from '../zetasql/ResolvedUnpivotArgProto';
+import type { ResolvedComputedColumnProto as _zetasql_ResolvedComputedColumnProto, ResolvedComputedColumnProto__Output as _zetasql_ResolvedComputedColumnProto__Output } from '../zetasql/ResolvedComputedColumnProto';
 
 export interface ResolvedUnpivotScanProto {
   'parent'?: (_zetasql_ResolvedScanProto | null);
@@ -13,6 +14,7 @@ export interface ResolvedUnpivotScanProto {
   'labelColumn'?: (_zetasql_ResolvedColumnProto | null);
   'labelList'?: (_zetasql_ResolvedLiteralProto)[];
   'unpivotArgList'?: (_zetasql_ResolvedUnpivotArgProto)[];
+  'projectedInputColumnList'?: (_zetasql_ResolvedComputedColumnProto)[];
   'includeNulls'?: (boolean);
 }
 
@@ -23,5 +25,6 @@ export interface ResolvedUnpivotScanProto__Output {
   'labelColumn': (_zetasql_ResolvedColumnProto__Output | null);
   'labelList': (_zetasql_ResolvedLiteralProto__Output)[];
   'unpivotArgList': (_zetasql_ResolvedUnpivotArgProto__Output)[];
+  'projectedInputColumnList': (_zetasql_ResolvedComputedColumnProto__Output)[];
   'includeNulls': (boolean);
 }

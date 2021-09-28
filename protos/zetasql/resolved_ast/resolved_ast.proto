@@ -97,6 +97,7 @@ message AnyResolvedArgumentProto {
     ResolvedUnpivotArgProto resolved_unpivot_arg_node = 171;
     ResolvedFilterFieldArgProto resolved_filter_field_arg_node = 173;
     ResolvedTableAndColumnInfoProto resolved_table_and_column_info_node = 179;
+    ResolvedColumnDefaultValueProto resolved_column_default_value_node = 188;
   }
 }
 
@@ -325,6 +326,13 @@ message ResolvedFilterFieldProto {
 // is used. If any of the argument is not a ResolvedExpr,
 // <generic_argument_list> will be used. Only one of <argument_list> or
 // <generic_argument_list> can be non-empty.
+//
+// <collation_list> (only set when FEATURE_V_1_3_COLLATION_SUPPORT is
+// enabled) is the operation collation to use.
+// (broken link) lists the functions affected by
+// collation, where this can show up.
+// <collation_list> is a vector for future extension. For now, functions
+// could have at most one element in the <collation_list>.
 message AnyResolvedFunctionCallBaseProto {
   oneof node {
     ResolvedFunctionCallProto resolved_function_call_node = 8;
@@ -352,6 +360,7 @@ message ResolvedFunctionCallBaseProto {
   optional ResolvedFunctionCallBaseEnums.ErrorMode error_mode = 5;
   // Function call hints.
   repeated ResolvedOptionProto hint_list = 7;
+  repeated ResolvedCollationProto collation_list = 8;
 }
 
 // A regular function call.  The signature will always have mode SCALAR.
@@ -1305,7 +1314,7 @@ message ResolvedOrderByItemProto {
 }
 
 // This is used in CREATE TABLE statements to provide column annotations
-// such as NOT NULL, type parameters, and OPTIONS().
+// such as collation, NOT NULL, type parameters, and OPTIONS().
 //
 // This class is recursive. It mirrors the structure of the column type
 // except that child_list might be truncated.
@@ -1324,6 +1333,10 @@ message ResolvedOrderByItemProto {
 message ResolvedColumnAnnotationsProto {
   optional ResolvedArgumentProto parent = 1;
 
+  // <collation_name> can only be a string literal, and is only set
+  // when FEATURE_V_1_3_COLLATION_SUPPORT is enabled. See
+  // (broken link).
+  optional AnyResolvedExprProto collation_name = 6;
   optional bool not_null = 2;
   repeated ResolvedOptionProto option_list = 3;
   repeated ResolvedColumnAnnotationsProto child_list = 4;
@@ -1358,6 +1371,24 @@ message ResolvedGeneratedColumnInfoProto {
   optional ResolvedGeneratedColumnInfoEnums.StoredMode stored_mode = 5;
 }
 
+// <expression> is the default value expression of the column. The type of
+// the expression will always match the type of the column.
+//   - <default_value> cannot contain any references to another column.
+//   - <default_value> cannot include a subquery, aggregation, or window
+//     function.
+//
+// <sql> is the original SQL string for the default value expression.
+//
+// Since we can't enforce engines to access at least one of the fields, we
+// leave both fields NOT_IGNORABLE to ensure engines access at least one of
+// them.
+message ResolvedColumnDefaultValueProto {
+  optional ResolvedArgumentProto parent = 1;
+
+  optional AnyResolvedExprProto expression = 2;
+  optional string sql = 3;
+}
+
 // This is used in CREATE TABLE statements to provide an explicit column
 // definition.
 //
@@ -1366,13 +1397,9 @@ message ResolvedGeneratedColumnInfoProto {
 // if <generated_column_info> is non-NULL, then this column is a generated
 // column.
 //
-// if <default_expression> is non-NULL, then this column contains a default
-// value expression. The expression type should always match the column type.
-//   - <default_expression> cannot contain any references to another column.
-//   - <default_expression> cannot include a subquery, aggregation, or window
-//     function.
+// if <default_value> is non-NULL, then this column has default value.
 //
-// <generated_column_info> and <default_expression> cannot both be set at the
+// <generated_column_info> and <default_value> cannot both be set at the
 // same time.
 //
 // <column> defines an ID for the column, which may appear in expressions in
@@ -1387,7 +1414,7 @@ message ResolvedColumnDefinitionProto {
   optional bool is_hidden = 5;
   optional ResolvedColumnProto column = 6;
   optional ResolvedGeneratedColumnInfoProto generated_column_info = 7;
-  optional AnyResolvedExprProto default_expression = 8;
+  optional ResolvedColumnDefaultValueProto default_value = 9;
 }
 
 // Intermediate class for resolved constraints.
@@ -1474,10 +1501,10 @@ message ResolvedForeignKeyProto {
   repeated string referencing_column_list = 11;
 }
 
-// This represents the CHECK constraint on a table. It is of the form:
+// This represents the ZETASQL_CHECK constraint on a table. It is of the form:
 //
 //   CONSTRAINT <constraint_name>
-//   CHECK <expression>
+//   ZETASQL_CHECK <expression>
 //   <enforced>
 //   <option_list>
 //
@@ -1695,6 +1722,7 @@ message AnyResolvedStatementProto {
     ResolvedCloneDataStmtProto resolved_clone_data_stmt_node = 177;
     ResolvedAnalyzeStmtProto resolved_analyze_stmt_node = 180;
     ResolvedDropSnapshotTableStmtProto resolved_drop_snapshot_table_stmt_node = 183;
+    ResolvedAuxLoadDataStmtProto resolved_aux_load_data_stmt_node = 186;
     ResolvedDropSearchIndexStmtProto resolved_drop_search_index_stmt_node = 190;
   }
 }
@@ -1821,6 +1849,9 @@ message ResolvedUnnestItemProto {
 // <table_scan> is a TableScan on the table being indexed.
 // <is_unique> specifies if the index has unique entries.
 // <is_search> specifies if the index is for search.
+// <index_all_columns> specifies if indexing all the columns of the table.
+//                     When this field is true, index_item_list must be
+//                     empty and is_search must be true.
 // <index_item_list> has the columns being indexed, specified as references
 //                   to 'computed_columns_list' entries or the columns of
 //                   'table_scan'.
@@ -1840,6 +1871,7 @@ message ResolvedCreateIndexStmtProto {
   optional ResolvedTableScanProto table_scan = 3;
   optional bool is_unique = 4;
   optional bool is_search = 10;
+  optional bool index_all_columns = 11;
   repeated ResolvedIndexItemProto index_item_list = 5;
   repeated AnyResolvedExprProto storing_expression_list = 9;
   repeated ResolvedOptionProto option_list = 6;
@@ -1848,20 +1880,32 @@ message ResolvedCreateIndexStmtProto {
 }
 
 // This statement:
-// CREATE [OR REPLACE] SCHEMA [IF NOT EXISTS] <name>
-// [OPTIONS (name=value, ...)];
+//   CREATE [OR REPLACE] SCHEMA [IF NOT EXISTS] <name>
+//   [DEFAULT COLLATE <collation>]
+//   [OPTIONS (name=value, ...)]
 //
 // <option_list> engine-specific options.
+// <collation_name> specifies the default collation specification for future
+//   tables created in the dataset. If a table is created in this dataset
+//   without specifying table-level default collation, it inherits the
+//   dataset default collation. A change to this field affects only tables
+//   created afterwards, not the existing tables. Only string literals
+//   are allowed for this field.
+//
+//   Note: If a table being created in this schema does not specify table
+//   default collation, the engine should copy the dataset default collation
+//   to the table as the table default collation.
 message ResolvedCreateSchemaStmtProto {
   optional ResolvedCreateStatementProto parent = 1;
 
+  optional AnyResolvedExprProto collation_name = 3;
   repeated ResolvedOptionProto option_list = 2;
 }
 
 // This statement:
 //   CREATE [TEMP] TABLE <name> [(column type, ...) | LIKE <name_path>]
-//   [PARTITION BY expr, ...] [CLUSTER BY expr, ...]
-//   [OPTIONS (...)]
+//   [DEFAULT COLLATE <collation>] [PARTITION BY expr, ...]
+//   [CLUSTER BY expr, ...] [OPTIONS (...)]
 //
 // <option_list> has engine-specific directives for how and where to
 //               materialize this table.
@@ -1877,9 +1921,11 @@ message ResolvedCreateSchemaStmtProto {
 // <primary_key> specifies the PRIMARY KEY constraint on the table, it is
 //               nullptr when no PRIMARY KEY is specified.
 // <foreign_key_list> specifies the FOREIGN KEY constraints on the table.
-// <check_constraint_list> specifies the CHECK constraints on the table.
+// <check_constraint_list> specifies the ZETASQL_CHECK constraints on the table.
 // <partition_by_list> specifies the partitioning expressions for the table.
 // <cluster_by_list> specifies the clustering expressions for the table.
+// TODO: Return error when the PARTITION BY / CLUSTER BY
+// expression resolves to have collation specified.
 // <is_value_table> specifies whether the table is a value table.
 //                  See (broken link).
 // <like_table> identifies the table in the LIKE <name_path>.
@@ -1887,6 +1933,15 @@ message ResolvedCreateSchemaStmtProto {
 //              keys, clustering etc.) will be inherited from the source
 //              table. But if explicitly set, the explicit settings will
 //              take precedence.
+// <collation_name> specifies the default collation specification to apply to
+//   newly added STRING fields in this table. A change of this field affects
+//   only the STRING columns and the STRING fields in STRUCTs added
+//   afterwards, not existing columns. Only string literals are allowed for
+//   this field.
+//
+//   Note: During table creation or alteration, if a STRING field is added to
+//   this table without explicit collation specified, the engine should copy
+//   the table default collation to the STRING field.
 message AnyResolvedCreateTableStmtBaseProto {
   oneof node {
     ResolvedCreateTableAsSelectStmtProto resolved_create_table_as_select_stmt_node = 40;
@@ -1906,41 +1961,50 @@ message ResolvedCreateTableStmtBaseProto {
   repeated ResolvedCheckConstraintProto check_constraint_list = 10;
   optional bool is_value_table = 8;
   optional TableRefProto like_table = 11;
+  optional AnyResolvedExprProto collation_name = 12;
 }
 
 // This statement:
 //   CREATE [TEMP] TABLE <name>
 //   [(column schema, ...) | LIKE <name_path> |
-//       CLONE <name_path>
+//       {CLONE|COPY} <name_path>
 //           [FOR SYSTEM_TIME AS OF <time_expr>]
 //           [WHERE <where_clause>]]
+//   [DEFAULT COLLATE <collation_name>]
 //   [PARTITION BY expr, ...] [CLUSTER BY expr, ...]
 //   [OPTIONS (...)]
 //
-// <clone_from> the source data to clone data from.
-//              ResolvedTableScan will represent the source table, with an
-//              optional for_system_time_expr.
-//              The ResolvedTableScan may be wrapped inside a
-//              ResolvedFilterScan if the source table has a where clause.
-//              No other Scan types are allowed here.
-//              By default, all fields (column names, types, constraints,
-//              partition, clustering, options etc.) will be inherited from
-//              the source table. If table options are explicitly set, the
-//              explicit options will take precedence.
-//              The 'clone_from.column_list' field may be set, but should be
-//              ignored.
-//              Cannot be value table.
+// One of <clone_from> or <copy_from> can be present for CLONE or COPY.
+//   <clone_from> specifes the data source to clone from (cheap, typically
+//   O(1) operation); while <copy_from> is intended for a full copy.
+//
+//   ResolvedTableScan will represent the source table, with an optional
+//   for_system_time_expr.
+//
+//   The ResolvedTableScan may be wrapped inside a ResolvedFilterScan if the
+//   source table has a where clause. No other Scan types are allowed here.
+//
+//   If the OPTIONS clause is explicitly specified, the option values are
+//   intended to be used for the created or replaced table.
+//   If any OPTION is unspecified, the corresponding option from the source
+//   table will be used instead.
+//
+//   The 'clone_from.column_list' field may be set, but should be ignored.
+//
+//   clone_from and copy_from cannot be value tables.
 message ResolvedCreateTableStmtProto {
   optional ResolvedCreateTableStmtBaseProto parent = 1;
 
   optional AnyResolvedScanProto clone_from = 7;
+  optional AnyResolvedScanProto copy_from = 8;
   repeated AnyResolvedExprProto partition_by_list = 5;
   repeated AnyResolvedExprProto cluster_by_list = 6;
 }
 
 // This statement:
 //   CREATE [TEMP] TABLE <name> [(column schema, ...) | LIKE <name_path>]
-//   [PARTITION BY expr, ...] [CLUSTER BY expr, ...] [OPTIONS (...)]
+//   [DEFAULT COLLATE <collation_name>] [PARTITION BY expr, ...]
+//   [CLUSTER BY expr, ...] [OPTIONS (...)]
 //   AS SELECT ...
 //
 // The <output_column_list> matches 1:1 with the <column_definition_list> in
@@ -2114,6 +2178,7 @@ message ResolvedCreateSnapshotTableStmtProto {
 
 // This statement:
 // CREATE [TEMP] EXTERNAL TABLE <name> [(column type, ...)]
+// [DEFAULT COLLATE <collation_name>]
 // [WITH PARTITION COLUMN [(column type, ...)]]
 // [WITH CONNECTION connection_name]
 // OPTIONS (...)
@@ -3182,6 +3247,8 @@ message AnyResolvedAlterActionProto {
     ResolvedAlterColumnDropNotNullActionProto resolved_alter_column_drop_not_null_action_node = 178;
     ResolvedAlterColumnSetDataTypeActionProto resolved_alter_column_set_data_type_action_node = 181;
     ResolvedDropPrimaryKeyActionProto resolved_drop_primary_key_action_node = 184;
+    ResolvedRenameColumnActionProto resolved_rename_column_action_node = 185;
+    ResolvedSetCollateClauseProto resolved_set_collate_clause_node = 187;
   }
 }
 
@@ -3261,7 +3328,10 @@ message ResolvedAlterColumnDropNotNullActionProto {
   optional string column = 2;
 }
 
-// ALTER COLUMN SET DATA TYPE action for ALTER TABLE statement.
+// ALTER COLUMN <column> SET DATA TYPE action for ALTER TABLE
+// statement. It supports updating the data type of the column as
+// well as updating type parameters and collation specifications of
+// the column (and on struct fields and array elements).
 message ResolvedAlterColumnSetDataTypeActionProto {
   optional ResolvedAlterActionProto parent = 1;
 
@@ -3275,7 +3345,12 @@ message ResolvedAlterColumnSetDataTypeActionProto {
   // The new type parameters for the column, if the new type has
   // parameters. Note that unlike with CREATE TABLE, the child_list is
   // populated for ARRAY and STRUCT types.
+  // TODO Use updated_annotations to pass type parameters.
   optional TypeParametersProto updated_type_parameters = 5;
+  // The new annotations for the column including the new collation
+  // specifications. Changing options using SET DATA TYPE action is not
+  // allowed.
+  optional ResolvedColumnAnnotationsProto updated_annotations = 6;
 }
 
 // DROP COLUMN action for ALTER TABLE statement
@@ -3288,6 +3363,24 @@ message ResolvedDropColumnActionProto {
   optional string name = 3;
 }
 
+// RENAME COLUMN action for ALTER TABLE statement.
+//
+// <name> is the name of the column to rename.
+// <new_name> is the new name of the column.
+//
+// RENAME COLUMN actions cannot be part of the same alter_action_list as any
+// other type of action.
+// Chains of RENAME COLUMN will be interpreted as a sequence of mutations.
+// The order of actions matters. Each <name> refers to a column name that
+// exists after all preceding renames have been applied.
+message ResolvedRenameColumnActionProto {
+  optional ResolvedAlterActionProto parent = 1;
+
+  optional bool is_if_exists = 4;
+  optional string name = 2;
+  optional string new_name = 3;
+}
+
 // SET AS action for generic ALTER <entity_type> statement.
 // Exactly one of <entity_body_json>, <entity_body_text> should be non-empty.
 //
@@ -3298,6 +3391,19 @@ message ResolvedSetAsActionProto {
 
   optional string entity_body_json = 2;
   optional string entity_body_text = 3;
+}
+
+// SET DEFAULT COLLATE clause for generic ALTER <entity_type> statement.
+//
+// <collation_name> specifies the new default collation specification for a
+//   table or schema. Modifying the default collation for a table or schema
+//   does not affect any existing columns or tables - the new default
+//   collation only affects new tables and/or columns if applicable. Only
+//   string literals are allowed for this field.
+message ResolvedSetCollateClauseProto {
+  optional ResolvedAlterActionProto parent = 1;
+
+  optional AnyResolvedExprProto collation_name = 2;
 }
 
 // This statement:
@@ -4220,9 +4326,17 @@ message ResolvedUnpivotScanProto {
   // new <value_column_list> and the column group labels/names
   // in the <label_column>.
   repeated ResolvedUnpivotArgProto unpivot_arg_list = 6;
+  // The columns from <input_scan> that are not unpivoted in UNPIVOT
+  // IN clause. Columns in <projected_input_column_list> and
+  // <unpivot_arg_list> are mutually exclusive and their union is the
+  // complete set of columns in the unpivot input-source.
+  //
+  // The expression of each ResolvedComputedColumn is a
+  // ResolvedColumnRef that references a column from <input_scan>.
+  repeated ResolvedComputedColumnProto projected_input_column_list = 7;
   // Whether we need to include the rows from output where ALL columns
   // from <value_column_list> are null.
-  optional bool include_nulls = 7;
+  optional bool include_nulls = 8;
 }
 
 // CLONE DATA INTO <table_name> FROM ...
@@ -4274,5 +4388,81 @@ message ResolvedAnalyzeStmtProto {
 
   repeated ResolvedOptionProto option_list = 2;
   repeated ResolvedTableAndColumnInfoProto table_and_column_index_list = 3;
+}
+
+// LOAD DATA {OVERWRITE|INTO} <table_name> ... FROM FILES ...
+//   This statement loads an external file to a new or existing table.
+//   See (broken link).
+//
+// <insertion_mode> either OVERWRITE or APPEND (INTO) the destination table.
+// <name_path> the table to load data into.
+// <output_column_list> the list of visible columns of the destination table.
+//   If <column_definition_list> is explicitly specified:
+//     <output_column_list> =
+//         <column_definition_list> + <with_partition_columns>
+//   Or if the table already exists:
+//     <output_column_list> = <name_path>.columns
+//   Last, if the table doesn't exist and <column_definition_list> isn't
+//   explicitly specified:
+//     <output_column_list> = detected-columns + <with_partition_columns>
+// <column_definition_list> If not empty, the explicit columns of the
+//     destination table. Must be coerciable from the source file's fields.
+//
+//     When the destination table doesn't already exist, it will be created
+//     with these columns (plus the additional columns from WITH PARTITION
+//     COLUMNS subclause); otherwise, the destination table's schema must
+//     match the explicit columns by both name and type.
+// <pseudo_column_list> is a list of pseudo-columns expected to be present on
+//     the created table (provided by AnalyzerOptions::SetDdlPseudoColumns*).
+//     These can be referenced in expressions in <partition_by_list> and
+//     <cluster_by_list>.
+// <primary_key> specifies the PRIMARY KEY constraint on the table. It is
+//     nullptr when no PRIMARY KEY is specified.
+//     If specified, and the table already exists, the primary_key is
+//     required to be the same as that of the existing.
+// <foreign_key_list> specifies the FOREIGN KEY constraints on the table.
+//     If specified, and the table already exists, the foreign keys are
+//     required to be the same as that of the existing.
+// <check_constraint_list> specifies the ZETASQL_CHECK constraints on the table.
+//     If specified, and the table already exists, the constraints are
+//     required to be the same as that of the existing.
+// <partition_by_list> The list of columns to partition the destination
+//     table. Similar to <column_definition_list>, it must match the
+//     destination table's partitioning spec if it already exists.
+// <cluster_by_list> The list of columns to cluster the destination
+//     table. Similar to <column_definition_list>, it must match the
+//     destination table's partitioning spec if it already exists.
+// <option_list> the options list describing the destination table.
+//     If the destination doesn't already exist, it will be created with
+//     these options; otherwise it must match the existing destination
+//     table's options.
+// <with_partition_columns> The columns decoded from partitioned source
+//     files. If the destination table doesn't already exist, these columns
+//     will be implicitly added to the destination table's schema; otherwise
+//     the destination table must already have these columns
+//     (matching by both names and types).
+//
+//     The hive partition columns from the source file do not automatically
+//     partition the destination table. To apply the partition, the
+//     <partition_by_list> must be specified.
+// <connection> optional connection reference for accessing files.
+// <from_files_option_list> the options list describing the source file(s).
+message ResolvedAuxLoadDataStmtProto {
+  optional ResolvedStatementProto parent = 1;
+
+  optional ResolvedAuxLoadDataStmtEnums.InsertionMode insertion_mode = 2;
+  repeated string name_path = 3;
+  repeated ResolvedOutputColumnProto output_column_list = 4;
+  repeated ResolvedColumnDefinitionProto column_definition_list = 5;
+  repeated ResolvedColumnProto pseudo_column_list = 6;
+  optional ResolvedPrimaryKeyProto primary_key = 7;
+  repeated ResolvedForeignKeyProto foreign_key_list = 8;
+  repeated ResolvedCheckConstraintProto check_constraint_list = 9;
+  repeated AnyResolvedExprProto partition_by_list = 10;
+  repeated AnyResolvedExprProto cluster_by_list = 11;
+  repeated ResolvedOptionProto option_list = 12;
+  optional ResolvedWithPartitionColumnsProto with_partition_columns = 13;
+  optional ResolvedConnectionProto connection = 14;
+  repeated ResolvedOptionProto from_files_option_list = 15;
 }
 
