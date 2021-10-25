@@ -1,13 +1,12 @@
-import { ZetaSQLClient } from './ZetaSQLClient';
 import { SimpleTable } from './SimpleTable';
 import { Type } from './Type';
 import { TypeFactory } from './TypeFactory';
-import { GetBuiltinFunctionsResponse } from './types/zetasql/local_service/GetBuiltinFunctionsResponse';
 import { RegisterCatalogRequest } from './types/zetasql/local_service/RegisterCatalogRequest';
+import { UnregisterRequest } from './types/zetasql/local_service/UnregisterRequest';
 import { SimpleCatalogProto } from './types/zetasql/SimpleCatalogProto';
 import { ZetaSQLBuiltinFunctionOptionsProto } from './types/zetasql/ZetaSQLBuiltinFunctionOptionsProto';
 import { ZetaSQLBuiltinFunctionOptions } from './ZetaSQLBuiltinFunctionOptions';
-import { UnregisterRequest } from './types/zetasql/local_service/UnregisterRequest';
+import { ZetaSQLClient } from './ZetaSQLClient';
 import Long = require('long');
 
 export class SimpleCatalog {
@@ -112,14 +111,9 @@ export class SimpleCatalog {
       const response = await ZetaSQLClient.INSTANCE.getBuiltinFunctions(
         this.builtinFunctionOptions,
       );
-      this.processGetBuiltinFunctionsResponse(response);
     } catch (e) {
       throw new Error(e);
     }
-  }
-
-  processGetBuiltinFunctionsResponse(response: GetBuiltinFunctionsResponse) {
-    //TODO
   }
 
   serialize(): SimpleCatalogProto {

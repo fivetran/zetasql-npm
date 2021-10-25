@@ -1,16 +1,16 @@
 import * as grpc from '@grpc/grpc-js';
 import * as protoLoader from '@grpc/proto-loader';
-import { ProtoGrpcType } from './types/local_service';
-import { LanguageOptionsRequest } from './types/zetasql/local_service/LanguageOptionsRequest';
-import { ZetaSqlLocalServiceClient } from './types/zetasql/local_service/ZetaSqlLocalService';
 import { promisify } from 'util';
-import { LanguageOptionsProto } from './types/zetasql/LanguageOptionsProto';
-import { ZetaSQLBuiltinFunctionOptionsProto } from './types/zetasql/ZetaSQLBuiltinFunctionOptionsProto';
-import { RegisterCatalogRequest } from './types/zetasql/local_service/RegisterCatalogRequest';
-import { FormatSqlRequest } from './types/zetasql/local_service/FormatSqlRequest';
 import { AnalyzeRequest } from '.';
+import { ProtoGrpcType } from './types/local_service';
+import { LanguageOptionsProto } from './types/zetasql/LanguageOptionsProto';
 import { ExtractTableNamesFromStatementRequest } from './types/zetasql/local_service/ExtractTableNamesFromStatementRequest';
+import { FormatSqlRequest } from './types/zetasql/local_service/FormatSqlRequest';
+import { LanguageOptionsRequest } from './types/zetasql/local_service/LanguageOptionsRequest';
+import { RegisterCatalogRequest } from './types/zetasql/local_service/RegisterCatalogRequest';
 import { UnregisterRequest } from './types/zetasql/local_service/UnregisterRequest';
+import { ZetaSqlLocalServiceClient } from './types/zetasql/local_service/ZetaSqlLocalService';
+import { ZetaSQLBuiltinFunctionOptionsProto } from './types/zetasql/ZetaSQLBuiltinFunctionOptionsProto';
 
 export class ZetaSQLClient {
   static HOST = 'localhost:50051'; // TOOD: customize port

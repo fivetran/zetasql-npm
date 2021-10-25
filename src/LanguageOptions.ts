@@ -1,6 +1,6 @@
-import { ZetaSQLClient } from './ZetaSQLClient';
 import { LanguageFeature } from './types/zetasql/LanguageFeature';
 import { LanguageOptionsProto } from './types/zetasql/LanguageOptionsProto';
+import { ZetaSQLClient } from './ZetaSQLClient';
 
 export class LanguageOptions {
   static maxFeatures: LanguageOptionsProto = null;

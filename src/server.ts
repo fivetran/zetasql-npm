@@ -1,5 +1,5 @@
-import { Worker } from 'worker_threads';
 import * as path from 'path';
+import { Worker } from 'worker_threads';
 
 let worker: Worker;
 

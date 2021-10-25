@@ -96,16 +96,6 @@ export abstract class TypeFactory {
   static createSimpleType(kind: TypeKind): SimpleType {
     return TypeFactory.SIMPLE_TYPES.get(kind);
   }
-
-  // /**
-  //  * Returns a ProtoType with a proto message descriptor that is loaded from FileDescriptorSet with
-  //  * {@link DescriptorPool}.
-  //  *
-  //  * @param descriptor A ZetaSQLDescriptor that defines the ProtoType. A ZetaSQLDescriptor can
-  //  *     be retrieved from a DescriptorPool, which in turn can be created by loading a
-  //  *     FileDescriptorSet protobuf.
-  //  */
-  // abstract createProtoType(descriptor: ZetaSQLDescriptor): ProtoType;
 }
 
 abstract class AbstractTypeFactory extends TypeFactory {}
