@@ -1,3 +1,4 @@
+import * as Long from 'long';
 import { SimpleTable } from './SimpleTable';
 import { Type } from './Type';
 import { TypeFactory } from './TypeFactory';
@@ -7,7 +8,6 @@ import { SimpleCatalogProto } from './types/zetasql/SimpleCatalogProto';
 import { ZetaSQLBuiltinFunctionOptionsProto } from './types/zetasql/ZetaSQLBuiltinFunctionOptionsProto';
 import { ZetaSQLBuiltinFunctionOptions } from './ZetaSQLBuiltinFunctionOptions';
 import { ZetaSQLClient } from './ZetaSQLClient';
-import Long = require('long');
 
 export class SimpleCatalog {
   name: string;

@@ -1,4 +1,4 @@
-import Long = require('long');
+import * as Long from 'long';
 import { SimpleColumn } from './SimpleColumn';
 import { SimpleTableProto } from './types/zetasql/SimpleTableProto';
 
