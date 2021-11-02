@@ -1,4 +1,4 @@
-// Original file: protos/zetasql/public/deprecation_warning.proto
+// Original file: src/protos/zetasql/public/deprecation_warning.proto
 
 import type { ErrorLocation as _zetasql_ErrorLocation, ErrorLocation__Output as _zetasql_ErrorLocation__Output } from '../zetasql/ErrorLocation';
 import type { DeprecationWarning as _zetasql_DeprecationWarning, DeprecationWarning__Output as _zetasql_DeprecationWarning__Output } from '../zetasql/DeprecationWarning';

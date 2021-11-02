@@ -1,4 +1,4 @@
-// Original file: protos/zetasql/proto/function.proto
+// Original file: src/protos/zetasql/proto/function.proto
 
 import type { _zetasql_FunctionEnums_WindowOrderSupport } from '../zetasql/FunctionEnums';
 import type { _zetasql_FunctionEnums_Volatility } from '../zetasql/FunctionEnums';

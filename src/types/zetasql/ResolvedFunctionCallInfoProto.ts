@@ -1,4 +1,4 @@
-// Original file: protos/zetasql/proto/function.proto
+// Original file: src/protos/zetasql/proto/function.proto
 
 
 export interface ResolvedFunctionCallInfoProto {

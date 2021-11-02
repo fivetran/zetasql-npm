@@ -1,4 +1,4 @@
-// Original file: protos/zetasql/resolved_ast/resolved_ast.proto
+// Original file: src/protos/zetasql/resolved_ast/resolved_ast.proto
 
 import type { ResolvedSetOptionsActionProto as _zetasql_ResolvedSetOptionsActionProto, ResolvedSetOptionsActionProto__Output as _zetasql_ResolvedSetOptionsActionProto__Output } from '../zetasql/ResolvedSetOptionsActionProto';
 import type { ResolvedAddColumnActionProto as _zetasql_ResolvedAddColumnActionProto, ResolvedAddColumnActionProto__Output as _zetasql_ResolvedAddColumnActionProto__Output } from '../zetasql/ResolvedAddColumnActionProto';

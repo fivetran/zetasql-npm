@@ -1,4 +1,4 @@
-// Original file: protos/zetasql/proto/function.proto
+// Original file: src/protos/zetasql/proto/function.proto
 
 import type { FreestandingDeprecationWarning as _zetasql_FreestandingDeprecationWarning, FreestandingDeprecationWarning__Output as _zetasql_FreestandingDeprecationWarning__Output } from '../zetasql/FreestandingDeprecationWarning';
 import type { LanguageFeature as _zetasql_LanguageFeature } from '../zetasql/LanguageFeature';

@@ -1,4 +1,4 @@
-// Original file: protos/zetasql/public/function.proto
+// Original file: src/protos/zetasql/public/function.proto
 
 export enum SignatureArgumentKind {
   ARG_TYPE_FIXED = 0,

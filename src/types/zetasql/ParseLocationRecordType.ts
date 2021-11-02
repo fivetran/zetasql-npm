@@ -1,4 +1,4 @@
-// Original file: protos/zetasql/public/options.proto
+// Original file: src/protos/zetasql/public/options.proto
 
 export enum ParseLocationRecordType {
   PARSE_LOCATION_RECORD_NONE = 0,

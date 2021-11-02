@@ -1,4 +1,4 @@
-// Original file: protos/zetasql/proto/options.proto
+// Original file: src/protos/zetasql/proto/options.proto
 
 import type { TypeProto as _zetasql_TypeProto, TypeProto__Output as _zetasql_TypeProto__Output } from '../zetasql/TypeProto';
 

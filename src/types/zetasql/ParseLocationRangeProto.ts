@@ -1,4 +1,4 @@
-// Original file: protos/zetasql/public/parse_location_range.proto
+// Original file: src/protos/zetasql/public/parse_location_range.proto
 
 
 export interface ParseLocationRangeProto {

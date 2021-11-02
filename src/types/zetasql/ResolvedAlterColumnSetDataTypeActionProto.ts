@@ -1,4 +1,4 @@
-// Original file: protos/zetasql/resolved_ast/resolved_ast.proto
+// Original file: src/protos/zetasql/resolved_ast/resolved_ast.proto
 
 import type { ResolvedAlterActionProto as _zetasql_ResolvedAlterActionProto, ResolvedAlterActionProto__Output as _zetasql_ResolvedAlterActionProto__Output } from '../zetasql/ResolvedAlterActionProto';
 import type { TypeProto as _zetasql_TypeProto, TypeProto__Output as _zetasql_TypeProto__Output } from '../zetasql/TypeProto';

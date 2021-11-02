@@ -1,7 +1,7 @@
-// Original file: protos/zetasql/resolved_ast/resolved_ast_enums.proto
+// Original file: src/protos/zetasql/resolved_ast/resolved_ast_enums.proto
 
 
-// Original file: protos/zetasql/resolved_ast/resolved_ast_enums.proto
+// Original file: src/protos/zetasql/resolved_ast/resolved_ast_enums.proto
 
 export enum _zetasql_ResolvedMergeWhenEnums_ActionType {
   INSERT = 0,
@@ -9,7 +9,7 @@ export enum _zetasql_ResolvedMergeWhenEnums_ActionType {
   DELETE = 2,
 }
 
-// Original file: protos/zetasql/resolved_ast/resolved_ast_enums.proto
+// Original file: src/protos/zetasql/resolved_ast/resolved_ast_enums.proto
 
 export enum _zetasql_ResolvedMergeWhenEnums_MatchType {
   MATCHED = 0,

@@ -1,4 +1,4 @@
-// Original file: protos/zetasql/resolved_ast/resolved_ast.proto
+// Original file: src/protos/zetasql/resolved_ast/resolved_ast.proto
 
 import type { ResolvedExplainStmtProto as _zetasql_ResolvedExplainStmtProto, ResolvedExplainStmtProto__Output as _zetasql_ResolvedExplainStmtProto__Output } from '../zetasql/ResolvedExplainStmtProto';
 import type { ResolvedQueryStmtProto as _zetasql_ResolvedQueryStmtProto, ResolvedQueryStmtProto__Output as _zetasql_ResolvedQueryStmtProto__Output } from '../zetasql/ResolvedQueryStmtProto';

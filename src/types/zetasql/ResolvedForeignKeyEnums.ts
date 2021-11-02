@@ -1,7 +1,7 @@
-// Original file: protos/zetasql/resolved_ast/resolved_ast_enums.proto
+// Original file: src/protos/zetasql/resolved_ast/resolved_ast_enums.proto
 
 
-// Original file: protos/zetasql/resolved_ast/resolved_ast_enums.proto
+// Original file: src/protos/zetasql/resolved_ast/resolved_ast_enums.proto
 
 export enum _zetasql_ResolvedForeignKeyEnums_ActionOperation {
   NO_ACTION = 0,
@@ -10,7 +10,7 @@ export enum _zetasql_ResolvedForeignKeyEnums_ActionOperation {
   SET_NULL = 3,
 }
 
-// Original file: protos/zetasql/resolved_ast/resolved_ast_enums.proto
+// Original file: src/protos/zetasql/resolved_ast/resolved_ast_enums.proto
 
 export enum _zetasql_ResolvedForeignKeyEnums_MatchMode {
   SIMPLE = 0,

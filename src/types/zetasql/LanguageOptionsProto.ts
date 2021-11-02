@@ -1,4 +1,4 @@
-// Original file: protos/zetasql/proto/options.proto
+// Original file: src/protos/zetasql/proto/options.proto
 
 import type { NameResolutionMode as _zetasql_NameResolutionMode } from '../zetasql/NameResolutionMode';
 import type { ProductMode as _zetasql_ProductMode } from '../zetasql/ProductMode';

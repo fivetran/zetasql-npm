@@ -1,4 +1,4 @@
-// Original file: protos/zetasql/proto/function.proto
+// Original file: src/protos/zetasql/proto/function.proto
 
 import type { SignatureArgumentKind as _zetasql_SignatureArgumentKind } from '../zetasql/SignatureArgumentKind';
 import type { TypeProto as _zetasql_TypeProto, TypeProto__Output as _zetasql_TypeProto__Output } from '../zetasql/TypeProto';

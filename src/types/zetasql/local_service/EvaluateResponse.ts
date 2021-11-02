@@ -1,4 +1,4 @@
-// Original file: protos/local_service.proto
+// Original file: src/protos/local_service.proto
 
 import type { ValueProto as _zetasql_ValueProto, ValueProto__Output as _zetasql_ValueProto__Output } from '../../zetasql/ValueProto';
 import type { PreparedState as _zetasql_local_service_PreparedState, PreparedState__Output as _zetasql_local_service_PreparedState__Output } from '../../zetasql/local_service/PreparedState';

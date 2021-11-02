@@ -1,4 +1,4 @@
-// Original file: protos/zetasql/resolved_ast/resolved_ast.proto
+// Original file: src/protos/zetasql/resolved_ast/resolved_ast.proto
 
 import type { ResolvedPrimaryKeyProto as _zetasql_ResolvedPrimaryKeyProto, ResolvedPrimaryKeyProto__Output as _zetasql_ResolvedPrimaryKeyProto__Output } from '../zetasql/ResolvedPrimaryKeyProto';
 import type { ResolvedForeignKeyProto as _zetasql_ResolvedForeignKeyProto, ResolvedForeignKeyProto__Output as _zetasql_ResolvedForeignKeyProto__Output } from '../zetasql/ResolvedForeignKeyProto';

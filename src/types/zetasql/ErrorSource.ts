@@ -1,4 +1,4 @@
-// Original file: protos/zetasql/public/error_location.proto
+// Original file: src/protos/zetasql/public/error_location.proto
 
 import type { ErrorLocation as _zetasql_ErrorLocation, ErrorLocation__Output as _zetasql_ErrorLocation__Output } from '../zetasql/ErrorLocation';
 

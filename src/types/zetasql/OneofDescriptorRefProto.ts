@@ -1,4 +1,4 @@
-// Original file: protos/zetasql/resolved_ast/serialization.proto
+// Original file: src/protos/zetasql/resolved_ast/serialization.proto
 
 import type { ProtoTypeProto as _zetasql_ProtoTypeProto, ProtoTypeProto__Output as _zetasql_ProtoTypeProto__Output } from '../zetasql/ProtoTypeProto';
 

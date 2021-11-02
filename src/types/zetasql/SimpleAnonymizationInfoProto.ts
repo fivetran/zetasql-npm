@@ -1,4 +1,4 @@
-// Original file: protos/zetasql/public/simple_table.proto
+// Original file: src/protos/zetasql/public/simple_table.proto
 
 
 export interface SimpleAnonymizationInfoProto {

@@ -1,4 +1,4 @@
-// Original file: protos/zetasql/public/type.proto
+// Original file: src/protos/zetasql/public/type.proto
 
 export enum TypeKind {
   __TypeKind__switch_must_have_a_default__ = -1,

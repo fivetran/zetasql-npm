@@ -1,4 +1,4 @@
-// Original file: protos/zetasql/proto/function.proto
+// Original file: src/protos/zetasql/proto/function.proto
 
 import type { TVFRelationColumnProto as _zetasql_TVFRelationColumnProto, TVFRelationColumnProto__Output as _zetasql_TVFRelationColumnProto__Output } from '../zetasql/TVFRelationColumnProto';
 

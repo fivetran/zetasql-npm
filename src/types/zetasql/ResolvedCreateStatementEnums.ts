@@ -1,7 +1,7 @@
-// Original file: protos/zetasql/resolved_ast/resolved_ast_enums.proto
+// Original file: src/protos/zetasql/resolved_ast/resolved_ast_enums.proto
 
 
-// Original file: protos/zetasql/resolved_ast/resolved_ast_enums.proto
+// Original file: src/protos/zetasql/resolved_ast/resolved_ast_enums.proto
 
 export enum _zetasql_ResolvedCreateStatementEnums_CreateMode {
   CREATE_DEFAULT = 0,
@@ -9,7 +9,7 @@ export enum _zetasql_ResolvedCreateStatementEnums_CreateMode {
   CREATE_IF_NOT_EXISTS = 2,
 }
 
-// Original file: protos/zetasql/resolved_ast/resolved_ast_enums.proto
+// Original file: src/protos/zetasql/resolved_ast/resolved_ast_enums.proto
 
 export enum _zetasql_ResolvedCreateStatementEnums_CreateScope {
   CREATE_DEFAULT_SCOPE = 0,
@@ -18,7 +18,7 @@ export enum _zetasql_ResolvedCreateStatementEnums_CreateScope {
   CREATE_TEMP = 3,
 }
 
-// Original file: protos/zetasql/resolved_ast/resolved_ast_enums.proto
+// Original file: src/protos/zetasql/resolved_ast/resolved_ast_enums.proto
 
 export enum _zetasql_ResolvedCreateStatementEnums_DeterminismLevel {
   DETERMINISM_UNSPECIFIED = 0,
@@ -29,7 +29,7 @@ export enum _zetasql_ResolvedCreateStatementEnums_DeterminismLevel {
   DETERMINISM_VOLATILE = 5,
 }
 
-// Original file: protos/zetasql/resolved_ast/resolved_ast_enums.proto
+// Original file: src/protos/zetasql/resolved_ast/resolved_ast_enums.proto
 
 export enum _zetasql_ResolvedCreateStatementEnums_SqlSecurity {
   SQL_SECURITY_UNSPECIFIED = 0,

@@ -1,7 +1,7 @@
-// Original file: protos/zetasql/public/function.proto
+// Original file: src/protos/zetasql/public/function.proto
 
 
-// Original file: protos/zetasql/public/function.proto
+// Original file: src/protos/zetasql/public/function.proto
 
 export enum _zetasql_FunctionEnums_ArgumentCardinality {
   REQUIRED = 0,
@@ -9,7 +9,7 @@ export enum _zetasql_FunctionEnums_ArgumentCardinality {
   OPTIONAL = 2,
 }
 
-// Original file: protos/zetasql/public/function.proto
+// Original file: src/protos/zetasql/public/function.proto
 
 export enum _zetasql_FunctionEnums_ArgumentCollationMode {
   AFFECTS_NONE = 0,
@@ -18,7 +18,7 @@ export enum _zetasql_FunctionEnums_ArgumentCollationMode {
   AFFECTS_OPERATION_AND_PROPAGATION = 3,
 }
 
-// Original file: protos/zetasql/public/function.proto
+// Original file: src/protos/zetasql/public/function.proto
 
 export enum _zetasql_FunctionEnums_Mode {
   SCALAR = 1,
@@ -26,7 +26,7 @@ export enum _zetasql_FunctionEnums_Mode {
   ANALYTIC = 3,
 }
 
-// Original file: protos/zetasql/public/function.proto
+// Original file: src/protos/zetasql/public/function.proto
 
 export enum _zetasql_FunctionEnums_ProcedureArgumentMode {
   NOT_SET = 0,
@@ -35,7 +35,7 @@ export enum _zetasql_FunctionEnums_ProcedureArgumentMode {
   INOUT = 3,
 }
 
-// Original file: protos/zetasql/public/function.proto
+// Original file: src/protos/zetasql/public/function.proto
 
 export enum _zetasql_FunctionEnums_TableValuedFunctionType {
   INVALID = 0,
@@ -45,7 +45,7 @@ export enum _zetasql_FunctionEnums_TableValuedFunctionType {
   FORWARD_INPUT_SCHEMA_TO_OUTPUT_SCHEMA_WITH_APPENDED_COLUMNS = 7,
 }
 
-// Original file: protos/zetasql/public/function.proto
+// Original file: src/protos/zetasql/public/function.proto
 
 export enum _zetasql_FunctionEnums_Volatility {
   IMMUTABLE = 0,
@@ -53,7 +53,7 @@ export enum _zetasql_FunctionEnums_Volatility {
   VOLATILE = 2,
 }
 
-// Original file: protos/zetasql/public/function.proto
+// Original file: src/protos/zetasql/public/function.proto
 
 export enum _zetasql_FunctionEnums_WindowOrderSupport {
   ORDER_UNSUPPORTED = 0,

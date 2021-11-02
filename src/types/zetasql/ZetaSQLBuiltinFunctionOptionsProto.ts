@@ -1,4 +1,4 @@
-// Original file: protos/zetasql/proto/options.proto
+// Original file: src/protos/zetasql/proto/options.proto
 
 import type { LanguageOptionsProto as _zetasql_LanguageOptionsProto, LanguageOptionsProto__Output as _zetasql_LanguageOptionsProto__Output } from '../zetasql/LanguageOptionsProto';
 import type { FunctionSignatureId as _zetasql_FunctionSignatureId } from '../zetasql/FunctionSignatureId';

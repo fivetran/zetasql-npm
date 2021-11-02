@@ -1,4 +1,4 @@
-// Original file: protos/zetasql/public/type_parameters.proto
+// Original file: src/protos/zetasql/public/type_parameters.proto
 
 import type { SimpleValueProto as _zetasql_SimpleValueProto, SimpleValueProto__Output as _zetasql_SimpleValueProto__Output } from '../zetasql/SimpleValueProto';
 

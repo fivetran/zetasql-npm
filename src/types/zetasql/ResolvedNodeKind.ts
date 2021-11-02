@@ -1,4 +1,4 @@
-// Original file: protos/zetasql/resolved_ast/resolved_node_kind.proto
+// Original file: src/protos/zetasql/resolved_ast/resolved_node_kind.proto
 
 export enum ResolvedNodeKind {
   RESOLVED_LITERAL = 3,
