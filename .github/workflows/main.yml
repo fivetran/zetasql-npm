@@ -64,12 +64,12 @@ jobs:
           version: 3.7.2
 
       - name: Build macos
-        if: steps.cache-zetasql.outputs.cache-hit != 'true' && ${{ matrix.os }} == 'macos-latest'
+        if: steps.cache-zetasql.outputs.cache-hit != 'true' && ${{ runner.os }} == 'macos-latest'
         working-directory: ./${{ matrix.working-directory }}
         run: bazel build //zetasql/local_service:libremote_server.dylib --copt="-Wno-error=c99-extensions"
 
       - name: Build linux
-        if: steps.cache-zetasql.outputs.cache-hit != 'true' && ${{ matrix.os }} == 'ubuntu-latest'
+        if: steps.cache-zetasql.outputs.cache-hit != 'true' && ${{ runner.os }} == 'ubuntu-latest'
         working-directory: ./${{ matrix.working-directory }}
         run: bazel build ...
 
