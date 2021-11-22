@@ -12,6 +12,11 @@ on:
         description: 'Log level'
         required: true
         default: 'warning'
+      buildMode:
+        description: 'Build mode'
+        required: true
+        options: ['build', 'build and publish']
+        default: 'build'
 
 jobs:
   build-zetasql:
@@ -67,10 +72,9 @@ jobs:
         run: bazel build ...
 
   publish-npm:
+    if: ${{ github.event.inputs.buildMode }} == 'build and publish'
     runs-on: ubuntu-latest
-
     needs: build-zetasql
-
     steps:
       - name: Checkout zetasql-npm
         uses: actions/checkout@v2
