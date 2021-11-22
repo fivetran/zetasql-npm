@@ -15,8 +15,10 @@ on:
       buildMode:
         description: 'Build mode'
         required: true
-        options: ['build', 'build and publish']
-        default: 'build'
+        type: choice
+        options:
+          - build
+          - build and publish
 
 jobs:
   build-zetasql:
