@@ -25,7 +25,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [macos-latest, ubuntu-latest]
         include:
           - os: macos-latest
           - working-directory: build/zetasql-macos
@@ -36,10 +36,6 @@ jobs:
           - os: ubuntu-latest
           - working-directory: build/zetasql-linux
           - cache-path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
-
-          - os: windows-latest
-          - working-directory: build/zetasql-windows
-          - cache-path: build/zetasql-windows/bazel-bin/zetasql/local_service/libremote_server.exe
 
     steps:
       - name: Checkout zetasql
@@ -74,11 +70,6 @@ jobs:
 
       - name: Build linux
         if: steps.cache-zetasql.outputs.cache-hit != 'true' && matrix.os == 'ubuntu-latest'
-        working-directory: ./${{ matrix.working-directory }}
-        run: bazel build ...
-
-      - name: Build windows
-        if: steps.cache-zetasql.outputs.cache-hit != 'true' && matrix.os == 'windows-latest'
         working-directory: ./${{ matrix.working-directory }}
         run: bazel build ...
 
