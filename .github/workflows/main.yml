@@ -25,17 +25,24 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest]
+        os: [macos-latest, ubuntu-latest, windows-latest]
         include:
           - os: macos-latest
           - working-directory: build/zetasql-macos
           - cache-path: |
               build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
               build/zetasql-macos/protos
+          - shell: bash
 
           - os: ubuntu-latest
           - working-directory: build/zetasql-linux
           - cache-path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
+          - shell: bash
+
+          - os: windows-latest
+          - working-directory: build/zetasql-windows
+          - cache-path: build/zetasql-windows/bazel-bin/zetasql/local_service/libremote_server.exe
+          - shell: pwsh
 
     steps:
       - name: Checkout zetasql
@@ -47,7 +54,7 @@ jobs:
       - name: Set variables
         working-directory: ./${{ matrix.working-directory }}
         id: vars
-        shell: bash
+        shell: ${{ matrix.shell }}
         run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
 
       - name: Cache build results
@@ -70,6 +77,11 @@ jobs:
 
       - name: Build linux
         if: steps.cache-zetasql.outputs.cache-hit != 'true' && matrix.os == 'ubuntu-latest'
+        working-directory: ./${{ matrix.working-directory }}
+        run: bazel build ...
+
+      - name: Build windows
+        if: steps.cache-zetasql.outputs.cache-hit != 'true' && matrix.os == 'windows-latest'
         working-directory: ./${{ matrix.working-directory }}
         run: bazel build ...
 
