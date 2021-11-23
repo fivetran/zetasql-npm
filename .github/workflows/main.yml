@@ -32,17 +32,14 @@ jobs:
           - cache-path: |
               build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
               build/zetasql-macos/protos
-          - shell: bash
 
           - os: ubuntu-latest
           - working-directory: build/zetasql-linux
           - cache-path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
-          - shell: bash
 
           - os: windows-latest
           - working-directory: build/zetasql-windows
           - cache-path: build/zetasql-windows/bazel-bin/zetasql/local_service/libremote_server.exe
-          - shell: pwsh
 
     steps:
       - name: Checkout zetasql
@@ -54,7 +51,7 @@ jobs:
       - name: Set variables
         working-directory: ./${{ matrix.working-directory }}
         id: vars
-        shell: ${{ matrix.shell }}
+        shell: bash
         run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
 
       - name: Cache build results
