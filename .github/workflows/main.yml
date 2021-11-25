@@ -68,7 +68,8 @@ jobs:
 
       - name: Set install name (macos)
         if: matrix.os == 'macos-latest'
-        run: install_name_tool -id "@loader_path/libremote_server.dylib" /build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
+        working-directory: ./build
+        run: install_name_tool -id "@loader_path/libremote_server.dylib" zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
 
       - name: Build linux
         if: steps.cache-zetasql-build.outputs.cache-hit != 'true' && matrix.os == 'ubuntu-latest'
