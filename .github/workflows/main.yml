@@ -73,10 +73,7 @@ jobs:
       - name: Set install name (macos)
         working-directory: ./build
         shell: bash
-        run: |
-          pwd
-          ls ./zetasql-macos/bazel-bin/zetasql/local_service/
-          install_name_tool -id "@loader_path/libremote_server.dylib" ./zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
+        run: ls ./zetasql-macos/bazel-bin/zetasql/local_service/
 
   package:
     runs-on: ubuntu-latest
