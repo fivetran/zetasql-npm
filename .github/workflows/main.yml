@@ -7,18 +7,6 @@ on:
       - '*'
 
   workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
-      buildMode:
-        description: 'Build mode'
-        required: true
-        type: choice
-        options:
-          - build
-          - build and publish
 
 jobs:
   build-zetasql:
@@ -28,12 +16,12 @@ jobs:
         os: [macos-latest, ubuntu-latest]
         include:
           - os: macos-latest
-          - working-directory: build/zetasql-macos
-          - cache-path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
+          - working-directory: ./build/zetasql-macos
+          - cache-path: ./build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
 
           - os: ubuntu-latest
-          - working-directory: build/zetasql-linux
-          - cache-path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
+          - working-directory: ./build/zetasql-linux
+          - cache-path: ./build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
 
     steps:
       - name: Checkout zetasql
@@ -43,17 +31,17 @@ jobs:
           path: ${{ matrix.working-directory }}
 
       - name: Set variables
-        working-directory: ./${{ matrix.working-directory }}
+        working-directory: ${{ matrix.working-directory }}
         id: vars
         shell: bash
         run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
 
-      - name: Cache zetasql build results
+      - name: Cache zetasql build
         id: cache-zetasql-build
         uses: actions/cache@v2
         with:
           path: ${{ matrix.cache-path }}
-          key: ${{ matrix.os }}-${{ steps.vars.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
+          key: zetasql-build-${{ steps.vars.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
 
       - name: Install Bazel
         if: steps.cache-zetasql.outputs.cache-hit != 'true'
@@ -66,48 +54,57 @@ jobs:
         working-directory: ./${{ matrix.working-directory }}
         run: bazel build //zetasql/local_service:libremote_server.dylib --copt="-Wno-error=c99-extensions"
 
-      - name: Set install name (macos)
-        if: matrix.os == 'macos-latest'
-        working-directory: ./build
-        shell: bash
-        run: install_name_tool -id "@loader_path/libremote_server.dylib" zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
-
       - name: Build linux
         if: steps.cache-zetasql-build.outputs.cache-hit != 'true' && matrix.os == 'ubuntu-latest'
         working-directory: ./${{ matrix.working-directory }}
         run: bazel build ...
 
-  package:
-    runs-on: ubuntu-latest
+  post-build:
+    runs-on: macos-latest
     needs: build-zetasql
     steps:
-      - name: Checkout zetasql-npm
-        uses: actions/checkout@v2
-        with:
-          path: build/zetasql-npm
-
       - name: Load macos build
         id: cache-zetasql-macos
         uses: actions/cache@v2
         with:
-          path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
-          key: macos-latest-${{ steps.vars.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
+          path: ./build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
+          key: zetasql-build-${{ steps.vars.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
 
-      - name: Load linux build
+      - name: Set install name (macos)
+        if: matrix.os == 'macos-latest'
+        working-directory: ./build
+        shell: bash
+        run: |
+          pwd
+          ls ./zetasql-macos/bazel-bin/zetasql/local_service/
+          install_name_tool -id "@loader_path/libremote_server.dylib" ./zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
+
+  package:
+    runs-on: ubuntu-latest
+    needs: post-build
+    steps:
+      - name: Checkout zetasql-npm
+        uses: actions/checkout@v2
+        with:
+          path: ./build/zetasql-npm
+
+      - name: Load zetasql build
         id: cache-zetasql-linux
         uses: actions/cache@v2
         with:
-          path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
-          key: ubuntu-latest-${{ steps.vars.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
+          path: |
+            ./build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
+            ./build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
+          key: zetasql-build-${{ steps.vars.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
 
       - name: Copy files
         working-directory: ./build
         shell: bash
         run: |
           mkdir -p zetasql-npm/lib/zetasql
-          cp zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib zetasql-npm/lib/zetasql/
-          cp zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so zetasql-npm/lib/zetasql/
-          cp -R zetasql-npm/src/protos zetasql-npm/lib/protos
+          cp ./zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib ./zetasql-npm/lib/zetasql/
+          cp ./zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so ./zetasql-npm/lib/zetasql/
+          cp -R ./zetasql-npm/src/protos ./zetasql-npm/lib/protos
 
       - name: Build and Test
         working-directory: ./build/zetasql-npm
@@ -121,7 +118,7 @@ jobs:
         id: cache-package
         uses: actions/cache@v2
         with:
-          path: /build/zetasql-npm
+          path: ./build/zetasql-npm
           key: package-results-${{ steps.vars.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
 
   publish-npm:
@@ -133,7 +130,7 @@ jobs:
         id: cache-package-results
         uses: actions/cache@v2
         with:
-          path: /build/zetasql-npm
+          path: ./build/zetasql-npm
           key: package-results-${{ steps.vars.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
 
       # Setup .npmrc file to publish to npm
