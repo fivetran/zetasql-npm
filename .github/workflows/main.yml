@@ -9,20 +9,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  prepare:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set variables
-        working-directory: ./build/
-        id: vars
-        shell: bash
-        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
-    outputs:
-      sha_short: ${{ steps.vars.outputs.sha_short }}
-
   build-zetasql:
     runs-on: ${{ matrix.os }}
-    needs: prepare
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest]
@@ -42,12 +30,18 @@ jobs:
           repository: pgrivachev/zetasql
           path: ${{ matrix.working-directory }}
 
+      - name: Set variables
+        working-directory: ${{ matrix.working-directory }}
+        id: vars
+        shell: bash
+        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+
       - name: Cache zetasql build
         id: cache-zetasql-build
         uses: actions/cache@v2
         with:
           path: ${{ matrix.cache-path }}
-          key: zetasql-build-${{ needs.prepare.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
+          key: zetasql-build-${{ steps.vars.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
 
       - name: Install Bazel
         if: steps.cache-zetasql.outputs.cache-hit != 'true'
@@ -65,6 +59,9 @@ jobs:
         working-directory: ./${{ matrix.working-directory }}
         run: bazel build ...
 
+    outputs:
+      sha_short: ${{ steps.vars.outputs.sha_short }}
+
   post-build:
     runs-on: macos-latest
     needs: build-zetasql
@@ -74,7 +71,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ./build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
-          key: zetasql-build-${{ needs.prepare.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
+          key: zetasql-build-${{ needs.build-zetasql.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
 
       - name: Set install name (macos)
         working-directory: ./build
@@ -96,7 +93,7 @@ jobs:
           path: |
             ./build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
             ./build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
-          key: zetasql-build-${{ needs.prepare.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
+          key: zetasql-build-${{ needs.build-zetasql.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
 
       - name: Copy files
         working-directory: ./build
@@ -120,7 +117,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ./build/zetasql-npm
-          key: package-results-${{ needs.prepare.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
+          key: package-results-${{ needs.build-zetasql.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
 
   publish-npm:
     if: github.event.inputs.buildMode == 'build and publish'
@@ -132,7 +129,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ./build/zetasql-npm
-          key: package-results-${{ needs.prepare.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
+          key: package-results-${{ needs.build-zetasql.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
 
       - uses: actions/setup-node@v2
         if: startsWith(github.ref, 'refs/tags/v')
