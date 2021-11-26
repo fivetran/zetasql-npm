@@ -44,7 +44,7 @@ jobs:
           key: zetasql-build-${{ steps.vars.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
 
       - name: Install Bazel
-        if: steps.cache-zetasql.outputs.cache-hit != 'true'
+        if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
         uses: abhinavsingh/setup-bazel@v3
         with:
           version: 3.7.2
@@ -60,7 +60,7 @@ jobs:
         run: bazel build ...
 
     outputs:
-      sha_short: ${{ steps.vars.outputs.sha_short }}
+      sha_short: steps.vars.outputs.sha_short
 
   post-build:
     runs-on: macos-latest
