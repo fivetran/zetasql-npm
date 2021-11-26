@@ -41,6 +41,9 @@ jobs:
         working-directory: build/zetasql-linux
         run: bazel build ...
 
+    outputs:
+      sha_short: ${{ steps.vars.outputs.sha_short }}
+
   build-macos:
     runs-on: macos-latest
     steps:
@@ -76,6 +79,9 @@ jobs:
       - name: Set install name
         working-directory: build/zetasql-macos
         run: install_name_tool -id "@loader_path/libremote_server.dylib" bazel-bin/zetasql/local_service/libremote_server.dylib
+
+    outputs:
+      sha_short: ${{ steps.vars.outputs.sha_short }}
 
   package:
     runs-on: ubuntu-latest
