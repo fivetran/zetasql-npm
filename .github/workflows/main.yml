@@ -17,13 +17,13 @@ jobs:
         include:
           - os: macos-latest
           - working-directory: build/zetasql-macos
-          - cache-key: macos
           - cache-path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
+          - build-command: bazel build //zetasql/local_service:libremote_server.dylib --copt="-Wno-error=c99-extensions"
 
           - os: ubuntu-latest
           - working-directory: build/zetasql-linux
-          - cache-key: linux
           - cache-path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
+          - build-command: bazel build ...
 
     steps:
       - name: Checkout zetasql
@@ -43,7 +43,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ matrix.cache-path }}
-          key: ${{ matrix.cache-key }}-${{ steps.vars.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
+          key: ${{ runner.os }}-${{ steps.vars.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
 
       - name: Install Bazel
         if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
@@ -51,32 +51,10 @@ jobs:
         with:
           version: 3.7.2
 
-      - name: Build macos
-        if: steps.cache-zetasql-build.outputs.cache-hit != 'true' && matrix.os == 'macos-latest'
+      - name: Build
+        if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
         working-directory: ${{ matrix.working-directory }}
-        run: bazel build //zetasql/local_service:libremote_server.dylib --copt="-Wno-error=c99-extensions"
-
-      - name: Build linux
-        if: steps.cache-zetasql-build.outputs.cache-hit != 'true' && matrix.os == 'ubuntu-latest'
-        working-directory: ${{ matrix.working-directory }}
-        run: bazel build ...
-
-      - name: Set build results
-        if: matrix.os == 'macos-latest'
-        working-directory: build
-        run: |
-          echo '::set-output name=MACOS_RES::$(ls zetasql-macos/bazel-bin/zetasql/local_service/)'
-          echo '::set-output name=PWD::$(pwd)'
-          echo '::set-output name=PWD1::$(ls /Users/runner/work/zetasql-npm/zetasql-npm/build)'
-        id: set-build-result
-
-      - name: Show build results
-        if: matrix.os == 'macos-latest'
-        working-directory: ./build
-        run: |
-          echo "Build artifacts are ${{ steps.set-build-result.outputs.MACOS_RES }}"
-          echo "PWD is ${{ steps.set-build-result.outputs.PWD }}"
-          echo "PWD1 is ${{ steps.set-build-result.outputs.PWD1 }}"
+        run: ${{ matrix.build-command }}
 
     outputs:
       sha_short: ${{ steps.vars.outputs.sha_short }}
@@ -90,7 +68,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
-          key: macos-${{ needs.build-zetasql.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
+          key: macOS-${{ needs.build-zetasql.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
 
       - name: Set install name (macos)
         shell: bash
