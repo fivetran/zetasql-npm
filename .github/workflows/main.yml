@@ -70,7 +70,7 @@ jobs:
         id: cache-zetasql-macos
         uses: actions/cache@v2
         with:
-          path: ./build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
+          path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
           key: zetasql-build-${{ needs.build-zetasql.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
 
       - name: Set install name (macos)
