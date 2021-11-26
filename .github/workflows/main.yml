@@ -16,12 +16,14 @@ jobs:
         os: [macos-latest, ubuntu-latest]
         include:
           - os: macos-latest
-          - working-directory: ./build/zetasql-macos
-          - cache-path: ./build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
+          - working-directory: build/zetasql-macos
+          - cache-key: macos
+          - cache-path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
 
           - os: ubuntu-latest
-          - working-directory: ./build/zetasql-linux
-          - cache-path: ./build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
+          - working-directory: build/zetasql-linux
+          - cache-key: linux
+          - cache-path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
 
     steps:
       - name: Checkout zetasql
@@ -41,7 +43,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ matrix.cache-path }}
-          key: zetasql-build-${{ steps.vars.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
+          key: ${{ matrix.cache-key }}-${{ steps.vars.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
 
       - name: Install Bazel
         if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
@@ -51,19 +53,19 @@ jobs:
 
       - name: Build macos
         if: steps.cache-zetasql-build.outputs.cache-hit != 'true' && matrix.os == 'macos-latest'
-        working-directory: ./${{ matrix.working-directory }}
+        working-directory: ${{ matrix.working-directory }}
         run: bazel build //zetasql/local_service:libremote_server.dylib --copt="-Wno-error=c99-extensions"
 
       - name: Build linux
         if: steps.cache-zetasql-build.outputs.cache-hit != 'true' && matrix.os == 'ubuntu-latest'
-        working-directory: ./${{ matrix.working-directory }}
+        working-directory: ${{ matrix.working-directory }}
         run: bazel build ...
 
       - name: Set build results
         if: matrix.os == 'macos-latest'
-        working-directory: ./build
+        working-directory: build
         run: |
-          echo '::set-output name=MACOS_RES::$(ls ./zetasql-macos/bazel-bin/zetasql/local_service/)'
+          echo '::set-output name=MACOS_RES::$(ls zetasql-macos/bazel-bin/zetasql/local_service/)'
           echo '::set-output name=PWD::$(pwd)'
           echo '::set-output name=PWD1::$(ls /Users/runner/work/zetasql-npm/zetasql-npm/build)'
         id: set-build-result
@@ -87,13 +89,13 @@ jobs:
         id: cache-zetasql-macos
         uses: actions/cache@v2
         with:
-          path: ./build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
-          key: zetasql-build-${{ needs.build-zetasql.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
+          path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
+          key: macos-${{ needs.build-zetasql.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
 
       - name: Set install name (macos)
         shell: bash
-        working-directory: ./build
-        run: ls ./zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
+        working-directory: build
+        run: install_name_tool -id "@loader_path/libremote_server.dylib" zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
 
   package:
     runs-on: ubuntu-latest
