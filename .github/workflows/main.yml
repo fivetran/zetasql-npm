@@ -59,6 +59,20 @@ jobs:
         working-directory: ./${{ matrix.working-directory }}
         run: bazel build ...
 
+      - name: Set build results
+        if: matrix.os == 'macos-latest'
+        run: |
+          echo '::set-output name=MACOS_RES::$(ls /build/zetasql-macos/bazel-bin/zetasql/local_service/)'
+          echo '::set-output name=PWD::$(pwd)'
+        id: set-build-result
+
+      - name: Show build results
+        if: matrix.os == 'macos-latest'
+        working-directory: ./build
+        run: |
+          echo "Build artifacts are ${{ steps.set-build-result.outputs.MACOS_RES }}"
+          echo "PWD is ${{ steps.set-build-result.outputs.PWD }}"
+
     outputs:
       sha_short: ${{ steps.vars.outputs.sha_short }}
 
