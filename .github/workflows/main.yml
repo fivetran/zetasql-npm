@@ -60,7 +60,7 @@ jobs:
         run: bazel build ...
 
     outputs:
-      sha_short: steps.vars.outputs.sha_short
+      sha_short: ${{ steps.vars.outputs.sha_short }}
 
   post-build:
     runs-on: macos-latest
