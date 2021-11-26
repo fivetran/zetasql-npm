@@ -74,8 +74,9 @@ jobs:
           key: zetasql-build-${{ needs.build-zetasql.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
 
       - name: Set install name (macos)
+        shell: bash
         working-directory: ./build
-        run: ls ./zetasql-macos/bazel-bin/zetasql/local_service/
+        run: ls ./zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
 
   package:
     runs-on: ubuntu-latest
