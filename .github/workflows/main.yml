@@ -72,7 +72,6 @@ jobs:
 
       - name: Set install name (macos)
         working-directory: ./build
-        shell: bash
         run: ls ./zetasql-macos/bazel-bin/zetasql/local_service/
 
   package:
