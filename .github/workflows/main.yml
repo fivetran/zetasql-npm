@@ -13,7 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set variables
+        working-directory: ./build/
         id: vars
+        shell: bash
         run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
     outputs:
       sha_short: ${{ steps.vars.outputs.sha_short }}
