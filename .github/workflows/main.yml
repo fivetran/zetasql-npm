@@ -65,7 +65,7 @@ jobs:
         run: |
           echo '::set-output name=MACOS_RES::$(ls ./zetasql-macos/bazel-bin/zetasql/local_service/)'
           echo '::set-output name=PWD::$(pwd)'
-          echo '::set-output name=PWD1::$(ls /Users/runner/work/zetasql-npm/zetasql-npm/)'
+          echo '::set-output name=PWD1::$(ls /Users/runner/work/zetasql-npm/zetasql-npm/build)'
         id: set-build-result
 
       - name: Show build results
