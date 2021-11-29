@@ -1,6 +1,16 @@
 {
   "name": "@fivetrandevelopers/zetasql",
+  "displayName": "ZetaSQL NPM",
+  "description": "ZetaSQL - Analyzer Framework for SQL available via NPM",
   "version": "1.0.1",
+  "publisher": "Fivetran",
+  "license": "MIT",
+  "preview": true,
+  "keywords": [
+    "npm",
+    "bigquery",
+    "sql"
+  ],
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "dependencies": {
