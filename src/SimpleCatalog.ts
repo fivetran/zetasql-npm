@@ -108,9 +108,7 @@ export class SimpleCatalog {
     this.builtinFunctionOptions = options.serialize();
 
     try {
-      const response = await ZetaSQLClient.INSTANCE.getBuiltinFunctions(
-        this.builtinFunctionOptions,
-      );
+      await ZetaSQLClient.INSTANCE.getBuiltinFunctions(this.builtinFunctionOptions);
     } catch (e) {
       throw new Error(e);
     }
@@ -149,7 +147,7 @@ export class SimpleCatalog {
 
     if (this.catalogs.size > 0) {
       simpleCatalog.catalog = [];
-      for (const [name, catalog] of this.catalogs) {
+      for (const [, catalog] of this.catalogs) {
         simpleCatalog.catalog.push(catalog.serialize());
       }
     }
