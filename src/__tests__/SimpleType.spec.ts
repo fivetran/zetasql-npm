@@ -4,17 +4,17 @@ import { TypeKind } from '../types/zetasql/TypeKind';
 
 describe('SimpleType', () => {
   it('testTypeName', () => {
-    let type1 = TypeFactory.createSimpleType(TypeKind.TYPE_INT32);
-    let type2 = TypeFactory.createSimpleType(TypeKind.TYPE_INT64);
-    let type3 = TypeFactory.createSimpleType(TypeKind.TYPE_UINT32);
-    let type4 = TypeFactory.createSimpleType(TypeKind.TYPE_UINT64);
-    let type5 = TypeFactory.createSimpleType(TypeKind.TYPE_BOOL);
-    let type6 = TypeFactory.createSimpleType(TypeKind.TYPE_FLOAT);
-    let type7 = TypeFactory.createSimpleType(TypeKind.TYPE_DOUBLE);
-    let type8 = TypeFactory.createSimpleType(TypeKind.TYPE_STRING);
-    let type9 = TypeFactory.createSimpleType(TypeKind.TYPE_BYTES);
-    let type10 = TypeFactory.createSimpleType(TypeKind.TYPE_DATE);
-    let type11 = TypeFactory.createSimpleType(TypeKind.TYPE_TIMESTAMP);
+    const type1 = TypeFactory.createSimpleType(TypeKind.TYPE_INT32);
+    const type2 = TypeFactory.createSimpleType(TypeKind.TYPE_INT64);
+    const type3 = TypeFactory.createSimpleType(TypeKind.TYPE_UINT32);
+    const type4 = TypeFactory.createSimpleType(TypeKind.TYPE_UINT64);
+    const type5 = TypeFactory.createSimpleType(TypeKind.TYPE_BOOL);
+    const type6 = TypeFactory.createSimpleType(TypeKind.TYPE_FLOAT);
+    const type7 = TypeFactory.createSimpleType(TypeKind.TYPE_DOUBLE);
+    const type8 = TypeFactory.createSimpleType(TypeKind.TYPE_STRING);
+    const type9 = TypeFactory.createSimpleType(TypeKind.TYPE_BYTES);
+    const type10 = TypeFactory.createSimpleType(TypeKind.TYPE_DATE);
+    const type11 = TypeFactory.createSimpleType(TypeKind.TYPE_TIMESTAMP);
 
     expect(type1.getTypeName()).toBe('INT32');
     expect(type2.getTypeName()).toBe('INT64');
