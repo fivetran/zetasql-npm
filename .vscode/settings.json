@@ -1,0 +1,8 @@
+{
+  "cSpell.words": [
+    "zetasql"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}
