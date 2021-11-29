@@ -42,7 +42,8 @@
     "build:all": "npm run build:server && npm run lint && npm run compile",
     "test": "jest --config jestconfig.json",
     "lint": "eslint --cache --ext .ts src",
-    "lint:fix": "eslint --cache --ext .ts --fix src"
+    "lint:fix": "eslint --cache --ext .ts --fix src",
+    "prepare": "husky install"
   },
   "publishConfig": {
     "access": "public"
