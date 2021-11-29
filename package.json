@@ -53,7 +53,7 @@
     "lib/**/*"
   ],
   "lint-staged": {
-    "*.{ts}": [
+    "*.ts": [
       "eslint --cache --ext .ts --fix src"
     ]
   }
