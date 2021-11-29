@@ -75,14 +75,14 @@ jobs:
         uses: actions/cache@v2
         with:
           path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
-          key: linux-${{ needs.build-linux.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
+          key: linux-${{ needs.build.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
 
       - name: Load build macos
         id: cache-zetasql-macos
         uses: actions/cache@v2
         with:
           path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
-          key: macos-${{ needs.build-macos.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
+          key: macos-${{ needs.build.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
 
       - name: Copy files
         working-directory: build
