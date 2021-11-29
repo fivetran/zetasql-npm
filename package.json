@@ -27,7 +27,9 @@
     "eslint": "^8.3.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.4",
     "jest": "^27.3.1",
+    "lint-staged": "^12.1.2",
     "prettier": "^2.5.0",
     "ts-jest": "^27.0.7",
     "typescript": "^4.4.4"
@@ -39,7 +41,8 @@
     "build:server": "mkdir -p lib/zetasql && tar -xzvf zetasql/darwin-x86-64/libremote_server.dylib.tar.gz -C lib/zetasql/ && tar -xzvf zetasql/linux-x86-64/libremote_server.so.tar.gz -C lib/zetasql/ && cp -R src/protos/ lib/protos/",
     "build:all": "npm run build:server && npm run lint && npm run compile",
     "test": "jest --config jestconfig.json",
-    "lint": "eslint --cache --ext .ts src"
+    "lint": "eslint --cache --ext .ts src",
+    "lint:fix": "eslint --cache --ext .ts --fix src"
   },
   "publishConfig": {
     "access": "public"
@@ -47,5 +50,15 @@
   "files": [
     "package.json",
     "lib/**/*"
-  ]
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts}": [
+      "eslint --cache --ext .ts --fix src"
+    ]
+  }
 }
