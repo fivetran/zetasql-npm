@@ -15,18 +15,18 @@ jobs:
         os: [macos-latest, ubuntu-latest]
         include:
           - os: macos-latest
-          - working-directory: build/zetasql-macos
-          - cache-path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
-          - cache-prefix: macos
-          - build-command: |
+            working-directory: build/zetasql-macos
+            cache-path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
+            cache-prefix: macos
+            build-command: |
               bazel build //zetasql/local_service:libremote_server.dylib --copt="-Wno-error=c99-extensions"
               install_name_tool -id "@loader_path/libremote_server.dylib" bazel-bin/zetasql/local_service/libremote_server.dylib
 
           - os: ubuntu-latest
-          - working-directory: build/zetasql-linux
-          - cache-path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
-          - cache-prefix: linux
-          - build-command: bazel build ...
+            working-directory: build/zetasql-linux
+            cache-path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
+            cache-prefix: linux
+            build-command: bazel build ...
     steps:
       - name: Checkout zetasql
         uses: actions/checkout@v2
