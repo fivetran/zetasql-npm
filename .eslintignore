@@ -1,0 +1,3 @@
+node_modules
+zetasql
+src/types/**/*

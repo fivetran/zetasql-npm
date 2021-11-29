@@ -22,11 +22,12 @@
   "devDependencies": {
     "@types/jest": "^27.0.2",
     "@types/node": "^16.11.6",
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
+    "eslint": "^8.3.0",
     "jest": "^27.3.1",
     "prettier": "^2.4.1",
     "ts-jest": "^27.0.7",
-    "tslint": "^6.1.3",
-    "tslint-config-prettier": "^1.18.0",
     "typescript": "^4.4.4"
   },
   "scripts": {
@@ -35,9 +36,8 @@
     "precompile": "npm run build:proto",
     "build:server": "mkdir -p lib/zetasql && tar -xzvf zetasql/darwin-x86-64/libremote_server.dylib.tar.gz -C lib/zetasql/ && tar -xzvf zetasql/linux-x86-64/libremote_server.so.tar.gz -C lib/zetasql/ && cp -R src/protos/ lib/protos/",
     "build:all": "npm run build:server && npm run format && npm run compile",
-    "format": "prettier --write \"src/**/*.ts\"",
-    "lint": "tslint -p tsconfig.json",
-    "test": "jest --config jestconfig.json"
+    "test": "jest --config jestconfig.json",
+    "lint": "eslint . --ext .ts"
   },
   "publishConfig": {
     "access": "public"
