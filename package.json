@@ -41,7 +41,7 @@
     "build:server": "mkdir -p lib/zetasql && tar -xzvf zetasql/darwin-x86-64/libremote_server.dylib.tar.gz -C lib/zetasql/ && tar -xzvf zetasql/linux-x86-64/libremote_server.so.tar.gz -C lib/zetasql/ && cp -R src/protos/ lib/protos/",
     "build:all": "npm run build:server && npm run lint && npm run compile",
     "test": "jest --config jestconfig.json",
-    "lint": "eslint --cache --ext .ts src",
+    "lint": "eslint --cache --no-fix --ext .ts src",
     "lint:fix": "eslint --cache --ext .ts --fix src",
     "prepare": "husky install"
   },
