@@ -1,13 +1,13 @@
 {
   "name": "@fivetrandevelopers/zetasql",
-  "displayName": "ZetaSQL NPM",
-  "description": "ZetaSQL - Analyzer Framework for SQL available via NPM",
+  "displayName": "zetasql-npm",
+  "description": "ZetaSQL gRPC server and client",
   "version": "1.0.1",
   "publisher": "Fivetran",
   "license": "MIT",
   "preview": true,
   "keywords": [
-    "npm",
+    "grpc",
     "bigquery",
     "sql"
   ],
