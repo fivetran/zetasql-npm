@@ -24,7 +24,7 @@ import { ZetaSQLClient } from '@fivetrandevelopers/zetasql';
 Make gRPC call to retrieve table names from SQL statement:
 ```typescript
 const request: ExtractTableNamesFromStatementRequest = {
-    sqlStatement: sql,
+    sqlStatement: 'select * from `dbt-example`.shop_dataset.dbt_customers where age >= 21',
 };
 try {
     const extractResult = await ZetaSQLClient.INSTANCE.extractTableNamesFromStatement(request);
