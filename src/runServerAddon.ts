@@ -4,5 +4,6 @@ const zetaSQLServer = ffi.Library(__dirname + '/zetasql/libremote_server', {
   RunServer: ['void', []],
 });
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-zetaSQLServer.RunServer.async(function (err, res) {});
+zetaSQLServer.RunServer.async(function (err, res) {
+  // do nothing
+});
