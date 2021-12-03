@@ -28,7 +28,9 @@ const request: ExtractTableNamesFromStatementRequest = {
 };
 try {
     const extractResult = await ZetaSQLClient.INSTANCE.extractTableNamesFromStatement(request);
-    return extractResult.tableName.map(t => new TableDefinition(t.tableNameSegment));
+    ...
+    console.log(extractResult);
+    ...
 } catch (e) {
     console.log(e);
 }
