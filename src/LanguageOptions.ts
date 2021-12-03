@@ -18,7 +18,7 @@ export class LanguageOptions {
   }
 
   async enableMaximumLanguageFeatures(): Promise<LanguageOptions> {
-    let features = new Set<LanguageFeature>();
+    const features = new Set<LanguageFeature>();
     (await LanguageOptions.getMaxFeatures()).enabledLanguageFeatures?.forEach(
       (f: LanguageFeature) => {
         features.add(f);

@@ -39,7 +39,7 @@ export class ZetaSQLClient {
   async testConnection(): Promise<boolean> {
     for (let i = 0; i < 15; i++) {
       try {
-        const response = await this.formatSql({ sql: 'SELECT 1;' });
+        await this.formatSql({ sql: 'SELECT 1;' });
         return true;
       } catch (e) {
         if (e.code !== 14) {

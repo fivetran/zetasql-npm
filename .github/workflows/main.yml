@@ -98,6 +98,7 @@ jobs:
           npm install
           npm run compile
           npm run test
+          npm run lint
 
       - name: Cache package results
         id: cache-package

@@ -17,8 +17,8 @@ export class SimpleColumn implements Column {
     tableName: string,
     name: string | null,
     type: Type,
-    pseudoColumn: boolean = false,
-    writableColumn: boolean = false,
+    pseudoColumn = false,
+    writableColumn = false,
   ) {
     this.name = name == null ? '' : name;
     this.fullName = `${tableName}.${name}`;

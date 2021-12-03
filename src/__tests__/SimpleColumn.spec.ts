@@ -5,8 +5,8 @@ import { TypeKind } from '../types/zetasql/TypeKind';
 
 describe('SimpleColumnTest', () => {
   it('testSimpleTypeColumn', () => {
-    let type = TypeFactory.createSimpleType(TypeKind.TYPE_BOOL);
-    let column1 = new SimpleColumn('t1', 'c1', type);
+    const type = TypeFactory.createSimpleType(TypeKind.TYPE_BOOL);
+    const column1 = new SimpleColumn('t1', 'c1', type);
 
     expect(column1.getName()).toBe('c1');
     expect(column1.getFullName()).toBe('t1.c1');
@@ -15,9 +15,9 @@ describe('SimpleColumnTest', () => {
   });
 
   it('serialize', () => {
-    let column1 = new SimpleColumn('table1', 'col1', new SimpleType(TypeKind.TYPE_STRING));
+    const column1 = new SimpleColumn('table1', 'col1', new SimpleType(TypeKind.TYPE_STRING));
 
-    let result = column1.serialize();
+    const result = column1.serialize();
 
     expect(result.name).toBe('col1');
     expect(result.type.typeKind).toBe(TypeKind.TYPE_STRING);
