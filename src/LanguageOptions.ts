@@ -12,7 +12,7 @@ export class LanguageOptions {
       const request = {
         maximumFeatures: true,
       };
-      LanguageOptions.maxFeatures = await ZetaSQLClient.INSTANCE.getLanguageOptions(request);
+      LanguageOptions.maxFeatures = await ZetaSQLClient.getInstance().getLanguageOptions(request);
     }
     return LanguageOptions.maxFeatures;
   }

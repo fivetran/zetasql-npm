@@ -63,7 +63,7 @@ export class SimpleCatalog {
     };
 
     try {
-      const response = await ZetaSQLClient.INSTANCE.registerCatalog(request);
+      const response = await ZetaSQLClient.getInstance().registerCatalog(request);
       this.registeredId = response.registeredId;
     } catch (e) {
       throw new Error(e);
@@ -82,7 +82,7 @@ export class SimpleCatalog {
     };
 
     try {
-      await ZetaSQLClient.INSTANCE.unRegisterCatalog(request);
+      await ZetaSQLClient.getInstance().unRegisterCatalog(request);
     } catch (e) {
       console.log('Failed to unregister catalog: ' + e.getMessage());
     } finally {
@@ -108,7 +108,7 @@ export class SimpleCatalog {
     this.builtinFunctionOptions = options.serialize();
 
     try {
-      await ZetaSQLClient.INSTANCE.getBuiltinFunctions(this.builtinFunctionOptions);
+      await ZetaSQLClient.getInstance().getBuiltinFunctions(this.builtinFunctionOptions);
     } catch (e) {
       throw new Error(e);
     }
