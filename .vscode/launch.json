@@ -1,0 +1,29 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Server Jest Tests",
+      "type": "node",
+      "request": "launch",
+      "runtimeArgs": [
+        "--inspect-brk",
+        "node_modules/.bin/jest",
+        "--runInBand",
+        "--config",
+        "jestconfig.json"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "name": "Launch Run and Terminate server test",
+      "type": "node",
+      "request": "launch",
+      "outputCapture": "std",
+      "program": "${workspaceFolder}/lib/TestZetaSqlServer.js"
+    }
+  ]
+}

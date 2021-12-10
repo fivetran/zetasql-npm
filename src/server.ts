@@ -3,9 +3,9 @@ import { Worker } from 'worker_threads';
 
 let worker: Worker;
 
-export function runServer() {
+export function runServer(port): Promise<void> {
   return new Promise((resolve, reject) => {
-    worker = new Worker(path.resolve(__dirname, './runServerAddon.js'));
+    worker = new Worker(path.resolve(__dirname, './runServerAddon.js'), { argv: [port] });
     worker.on('message', resolve);
     worker.on('error', reject);
     worker.on('exit', code => {
@@ -14,8 +14,8 @@ export function runServer() {
   });
 }
 
-export function terminateServer() {
-  worker?.terminate().then(status => {
+export function terminateServer(): Promise<void> {
+  return worker?.terminate().then(status => {
     console.log(`ZetaSQS server has been canceled with status: ${status}`);
   });
 }

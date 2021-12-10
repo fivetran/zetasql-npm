@@ -1,9 +1,10 @@
 import * as ffi from 'ffi-napi';
 
 const zetaSQLServer = ffi.Library(__dirname + '/zetasql/libremote_server', {
-  RunServer: ['void', []],
+  RunServer: ['void', ['int']],
 });
 
-zetaSQLServer.RunServer.async(function (err, res) {
+const port = process.argv[2];
+zetaSQLServer.RunServer.async(port, () => {
   // do nothing
 });

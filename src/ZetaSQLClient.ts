@@ -13,15 +13,20 @@ import { ZetaSqlLocalServiceClient } from './types/zetasql/local_service/ZetaSql
 import { ZetaSQLBuiltinFunctionOptionsProto } from './types/zetasql/ZetaSQLBuiltinFunctionOptionsProto';
 
 export class ZetaSQLClient {
-  static HOST = 'localhost:50051'; // TOOD: customize port
+  private static readonly HOST = 'localhost';
+  private static instance: ZetaSQLClient;
+  private static api: ZetaSqlLocalServiceClient;
 
-  static INSTANCE = new ZetaSQLClient();
+  static getInstance() {
+    if (!ZetaSQLClient.instance) {
+      throw new Error('You have to call init first');
+    }
 
-  static api: ZetaSqlLocalServiceClient;
+    return ZetaSQLClient.instance;
+  }
 
-  getLanguageOptionsPromisify: (request: LanguageOptionsRequest) => Promise<LanguageOptionsProto>;
-
-  private constructor() {
+  static init(port: number) {
+    ZetaSQLClient.instance = new ZetaSQLClient();
     const packageDefinition = protoLoader.loadSync('local_service.proto', {
       defaults: true,
       oneofs: true,
@@ -31,9 +36,15 @@ export class ZetaSQLClient {
     const proto = grpc.loadPackageDefinition(packageDefinition) as unknown as ProtoGrpcType;
 
     ZetaSQLClient.api = new proto.zetasql.local_service.ZetaSqlLocalService(
-      ZetaSQLClient.HOST,
+      `${ZetaSQLClient.HOST}:${port}`,
       grpc.credentials.createInsecure(),
     );
+  }
+
+  getLanguageOptionsPromisify: (request: LanguageOptionsRequest) => Promise<LanguageOptionsProto>;
+
+  private constructor() {
+    // To prevent instantiation from outside
   }
 
   async testConnection(): Promise<boolean> {
