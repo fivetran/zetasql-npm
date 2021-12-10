@@ -17,6 +17,13 @@
       ],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "name": "Launch Run and Terminate server test",
+      "type": "node",
+      "request": "launch",
+      "outputCapture": "std",
+      "program": "${workspaceFolder}/lib/TestZetaSqlServer.js"
     }
   ]
 }
