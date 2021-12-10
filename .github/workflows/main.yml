@@ -105,20 +105,19 @@ jobs:
         uses: actions/cache@v2
         with:
           path: build/zetasql-npm
-          key: package-results-${{ needs.build.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}-${{ github.sha }}
+          key: package-results-${{ github.sha }}-${{ github.ref }}-${{ secrets.CACHE_VERSION }}
 
   publish-npm:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v')
-    needs: build
+    needs: [build, package]
     steps:
       - name: Load package results
         id: cache-package-results
         uses: actions/cache@v2
         with:
           path: build/zetasql-npm
-          key: package-results-${{ needs.build.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}-${{ github.sha }}
-
+          key: package-results-${{ github.sha }}-${{ github.ref }}-${{ secrets.CACHE_VERSION }}
       - uses: actions/setup-node@v2
         with:
           node-version: '14.x'
