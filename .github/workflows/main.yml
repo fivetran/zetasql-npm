@@ -10,6 +10,10 @@ on:
 jobs:
   build:
     runs-on: ${{ matrix.os }}
+
+    outputs:
+      sha_short: ${{ steps.vars.outputs.sha_short }}
+
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest]
@@ -44,7 +48,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ matrix.cache-path }}
-          key: ${{ matrix.os }}-${{ steps.vars.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
+          key: ${{ matrix.os }}-${{ steps.vars.outputs.sha_short }}-1
 
       - name: Install Bazel
         if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
@@ -63,9 +67,6 @@ jobs:
           name: ${{ matrix.os }}
           path: ${{ matrix.cache-path }}
 
-    outputs:
-      sha_short: ${{ steps.vars.outputs.sha_short }}
-
   package:
     runs-on: ubuntu-latest
     needs: build
@@ -80,14 +81,14 @@ jobs:
         uses: actions/cache@v2
         with:
           path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
-          key: ubuntu-latest-${{ needs.build.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
+          key: ubuntu-latest-${{ needs.build.outputs.sha_short }}-1
 
       - name: Load build macos
         id: cache-zetasql-macos
         uses: actions/cache@v2
         with:
           path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
-          key: macos-latest-${{ needs.build.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
+          key: macos-latest-${{ needs.build.outputs.sha_short }}-1
 
       - name: Copy files
         working-directory: build
@@ -111,7 +112,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: build/zetasql-npm
-          key: package-results-${{ github.sha }}-${{ github.ref }}-${{ secrets.CACHE_VERSION }}
+          key: package-results-${{ github.sha }}-${{ github.ref }}-1
 
   publish-npm:
     runs-on: ubuntu-latest
@@ -123,7 +124,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: build/zetasql-npm
-          key: package-results-${{ github.sha }}-${{ github.ref }}-${{ secrets.CACHE_VERSION }}
+          key: package-results-${{ github.sha }}-${{ github.ref }}-1
       - uses: actions/setup-node@v2
         with:
           node-version: '14.x'
