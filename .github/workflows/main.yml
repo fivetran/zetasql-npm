@@ -10,6 +10,10 @@ on:
 jobs:
   build:
     runs-on: ${{ matrix.os }}
+
+    outputs:
+      sha_short: ${{ steps.vars.outputs.sha_short }}
+
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest]
@@ -17,7 +21,6 @@ jobs:
           - os: macos-latest
             working-directory: build/zetasql-macos
             cache-path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
-            cache-prefix: macos
             build-command: |
               bazel build //zetasql/local_service:libremote_server.dylib --copt="-Wno-error=c99-extensions"
               install_name_tool -id "@loader_path/libremote_server.dylib" bazel-bin/zetasql/local_service/libremote_server.dylib
@@ -25,7 +28,6 @@ jobs:
           - os: ubuntu-latest
             working-directory: build/zetasql-linux
             cache-path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
-            cache-prefix: linux
             build-command: bazel build ...
     steps:
       - name: Checkout zetasql
@@ -37,14 +39,16 @@ jobs:
       - name: Set variables
         id: vars
         working-directory: ${{ matrix.working-directory }}
-        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+        run: |
+          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+          echo $(git rev-parse --short HEAD)
 
       - name: Cache zetasql build
         id: cache-zetasql-build
         uses: actions/cache@v2
         with:
           path: ${{ matrix.cache-path }}
-          key: ${{ matrix.cache-prefix }}-${{ steps.vars.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
+          key: ${{ matrix.os }}-${{ steps.vars.outputs.sha_short }}-1
 
       - name: Install Bazel
         if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
@@ -57,8 +61,11 @@ jobs:
         working-directory: ${{ matrix.working-directory }}
         run: ${{ matrix.build-command }}
 
-    outputs:
-      sha_short: ${{ steps.vars.outputs.sha_short }}
+      - name: upload build result
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.os }}
+          path: ${{ matrix.cache-path }}
 
   package:
     runs-on: ubuntu-latest
@@ -74,14 +81,14 @@ jobs:
         uses: actions/cache@v2
         with:
           path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
-          key: linux-${{ needs.build.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
+          key: ubuntu-latest-${{ needs.build.outputs.sha_short }}-1
 
       - name: Load build macos
         id: cache-zetasql-macos
         uses: actions/cache@v2
         with:
           path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
-          key: macos-${{ needs.build.outputs.sha_short }}-${{ secrets.CACHE_VERSION }}
+          key: macos-latest-${{ needs.build.outputs.sha_short }}-1
 
       - name: Copy files
         working-directory: build
@@ -105,7 +112,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: build/zetasql-npm
-          key: package-results-${{ github.sha }}-${{ github.ref }}-${{ secrets.CACHE_VERSION }}
+          key: package-results-${{ github.sha }}-${{ github.ref }}-1
 
   publish-npm:
     runs-on: ubuntu-latest
@@ -117,7 +124,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: build/zetasql-npm
-          key: package-results-${{ github.sha }}-${{ github.ref }}-${{ secrets.CACHE_VERSION }}
+          key: package-results-${{ github.sha }}-${{ github.ref }}-1
       - uses: actions/setup-node@v2
         with:
           node-version: '14.x'

@@ -8,10 +8,12 @@ export interface ResolvedFilterFieldProto {
   'parent'?: (_zetasql_ResolvedExprProto | null);
   'expr'?: (_zetasql_AnyResolvedExprProto | null);
   'filterFieldArgList'?: (_zetasql_ResolvedFilterFieldArgProto)[];
+  'resetClearedRequiredFields'?: (boolean);
 }
 
 export interface ResolvedFilterFieldProto__Output {
   'parent': (_zetasql_ResolvedExprProto__Output | null);
   'expr': (_zetasql_AnyResolvedExprProto__Output | null);
   'filterFieldArgList': (_zetasql_ResolvedFilterFieldArgProto__Output)[];
+  'resetClearedRequiredFields': (boolean);
 }

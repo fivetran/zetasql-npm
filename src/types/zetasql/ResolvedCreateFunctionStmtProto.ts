@@ -8,6 +8,7 @@ import type { ResolvedComputedColumnProto as _zetasql_ResolvedComputedColumnProt
 import type { FunctionSignatureProto as _zetasql_FunctionSignatureProto, FunctionSignatureProto__Output as _zetasql_FunctionSignatureProto__Output } from '../zetasql/FunctionSignatureProto';
 import type { _zetasql_ResolvedCreateStatementEnums_SqlSecurity } from '../zetasql/ResolvedCreateStatementEnums';
 import type { _zetasql_ResolvedCreateStatementEnums_DeterminismLevel } from '../zetasql/ResolvedCreateStatementEnums';
+import type { ResolvedConnectionProto as _zetasql_ResolvedConnectionProto, ResolvedConnectionProto__Output as _zetasql_ResolvedConnectionProto__Output } from '../zetasql/ResolvedConnectionProto';
 
 export interface ResolvedCreateFunctionStmtProto {
   'parent'?: (_zetasql_ResolvedCreateStatementProto | null);
@@ -23,6 +24,8 @@ export interface ResolvedCreateFunctionStmtProto {
   'sqlSecurity'?: (_zetasql_ResolvedCreateStatementEnums_SqlSecurity | keyof typeof _zetasql_ResolvedCreateStatementEnums_SqlSecurity);
   'hasExplicitReturnType'?: (boolean);
   'determinismLevel'?: (_zetasql_ResolvedCreateStatementEnums_DeterminismLevel | keyof typeof _zetasql_ResolvedCreateStatementEnums_DeterminismLevel);
+  'isRemote'?: (boolean);
+  'connection'?: (_zetasql_ResolvedConnectionProto | null);
 }
 
 export interface ResolvedCreateFunctionStmtProto__Output {
@@ -39,4 +42,6 @@ export interface ResolvedCreateFunctionStmtProto__Output {
   'sqlSecurity': (_zetasql_ResolvedCreateStatementEnums_SqlSecurity);
   'hasExplicitReturnType': (boolean);
   'determinismLevel': (_zetasql_ResolvedCreateStatementEnums_DeterminismLevel);
+  'isRemote': (boolean);
+  'connection': (_zetasql_ResolvedConnectionProto__Output | null);
 }
