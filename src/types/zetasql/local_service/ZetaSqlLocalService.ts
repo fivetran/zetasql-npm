@@ -9,6 +9,14 @@ import type { AnalyzerOptionsRequest as _zetasql_local_service_AnalyzerOptionsRe
 import type { BuildSqlRequest as _zetasql_local_service_BuildSqlRequest, BuildSqlRequest__Output as _zetasql_local_service_BuildSqlRequest__Output } from '../../zetasql/local_service/BuildSqlRequest';
 import type { BuildSqlResponse as _zetasql_local_service_BuildSqlResponse, BuildSqlResponse__Output as _zetasql_local_service_BuildSqlResponse__Output } from '../../zetasql/local_service/BuildSqlResponse';
 import type { Empty as _google_protobuf_Empty, Empty__Output as _google_protobuf_Empty__Output } from '../../google/protobuf/Empty';
+import type { EvaluateModifyBatchRequest as _zetasql_local_service_EvaluateModifyBatchRequest, EvaluateModifyBatchRequest__Output as _zetasql_local_service_EvaluateModifyBatchRequest__Output } from '../../zetasql/local_service/EvaluateModifyBatchRequest';
+import type { EvaluateModifyBatchResponse as _zetasql_local_service_EvaluateModifyBatchResponse, EvaluateModifyBatchResponse__Output as _zetasql_local_service_EvaluateModifyBatchResponse__Output } from '../../zetasql/local_service/EvaluateModifyBatchResponse';
+import type { EvaluateModifyRequest as _zetasql_local_service_EvaluateModifyRequest, EvaluateModifyRequest__Output as _zetasql_local_service_EvaluateModifyRequest__Output } from '../../zetasql/local_service/EvaluateModifyRequest';
+import type { EvaluateModifyResponse as _zetasql_local_service_EvaluateModifyResponse, EvaluateModifyResponse__Output as _zetasql_local_service_EvaluateModifyResponse__Output } from '../../zetasql/local_service/EvaluateModifyResponse';
+import type { EvaluateQueryBatchRequest as _zetasql_local_service_EvaluateQueryBatchRequest, EvaluateQueryBatchRequest__Output as _zetasql_local_service_EvaluateQueryBatchRequest__Output } from '../../zetasql/local_service/EvaluateQueryBatchRequest';
+import type { EvaluateQueryBatchResponse as _zetasql_local_service_EvaluateQueryBatchResponse, EvaluateQueryBatchResponse__Output as _zetasql_local_service_EvaluateQueryBatchResponse__Output } from '../../zetasql/local_service/EvaluateQueryBatchResponse';
+import type { EvaluateQueryRequest as _zetasql_local_service_EvaluateQueryRequest, EvaluateQueryRequest__Output as _zetasql_local_service_EvaluateQueryRequest__Output } from '../../zetasql/local_service/EvaluateQueryRequest';
+import type { EvaluateQueryResponse as _zetasql_local_service_EvaluateQueryResponse, EvaluateQueryResponse__Output as _zetasql_local_service_EvaluateQueryResponse__Output } from '../../zetasql/local_service/EvaluateQueryResponse';
 import type { EvaluateRequest as _zetasql_local_service_EvaluateRequest, EvaluateRequest__Output as _zetasql_local_service_EvaluateRequest__Output } from '../../zetasql/local_service/EvaluateRequest';
 import type { EvaluateRequestBatch as _zetasql_local_service_EvaluateRequestBatch, EvaluateRequestBatch__Output as _zetasql_local_service_EvaluateRequestBatch__Output } from '../../zetasql/local_service/EvaluateRequestBatch';
 import type { EvaluateResponse as _zetasql_local_service_EvaluateResponse, EvaluateResponse__Output as _zetasql_local_service_EvaluateResponse__Output } from '../../zetasql/local_service/EvaluateResponse';
@@ -22,12 +30,20 @@ import type { FormatSqlResponse as _zetasql_local_service_FormatSqlResponse, For
 import type { GetBuiltinFunctionsResponse as _zetasql_local_service_GetBuiltinFunctionsResponse, GetBuiltinFunctionsResponse__Output as _zetasql_local_service_GetBuiltinFunctionsResponse__Output } from '../../zetasql/local_service/GetBuiltinFunctionsResponse';
 import type { LanguageOptionsProto as _zetasql_LanguageOptionsProto, LanguageOptionsProto__Output as _zetasql_LanguageOptionsProto__Output } from '../../zetasql/LanguageOptionsProto';
 import type { LanguageOptionsRequest as _zetasql_local_service_LanguageOptionsRequest, LanguageOptionsRequest__Output as _zetasql_local_service_LanguageOptionsRequest__Output } from '../../zetasql/local_service/LanguageOptionsRequest';
+import type { ParseRequest as _zetasql_local_service_ParseRequest, ParseRequest__Output as _zetasql_local_service_ParseRequest__Output } from '../../zetasql/local_service/ParseRequest';
+import type { ParseResponse as _zetasql_local_service_ParseResponse, ParseResponse__Output as _zetasql_local_service_ParseResponse__Output } from '../../zetasql/local_service/ParseResponse';
+import type { PrepareModifyRequest as _zetasql_local_service_PrepareModifyRequest, PrepareModifyRequest__Output as _zetasql_local_service_PrepareModifyRequest__Output } from '../../zetasql/local_service/PrepareModifyRequest';
+import type { PrepareModifyResponse as _zetasql_local_service_PrepareModifyResponse, PrepareModifyResponse__Output as _zetasql_local_service_PrepareModifyResponse__Output } from '../../zetasql/local_service/PrepareModifyResponse';
+import type { PrepareQueryRequest as _zetasql_local_service_PrepareQueryRequest, PrepareQueryRequest__Output as _zetasql_local_service_PrepareQueryRequest__Output } from '../../zetasql/local_service/PrepareQueryRequest';
+import type { PrepareQueryResponse as _zetasql_local_service_PrepareQueryResponse, PrepareQueryResponse__Output as _zetasql_local_service_PrepareQueryResponse__Output } from '../../zetasql/local_service/PrepareQueryResponse';
 import type { PrepareRequest as _zetasql_local_service_PrepareRequest, PrepareRequest__Output as _zetasql_local_service_PrepareRequest__Output } from '../../zetasql/local_service/PrepareRequest';
 import type { PrepareResponse as _zetasql_local_service_PrepareResponse, PrepareResponse__Output as _zetasql_local_service_PrepareResponse__Output } from '../../zetasql/local_service/PrepareResponse';
 import type { RegisterCatalogRequest as _zetasql_local_service_RegisterCatalogRequest, RegisterCatalogRequest__Output as _zetasql_local_service_RegisterCatalogRequest__Output } from '../../zetasql/local_service/RegisterCatalogRequest';
 import type { RegisterResponse as _zetasql_local_service_RegisterResponse, RegisterResponse__Output as _zetasql_local_service_RegisterResponse__Output } from '../../zetasql/local_service/RegisterResponse';
 import type { SimpleTableProto as _zetasql_SimpleTableProto, SimpleTableProto__Output as _zetasql_SimpleTableProto__Output } from '../../zetasql/SimpleTableProto';
 import type { TableFromProtoRequest as _zetasql_local_service_TableFromProtoRequest, TableFromProtoRequest__Output as _zetasql_local_service_TableFromProtoRequest__Output } from '../../zetasql/local_service/TableFromProtoRequest';
+import type { UnprepareModifyRequest as _zetasql_local_service_UnprepareModifyRequest, UnprepareModifyRequest__Output as _zetasql_local_service_UnprepareModifyRequest__Output } from '../../zetasql/local_service/UnprepareModifyRequest';
+import type { UnprepareQueryRequest as _zetasql_local_service_UnprepareQueryRequest, UnprepareQueryRequest__Output as _zetasql_local_service_UnprepareQueryRequest__Output } from '../../zetasql/local_service/UnprepareQueryRequest';
 import type { UnprepareRequest as _zetasql_local_service_UnprepareRequest, UnprepareRequest__Output as _zetasql_local_service_UnprepareRequest__Output } from '../../zetasql/local_service/UnprepareRequest';
 import type { UnregisterRequest as _zetasql_local_service_UnregisterRequest, UnregisterRequest__Output as _zetasql_local_service_UnregisterRequest__Output } from '../../zetasql/local_service/UnregisterRequest';
 import type { ZetaSQLBuiltinFunctionOptionsProto as _zetasql_ZetaSQLBuiltinFunctionOptionsProto, ZetaSQLBuiltinFunctionOptionsProto__Output as _zetasql_ZetaSQLBuiltinFunctionOptionsProto__Output } from '../../zetasql/ZetaSQLBuiltinFunctionOptionsProto';
@@ -59,6 +75,34 @@ export interface ZetaSqlLocalServiceClient extends grpc.Client {
   evaluate(argument: _zetasql_local_service_EvaluateRequest, metadata: grpc.Metadata, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_EvaluateResponse__Output) => void): grpc.ClientUnaryCall;
   evaluate(argument: _zetasql_local_service_EvaluateRequest, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_EvaluateResponse__Output) => void): grpc.ClientUnaryCall;
   evaluate(argument: _zetasql_local_service_EvaluateRequest, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_EvaluateResponse__Output) => void): grpc.ClientUnaryCall;
+  
+  EvaluateModify(argument: _zetasql_local_service_EvaluateModifyRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_EvaluateModifyResponse__Output) => void): grpc.ClientUnaryCall;
+  EvaluateModify(argument: _zetasql_local_service_EvaluateModifyRequest, metadata: grpc.Metadata, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_EvaluateModifyResponse__Output) => void): grpc.ClientUnaryCall;
+  EvaluateModify(argument: _zetasql_local_service_EvaluateModifyRequest, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_EvaluateModifyResponse__Output) => void): grpc.ClientUnaryCall;
+  EvaluateModify(argument: _zetasql_local_service_EvaluateModifyRequest, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_EvaluateModifyResponse__Output) => void): grpc.ClientUnaryCall;
+  evaluateModify(argument: _zetasql_local_service_EvaluateModifyRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_EvaluateModifyResponse__Output) => void): grpc.ClientUnaryCall;
+  evaluateModify(argument: _zetasql_local_service_EvaluateModifyRequest, metadata: grpc.Metadata, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_EvaluateModifyResponse__Output) => void): grpc.ClientUnaryCall;
+  evaluateModify(argument: _zetasql_local_service_EvaluateModifyRequest, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_EvaluateModifyResponse__Output) => void): grpc.ClientUnaryCall;
+  evaluateModify(argument: _zetasql_local_service_EvaluateModifyRequest, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_EvaluateModifyResponse__Output) => void): grpc.ClientUnaryCall;
+  
+  EvaluateModifyStream(metadata: grpc.Metadata, options?: grpc.CallOptions): grpc.ClientDuplexStream<_zetasql_local_service_EvaluateModifyBatchRequest, _zetasql_local_service_EvaluateModifyBatchResponse__Output>;
+  EvaluateModifyStream(options?: grpc.CallOptions): grpc.ClientDuplexStream<_zetasql_local_service_EvaluateModifyBatchRequest, _zetasql_local_service_EvaluateModifyBatchResponse__Output>;
+  evaluateModifyStream(metadata: grpc.Metadata, options?: grpc.CallOptions): grpc.ClientDuplexStream<_zetasql_local_service_EvaluateModifyBatchRequest, _zetasql_local_service_EvaluateModifyBatchResponse__Output>;
+  evaluateModifyStream(options?: grpc.CallOptions): grpc.ClientDuplexStream<_zetasql_local_service_EvaluateModifyBatchRequest, _zetasql_local_service_EvaluateModifyBatchResponse__Output>;
+  
+  EvaluateQuery(argument: _zetasql_local_service_EvaluateQueryRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_EvaluateQueryResponse__Output) => void): grpc.ClientUnaryCall;
+  EvaluateQuery(argument: _zetasql_local_service_EvaluateQueryRequest, metadata: grpc.Metadata, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_EvaluateQueryResponse__Output) => void): grpc.ClientUnaryCall;
+  EvaluateQuery(argument: _zetasql_local_service_EvaluateQueryRequest, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_EvaluateQueryResponse__Output) => void): grpc.ClientUnaryCall;
+  EvaluateQuery(argument: _zetasql_local_service_EvaluateQueryRequest, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_EvaluateQueryResponse__Output) => void): grpc.ClientUnaryCall;
+  evaluateQuery(argument: _zetasql_local_service_EvaluateQueryRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_EvaluateQueryResponse__Output) => void): grpc.ClientUnaryCall;
+  evaluateQuery(argument: _zetasql_local_service_EvaluateQueryRequest, metadata: grpc.Metadata, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_EvaluateQueryResponse__Output) => void): grpc.ClientUnaryCall;
+  evaluateQuery(argument: _zetasql_local_service_EvaluateQueryRequest, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_EvaluateQueryResponse__Output) => void): grpc.ClientUnaryCall;
+  evaluateQuery(argument: _zetasql_local_service_EvaluateQueryRequest, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_EvaluateQueryResponse__Output) => void): grpc.ClientUnaryCall;
+  
+  EvaluateQueryStream(metadata: grpc.Metadata, options?: grpc.CallOptions): grpc.ClientDuplexStream<_zetasql_local_service_EvaluateQueryBatchRequest, _zetasql_local_service_EvaluateQueryBatchResponse__Output>;
+  EvaluateQueryStream(options?: grpc.CallOptions): grpc.ClientDuplexStream<_zetasql_local_service_EvaluateQueryBatchRequest, _zetasql_local_service_EvaluateQueryBatchResponse__Output>;
+  evaluateQueryStream(metadata: grpc.Metadata, options?: grpc.CallOptions): grpc.ClientDuplexStream<_zetasql_local_service_EvaluateQueryBatchRequest, _zetasql_local_service_EvaluateQueryBatchResponse__Output>;
+  evaluateQueryStream(options?: grpc.CallOptions): grpc.ClientDuplexStream<_zetasql_local_service_EvaluateQueryBatchRequest, _zetasql_local_service_EvaluateQueryBatchResponse__Output>;
   
   EvaluateStream(metadata: grpc.Metadata, options?: grpc.CallOptions): grpc.ClientDuplexStream<_zetasql_local_service_EvaluateRequestBatch, _zetasql_local_service_EvaluateResponseBatch__Output>;
   EvaluateStream(options?: grpc.CallOptions): grpc.ClientDuplexStream<_zetasql_local_service_EvaluateRequestBatch, _zetasql_local_service_EvaluateResponseBatch__Output>;
@@ -137,6 +181,15 @@ export interface ZetaSqlLocalServiceClient extends grpc.Client {
   lenientFormatSql(argument: _zetasql_local_service_FormatSqlRequest, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_FormatSqlResponse__Output) => void): grpc.ClientUnaryCall;
   lenientFormatSql(argument: _zetasql_local_service_FormatSqlRequest, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_FormatSqlResponse__Output) => void): grpc.ClientUnaryCall;
   
+  Parse(argument: _zetasql_local_service_ParseRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_ParseResponse__Output) => void): grpc.ClientUnaryCall;
+  Parse(argument: _zetasql_local_service_ParseRequest, metadata: grpc.Metadata, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_ParseResponse__Output) => void): grpc.ClientUnaryCall;
+  Parse(argument: _zetasql_local_service_ParseRequest, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_ParseResponse__Output) => void): grpc.ClientUnaryCall;
+  Parse(argument: _zetasql_local_service_ParseRequest, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_ParseResponse__Output) => void): grpc.ClientUnaryCall;
+  parse(argument: _zetasql_local_service_ParseRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_ParseResponse__Output) => void): grpc.ClientUnaryCall;
+  parse(argument: _zetasql_local_service_ParseRequest, metadata: grpc.Metadata, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_ParseResponse__Output) => void): grpc.ClientUnaryCall;
+  parse(argument: _zetasql_local_service_ParseRequest, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_ParseResponse__Output) => void): grpc.ClientUnaryCall;
+  parse(argument: _zetasql_local_service_ParseRequest, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_ParseResponse__Output) => void): grpc.ClientUnaryCall;
+  
   Prepare(argument: _zetasql_local_service_PrepareRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_PrepareResponse__Output) => void): grpc.ClientUnaryCall;
   Prepare(argument: _zetasql_local_service_PrepareRequest, metadata: grpc.Metadata, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_PrepareResponse__Output) => void): grpc.ClientUnaryCall;
   Prepare(argument: _zetasql_local_service_PrepareRequest, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_PrepareResponse__Output) => void): grpc.ClientUnaryCall;
@@ -145,6 +198,24 @@ export interface ZetaSqlLocalServiceClient extends grpc.Client {
   prepare(argument: _zetasql_local_service_PrepareRequest, metadata: grpc.Metadata, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_PrepareResponse__Output) => void): grpc.ClientUnaryCall;
   prepare(argument: _zetasql_local_service_PrepareRequest, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_PrepareResponse__Output) => void): grpc.ClientUnaryCall;
   prepare(argument: _zetasql_local_service_PrepareRequest, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_PrepareResponse__Output) => void): grpc.ClientUnaryCall;
+  
+  PrepareModify(argument: _zetasql_local_service_PrepareModifyRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_PrepareModifyResponse__Output) => void): grpc.ClientUnaryCall;
+  PrepareModify(argument: _zetasql_local_service_PrepareModifyRequest, metadata: grpc.Metadata, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_PrepareModifyResponse__Output) => void): grpc.ClientUnaryCall;
+  PrepareModify(argument: _zetasql_local_service_PrepareModifyRequest, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_PrepareModifyResponse__Output) => void): grpc.ClientUnaryCall;
+  PrepareModify(argument: _zetasql_local_service_PrepareModifyRequest, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_PrepareModifyResponse__Output) => void): grpc.ClientUnaryCall;
+  prepareModify(argument: _zetasql_local_service_PrepareModifyRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_PrepareModifyResponse__Output) => void): grpc.ClientUnaryCall;
+  prepareModify(argument: _zetasql_local_service_PrepareModifyRequest, metadata: grpc.Metadata, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_PrepareModifyResponse__Output) => void): grpc.ClientUnaryCall;
+  prepareModify(argument: _zetasql_local_service_PrepareModifyRequest, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_PrepareModifyResponse__Output) => void): grpc.ClientUnaryCall;
+  prepareModify(argument: _zetasql_local_service_PrepareModifyRequest, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_PrepareModifyResponse__Output) => void): grpc.ClientUnaryCall;
+  
+  PrepareQuery(argument: _zetasql_local_service_PrepareQueryRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_PrepareQueryResponse__Output) => void): grpc.ClientUnaryCall;
+  PrepareQuery(argument: _zetasql_local_service_PrepareQueryRequest, metadata: grpc.Metadata, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_PrepareQueryResponse__Output) => void): grpc.ClientUnaryCall;
+  PrepareQuery(argument: _zetasql_local_service_PrepareQueryRequest, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_PrepareQueryResponse__Output) => void): grpc.ClientUnaryCall;
+  PrepareQuery(argument: _zetasql_local_service_PrepareQueryRequest, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_PrepareQueryResponse__Output) => void): grpc.ClientUnaryCall;
+  prepareQuery(argument: _zetasql_local_service_PrepareQueryRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_PrepareQueryResponse__Output) => void): grpc.ClientUnaryCall;
+  prepareQuery(argument: _zetasql_local_service_PrepareQueryRequest, metadata: grpc.Metadata, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_PrepareQueryResponse__Output) => void): grpc.ClientUnaryCall;
+  prepareQuery(argument: _zetasql_local_service_PrepareQueryRequest, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_PrepareQueryResponse__Output) => void): grpc.ClientUnaryCall;
+  prepareQuery(argument: _zetasql_local_service_PrepareQueryRequest, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_PrepareQueryResponse__Output) => void): grpc.ClientUnaryCall;
   
   RegisterCatalog(argument: _zetasql_local_service_RegisterCatalogRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_RegisterResponse__Output) => void): grpc.ClientUnaryCall;
   RegisterCatalog(argument: _zetasql_local_service_RegisterCatalogRequest, metadata: grpc.Metadata, callback: (error?: grpc.ServiceError, result?: _zetasql_local_service_RegisterResponse__Output) => void): grpc.ClientUnaryCall;
@@ -164,6 +235,24 @@ export interface ZetaSqlLocalServiceClient extends grpc.Client {
   unprepare(argument: _zetasql_local_service_UnprepareRequest, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _google_protobuf_Empty__Output) => void): grpc.ClientUnaryCall;
   unprepare(argument: _zetasql_local_service_UnprepareRequest, callback: (error?: grpc.ServiceError, result?: _google_protobuf_Empty__Output) => void): grpc.ClientUnaryCall;
   
+  UnprepareModify(argument: _zetasql_local_service_UnprepareModifyRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _google_protobuf_Empty__Output) => void): grpc.ClientUnaryCall;
+  UnprepareModify(argument: _zetasql_local_service_UnprepareModifyRequest, metadata: grpc.Metadata, callback: (error?: grpc.ServiceError, result?: _google_protobuf_Empty__Output) => void): grpc.ClientUnaryCall;
+  UnprepareModify(argument: _zetasql_local_service_UnprepareModifyRequest, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _google_protobuf_Empty__Output) => void): grpc.ClientUnaryCall;
+  UnprepareModify(argument: _zetasql_local_service_UnprepareModifyRequest, callback: (error?: grpc.ServiceError, result?: _google_protobuf_Empty__Output) => void): grpc.ClientUnaryCall;
+  unprepareModify(argument: _zetasql_local_service_UnprepareModifyRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _google_protobuf_Empty__Output) => void): grpc.ClientUnaryCall;
+  unprepareModify(argument: _zetasql_local_service_UnprepareModifyRequest, metadata: grpc.Metadata, callback: (error?: grpc.ServiceError, result?: _google_protobuf_Empty__Output) => void): grpc.ClientUnaryCall;
+  unprepareModify(argument: _zetasql_local_service_UnprepareModifyRequest, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _google_protobuf_Empty__Output) => void): grpc.ClientUnaryCall;
+  unprepareModify(argument: _zetasql_local_service_UnprepareModifyRequest, callback: (error?: grpc.ServiceError, result?: _google_protobuf_Empty__Output) => void): grpc.ClientUnaryCall;
+  
+  UnprepareQuery(argument: _zetasql_local_service_UnprepareQueryRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _google_protobuf_Empty__Output) => void): grpc.ClientUnaryCall;
+  UnprepareQuery(argument: _zetasql_local_service_UnprepareQueryRequest, metadata: grpc.Metadata, callback: (error?: grpc.ServiceError, result?: _google_protobuf_Empty__Output) => void): grpc.ClientUnaryCall;
+  UnprepareQuery(argument: _zetasql_local_service_UnprepareQueryRequest, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _google_protobuf_Empty__Output) => void): grpc.ClientUnaryCall;
+  UnprepareQuery(argument: _zetasql_local_service_UnprepareQueryRequest, callback: (error?: grpc.ServiceError, result?: _google_protobuf_Empty__Output) => void): grpc.ClientUnaryCall;
+  unprepareQuery(argument: _zetasql_local_service_UnprepareQueryRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _google_protobuf_Empty__Output) => void): grpc.ClientUnaryCall;
+  unprepareQuery(argument: _zetasql_local_service_UnprepareQueryRequest, metadata: grpc.Metadata, callback: (error?: grpc.ServiceError, result?: _google_protobuf_Empty__Output) => void): grpc.ClientUnaryCall;
+  unprepareQuery(argument: _zetasql_local_service_UnprepareQueryRequest, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _google_protobuf_Empty__Output) => void): grpc.ClientUnaryCall;
+  unprepareQuery(argument: _zetasql_local_service_UnprepareQueryRequest, callback: (error?: grpc.ServiceError, result?: _google_protobuf_Empty__Output) => void): grpc.ClientUnaryCall;
+  
   UnregisterCatalog(argument: _zetasql_local_service_UnregisterRequest, metadata: grpc.Metadata, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _google_protobuf_Empty__Output) => void): grpc.ClientUnaryCall;
   UnregisterCatalog(argument: _zetasql_local_service_UnregisterRequest, metadata: grpc.Metadata, callback: (error?: grpc.ServiceError, result?: _google_protobuf_Empty__Output) => void): grpc.ClientUnaryCall;
   UnregisterCatalog(argument: _zetasql_local_service_UnregisterRequest, options: grpc.CallOptions, callback: (error?: grpc.ServiceError, result?: _google_protobuf_Empty__Output) => void): grpc.ClientUnaryCall;
@@ -181,6 +270,14 @@ export interface ZetaSqlLocalServiceHandlers extends grpc.UntypedServiceImplemen
   BuildSql: grpc.handleUnaryCall<_zetasql_local_service_BuildSqlRequest__Output, _zetasql_local_service_BuildSqlResponse>;
   
   Evaluate: grpc.handleUnaryCall<_zetasql_local_service_EvaluateRequest__Output, _zetasql_local_service_EvaluateResponse>;
+  
+  EvaluateModify: grpc.handleUnaryCall<_zetasql_local_service_EvaluateModifyRequest__Output, _zetasql_local_service_EvaluateModifyResponse>;
+  
+  EvaluateModifyStream: grpc.handleBidiStreamingCall<_zetasql_local_service_EvaluateModifyBatchRequest__Output, _zetasql_local_service_EvaluateModifyBatchResponse>;
+  
+  EvaluateQuery: grpc.handleUnaryCall<_zetasql_local_service_EvaluateQueryRequest__Output, _zetasql_local_service_EvaluateQueryResponse>;
+  
+  EvaluateQueryStream: grpc.handleBidiStreamingCall<_zetasql_local_service_EvaluateQueryBatchRequest__Output, _zetasql_local_service_EvaluateQueryBatchResponse>;
   
   EvaluateStream: grpc.handleBidiStreamingCall<_zetasql_local_service_EvaluateRequestBatch__Output, _zetasql_local_service_EvaluateResponseBatch>;
   
@@ -200,11 +297,21 @@ export interface ZetaSqlLocalServiceHandlers extends grpc.UntypedServiceImplemen
   
   LenientFormatSql: grpc.handleUnaryCall<_zetasql_local_service_FormatSqlRequest__Output, _zetasql_local_service_FormatSqlResponse>;
   
+  Parse: grpc.handleUnaryCall<_zetasql_local_service_ParseRequest__Output, _zetasql_local_service_ParseResponse>;
+  
   Prepare: grpc.handleUnaryCall<_zetasql_local_service_PrepareRequest__Output, _zetasql_local_service_PrepareResponse>;
+  
+  PrepareModify: grpc.handleUnaryCall<_zetasql_local_service_PrepareModifyRequest__Output, _zetasql_local_service_PrepareModifyResponse>;
+  
+  PrepareQuery: grpc.handleUnaryCall<_zetasql_local_service_PrepareQueryRequest__Output, _zetasql_local_service_PrepareQueryResponse>;
   
   RegisterCatalog: grpc.handleUnaryCall<_zetasql_local_service_RegisterCatalogRequest__Output, _zetasql_local_service_RegisterResponse>;
   
   Unprepare: grpc.handleUnaryCall<_zetasql_local_service_UnprepareRequest__Output, _google_protobuf_Empty>;
+  
+  UnprepareModify: grpc.handleUnaryCall<_zetasql_local_service_UnprepareModifyRequest__Output, _google_protobuf_Empty>;
+  
+  UnprepareQuery: grpc.handleUnaryCall<_zetasql_local_service_UnprepareQueryRequest__Output, _google_protobuf_Empty>;
   
   UnregisterCatalog: grpc.handleUnaryCall<_zetasql_local_service_UnregisterRequest__Output, _google_protobuf_Empty>;
   
@@ -214,6 +321,10 @@ export interface ZetaSqlLocalServiceDefinition extends grpc.ServiceDefinition {
   Analyze: MethodDefinition<_zetasql_local_service_AnalyzeRequest, _zetasql_local_service_AnalyzeResponse, _zetasql_local_service_AnalyzeRequest__Output, _zetasql_local_service_AnalyzeResponse__Output>
   BuildSql: MethodDefinition<_zetasql_local_service_BuildSqlRequest, _zetasql_local_service_BuildSqlResponse, _zetasql_local_service_BuildSqlRequest__Output, _zetasql_local_service_BuildSqlResponse__Output>
   Evaluate: MethodDefinition<_zetasql_local_service_EvaluateRequest, _zetasql_local_service_EvaluateResponse, _zetasql_local_service_EvaluateRequest__Output, _zetasql_local_service_EvaluateResponse__Output>
+  EvaluateModify: MethodDefinition<_zetasql_local_service_EvaluateModifyRequest, _zetasql_local_service_EvaluateModifyResponse, _zetasql_local_service_EvaluateModifyRequest__Output, _zetasql_local_service_EvaluateModifyResponse__Output>
+  EvaluateModifyStream: MethodDefinition<_zetasql_local_service_EvaluateModifyBatchRequest, _zetasql_local_service_EvaluateModifyBatchResponse, _zetasql_local_service_EvaluateModifyBatchRequest__Output, _zetasql_local_service_EvaluateModifyBatchResponse__Output>
+  EvaluateQuery: MethodDefinition<_zetasql_local_service_EvaluateQueryRequest, _zetasql_local_service_EvaluateQueryResponse, _zetasql_local_service_EvaluateQueryRequest__Output, _zetasql_local_service_EvaluateQueryResponse__Output>
+  EvaluateQueryStream: MethodDefinition<_zetasql_local_service_EvaluateQueryBatchRequest, _zetasql_local_service_EvaluateQueryBatchResponse, _zetasql_local_service_EvaluateQueryBatchRequest__Output, _zetasql_local_service_EvaluateQueryBatchResponse__Output>
   EvaluateStream: MethodDefinition<_zetasql_local_service_EvaluateRequestBatch, _zetasql_local_service_EvaluateResponseBatch, _zetasql_local_service_EvaluateRequestBatch__Output, _zetasql_local_service_EvaluateResponseBatch__Output>
   ExtractTableNamesFromNextStatement: MethodDefinition<_zetasql_local_service_ExtractTableNamesFromNextStatementRequest, _zetasql_local_service_ExtractTableNamesFromNextStatementResponse, _zetasql_local_service_ExtractTableNamesFromNextStatementRequest__Output, _zetasql_local_service_ExtractTableNamesFromNextStatementResponse__Output>
   ExtractTableNamesFromStatement: MethodDefinition<_zetasql_local_service_ExtractTableNamesFromStatementRequest, _zetasql_local_service_ExtractTableNamesFromStatementResponse, _zetasql_local_service_ExtractTableNamesFromStatementRequest__Output, _zetasql_local_service_ExtractTableNamesFromStatementResponse__Output>
@@ -223,8 +334,13 @@ export interface ZetaSqlLocalServiceDefinition extends grpc.ServiceDefinition {
   GetLanguageOptions: MethodDefinition<_zetasql_local_service_LanguageOptionsRequest, _zetasql_LanguageOptionsProto, _zetasql_local_service_LanguageOptionsRequest__Output, _zetasql_LanguageOptionsProto__Output>
   GetTableFromProto: MethodDefinition<_zetasql_local_service_TableFromProtoRequest, _zetasql_SimpleTableProto, _zetasql_local_service_TableFromProtoRequest__Output, _zetasql_SimpleTableProto__Output>
   LenientFormatSql: MethodDefinition<_zetasql_local_service_FormatSqlRequest, _zetasql_local_service_FormatSqlResponse, _zetasql_local_service_FormatSqlRequest__Output, _zetasql_local_service_FormatSqlResponse__Output>
+  Parse: MethodDefinition<_zetasql_local_service_ParseRequest, _zetasql_local_service_ParseResponse, _zetasql_local_service_ParseRequest__Output, _zetasql_local_service_ParseResponse__Output>
   Prepare: MethodDefinition<_zetasql_local_service_PrepareRequest, _zetasql_local_service_PrepareResponse, _zetasql_local_service_PrepareRequest__Output, _zetasql_local_service_PrepareResponse__Output>
+  PrepareModify: MethodDefinition<_zetasql_local_service_PrepareModifyRequest, _zetasql_local_service_PrepareModifyResponse, _zetasql_local_service_PrepareModifyRequest__Output, _zetasql_local_service_PrepareModifyResponse__Output>
+  PrepareQuery: MethodDefinition<_zetasql_local_service_PrepareQueryRequest, _zetasql_local_service_PrepareQueryResponse, _zetasql_local_service_PrepareQueryRequest__Output, _zetasql_local_service_PrepareQueryResponse__Output>
   RegisterCatalog: MethodDefinition<_zetasql_local_service_RegisterCatalogRequest, _zetasql_local_service_RegisterResponse, _zetasql_local_service_RegisterCatalogRequest__Output, _zetasql_local_service_RegisterResponse__Output>
   Unprepare: MethodDefinition<_zetasql_local_service_UnprepareRequest, _google_protobuf_Empty, _zetasql_local_service_UnprepareRequest__Output, _google_protobuf_Empty__Output>
+  UnprepareModify: MethodDefinition<_zetasql_local_service_UnprepareModifyRequest, _google_protobuf_Empty, _zetasql_local_service_UnprepareModifyRequest__Output, _google_protobuf_Empty__Output>
+  UnprepareQuery: MethodDefinition<_zetasql_local_service_UnprepareQueryRequest, _google_protobuf_Empty, _zetasql_local_service_UnprepareQueryRequest__Output, _google_protobuf_Empty__Output>
   UnregisterCatalog: MethodDefinition<_zetasql_local_service_UnregisterRequest, _google_protobuf_Empty, _zetasql_local_service_UnregisterRequest__Output, _google_protobuf_Empty__Output>
 }

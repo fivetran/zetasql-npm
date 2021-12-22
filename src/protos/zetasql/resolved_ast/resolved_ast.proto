@@ -128,6 +128,7 @@ message AnyResolvedExprProto {
     ResolvedFlattenedArgProto resolved_flattened_arg_node = 150;
     ResolvedGetJsonFieldProto resolved_get_json_field_node = 165;
     ResolvedFilterFieldProto resolved_filter_field_node = 174;
+    ResolvedLetExprProto resolved_let_expr_node = 197;
   }
 }
 
@@ -312,6 +313,9 @@ message ResolvedFilterFieldProto {
   // The list of field paths to include or exclude. The path starts
   // from the proto type of <expr>.
   repeated ResolvedFilterFieldArgProto filter_field_arg_list = 3;
+  // If true, will reset cleared required fields into a
+  // default value.
+  optional bool reset_cleared_required_fields = 4;
 }
 
 // Common base class for scalar and aggregate function calls.
@@ -826,6 +830,24 @@ message ResolvedSubqueryExprProto {
   // Note: Hints currently happen only for EXISTS, IN, or a LIKE
   // expression subquery but not for ARRAY or SCALAR subquery.
   repeated ResolvedOptionProto hint_list = 6;
+}
+
+// ResolvedLetExpr introduces one or more columns in <assignment_list> that
+// can then be referenced inside <expr>. Each assigned expression is
+// evaluated once, and each reference to that column in <expr> sees the same
+// value even if the assigned expression is volatile. Multiple assignment
+// expressions are independent and cannot reference other columns in the
+// <assignment_list>.
+//
+// <assignment_list> One or more columns that are computed before evaluating
+//                   <expr>, and which may be referenced by <expr>.
+// <expr> Computes the result of the ResolvedLetExpr. May reference columns
+//        from <assignment_list>.
+message ResolvedLetExprProto {
+  optional ResolvedExprProto parent = 1;
+
+  repeated ResolvedComputedColumnProto assignment_list = 2;
+  optional AnyResolvedExprProto expr = 3;
 }
 
 // Common superclass for all Scans, which are nodes that produce rows
@@ -1724,6 +1746,7 @@ message AnyResolvedStatementProto {
     ResolvedDropSnapshotTableStmtProto resolved_drop_snapshot_table_stmt_node = 183;
     ResolvedAuxLoadDataStmtProto resolved_aux_load_data_stmt_node = 186;
     ResolvedDropSearchIndexStmtProto resolved_drop_search_index_stmt_node = 190;
+    ResolvedDropPrivilegeRestrictionStmtProto resolved_drop_privilege_restriction_stmt_node = 192;
   }
 }
 
@@ -1799,6 +1822,7 @@ message AnyResolvedCreateStatementProto {
     ResolvedCreateEntityStmtProto resolved_create_entity_stmt_node = 154;
     ResolvedCreateSchemaStmtProto resolved_create_schema_stmt_node = 157;
     ResolvedCreateSnapshotTableStmtProto resolved_create_snapshot_table_stmt_node = 182;
+    ResolvedCreatePrivilegeRestrictionStmtProto resolved_create_privilege_restriction_stmt_node = 191;
   }
 }
 
@@ -3182,6 +3206,7 @@ message AnyResolvedAlterObjectStmtProto {
     ResolvedAlterAllRowAccessPoliciesStmtProto resolved_alter_all_row_access_policies_stmt_node = 145;
     ResolvedAlterEntityStmtProto resolved_alter_entity_stmt_node = 155;
     ResolvedAlterSchemaStmtProto resolved_alter_schema_stmt_node = 160;
+    ResolvedAlterPrivilegeRestrictionStmtProto resolved_alter_privilege_restriction_stmt_node = 196;
   }
 }
 
@@ -3249,6 +3274,9 @@ message AnyResolvedAlterActionProto {
     ResolvedDropPrimaryKeyActionProto resolved_drop_primary_key_action_node = 184;
     ResolvedRenameColumnActionProto resolved_rename_column_action_node = 185;
     ResolvedSetCollateClauseProto resolved_set_collate_clause_node = 187;
+    ResolvedRestrictToActionProto resolved_restrict_to_action_node = 193;
+    ResolvedAddToRestricteeListActionProto resolved_add_to_restrictee_list_action_node = 194;
+    ResolvedRemoveFromRestricteeListActionProto resolved_remove_from_restrictee_list_action_node = 195;
   }
 }
 
@@ -3439,6 +3467,26 @@ message ResolvedRenameStmtProto {
   repeated string new_name_path = 4;
 }
 
+// This statement:
+//     CREATE [OR REPLACE] PRIVILEGE RESTRICTION [IF NOT EXISTS]
+//     ON <column_privilege_list> ON <name_path>
+//     [RESTRICT TO (<restrictee_list>)]
+//
+// <column_privilege_list> is the name of the column privileges on which
+//                         to apply the restrictions.
+// <object_type> is a string identifier, which is currently either TABLE or
+//               VIEW, which tells the engine how to look up the name.
+// <restrictee_list> is a list of users and groups the privilege restrictions
+//                   should apply to. Each restrictee is either a string
+//                   literal or a parameter.
+message ResolvedCreatePrivilegeRestrictionStmtProto {
+  optional ResolvedCreateStatementProto parent = 1;
+
+  repeated ResolvedPrivilegeProto column_privilege_list = 2;
+  optional string object_type = 3;
+  repeated AnyResolvedExprProto restrictee_list = 4;
+}
+
 // This statement: CREATE [OR REPLACE] ROW ACCESS POLICY [IF NOT EXISTS]
 //                 [<name>] ON <target_name_path>
 //                 [GRANT TO (<grantee_list>)]
@@ -3478,6 +3526,24 @@ message ResolvedCreateRowAccessPolicyStmtProto {
   optional ResolvedTableScanProto table_scan = 6;
   optional AnyResolvedExprProto predicate = 7;
   optional string predicate_str = 8;
+}
+
+// This statement:
+//     DROP PRIVILEGE RESTRICTION [IF EXISTS]
+//     ON <column_privilege_list> ON <object_type> <name_path>
+//
+// <column_privilege_list> is the name of the column privileges on which
+//                         the restrictions have been applied.
+// <object_type> is a string identifier, which is currently either TABLE or
+//               VIEW, which tells the engine how to look up the name.
+// <name_path> is the name of the table the restrictions are scoped to.
+message ResolvedDropPrivilegeRestrictionStmtProto {
+  optional ResolvedStatementProto parent = 1;
+
+  optional string object_type = 2;
+  optional bool is_if_exists = 3;
+  repeated string name_path = 4;
+  repeated ResolvedPrivilegeProto column_privilege_list = 5;
 }
 
 // This statement:
@@ -3521,6 +3587,44 @@ message ResolvedGrantToActionProto {
   repeated AnyResolvedExprProto grantee_expr_list = 2;
 }
 
+// This action for ALTER PRIVILEGE RESTRICTION statement:
+//     RESTRICT TO <restrictee_list>
+//
+// <restrictee_list> is a list of users and groups the privilege restrictions
+//                   should apply to. Each restrictee is either a string
+//                   literal or a parameter.
+message ResolvedRestrictToActionProto {
+  optional ResolvedAlterActionProto parent = 1;
+
+  repeated AnyResolvedExprProto restrictee_list = 2;
+}
+
+// This action for ALTER PRIVILEGE RESTRICTION statement:
+//     ADD [IF NOT EXISTS] <restrictee_list>
+//
+// <restrictee_list> is a list of users and groups the privilege restrictions
+//                   should apply to. Each restrictee is either a string
+//                   literal or a parameter.
+message ResolvedAddToRestricteeListActionProto {
+  optional ResolvedAlterActionProto parent = 1;
+
+  optional bool is_if_not_exists = 2;
+  repeated AnyResolvedExprProto restrictee_list = 3;
+}
+
+// This action for ALTER PRIVILEGE RESTRICTION statement:
+//     REMOVE [IF EXISTS] <restrictee_list>
+//
+// <restrictee_list> is a list of users and groups the privilege restrictions
+//                   should apply to. Each restrictee is either a string
+//                   literal or a parameter.
+message ResolvedRemoveFromRestricteeListActionProto {
+  optional ResolvedAlterActionProto parent = 1;
+
+  optional bool is_if_exists = 2;
+  repeated AnyResolvedExprProto restrictee_list = 3;
+}
+
 // FILTER USING action for ALTER ROW ACCESS POLICY statement
 //
 // <predicate> is a boolean expression that selects the rows that are being
@@ -3554,6 +3658,22 @@ message ResolvedRenameToActionProto {
   optional ResolvedAlterActionProto parent = 1;
 
   repeated string new_path = 2;
+}
+
+// This statement:
+//     ALTER PRIVILEGE RESTRICTION [IF EXISTS]
+//     ON <column_privilege_list> ON <object_type> <name_path>
+//     <alter_action_list>
+//
+// <column_privilege_list> is the name of the column privileges on which
+//                         the restrictions have been applied.
+// <object_type> is a string identifier, which is currently either TABLE or
+//               VIEW, which tells the engine how to look up the name.
+message ResolvedAlterPrivilegeRestrictionStmtProto {
+  optional ResolvedAlterObjectStmtProto parent = 1;
+
+  repeated ResolvedPrivilegeProto column_privilege_list = 2;
+  optional string object_type = 3;
 }
 
 // This statement:
@@ -3607,8 +3727,11 @@ message ResolvedCreateConstantStmtProto {
 
 // This statement creates a user-defined function:
 //   CREATE [TEMP] FUNCTION [IF NOT EXISTS] <name_path> (<arg_list>)
-//     [RETURNS <return_type>] [<determinism_level>] [LANGUAGE <language>]
-//     [AS <code> | AS ( <function_expression> )] [OPTIONS (<option_list>)]
+//     [RETURNS <return_type>] [SQL SECURITY <sql_security>]
+//     [<determinism_level>]
+//     [[LANGUAGE <language>] [AS <code> | AS ( <function_expression> )]
+//      | REMOTE [WITH CONNECTION <connection>]]
+//     [OPTIONS (<option_list>)]
 //
 //   <name_path> is the identifier path of the function.
 //   <has_explicit_return_type> is true iff RETURNS clause is present.
@@ -3625,8 +3748,10 @@ message ResolvedCreateConstantStmtProto {
 //          are assumed to be aggregate input arguments that may vary for
 //          every row.
 //   <language> is the programming language used by the function. This field
-//          is set to 'SQL' for SQL functions and otherwise to the language
-//          name specified in the LANGUAGE clause.
+//          is set to 'SQL' for SQL functions and 'REMOTE' for remote
+//          functions and otherwise to the language name specified in the
+//          LANGUAGE clause. This field is set to 'REMOTE' iff <is_remote> is
+//          set to true.
 //   <code> is a string literal that contains the function definition.  Some
 //          engines may allow this argument to be omitted for certain types
 //          of external functions. This will always be set for SQL functions.
@@ -3643,11 +3768,16 @@ message ResolvedCreateConstantStmtProto {
 //   <determinism_level> is the declared determinism level of the function.
 //          Values are 'DETERMINISTIC', 'NOT DETERMINISTIC', 'IMMUTABLE',
 //          'STABLE', 'VOLATILE'.
+//   <is_remote> is true if this is an remote function. It is true iff its
+//          <language> is set to 'REMOTE'.
+//   <connection> is the identifier path of the connection object. It can be
+//          only set when <is_remote> is true.
 //
 // Note that <function_expression> and <code> are both marked as IGNORABLE
 // because an engine could look at either one (but might not look at both).
-// An engine must look at one (and cannot ignore both) to be semantically
-// valid, but there is currently no way to enforce that.
+// An engine must look at one (and cannot ignore both, unless the function is
+// remote) to be semantically valid, but there is currently no way to enforce
+// that.
 //
 // For aggregate functions, <is_aggregate> will be true.
 // Aggregate functions will only occur if LanguageOptions has
@@ -3709,6 +3839,8 @@ message ResolvedCreateFunctionStmtProto {
   repeated ResolvedOptionProto option_list = 7;
   optional ResolvedCreateStatementEnums.SqlSecurity sql_security = 12;
   optional ResolvedCreateStatementEnums.DeterminismLevel determinism_level = 14;
+  optional bool is_remote = 15;
+  optional ResolvedConnectionProto connection = 16;
 }
 
 // This represents an argument definition, e.g. in a function's argument

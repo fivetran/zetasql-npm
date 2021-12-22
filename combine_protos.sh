@@ -10,6 +10,8 @@ copy bazel-bin/external/com_google_protobuf/_virtual_imports/empty_proto/google/
 copy bazel-bin/external/com_google_protobuf/_virtual_imports/timestamp_proto/google/protobuf/timestamp.proto protos/zetasql/timestamp_proto/google/protobuf/timestamp.proto
 copy bazel-bin/zetasql/resolved_ast/_virtual_imports/resolved_ast_proto/zetasql/resolved_ast/resolved_ast.proto protos/zetasql/resolved_ast/resolved_ast.proto
 copy bazel-bin/zetasql/resolved_ast/_virtual_imports/resolved_node_kind_proto/zetasql/resolved_ast/resolved_node_kind.proto protos/zetasql/resolved_ast/resolved_node_kind.proto
+copy bazel-bin/zetasql/parser/parse_tree.proto protos/zetasql/parser/parse_tree.proto
+copy zetasql/parser/ast_enums.proto protos/zetasql/parser/ast_enums.proto
 copy zetasql/local_service/local_service.proto protos/local_service.proto
 copy zetasql/proto/function.proto protos/zetasql/proto/function.proto
 copy zetasql/proto/options.proto protos/zetasql/proto/options.proto
@@ -33,3 +35,4 @@ copy zetasql/public/type.proto protos/zetasql/public/type.proto
 copy zetasql/public/value.proto protos/zetasql/public/value.proto
 copy zetasql/resolved_ast/resolved_ast_enums.proto protos/zetasql/resolved_ast/resolved_ast_enums.proto
 copy zetasql/resolved_ast/serialization.proto protos/zetasql/resolved_ast/serialization.proto
+chmod -R 755 protos

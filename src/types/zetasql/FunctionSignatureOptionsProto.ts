@@ -10,6 +10,7 @@ export interface FunctionSignatureOptionsProto {
   'isAliasedSignature'?: (boolean);
   'propagatesCollation'?: (boolean);
   'usesOperationCollation'?: (boolean);
+  'rejectsCollation'?: (boolean);
 }
 
 export interface FunctionSignatureOptionsProto__Output {
@@ -19,4 +20,5 @@ export interface FunctionSignatureOptionsProto__Output {
   'isAliasedSignature': (boolean);
   'propagatesCollation': (boolean);
   'usesOperationCollation': (boolean);
+  'rejectsCollation': (boolean);
 }
