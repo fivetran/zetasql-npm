@@ -3,17 +3,6 @@
 The repository contains npm package for [zetasql](https://github.com/google/zetasql) gRPC server and client.
 ZetaSQL can be used to provide consistent behavior for all semantic analysis, name resolution, type checking, implicit casting, etc.
 
-## How to build
-
-To build it locally you need to have `npm` installed.
-
-Run the following commands in the root directory
-
-```bash
-$ npm install
-$ npm run build:all
-```
-
 ## Example Usage
 
 Import 'ZetaSQLClient':
@@ -34,6 +23,17 @@ try {
 } catch (e) {
     console.log(e);
 }
+```
+
+## How to build
+
+To build it locally you need to have `npm` installed.
+
+Run the following commands in the root directory
+
+```bash
+$ npm install
+$ npm run build:all
 ```
 
 ## License
