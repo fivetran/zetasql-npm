@@ -109,6 +109,17 @@ try {
 }
 ```
 
+## How to build
+
+To build it locally you need to have `npm` installed.
+
+Run the following commands in the root directory
+
+```sh
+> npm install
+> npm run build:all
+```
+
 ## License
 
 [MIT License](https://github.com/fivetran/zetasql-npm/blob/master/LICENSE)
