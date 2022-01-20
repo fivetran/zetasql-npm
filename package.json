@@ -5,9 +5,10 @@
   "publisher": "Fivetran",
   "license": "MIT",
   "keywords": [
-    "grpc",
-    "bigquery",
-    "sql"
+    "ZetaSQL",
+    "BigQuery",
+    "SQL",
+    "gRPC"
   ],
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
