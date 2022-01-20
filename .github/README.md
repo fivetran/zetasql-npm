@@ -14,7 +14,6 @@ ZetaSQL can be used to provide consistent behavior for all semantic analysis, na
     * [Retrieve table names from SQL statement](#retrieve-table-names-from-sql-statement)
     * [Analyze request](#analyze-request)
 * [How to build](#how-to-build)
-* [License](#license)
 
 ## Installation
 
@@ -119,7 +118,3 @@ Run the following commands in the root directory
 > npm install
 > npm run build:all
 ```
-
-## License
-
-[MIT License](https://github.com/fivetran/zetasql-npm/blob/master/LICENSE)

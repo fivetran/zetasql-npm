@@ -13,8 +13,6 @@ ZetaSQL can be used to provide consistent behavior for all semantic analysis, na
     * [Register catalog](#register-catalog)
     * [Retrieve table names from SQL statement](#retrieve-table-names-from-sql-statement)
     * [Analyze request](#analyze-request)
-* [How to build](#how-to-build)
-* [License](#license)
 
 ## Installation
 
@@ -108,7 +106,3 @@ try {
     ...
 }
 ```
-
-## License
-
-[MIT License](https://github.com/fivetran/zetasql-npm/blob/master/LICENSE)
