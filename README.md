@@ -5,7 +5,7 @@ This is npm package for [ZetaSQL](https://github.com/google/zetasql) library tha
 ## Installation
 
 ```sh
-> npm i @fivetrandevelopers/zetasql 
+npm i @fivetrandevelopers/zetasql 
 ```
 
 ## Example Usage
