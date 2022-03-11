@@ -54,7 +54,7 @@ jobs:
         if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
         uses: abhinavsingh/setup-bazel@v3
         with:
-          version: 3.7.2
+          version: 4.0.0
 
       - name: Build
         if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
