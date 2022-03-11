@@ -1,13 +1,13 @@
 import { runServer, terminateServer, ZetaSQLClient } from '.';
 
-// This manuall test should run and terminate server
+// This manual test should run and terminate server
 
 const port = 50005;
 new Promise(resolve => setTimeout(resolve, 3000))
   .then(() => {
     console.log('Init...');
     ZetaSQLClient.init(port);
-    console.log('Teststing...');
+    console.log('Testing...');
     return ZetaSQLClient.getInstance().testConnection();
   })
   .then(testResult => {
