@@ -48,7 +48,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ matrix.cache-path }}
-          key: ${{ matrix.os }}-${{ steps.vars.outputs.sha_short }}-1
+          key: ${{ matrix.os }}-${{ steps.vars.outputs.sha_short }}
 
       - name: Install Bazel
         if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
@@ -80,13 +80,13 @@ jobs:
         uses: actions/cache@v2
         with:
           path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
-          key: ubuntu-latest-${{ needs.build.outputs.sha_short }}-1
+          key: ubuntu-latest-${{ needs.build.outputs.sha_short }}
 
       - name: Load build macos
         uses: actions/cache@v2
         with:
           path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
-          key: macos-latest-${{ needs.build.outputs.sha_short }}-1
+          key: macos-latest-${{ needs.build.outputs.sha_short }}
 
       - name: Copy files
         working-directory: build
@@ -106,11 +106,10 @@ jobs:
           npm run lint
 
       - name: Cache package results
-        id: cache-package
         uses: actions/cache@v2
         with:
           path: build/zetasql-npm
-          key: package-results-${{ github.sha }}-${{ github.ref }}-1
+          key: package-results-${{ github.sha }}-${{ github.ref }}
 
   e2e:
     needs: package
@@ -130,7 +129,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: build/zetasql-npm
-          key: package-results-${{ github.sha }}-${{ github.ref }}-1
+          key: package-results-${{ github.sha }}-${{ github.ref }}
 
       - name: delete libraries for other platforms
         run: find ./build/zetasql-npm/lib/zetasql ! -name '${{ matrix.zetasql-lib }}' -type f -exec rm -f {} +
@@ -150,7 +149,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: build/zetasql-npm
-          key: package-results-${{ github.sha }}-${{ github.ref }}-1
+          key: package-results-${{ github.sha }}-${{ github.ref }}
       - uses: actions/setup-node@v2
         with:
           node-version: '14.x'
