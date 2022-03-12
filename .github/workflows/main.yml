@@ -77,14 +77,12 @@ jobs:
           path: build/zetasql-npm
 
       - name: Load build linux
-        id: cache-zetasql-linux
         uses: actions/cache@v2
         with:
           path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
           key: ubuntu-latest-${{ needs.build.outputs.sha_short }}-1
 
       - name: Load build macos
-        id: cache-zetasql-macos
         uses: actions/cache@v2
         with:
           path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
@@ -107,10 +105,6 @@ jobs:
           npm run test
           npm run lint
 
-      - name: Run e2e test
-        working-directory: build/zetasql-npm
-        run: ./e2e.sh
-
       - name: Cache package results
         id: cache-package
         uses: actions/cache@v2
@@ -118,13 +112,41 @@ jobs:
           path: build/zetasql-npm
           key: package-results-${{ github.sha }}-${{ github.ref }}-1
 
+  e2e:
+    needs: package
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        include:
+          - os: macos-latest
+            zetasql-lib: libremote_server.dylib
+
+          - os: ubuntu-latest
+            zetasql-lib: libremote_server.so
+
+    steps:
+      - name: load package results
+        uses: actions/cache@v2
+        with:
+          path: build/zetasql-npm
+          key: package-results-${{ github.sha }}-${{ github.ref }}-1
+
+      - name: delete libraries for other platforms
+        run: find ./build/zetasql-npm/lib/zetasql ! -name '${{ matrix.zetasql-lib }}' -type f -exec rm -f {} +
+
+      - name: run e2e test
+        working-directory: build/zetasql-npm
+        run: |
+          npm ci
+          ./e2e.sh
+
   publish-npm:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v')
-    needs: [build, package]
+    needs: [build, package, e2e]
     steps:
       - name: Load package results
-        id: cache-package-results
         uses: actions/cache@v2
         with:
           path: build/zetasql-npm
