@@ -16,6 +16,6 @@ export function runServer(port): Promise<void> {
 
 export function terminateServer(): Promise<void> {
   return worker?.terminate().then(status => {
-    console.log(`ZetaSQS server has been canceled with status: ${status}`);
+    console.log(`ZetaSQL server has been canceled with status: ${status}`);
   });
 }
