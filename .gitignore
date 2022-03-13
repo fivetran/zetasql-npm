@@ -3,5 +3,6 @@
 node_modules
 *.DS_Store
 libremote_server.dylib
+libremote_server_arm.dylib
 libremote_server.so
 .eslintcache

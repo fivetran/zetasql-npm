@@ -1,6 +1,7 @@
 import * as ffi from 'ffi-napi';
 
-const zetaSQLServer = ffi.Library(__dirname + '/zetasql/libremote_server', {
+const libName = 'libremote_server' + (process.arch.startsWith('arm') ? '-arm' : '');
+const zetaSQLServer = ffi.Library(`${__dirname}/zetasql/${libName}`, {
   RunServer: ['void', ['int']],
 });
 
