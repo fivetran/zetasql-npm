@@ -82,6 +82,10 @@ export interface ProtoGrpcType {
     ASTBinaryExpressionProto: MessageTypeDefinition
     ASTBitwiseShiftExpressionProto: MessageTypeDefinition
     ASTBooleanLiteralProto: MessageTypeDefinition
+    ASTBracedConstructorFieldProto: MessageTypeDefinition
+    ASTBracedConstructorFieldValueProto: MessageTypeDefinition
+    ASTBracedConstructorProto: MessageTypeDefinition
+    ASTBracedNewConstructorProto: MessageTypeDefinition
     ASTBreakContinueStatementEnums: MessageTypeDefinition
     ASTBreakContinueStatementProto: MessageTypeDefinition
     ASTBreakStatementProto: MessageTypeDefinition
@@ -429,6 +433,7 @@ export interface ProtoGrpcType {
     AnyASTTypeProto: MessageTypeDefinition
     AnyResolvedAggregateScanBaseProto: MessageTypeDefinition
     AnyResolvedAlterActionProto: MessageTypeDefinition
+    AnyResolvedAlterColumnActionProto: MessageTypeDefinition
     AnyResolvedAlterObjectStmtProto: MessageTypeDefinition
     AnyResolvedArgumentProto: MessageTypeDefinition
     AnyResolvedConstraintProto: MessageTypeDefinition
@@ -494,9 +499,12 @@ export interface ProtoGrpcType {
     ResolvedAggregateScanProto: MessageTypeDefinition
     ResolvedAlterActionProto: MessageTypeDefinition
     ResolvedAlterAllRowAccessPoliciesStmtProto: MessageTypeDefinition
+    ResolvedAlterColumnActionProto: MessageTypeDefinition
+    ResolvedAlterColumnDropDefaultActionProto: MessageTypeDefinition
     ResolvedAlterColumnDropNotNullActionProto: MessageTypeDefinition
     ResolvedAlterColumnOptionsActionProto: MessageTypeDefinition
     ResolvedAlterColumnSetDataTypeActionProto: MessageTypeDefinition
+    ResolvedAlterColumnSetDefaultActionProto: MessageTypeDefinition
     ResolvedAlterDatabaseStmtProto: MessageTypeDefinition
     ResolvedAlterEntityStmtProto: MessageTypeDefinition
     ResolvedAlterMaterializedViewStmtProto: MessageTypeDefinition
@@ -637,6 +645,7 @@ export interface ProtoGrpcType {
     ResolvedNodeProto: MessageTypeDefinition
     ResolvedNonScalarFunctionCallBaseEnums: MessageTypeDefinition
     ResolvedNonScalarFunctionCallBaseProto: MessageTypeDefinition
+    ResolvedObjectUnitProto: MessageTypeDefinition
     ResolvedOptionProto: MessageTypeDefinition
     ResolvedOrderByItemEnums: MessageTypeDefinition
     ResolvedOrderByItemProto: MessageTypeDefinition

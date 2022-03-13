@@ -14,6 +14,7 @@ export interface SimpleTableProto {
   'allowDuplicateColumnNames'?: (boolean);
   'anonymizationInfo'?: (_zetasql_SimpleAnonymizationInfoProto | null);
   'primaryKeyColumnIndex'?: (number)[];
+  'fullName'?: (string);
 }
 
 export interface SimpleTableProto__Output {
@@ -26,4 +27,5 @@ export interface SimpleTableProto__Output {
   'allowDuplicateColumnNames': (boolean);
   'anonymizationInfo': (_zetasql_SimpleAnonymizationInfoProto__Output | null);
   'primaryKeyColumnIndex': (number)[];
+  'fullName': (string);
 }

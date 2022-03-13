@@ -9,6 +9,8 @@ export enum _zetasql_ASTUnaryExpressionEnums_Op {
   BITWISE_NOT = 2,
   MINUS = 3,
   PLUS = 4,
+  IS_UNKNOWN = 5,
+  IS_NOT_UNKNOWN = 6,
 }
 
 export interface ASTUnaryExpressionEnums {

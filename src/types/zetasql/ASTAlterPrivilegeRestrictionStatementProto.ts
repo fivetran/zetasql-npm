@@ -6,12 +6,12 @@ import type { ASTIdentifierProto as _zetasql_ASTIdentifierProto, ASTIdentifierPr
 
 export interface ASTAlterPrivilegeRestrictionStatementProto {
   'parent'?: (_zetasql_ASTAlterStatementBaseProto | null);
-  'columnPrivilegeList'?: (_zetasql_ASTPrivilegesProto | null);
+  'privileges'?: (_zetasql_ASTPrivilegesProto | null);
   'objectType'?: (_zetasql_ASTIdentifierProto | null);
 }
 
 export interface ASTAlterPrivilegeRestrictionStatementProto__Output {
   'parent': (_zetasql_ASTAlterStatementBaseProto__Output | null);
-  'columnPrivilegeList': (_zetasql_ASTPrivilegesProto__Output | null);
+  'privileges': (_zetasql_ASTPrivilegesProto__Output | null);
   'objectType': (_zetasql_ASTIdentifierProto__Output | null);
 }
