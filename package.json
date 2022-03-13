@@ -39,12 +39,12 @@
     "typescript": "^4.5.4"
   },
   "scripts": {
-    "compile": "tsc -b",
+    "build": "tsc -b",
     "watch": "tsc -b -w",
     "build:proto": "proto-loader-gen-types --defaults --oneofs --grpcLib=@grpc/grpc-js --includeDirs=src/protos --outDir=src/types local_service.proto",
-    "precompile": "npm run build:proto",
+    "prebuild": "npm run build:proto",
     "build:server": "mkdir -p lib/zetasql && tar -xzvf zetasql/darwin-x86-64/libremote_server.dylib.tar.gz -C lib/zetasql/ && tar -xzvf zetasql/linux-x86-64/libremote_server.so.tar.gz -C lib/zetasql/ && cp -R src/protos/ lib/protos/",
-    "build:all": "npm run build:server && npm run lint && npm run compile",
+    "build:all": "npm run build:server && npm run lint && npm run build",
     "test": "jest --config jestconfig.json",
     "lint": "eslint --cache --no-fix --ext .ts src",
     "lint:fix": "eslint --cache --fix --ext .ts src",

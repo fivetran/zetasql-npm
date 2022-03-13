@@ -101,7 +101,7 @@ jobs:
         run: |
           echo ${{ github.ref }}
           npm install
-          npm run compile
+          npm run build
           npm run test
           npm run lint
 
