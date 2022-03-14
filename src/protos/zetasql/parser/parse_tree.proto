@@ -167,6 +167,7 @@ message AnyASTNodeProto {
     ASTExecuteUsingClauseProto ast_execute_using_clause_node = 320;
     ASTAuxLoadDataFromFilesOptionsListProto ast_aux_load_data_from_files_options_list_node = 322;
     ASTLabelProto ast_label_node = 324;
+    ASTBracedConstructorFieldProto ast_braced_constructor_field_node = 331;
   }
 }
 
@@ -322,6 +323,9 @@ message AnyASTExpressionProto {
     ASTNewConstructorProto ast_new_constructor_node = 147;
     ASTDefaultLiteralProto ast_default_literal_node = 188;
     ASTReplaceFieldsExpressionProto ast_replace_fields_expression_node = 228;
+    ASTBracedConstructorFieldValueProto ast_braced_constructor_field_value_node = 330;
+    ASTBracedConstructorProto ast_braced_constructor_node = 332;
+    ASTBracedNewConstructorProto ast_braced_new_constructor_node = 333;
   }
 }
 message ASTExpressionProto {
@@ -594,12 +598,14 @@ message ASTSimpleTypeProto {
   optional ASTTypeProto parent = 1;
   optional ASTPathExpressionProto type_name = 2;
   optional ASTTypeParameterListProto type_parameters = 3;
+  optional ASTCollateProto collate = 4;
 }
 
 message ASTArrayTypeProto {
   optional ASTTypeProto parent = 1;
   optional AnyASTTypeProto element_type = 2;
   optional ASTTypeParameterListProto type_parameters = 3;
+  optional ASTCollateProto collate = 4;
 }
 
 message ASTStructFieldProto {
@@ -613,6 +619,7 @@ message ASTStructTypeProto {
   optional ASTTypeProto parent = 1;
   repeated ASTStructFieldProto struct_fields = 2;
   optional ASTTypeParameterListProto type_parameters = 3;
+  optional ASTCollateProto collate = 4;
 }
 
 message ASTCastExpressionProto {
@@ -1353,11 +1360,11 @@ message ASTClusterByProto {
   repeated AnyASTExpressionProto clustering_expressions = 2;
 }
 
+// At most one of 'optional_identifier' and 'optional_path_expression' are
+// set.
 message ASTNewConstructorArgProto {
   optional ASTNodeProto parent = 1;
   optional AnyASTExpressionProto expression = 2;
-  // At most one of 'optional_identifier' and 'optional_path_expression' are
-  // set.
   optional ASTIdentifierProto optional_identifier = 3;
   optional ASTPathExpressionProto optional_path_expression = 4;
 }
@@ -1366,6 +1373,31 @@ message ASTNewConstructorProto {
   optional ASTExpressionProto parent = 1;
   optional ASTSimpleTypeProto type_name = 2;
   repeated ASTNewConstructorArgProto arguments = 3;
+}
+
+message ASTBracedConstructorFieldValueProto {
+  optional ASTExpressionProto parent = 1;
+  optional AnyASTExpressionProto expression = 2;
+}
+
+// Exactly one of 'identifier' and 'parenthesized_path' is
+// set.
+message ASTBracedConstructorFieldProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTIdentifierProto identifier = 2;
+  optional ASTPathExpressionProto parenthesized_path = 3;
+  optional ASTBracedConstructorFieldValueProto value = 4;
+}
+
+message ASTBracedConstructorProto {
+  optional ASTExpressionProto parent = 1;
+  repeated ASTBracedConstructorFieldProto fields = 3;
+}
+
+message ASTBracedNewConstructorProto {
+  optional ASTExpressionProto parent = 1;
+  optional ASTSimpleTypeProto type_name = 2;
+  optional ASTBracedConstructorProto braced_constructor = 3;
 }
 
 message ASTOptionsListProto {
@@ -1949,7 +1981,7 @@ message ASTMergeStatementProto {
 message ASTPrivilegeProto {
   optional ASTNodeProto parent = 1;
   optional ASTIdentifierProto privilege_action = 2;
-  optional ASTColumnListProto column_list = 3;
+  optional ASTPathExpressionListProto paths = 3;
 }
 
 // Represents privileges to be granted or revoked. It can be either or a
@@ -2521,7 +2553,7 @@ message ASTContinueStatementProto {
 message ASTDropPrivilegeRestrictionStatementProto {
   optional ASTDdlStatementProto parent = 1;
   optional bool is_if_exists = 2;
-  optional ASTPrivilegesProto column_privilege_list = 3;
+  optional ASTPrivilegesProto privileges = 3;
   optional ASTIdentifierProto object_type = 4;
   optional ASTPathExpressionProto name_path = 5;
 }
@@ -2536,7 +2568,7 @@ message ASTDropRowAccessPolicyStatementProto {
 
 message ASTCreatePrivilegeRestrictionStatementProto {
   optional ASTCreateStatementProto parent = 1;
-  optional ASTPrivilegesProto column_privilege_list = 2;
+  optional ASTPrivilegesProto privileges = 2;
   optional ASTIdentifierProto object_type = 3;
   optional ASTPathExpressionProto name_path = 4;
   optional ASTRestrictToClauseProto restrict_to = 5;
@@ -2745,7 +2777,7 @@ message ASTAlterMaterializedViewStatementProto {
 message ASTAlterPrivilegeRestrictionStatementProto {
   optional ASTAlterStatementBaseProto parent = 1;
   // Required field.
-  optional ASTPrivilegesProto column_privilege_list = 2;
+  optional ASTPrivilegesProto privileges = 2;
   // Required field.
   optional ASTIdentifierProto object_type = 3;
 }

@@ -8,7 +8,7 @@ import type { ASTRestrictToClauseProto as _zetasql_ASTRestrictToClauseProto, AST
 
 export interface ASTCreatePrivilegeRestrictionStatementProto {
   'parent'?: (_zetasql_ASTCreateStatementProto | null);
-  'columnPrivilegeList'?: (_zetasql_ASTPrivilegesProto | null);
+  'privileges'?: (_zetasql_ASTPrivilegesProto | null);
   'objectType'?: (_zetasql_ASTIdentifierProto | null);
   'namePath'?: (_zetasql_ASTPathExpressionProto | null);
   'restrictTo'?: (_zetasql_ASTRestrictToClauseProto | null);
@@ -16,7 +16,7 @@ export interface ASTCreatePrivilegeRestrictionStatementProto {
 
 export interface ASTCreatePrivilegeRestrictionStatementProto__Output {
   'parent': (_zetasql_ASTCreateStatementProto__Output | null);
-  'columnPrivilegeList': (_zetasql_ASTPrivilegesProto__Output | null);
+  'privileges': (_zetasql_ASTPrivilegesProto__Output | null);
   'objectType': (_zetasql_ASTIdentifierProto__Output | null);
   'namePath': (_zetasql_ASTPathExpressionProto__Output | null);
   'restrictTo': (_zetasql_ASTRestrictToClauseProto__Output | null);

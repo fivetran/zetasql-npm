@@ -49,6 +49,7 @@ export interface AnalyzerOptionsProto {
   'createNewColumnForEachProjectedOutput'?: (boolean);
   'enabledRewrites'?: (_zetasql_ResolvedASTRewrite | keyof typeof _zetasql_ResolvedASTRewrite)[];
   'parseLocationRecordType'?: (_zetasql_ParseLocationRecordType | keyof typeof _zetasql_ParseLocationRecordType);
+  'preserveUnnecessaryCast'?: (boolean);
 }
 
 export interface AnalyzerOptionsProto__Output {
@@ -71,4 +72,5 @@ export interface AnalyzerOptionsProto__Output {
   'createNewColumnForEachProjectedOutput': (boolean);
   'enabledRewrites': (_zetasql_ResolvedASTRewrite)[];
   'parseLocationRecordType': (_zetasql_ParseLocationRecordType);
+  'preserveUnnecessaryCast': (boolean);
 }

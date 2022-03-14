@@ -8,7 +8,7 @@ import type { ASTPathExpressionProto as _zetasql_ASTPathExpressionProto, ASTPath
 export interface ASTDropPrivilegeRestrictionStatementProto {
   'parent'?: (_zetasql_ASTDdlStatementProto | null);
   'isIfExists'?: (boolean);
-  'columnPrivilegeList'?: (_zetasql_ASTPrivilegesProto | null);
+  'privileges'?: (_zetasql_ASTPrivilegesProto | null);
   'objectType'?: (_zetasql_ASTIdentifierProto | null);
   'namePath'?: (_zetasql_ASTPathExpressionProto | null);
 }
@@ -16,7 +16,7 @@ export interface ASTDropPrivilegeRestrictionStatementProto {
 export interface ASTDropPrivilegeRestrictionStatementProto__Output {
   'parent': (_zetasql_ASTDdlStatementProto__Output | null);
   'isIfExists': (boolean);
-  'columnPrivilegeList': (_zetasql_ASTPrivilegesProto__Output | null);
+  'privileges': (_zetasql_ASTPrivilegesProto__Output | null);
   'objectType': (_zetasql_ASTIdentifierProto__Output | null);
   'namePath': (_zetasql_ASTPathExpressionProto__Output | null);
 }

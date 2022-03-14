@@ -33,6 +33,9 @@ import type { ASTFunctionCallWithGroupRowsProto as _zetasql_ASTFunctionCallWithG
 import type { ASTNewConstructorProto as _zetasql_ASTNewConstructorProto, ASTNewConstructorProto__Output as _zetasql_ASTNewConstructorProto__Output } from '../zetasql/ASTNewConstructorProto';
 import type { ASTDefaultLiteralProto as _zetasql_ASTDefaultLiteralProto, ASTDefaultLiteralProto__Output as _zetasql_ASTDefaultLiteralProto__Output } from '../zetasql/ASTDefaultLiteralProto';
 import type { ASTReplaceFieldsExpressionProto as _zetasql_ASTReplaceFieldsExpressionProto, ASTReplaceFieldsExpressionProto__Output as _zetasql_ASTReplaceFieldsExpressionProto__Output } from '../zetasql/ASTReplaceFieldsExpressionProto';
+import type { ASTBracedConstructorFieldValueProto as _zetasql_ASTBracedConstructorFieldValueProto, ASTBracedConstructorFieldValueProto__Output as _zetasql_ASTBracedConstructorFieldValueProto__Output } from '../zetasql/ASTBracedConstructorFieldValueProto';
+import type { ASTBracedConstructorProto as _zetasql_ASTBracedConstructorProto, ASTBracedConstructorProto__Output as _zetasql_ASTBracedConstructorProto__Output } from '../zetasql/ASTBracedConstructorProto';
+import type { ASTBracedNewConstructorProto as _zetasql_ASTBracedNewConstructorProto, ASTBracedNewConstructorProto__Output as _zetasql_ASTBracedNewConstructorProto__Output } from '../zetasql/ASTBracedNewConstructorProto';
 
 export interface AnyASTExpressionProto {
   'astLeafNode'?: (_zetasql_AnyASTLeafProto | null);
@@ -68,7 +71,10 @@ export interface AnyASTExpressionProto {
   'astNewConstructorNode'?: (_zetasql_ASTNewConstructorProto | null);
   'astDefaultLiteralNode'?: (_zetasql_ASTDefaultLiteralProto | null);
   'astReplaceFieldsExpressionNode'?: (_zetasql_ASTReplaceFieldsExpressionProto | null);
-  'node'?: "astLeafNode"|"astIdentifierNode"|"astGeneralizedPathExpressionNode"|"astAndExprNode"|"astBinaryExpressionNode"|"astOrExprNode"|"astCastExpressionNode"|"astFunctionCallNode"|"astArrayConstructorNode"|"astStructConstructorWithParensNode"|"astStructConstructorWithKeywordNode"|"astInExpressionNode"|"astBetweenExpressionNode"|"astDateOrTimeLiteralNode"|"astCaseValueExpressionNode"|"astCaseNoValueExpressionNode"|"astBitwiseShiftExpressionNode"|"astDotStarNode"|"astDotStarWithModifiersNode"|"astExpressionSubqueryNode"|"astExtractExpressionNode"|"astIntervalExprNode"|"astNamedArgumentNode"|"astStarWithModifiersNode"|"astUnaryExpressionNode"|"astLikeExpressionNode"|"astParameterExprBaseNode"|"astLambdaNode"|"astAnalyticFunctionCallNode"|"astFunctionCallWithGroupRowsNode"|"astNewConstructorNode"|"astDefaultLiteralNode"|"astReplaceFieldsExpressionNode";
+  'astBracedConstructorFieldValueNode'?: (_zetasql_ASTBracedConstructorFieldValueProto | null);
+  'astBracedConstructorNode'?: (_zetasql_ASTBracedConstructorProto | null);
+  'astBracedNewConstructorNode'?: (_zetasql_ASTBracedNewConstructorProto | null);
+  'node'?: "astLeafNode"|"astIdentifierNode"|"astGeneralizedPathExpressionNode"|"astAndExprNode"|"astBinaryExpressionNode"|"astOrExprNode"|"astCastExpressionNode"|"astFunctionCallNode"|"astArrayConstructorNode"|"astStructConstructorWithParensNode"|"astStructConstructorWithKeywordNode"|"astInExpressionNode"|"astBetweenExpressionNode"|"astDateOrTimeLiteralNode"|"astCaseValueExpressionNode"|"astCaseNoValueExpressionNode"|"astBitwiseShiftExpressionNode"|"astDotStarNode"|"astDotStarWithModifiersNode"|"astExpressionSubqueryNode"|"astExtractExpressionNode"|"astIntervalExprNode"|"astNamedArgumentNode"|"astStarWithModifiersNode"|"astUnaryExpressionNode"|"astLikeExpressionNode"|"astParameterExprBaseNode"|"astLambdaNode"|"astAnalyticFunctionCallNode"|"astFunctionCallWithGroupRowsNode"|"astNewConstructorNode"|"astDefaultLiteralNode"|"astReplaceFieldsExpressionNode"|"astBracedConstructorFieldValueNode"|"astBracedConstructorNode"|"astBracedNewConstructorNode";
 }
 
 export interface AnyASTExpressionProto__Output {
@@ -105,5 +111,8 @@ export interface AnyASTExpressionProto__Output {
   'astNewConstructorNode'?: (_zetasql_ASTNewConstructorProto__Output | null);
   'astDefaultLiteralNode'?: (_zetasql_ASTDefaultLiteralProto__Output | null);
   'astReplaceFieldsExpressionNode'?: (_zetasql_ASTReplaceFieldsExpressionProto__Output | null);
-  'node': "astLeafNode"|"astIdentifierNode"|"astGeneralizedPathExpressionNode"|"astAndExprNode"|"astBinaryExpressionNode"|"astOrExprNode"|"astCastExpressionNode"|"astFunctionCallNode"|"astArrayConstructorNode"|"astStructConstructorWithParensNode"|"astStructConstructorWithKeywordNode"|"astInExpressionNode"|"astBetweenExpressionNode"|"astDateOrTimeLiteralNode"|"astCaseValueExpressionNode"|"astCaseNoValueExpressionNode"|"astBitwiseShiftExpressionNode"|"astDotStarNode"|"astDotStarWithModifiersNode"|"astExpressionSubqueryNode"|"astExtractExpressionNode"|"astIntervalExprNode"|"astNamedArgumentNode"|"astStarWithModifiersNode"|"astUnaryExpressionNode"|"astLikeExpressionNode"|"astParameterExprBaseNode"|"astLambdaNode"|"astAnalyticFunctionCallNode"|"astFunctionCallWithGroupRowsNode"|"astNewConstructorNode"|"astDefaultLiteralNode"|"astReplaceFieldsExpressionNode";
+  'astBracedConstructorFieldValueNode'?: (_zetasql_ASTBracedConstructorFieldValueProto__Output | null);
+  'astBracedConstructorNode'?: (_zetasql_ASTBracedConstructorProto__Output | null);
+  'astBracedNewConstructorNode'?: (_zetasql_ASTBracedNewConstructorProto__Output | null);
+  'node': "astLeafNode"|"astIdentifierNode"|"astGeneralizedPathExpressionNode"|"astAndExprNode"|"astBinaryExpressionNode"|"astOrExprNode"|"astCastExpressionNode"|"astFunctionCallNode"|"astArrayConstructorNode"|"astStructConstructorWithParensNode"|"astStructConstructorWithKeywordNode"|"astInExpressionNode"|"astBetweenExpressionNode"|"astDateOrTimeLiteralNode"|"astCaseValueExpressionNode"|"astCaseNoValueExpressionNode"|"astBitwiseShiftExpressionNode"|"astDotStarNode"|"astDotStarWithModifiersNode"|"astExpressionSubqueryNode"|"astExtractExpressionNode"|"astIntervalExprNode"|"astNamedArgumentNode"|"astStarWithModifiersNode"|"astUnaryExpressionNode"|"astLikeExpressionNode"|"astParameterExprBaseNode"|"astLambdaNode"|"astAnalyticFunctionCallNode"|"astFunctionCallWithGroupRowsNode"|"astNewConstructorNode"|"astDefaultLiteralNode"|"astReplaceFieldsExpressionNode"|"astBracedConstructorFieldValueNode"|"astBracedConstructorNode"|"astBracedNewConstructorNode";
 }

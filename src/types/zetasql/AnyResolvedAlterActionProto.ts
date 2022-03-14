@@ -10,15 +10,13 @@ import type { ResolvedRenameToActionProto as _zetasql_ResolvedRenameToActionProt
 import type { ResolvedSetAsActionProto as _zetasql_ResolvedSetAsActionProto, ResolvedSetAsActionProto__Output as _zetasql_ResolvedSetAsActionProto__Output } from '../zetasql/ResolvedSetAsActionProto';
 import type { ResolvedAddConstraintActionProto as _zetasql_ResolvedAddConstraintActionProto, ResolvedAddConstraintActionProto__Output as _zetasql_ResolvedAddConstraintActionProto__Output } from '../zetasql/ResolvedAddConstraintActionProto';
 import type { ResolvedDropConstraintActionProto as _zetasql_ResolvedDropConstraintActionProto, ResolvedDropConstraintActionProto__Output as _zetasql_ResolvedDropConstraintActionProto__Output } from '../zetasql/ResolvedDropConstraintActionProto';
-import type { ResolvedAlterColumnOptionsActionProto as _zetasql_ResolvedAlterColumnOptionsActionProto, ResolvedAlterColumnOptionsActionProto__Output as _zetasql_ResolvedAlterColumnOptionsActionProto__Output } from '../zetasql/ResolvedAlterColumnOptionsActionProto';
-import type { ResolvedAlterColumnDropNotNullActionProto as _zetasql_ResolvedAlterColumnDropNotNullActionProto, ResolvedAlterColumnDropNotNullActionProto__Output as _zetasql_ResolvedAlterColumnDropNotNullActionProto__Output } from '../zetasql/ResolvedAlterColumnDropNotNullActionProto';
-import type { ResolvedAlterColumnSetDataTypeActionProto as _zetasql_ResolvedAlterColumnSetDataTypeActionProto, ResolvedAlterColumnSetDataTypeActionProto__Output as _zetasql_ResolvedAlterColumnSetDataTypeActionProto__Output } from '../zetasql/ResolvedAlterColumnSetDataTypeActionProto';
 import type { ResolvedDropPrimaryKeyActionProto as _zetasql_ResolvedDropPrimaryKeyActionProto, ResolvedDropPrimaryKeyActionProto__Output as _zetasql_ResolvedDropPrimaryKeyActionProto__Output } from '../zetasql/ResolvedDropPrimaryKeyActionProto';
 import type { ResolvedRenameColumnActionProto as _zetasql_ResolvedRenameColumnActionProto, ResolvedRenameColumnActionProto__Output as _zetasql_ResolvedRenameColumnActionProto__Output } from '../zetasql/ResolvedRenameColumnActionProto';
 import type { ResolvedSetCollateClauseProto as _zetasql_ResolvedSetCollateClauseProto, ResolvedSetCollateClauseProto__Output as _zetasql_ResolvedSetCollateClauseProto__Output } from '../zetasql/ResolvedSetCollateClauseProto';
 import type { ResolvedRestrictToActionProto as _zetasql_ResolvedRestrictToActionProto, ResolvedRestrictToActionProto__Output as _zetasql_ResolvedRestrictToActionProto__Output } from '../zetasql/ResolvedRestrictToActionProto';
 import type { ResolvedAddToRestricteeListActionProto as _zetasql_ResolvedAddToRestricteeListActionProto, ResolvedAddToRestricteeListActionProto__Output as _zetasql_ResolvedAddToRestricteeListActionProto__Output } from '../zetasql/ResolvedAddToRestricteeListActionProto';
 import type { ResolvedRemoveFromRestricteeListActionProto as _zetasql_ResolvedRemoveFromRestricteeListActionProto, ResolvedRemoveFromRestricteeListActionProto__Output as _zetasql_ResolvedRemoveFromRestricteeListActionProto__Output } from '../zetasql/ResolvedRemoveFromRestricteeListActionProto';
+import type { AnyResolvedAlterColumnActionProto as _zetasql_AnyResolvedAlterColumnActionProto, AnyResolvedAlterColumnActionProto__Output as _zetasql_AnyResolvedAlterColumnActionProto__Output } from '../zetasql/AnyResolvedAlterColumnActionProto';
 
 export interface AnyResolvedAlterActionProto {
   'resolvedSetOptionsActionNode'?: (_zetasql_ResolvedSetOptionsActionProto | null);
@@ -31,16 +29,14 @@ export interface AnyResolvedAlterActionProto {
   'resolvedSetAsActionNode'?: (_zetasql_ResolvedSetAsActionProto | null);
   'resolvedAddConstraintActionNode'?: (_zetasql_ResolvedAddConstraintActionProto | null);
   'resolvedDropConstraintActionNode'?: (_zetasql_ResolvedDropConstraintActionProto | null);
-  'resolvedAlterColumnOptionsActionNode'?: (_zetasql_ResolvedAlterColumnOptionsActionProto | null);
-  'resolvedAlterColumnDropNotNullActionNode'?: (_zetasql_ResolvedAlterColumnDropNotNullActionProto | null);
-  'resolvedAlterColumnSetDataTypeActionNode'?: (_zetasql_ResolvedAlterColumnSetDataTypeActionProto | null);
   'resolvedDropPrimaryKeyActionNode'?: (_zetasql_ResolvedDropPrimaryKeyActionProto | null);
   'resolvedRenameColumnActionNode'?: (_zetasql_ResolvedRenameColumnActionProto | null);
   'resolvedSetCollateClauseNode'?: (_zetasql_ResolvedSetCollateClauseProto | null);
   'resolvedRestrictToActionNode'?: (_zetasql_ResolvedRestrictToActionProto | null);
   'resolvedAddToRestricteeListActionNode'?: (_zetasql_ResolvedAddToRestricteeListActionProto | null);
   'resolvedRemoveFromRestricteeListActionNode'?: (_zetasql_ResolvedRemoveFromRestricteeListActionProto | null);
-  'node'?: "resolvedSetOptionsActionNode"|"resolvedAddColumnActionNode"|"resolvedDropColumnActionNode"|"resolvedGrantToActionNode"|"resolvedFilterUsingActionNode"|"resolvedRevokeFromActionNode"|"resolvedRenameToActionNode"|"resolvedSetAsActionNode"|"resolvedAddConstraintActionNode"|"resolvedDropConstraintActionNode"|"resolvedAlterColumnOptionsActionNode"|"resolvedAlterColumnDropNotNullActionNode"|"resolvedAlterColumnSetDataTypeActionNode"|"resolvedDropPrimaryKeyActionNode"|"resolvedRenameColumnActionNode"|"resolvedSetCollateClauseNode"|"resolvedRestrictToActionNode"|"resolvedAddToRestricteeListActionNode"|"resolvedRemoveFromRestricteeListActionNode";
+  'resolvedAlterColumnActionNode'?: (_zetasql_AnyResolvedAlterColumnActionProto | null);
+  'node'?: "resolvedSetOptionsActionNode"|"resolvedAddColumnActionNode"|"resolvedDropColumnActionNode"|"resolvedGrantToActionNode"|"resolvedFilterUsingActionNode"|"resolvedRevokeFromActionNode"|"resolvedRenameToActionNode"|"resolvedSetAsActionNode"|"resolvedAddConstraintActionNode"|"resolvedDropConstraintActionNode"|"resolvedDropPrimaryKeyActionNode"|"resolvedRenameColumnActionNode"|"resolvedSetCollateClauseNode"|"resolvedRestrictToActionNode"|"resolvedAddToRestricteeListActionNode"|"resolvedRemoveFromRestricteeListActionNode"|"resolvedAlterColumnActionNode";
 }
 
 export interface AnyResolvedAlterActionProto__Output {
@@ -54,14 +50,12 @@ export interface AnyResolvedAlterActionProto__Output {
   'resolvedSetAsActionNode'?: (_zetasql_ResolvedSetAsActionProto__Output | null);
   'resolvedAddConstraintActionNode'?: (_zetasql_ResolvedAddConstraintActionProto__Output | null);
   'resolvedDropConstraintActionNode'?: (_zetasql_ResolvedDropConstraintActionProto__Output | null);
-  'resolvedAlterColumnOptionsActionNode'?: (_zetasql_ResolvedAlterColumnOptionsActionProto__Output | null);
-  'resolvedAlterColumnDropNotNullActionNode'?: (_zetasql_ResolvedAlterColumnDropNotNullActionProto__Output | null);
-  'resolvedAlterColumnSetDataTypeActionNode'?: (_zetasql_ResolvedAlterColumnSetDataTypeActionProto__Output | null);
   'resolvedDropPrimaryKeyActionNode'?: (_zetasql_ResolvedDropPrimaryKeyActionProto__Output | null);
   'resolvedRenameColumnActionNode'?: (_zetasql_ResolvedRenameColumnActionProto__Output | null);
   'resolvedSetCollateClauseNode'?: (_zetasql_ResolvedSetCollateClauseProto__Output | null);
   'resolvedRestrictToActionNode'?: (_zetasql_ResolvedRestrictToActionProto__Output | null);
   'resolvedAddToRestricteeListActionNode'?: (_zetasql_ResolvedAddToRestricteeListActionProto__Output | null);
   'resolvedRemoveFromRestricteeListActionNode'?: (_zetasql_ResolvedRemoveFromRestricteeListActionProto__Output | null);
-  'node': "resolvedSetOptionsActionNode"|"resolvedAddColumnActionNode"|"resolvedDropColumnActionNode"|"resolvedGrantToActionNode"|"resolvedFilterUsingActionNode"|"resolvedRevokeFromActionNode"|"resolvedRenameToActionNode"|"resolvedSetAsActionNode"|"resolvedAddConstraintActionNode"|"resolvedDropConstraintActionNode"|"resolvedAlterColumnOptionsActionNode"|"resolvedAlterColumnDropNotNullActionNode"|"resolvedAlterColumnSetDataTypeActionNode"|"resolvedDropPrimaryKeyActionNode"|"resolvedRenameColumnActionNode"|"resolvedSetCollateClauseNode"|"resolvedRestrictToActionNode"|"resolvedAddToRestricteeListActionNode"|"resolvedRemoveFromRestricteeListActionNode";
+  'resolvedAlterColumnActionNode'?: (_zetasql_AnyResolvedAlterColumnActionProto__Output | null);
+  'node': "resolvedSetOptionsActionNode"|"resolvedAddColumnActionNode"|"resolvedDropColumnActionNode"|"resolvedGrantToActionNode"|"resolvedFilterUsingActionNode"|"resolvedRevokeFromActionNode"|"resolvedRenameToActionNode"|"resolvedSetAsActionNode"|"resolvedAddConstraintActionNode"|"resolvedDropConstraintActionNode"|"resolvedDropPrimaryKeyActionNode"|"resolvedRenameColumnActionNode"|"resolvedSetCollateClauseNode"|"resolvedRestrictToActionNode"|"resolvedAddToRestricteeListActionNode"|"resolvedRemoveFromRestricteeListActionNode"|"resolvedAlterColumnActionNode";
 }
