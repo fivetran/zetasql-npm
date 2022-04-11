@@ -1,5 +1,32 @@
 {
+  "typescript.preferences.quoteStyle": "single",
+
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+
   "cSpell.words": [
+    "BIGNUMERIC",
+    "cond",
+    "datetime",
+    "deserialization",
+    "dylib",
+    "eqeqeq",
+    "Fivetran",
+    "fivetrandevelopers",
+    "jestconfig",
+    "libremote",
+    "oneofs",
+    "Parens",
+    "prebuild",
+    "protobuf",
+    "protos",
+    "sonarjs",
+    "tokenlist",
+    "Unprepare",
+    "xzvf",
     "zetasql"
   ]
 }

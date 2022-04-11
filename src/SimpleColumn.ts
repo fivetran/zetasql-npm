@@ -20,7 +20,7 @@ export class SimpleColumn implements Column {
     pseudoColumn = false,
     writableColumn = false,
   ) {
-    this.name = name == null ? '' : name;
+    this.name = name === null ? '' : name;
     this.fullName = `${tableName}.${name}`;
     this.type = type;
     this.pseudoColumn = pseudoColumn;

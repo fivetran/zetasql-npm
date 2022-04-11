@@ -1,9 +1,9 @@
 import * as path from 'path';
 import { Worker } from 'worker_threads';
 
-let worker: Worker;
+let worker: Worker | undefined;
 
-export function runServer(port): Promise<void> {
+export function runServer(port: number): Promise<void> {
   return new Promise((resolve, reject) => {
     worker = new Worker(path.resolve(__dirname, './runServerAddon.js'), { argv: [port] });
     worker.on('message', resolve);
@@ -14,7 +14,7 @@ export function runServer(port): Promise<void> {
   });
 }
 
-export function terminateServer(): Promise<void> {
+export function terminateServer(): Promise<void> | undefined {
   return worker?.terminate().then(status => {
     console.log(`ZetaSQL server has been canceled with status: ${status}`);
   });

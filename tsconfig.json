@@ -1,14 +1,20 @@
 {
-	"compilerOptions": {
-		"module": "commonjs",
-		"target": "es2019",
-		"lib": ["es2019"],
-		"moduleResolution": "node",
-		"outDir": "lib",
-		"rootDir": "src",
-		"declaration": true,
-		"sourceMap": true
-	},
-	"include": ["src"],
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2021",
+    "lib": ["es2021"],
+    "outDir": "lib",
+    "rootDir": "src",
+    "moduleResolution": "node",
+    "allowUnreachableCode": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUnusedLocals": true,
+    "sourceMap": true,
+    "strict": true,
+  },
+  "include": ["src"],
 	"exclude": ["node_modules", "**/__tests__/*", ".vscode-test"]
 }

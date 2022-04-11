@@ -18,10 +18,10 @@ export class SimpleCatalog {
   types = new Map<string, Type>();
   catalogs = new Map<string, SimpleCatalog>();
   tablesById = new Map<Long, SimpleTable>();
-  registeredId: Long;
+  registeredId: Long | undefined;
   registered = false;
 
-  builtinFunctionOptions: ZetaSQLBuiltinFunctionOptionsProto;
+  builtinFunctionOptions: ZetaSQLBuiltinFunctionOptionsProto | undefined;
 
   constructor(name: string, typeFactory?: TypeFactory) {
     this.name = name;
@@ -55,7 +55,7 @@ export class SimpleCatalog {
    * Register this catalog to local server, so that it can be reused without passing through RPC
    * every time.
    */
-  async register() {
+  async register(): Promise<void> {
     this.checkAlreadyRegistered();
 
     const request: RegisterCatalogRequest = {
@@ -64,15 +64,15 @@ export class SimpleCatalog {
 
     try {
       const response = await ZetaSQLClient.getInstance().registerCatalog(request);
-      this.registeredId = response.registeredId;
+      this.registeredId = response?.registeredId;
     } catch (e) {
-      throw new Error(e);
+      throw new Error(`Failed to register catalog. ${e}`);
     }
 
     this.registered = true;
   }
 
-  async unregister() {
+  async unregister(): Promise<void> {
     if (!this.registered) {
       throw new Error('Catalog should be registered first');
     }
@@ -84,7 +84,7 @@ export class SimpleCatalog {
     try {
       await ZetaSQLClient.getInstance().unRegisterCatalog(request);
     } catch (e) {
-      console.log('Failed to unregister catalog: ' + e.getMessage());
+      console.log(`Failed to unregister catalog: ${JSON.stringify(e)}`);
     } finally {
       this.registered = false;
       this.registeredId = new Long(-1);
@@ -97,12 +97,9 @@ export class SimpleCatalog {
    *
    * @param options used to select which functions get loaded.
    */
-  async addZetaSQLFunctions(options: ZetaSQLBuiltinFunctionOptions) {
-    if (options == null) {
-      throw new Error('options cannot be null');
-    }
-    if (this.builtinFunctionOptions != null) {
-      throw new Error('builtinFunctionOptions should be null');
+  async addZetaSQLFunctions(options: ZetaSQLBuiltinFunctionOptions): Promise<void> {
+    if (!this.builtinFunctionOptions) {
+      throw new Error('builtinFunctionOptions should be undefined');
     }
 
     this.builtinFunctionOptions = options.serialize();
@@ -110,7 +107,7 @@ export class SimpleCatalog {
     try {
       await ZetaSQLClient.getInstance().getBuiltinFunctions(this.builtinFunctionOptions);
     } catch (e) {
-      throw new Error(e);
+      throw new Error(`Failed to get builtin functions ${JSON.stringify(e)}`);
     }
   }
 
@@ -119,10 +116,10 @@ export class SimpleCatalog {
       name: this.name,
     };
 
-    // The built-in function definations are not serialized. Instead, the BuiltinFunctionOptions
+    // The built-in function definitions are not serialized. Instead, the BuiltinFunctionOptions
     // which specify which functions to include and exclude will be serialized, and the C++
     // deserialization will recreate the same built-in function signatures according to this.
-    if (this.builtinFunctionOptions != null) {
+    if (!this.builtinFunctionOptions) {
       simpleCatalog.builtinFunctionOptions = this.builtinFunctionOptions;
     }
 
@@ -142,6 +139,9 @@ export class SimpleCatalog {
         name: typeName,
         type: type.serialize(),
       };
+      if (!simpleCatalog.namedType) {
+        simpleCatalog.namedType = [];
+      }
       simpleCatalog.namedType.push(namedTypeProto);
     }
 
@@ -155,7 +155,7 @@ export class SimpleCatalog {
     return simpleCatalog;
   }
 
-  checkAlreadyRegistered() {
+  checkAlreadyRegistered(): void {
     if (this.registered) {
       throw new Error('Catalog is already registered');
     }

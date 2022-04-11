@@ -1,5 +1,4 @@
 import { Type } from './Type';
-import { ProductMode } from './types/zetasql/ProductMode';
 import { StructFieldProto } from './types/zetasql/StructFieldProto';
 import { TypeKind } from './types/zetasql/TypeKind';
 import { TypeProto } from './types/zetasql/TypeProto';
@@ -12,7 +11,7 @@ export class StructType extends Type {
     this.fields.push(...fields);
   }
 
-  serialize(): TypeProto {
+  override serialize(): TypeProto {
     const result = super.serialize();
     result.structType = {
       field: this.fields.map<StructFieldProto>(f => ({

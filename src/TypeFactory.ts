@@ -93,7 +93,7 @@ export abstract class TypeFactory {
   }
 
   /** Returns a SimpleType of given {@code kind}. */
-  static createSimpleType(kind: TypeKind): SimpleType {
+  static createSimpleType(kind: TypeKind): SimpleType | undefined {
     return TypeFactory.SIMPLE_TYPES.get(kind);
   }
 }
@@ -103,7 +103,7 @@ abstract class AbstractTypeFactory extends TypeFactory {}
 class NonUniqueNamesTypeFactory extends AbstractTypeFactory {
   static INSTANCE = new NonUniqueNamesTypeFactory();
 
-  static getInstance() {
+  static getInstance(): NonUniqueNamesTypeFactory {
     return NonUniqueNamesTypeFactory.INSTANCE;
   }
 }

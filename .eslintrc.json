@@ -2,17 +2,67 @@
   "root": true,
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 2019,
-    "sourceType": "module"
+    "ecmaVersion": "es2019",
+    "sourceType": "module",
+    "project": ["./tsconfig.json"]
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "sonarjs", "prettier"],
+
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended"
+    "plugin:sonarjs/recommended"
   ],
   "rules": {
-    "@typescript-eslint/no-explicit-any": ["off"]
-  }
+    "no-param-reassign":["error"],
+    "prefer-template": ["error"],
+    "no-restricted-syntax": [
+      "error",
+      "ForInStatement",
+      "LabeledStatement",
+      "WithStatement"
+    ],
+    "default-case": ["error"],
+    "no-underscore-dangle": ["error"],
+    "consistent-return": ["error"],
+    "operator-assignment": ["error"],
+    "no-return-await": ["off"],
+    "no-shadow": ["off"],
+    "object-shorthand": ["error"],
+    "no-path-concat": ["error"],
+    "no-else-return": ["error"],
+    "no-useless-constructor": ["off"],
+    "prefer-destructuring": ["error"],
+    "eqeqeq": ["error"],
+    "no-redeclare": ["error"],
+    "no-lonely-if": ["error"],
+    "no-cond-assign": ["error"],
+    "prefer-regex-literals": ["error"],
+    "spaced-comment": ["error"],
+    "no-implicit-coercion": ["error"],
+
+    "@typescript-eslint/no-shadow": ["error"],
+    "@typescript-eslint/explicit-function-return-type": ["error"],
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "@typescript-eslint/return-await": ["error"],
+    "@typescript-eslint/no-useless-constructor": ["error"],
+    "@typescript-eslint/consistent-type-assertions": ["error", {"assertionStyle": "as", "objectLiteralTypeAssertions": "never"}],
+    "@typescript-eslint/no-unnecessary-condition": ["error"],
+    "@typescript-eslint/no-unsafe-return": ["error"],
+    
+    "@typescript-eslint/no-misused-promises": ["error", { "checksVoidReturn": false } ],
+    "@typescript-eslint/no-explicit-any": ["off"],
+    "@typescript-eslint/no-unsafe-assignment": ["off"],
+    "@typescript-eslint/no-unsafe-argument": ["off"],
+    "@typescript-eslint/no-unsafe-member-access": ["off"],
+    "@typescript-eslint/no-unsafe-call": ["off"],
+    "@typescript-eslint/restrict-template-expressions": ["off"],
+    
+    "sonarjs/cognitive-complexity": ["off"], // TODO: enable
+
+    "prettier/prettier": ["error"]
+  },
+  "ignorePatterns": ["**/*.d.ts", "**/__tests__/*"]
 }
