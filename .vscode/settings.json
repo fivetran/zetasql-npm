@@ -7,6 +7,10 @@
   "editor.insertSpaces": true,
   "editor.detectIndentation": false,
 
+  "mochaExplorer.files": "lib/test/**/*.js",
+	"mochaExplorer.require": "source-map-support/register",
+	"mochaExplorer.watch": "lib/**/*.js",
+
   "cSpell.words": [
     "BIGNUMERIC",
     "cond",
@@ -16,8 +20,9 @@
     "eqeqeq",
     "Fivetran",
     "fivetrandevelopers",
-    "jestconfig",
+    "hamjest",
     "libremote",
+    "mockito",
     "oneofs",
     "Parens",
     "prebuild",
