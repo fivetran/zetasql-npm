@@ -1,3 +1,4 @@
+import { ok } from 'assert';
 import { assertThat, falsy } from 'hamjest';
 import { SimpleColumn } from '../SimpleColumn';
 import { SimpleType } from '../SimpleType';
@@ -7,11 +8,9 @@ import { TypeKind } from '../types/zetasql/TypeKind';
 describe('SimpleColumnTest', () => {
   it('testSimpleTypeColumn', () => {
     const type = TypeFactory.createSimpleType(TypeKind.TYPE_BOOL);
-    if (!type) {
-      throw new Error('Simple type expected');
-    }
-    const column1 = new SimpleColumn('t1', 'c1', type);
 
+    ok(type);
+    const column1 = new SimpleColumn('t1', 'c1', type);
     assertThat(column1.getName(), 'c1');
     assertThat(column1.getFullName(), 't1.c1');
     assertThat(type, column1.getType());
