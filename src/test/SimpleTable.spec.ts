@@ -1,8 +1,9 @@
+import { ok } from 'assert';
+import { assertThat, falsy, greaterThan } from 'hamjest';
 import * as Long from 'long';
 import { SimpleColumn } from '../SimpleColumn';
 import { SimpleTable } from '../SimpleTable';
 import { SimpleType } from '../SimpleType';
-import { SimpleColumnProto } from '../types/zetasql/SimpleColumnProto';
 import { TypeKind } from '../types/zetasql/TypeKind';
 
 describe('SimpleTableTest', () => {
@@ -15,16 +16,15 @@ describe('SimpleTableTest', () => {
 
     const result = simpleTable.serialize();
 
-    expect(result.name).toBe('table1');
-    expect(result.isValueTable).toBeFalsy();
-    expect(result.serializationId).toStrictEqual(new Long(2));
-    expect(result.allowAnonymousColumnName).toBeFalsy();
-    expect(result.allowDuplicateColumnNames).toBeFalsy();
-    assertColumn(result.column[0], 'col1');
-    assertColumn(result.column[1], 'col2');
+    assertThat(result.name, 'table1');
+    assertThat(result.isValueTable, falsy());
+    assertThat((result.serializationId as Long).high, 0);
+    assertThat((result.serializationId as Long).low, greaterThan(0));
+    assertThat(result.allowAnonymousColumnName, falsy());
+    assertThat(result.allowDuplicateColumnNames, falsy());
+    ok(result.column);
+    assertThat(result.column.length, 2);
+    assertThat(result.column[0].name, 'col1');
+    assertThat(result.column[1].name, 'col2');
   });
-
-  function assertColumn(column: SimpleColumnProto, name: string) {
-    expect(column.name).toBe(name);
-  }
 });

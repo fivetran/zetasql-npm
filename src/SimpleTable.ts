@@ -9,7 +9,7 @@ export class SimpleTable {
     return SimpleTable.nextTableId.add(1);
   }
 
-  static updateNextIdIfNotGreaterThan(id: Long) {
+  static updateNextIdIfNotGreaterThan(id: Long): void {
     if (SimpleTable.nextTableId <= id) {
       // We need to update nextTableId to avoid future conflicts.
       SimpleTable.nextTableId = id.add(1);
@@ -21,7 +21,7 @@ export class SimpleTable {
   isValueTable = false;
   columns = new Array<SimpleColumn>();
   columnsMap = new Map<string, SimpleColumn>();
-  primaryKey: number[] = null;
+  primaryKey: number[] | null = null;
   duplicateColumnNames = new Set<string>();
   allowAnonymousColumnName = false;
   anonymousColumnSeen = false;
@@ -88,8 +88,11 @@ export class SimpleTable {
         simpleTable.column.push(column.serialize());
       }
     }
-    if (this.primaryKey != null) {
+    if (this.primaryKey !== null) {
       for (const columnIndex of this.primaryKey) {
+        if (!simpleTable.primaryKeyColumnIndex) {
+          simpleTable.primaryKeyColumnIndex = [];
+        }
         simpleTable.primaryKeyColumnIndex.push(columnIndex);
       }
     }

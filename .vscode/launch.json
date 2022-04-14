@@ -5,20 +5,6 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug Server Jest Tests",
-      "type": "node",
-      "request": "launch",
-      "runtimeArgs": [
-        "--inspect-brk",
-        "node_modules/.bin/jest",
-        "--runInBand",
-        "--config",
-        "jestconfig.json"
-      ],
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
-    },
-    {
       "name": "Launch Run and Terminate server test",
       "type": "node",
       "request": "launch",

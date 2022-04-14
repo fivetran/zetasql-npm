@@ -1,5 +1,37 @@
 {
+  "typescript.preferences.quoteStyle": "single",
+
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+
+  "mochaExplorer.files": "lib/test/**/*.js",
+	"mochaExplorer.require": "source-map-support/register",
+	"mochaExplorer.watch": "lib/**/*.js",
+
   "cSpell.words": [
+    "BIGNUMERIC",
+    "cond",
+    "datetime",
+    "deserialization",
+    "dylib",
+    "eqeqeq",
+    "Fivetran",
+    "fivetrandevelopers",
+    "hamjest",
+    "libremote",
+    "mockito",
+    "oneofs",
+    "Parens",
+    "prebuild",
+    "protobuf",
+    "protos",
+    "sonarjs",
+    "tokenlist",
+    "Unprepare",
+    "xzvf",
     "zetasql"
   ]
 }

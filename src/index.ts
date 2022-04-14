@@ -3,6 +3,7 @@ export * from './SimpleCatalog';
 export * from './SimpleColumn';
 export * from './SimpleTable';
 export * from './SimpleType';
+export * from './StructType';
 export * from './TypeFactory';
 export * from './types/zetasql/local_service/AnalyzeRequest';
 export * from './types/zetasql/TypeKind';

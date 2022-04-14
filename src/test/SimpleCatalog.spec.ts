@@ -1,3 +1,5 @@
+import { ok } from 'assert';
+import { assertThat } from 'hamjest';
 import { SimpleCatalog } from '../SimpleCatalog';
 import { SimpleTable } from '../SimpleTable';
 
@@ -8,8 +10,10 @@ describe('SimpleCatalogTest', () => {
 
     const result = catalog.serialize();
 
-    expect(result.name).toBe('catalog1');
-    expect(result.table.length).toBe(1);
-    expect(result.table[0].name).toBe('table1');
+    assertThat(result.name, 'catalog1');
+    const tables = result.table;
+    ok(tables);
+    assertThat(tables.length, 1);
+    assertThat(tables[0].name, 'table1');
   });
 });
