@@ -98,7 +98,7 @@ export class SimpleCatalog {
    * @param options used to select which functions get loaded.
    */
   async addZetaSQLFunctions(options: ZetaSQLBuiltinFunctionOptions): Promise<void> {
-    if (!this.builtinFunctionOptions) {
+    if (this.builtinFunctionOptions !== undefined) {
       throw new Error('builtinFunctionOptions should be undefined');
     }
 
