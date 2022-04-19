@@ -3,7 +3,7 @@ import { runServer, terminateServer, ZetaSQLClient } from '..';
 // This test should run and terminate ZetaSQL gRPC server
 
 const port = 50005;
-new Promise(resolve => setTimeout(resolve, 3000))
+new Promise(resolve => setTimeout(resolve, 4000))
   .then(() => {
     console.log('Init...');
     ZetaSQLClient.init(port);
