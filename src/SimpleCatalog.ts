@@ -119,7 +119,7 @@ export class SimpleCatalog {
     // The built-in function definitions are not serialized. Instead, the BuiltinFunctionOptions
     // which specify which functions to include and exclude will be serialized, and the C++
     // deserialization will recreate the same built-in function signatures according to this.
-    if (!this.builtinFunctionOptions) {
+    if (this.builtinFunctionOptions !== undefined) {
       simpleCatalog.builtinFunctionOptions = this.builtinFunctionOptions;
     }
 

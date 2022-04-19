@@ -7,13 +7,25 @@ Testing...
 Tests passed
 Terminating..."
 
-actualResult=$(node lib/TestZetaSqlServer.js)
-if [[ "${expectedResult}" == "${actualResult}" ]]; then
-    printf "e2e test passed successfully!\n"
-    exit 0;
+actualResult=$(node lib/test/TestZetaSqlServer.js)
+if [[ "${expectedResult}" != "${actualResult}" ]]; then
+    printf "TestZetaSqlServer error!\n"
+    printf "Expected result is:\n ${expectedResult}\n\n"
+    printf "Actual result is:\n ${actualResult}\n\n"
+    exit 1;
 fi
 
-printf "e2e test error!\n"
-printf "Expected result is:\n ${expectedResult}\n\n"
-printf "Actual result is:\n ${actualResult}\n\n"
-exit 1;
+expectedResult="Running server on 0.0.0.0:50005...
+Server listening on 0.0.0.0:50005
+Tests passed"
+actualResult=$(node lib/test/TestQuery.js)
+
+if [[ "${expectedResult}" != "${actualResult}" ]]; then
+    printf "TestQuery error!\n"
+    printf "Expected result is:\n ${expectedResult}\n\n"
+    printf "Actual result is:\n ${actualResult}\n\n"
+    exit 1;
+fi
+
+printf "e2e tests passed successfully!\n"
+exit 0;
