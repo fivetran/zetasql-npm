@@ -1,7 +1,7 @@
 {
   "name": "@fivetrandevelopers/zetasql",
   "description": "ZetaSQL gRPC server and client",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "publisher": "Fivetran",
   "license": "MIT",
   "keywords": [
