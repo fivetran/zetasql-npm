@@ -1,3 +1,4 @@
+export * from './ArrayType';
 export * from './server';
 export * from './SimpleCatalog';
 export * from './SimpleColumn';
