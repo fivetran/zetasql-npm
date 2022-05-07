@@ -62,35 +62,10 @@ jobs:
         run: ${{ matrix.build-command }}
 
       - name: upload build result
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.os }}
           path: ${{ matrix.cache-path }}
-  gen-java:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout zetasql
-        uses: actions/checkout@v2
-        with:
-          repository: pgrivachev/zetasql
-
-      - name: Install Bazel
-        if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
-        uses: abhinavsingh/setup-bazel@v3
-        with:
-          version: 4.0.0
-
-      - name: Build
-        run: |
-          bazel build //java/com/google/zetasql/parser
-          bazel build //java/com/google/zetasql/resolvedast
-
-      - name: upload artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: gen java results
-          path: bazel-bin/java/**/*
 
   package:
     runs-on: ubuntu-latest
@@ -186,3 +161,37 @@ jobs:
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  update-lib-archives:
+    needs: build
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout zetasql-npm
+        uses: actions/checkout@v2
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ubuntu-latest
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: macos-latest
+
+      - run: |
+          mkdir -p old
+          tar -xzvf zetasql/darwin-x86-64/libremote_server.dylib.tar.gz -C old
+          tar -xzvf zetasql/linux-x86-64/libremote_server.so.tar.gz -C old
+
+          if ! diff -q libremote_server.dylib old/libremote_server.dylib &>/dev/null; then
+            tar -zcf zetasql/darwin-x86-64/libremote_server.dylib.tar.gz libremote_server.dylib
+          fi
+
+          if ! diff -q libremote_server.so old/libremote_server.so &>/dev/null; then
+            tar -zcf zetasql/linux-x86-64/libremote_server.so.tar.gz libremote_server.so
+          fi
+
+      - uses: EndBug/add-and-commit@v9
+        with:
+          add: 'zetasql'
+          message: 'update artifacts'
