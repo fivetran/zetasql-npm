@@ -1237,8 +1237,8 @@ message ResolvedLimitOffsetScanProto {
 // Scan the subquery defined in a WITH statement.
 // See ResolvedWithScan for more detail.
 // The column_list produced here will match 1:1 with the column_list produced
-// by the referenced subquery and will given a new unique name to each
-// column produced for this scan.
+// by the referenced subquery and will given a new unique id to each column
+// produced for this scan.
 message ResolvedWithRefScanProto {
   optional ResolvedScanProto parent = 1;
 
@@ -2761,7 +2761,7 @@ message ResolvedInsertRowProto {
 // rows. <returning> can only occur on top-level statements.
 //
 // The returning clause has a <output_column_list> to represent the data
-// sent back to clients. It can only acccess columns from the <table_scan>.
+// sent back to clients. It can only access columns from the <table_scan>.
 message ResolvedInsertStmtProto {
   optional ResolvedStatementProto parent = 1;
 
@@ -2799,7 +2799,7 @@ message ResolvedInsertStmtProto {
 // back. It can only occur on top-level statements.
 //
 // This returning clause has a <output_column_list> to represent the data
-// sent back to clients. It can only acccess columns from the <table_scan>.
+// sent back to clients. It can only access columns from the <table_scan>.
 message ResolvedDeleteStmtProto {
   optional ResolvedStatementProto parent = 1;
 
@@ -3292,6 +3292,9 @@ message AnyResolvedAlterActionProto {
     ResolvedAddToRestricteeListActionProto resolved_add_to_restrictee_list_action_node = 194;
     ResolvedRemoveFromRestricteeListActionProto resolved_remove_from_restrictee_list_action_node = 195;
     AnyResolvedAlterColumnActionProto resolved_alter_column_action_node = 201;
+    ResolvedAlterSubEntityActionProto resolved_alter_sub_entity_action_node = 202;
+    ResolvedAddSubEntityActionProto resolved_add_sub_entity_action_node = 203;
+    ResolvedDropSubEntityActionProto resolved_drop_sub_entity_action_node = 204;
   }
 }
 
@@ -3330,6 +3333,62 @@ message ResolvedSetOptionsActionProto {
   optional ResolvedAlterActionProto parent = 1;
 
   repeated ResolvedOptionProto option_list = 2;
+}
+
+// Alter sub-entity action for ALTER <object> statement.
+// (broken link)
+//
+// ALTER <entity_type> [IF EXISTS] <name> <alter_action>
+//
+// <entity_type> engine-specific sub-entity type to be altered.
+// <name> the identifier for the sub-entity resource being altered.
+// <alter_action> action for the sub-entity resource, such as
+//     SET OPTIONS or a further nested ALTER sub-entity action.
+// <is_if_exists> if set, skip the alter action if the resource does
+//     not exist.
+message ResolvedAlterSubEntityActionProto {
+  optional ResolvedAlterActionProto parent = 1;
+
+  optional string entity_type = 2;
+  optional string name = 3;
+  optional AnyResolvedAlterActionProto alter_action = 4;
+  optional bool is_if_exists = 5;
+}
+
+// Add sub-entity action for ALTER <object> statement.
+// (broken link)
+//
+// ADD <entity_type> [IF NOT EXISTS] <name> [OPTIONS(...)]
+//
+// <entity_type> engine-specific sub-entity type to be added.
+// <name> the identifier for the sub-entity resource being added.
+// <options_list> engine specific options_list for the sub-entity resource.
+// <is_if_not_exists> if set, skip the add action if the resource
+//     already exists.
+message ResolvedAddSubEntityActionProto {
+  optional ResolvedAlterActionProto parent = 1;
+
+  optional string entity_type = 2;
+  optional string name = 3;
+  repeated ResolvedOptionProto options_list = 4;
+  optional bool is_if_not_exists = 5;
+}
+
+// Drop sub-entity action for ALTER <object> statement.
+// (broken link)
+//
+// DROP <entity_type> [IF EXISTS] <name>
+//
+// <entity_type> engine-specific sub-entity type to be dropped.
+// <name> the identifier for the sub-entity resource being dropped.
+// <is_if_exists> if set, skip the drop action if the resource does
+//     not exist.
+message ResolvedDropSubEntityActionProto {
+  optional ResolvedAlterActionProto parent = 1;
+
+  optional string entity_type = 2;
+  optional string name = 3;
+  optional bool is_if_exists = 4;
 }
 
 // ADD COLUMN action for ALTER TABLE statement

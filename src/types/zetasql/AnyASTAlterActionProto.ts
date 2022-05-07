@@ -23,6 +23,9 @@ import type { ASTAlterColumnDropDefaultActionProto as _zetasql_ASTAlterColumnDro
 import type { ASTRestrictToClauseProto as _zetasql_ASTRestrictToClauseProto, ASTRestrictToClauseProto__Output as _zetasql_ASTRestrictToClauseProto__Output } from '../zetasql/ASTRestrictToClauseProto';
 import type { ASTAddToRestricteeListClauseProto as _zetasql_ASTAddToRestricteeListClauseProto, ASTAddToRestricteeListClauseProto__Output as _zetasql_ASTAddToRestricteeListClauseProto__Output } from '../zetasql/ASTAddToRestricteeListClauseProto';
 import type { ASTRemoveFromRestricteeListClauseProto as _zetasql_ASTRemoveFromRestricteeListClauseProto, ASTRemoveFromRestricteeListClauseProto__Output as _zetasql_ASTRemoveFromRestricteeListClauseProto__Output } from '../zetasql/ASTRemoveFromRestricteeListClauseProto';
+import type { ASTAlterSubEntityActionProto as _zetasql_ASTAlterSubEntityActionProto, ASTAlterSubEntityActionProto__Output as _zetasql_ASTAlterSubEntityActionProto__Output } from '../zetasql/ASTAlterSubEntityActionProto';
+import type { ASTAddSubEntityActionProto as _zetasql_ASTAddSubEntityActionProto, ASTAddSubEntityActionProto__Output as _zetasql_ASTAddSubEntityActionProto__Output } from '../zetasql/ASTAddSubEntityActionProto';
+import type { ASTDropSubEntityActionProto as _zetasql_ASTDropSubEntityActionProto, ASTDropSubEntityActionProto__Output as _zetasql_ASTDropSubEntityActionProto__Output } from '../zetasql/ASTDropSubEntityActionProto';
 
 export interface AnyASTAlterActionProto {
   'astSetOptionsActionNode'?: (_zetasql_ASTSetOptionsActionProto | null);
@@ -48,7 +51,10 @@ export interface AnyASTAlterActionProto {
   'astRestrictToClauseNode'?: (_zetasql_ASTRestrictToClauseProto | null);
   'astAddToRestricteeListClauseNode'?: (_zetasql_ASTAddToRestricteeListClauseProto | null);
   'astRemoveFromRestricteeListClauseNode'?: (_zetasql_ASTRemoveFromRestricteeListClauseProto | null);
-  'node'?: "astSetOptionsActionNode"|"astSetAsActionNode"|"astAddConstraintActionNode"|"astDropPrimaryKeyActionNode"|"astDropConstraintActionNode"|"astAlterConstraintEnforcementActionNode"|"astAlterConstraintSetOptionsActionNode"|"astAddColumnActionNode"|"astDropColumnActionNode"|"astRenameColumnActionNode"|"astAlterColumnTypeActionNode"|"astAlterColumnOptionsActionNode"|"astAlterColumnDropNotNullActionNode"|"astGrantToClauseNode"|"astFilterUsingClauseNode"|"astRevokeFromClauseNode"|"astRenameToClauseNode"|"astSetCollateClauseNode"|"astAlterColumnSetDefaultActionNode"|"astAlterColumnDropDefaultActionNode"|"astRestrictToClauseNode"|"astAddToRestricteeListClauseNode"|"astRemoveFromRestricteeListClauseNode";
+  'astAlterSubEntityActionNode'?: (_zetasql_ASTAlterSubEntityActionProto | null);
+  'astAddSubEntityActionNode'?: (_zetasql_ASTAddSubEntityActionProto | null);
+  'astDropSubEntityActionNode'?: (_zetasql_ASTDropSubEntityActionProto | null);
+  'node'?: "astSetOptionsActionNode"|"astSetAsActionNode"|"astAddConstraintActionNode"|"astDropPrimaryKeyActionNode"|"astDropConstraintActionNode"|"astAlterConstraintEnforcementActionNode"|"astAlterConstraintSetOptionsActionNode"|"astAddColumnActionNode"|"astDropColumnActionNode"|"astRenameColumnActionNode"|"astAlterColumnTypeActionNode"|"astAlterColumnOptionsActionNode"|"astAlterColumnDropNotNullActionNode"|"astGrantToClauseNode"|"astFilterUsingClauseNode"|"astRevokeFromClauseNode"|"astRenameToClauseNode"|"astSetCollateClauseNode"|"astAlterColumnSetDefaultActionNode"|"astAlterColumnDropDefaultActionNode"|"astRestrictToClauseNode"|"astAddToRestricteeListClauseNode"|"astRemoveFromRestricteeListClauseNode"|"astAlterSubEntityActionNode"|"astAddSubEntityActionNode"|"astDropSubEntityActionNode";
 }
 
 export interface AnyASTAlterActionProto__Output {
@@ -75,5 +81,8 @@ export interface AnyASTAlterActionProto__Output {
   'astRestrictToClauseNode'?: (_zetasql_ASTRestrictToClauseProto__Output | null);
   'astAddToRestricteeListClauseNode'?: (_zetasql_ASTAddToRestricteeListClauseProto__Output | null);
   'astRemoveFromRestricteeListClauseNode'?: (_zetasql_ASTRemoveFromRestricteeListClauseProto__Output | null);
-  'node': "astSetOptionsActionNode"|"astSetAsActionNode"|"astAddConstraintActionNode"|"astDropPrimaryKeyActionNode"|"astDropConstraintActionNode"|"astAlterConstraintEnforcementActionNode"|"astAlterConstraintSetOptionsActionNode"|"astAddColumnActionNode"|"astDropColumnActionNode"|"astRenameColumnActionNode"|"astAlterColumnTypeActionNode"|"astAlterColumnOptionsActionNode"|"astAlterColumnDropNotNullActionNode"|"astGrantToClauseNode"|"astFilterUsingClauseNode"|"astRevokeFromClauseNode"|"astRenameToClauseNode"|"astSetCollateClauseNode"|"astAlterColumnSetDefaultActionNode"|"astAlterColumnDropDefaultActionNode"|"astRestrictToClauseNode"|"astAddToRestricteeListClauseNode"|"astRemoveFromRestricteeListClauseNode";
+  'astAlterSubEntityActionNode'?: (_zetasql_ASTAlterSubEntityActionProto__Output | null);
+  'astAddSubEntityActionNode'?: (_zetasql_ASTAddSubEntityActionProto__Output | null);
+  'astDropSubEntityActionNode'?: (_zetasql_ASTDropSubEntityActionProto__Output | null);
+  'node': "astSetOptionsActionNode"|"astSetAsActionNode"|"astAddConstraintActionNode"|"astDropPrimaryKeyActionNode"|"astDropConstraintActionNode"|"astAlterConstraintEnforcementActionNode"|"astAlterConstraintSetOptionsActionNode"|"astAddColumnActionNode"|"astDropColumnActionNode"|"astRenameColumnActionNode"|"astAlterColumnTypeActionNode"|"astAlterColumnOptionsActionNode"|"astAlterColumnDropNotNullActionNode"|"astGrantToClauseNode"|"astFilterUsingClauseNode"|"astRevokeFromClauseNode"|"astRenameToClauseNode"|"astSetCollateClauseNode"|"astAlterColumnSetDefaultActionNode"|"astAlterColumnDropDefaultActionNode"|"astRestrictToClauseNode"|"astAddToRestricteeListClauseNode"|"astRemoveFromRestricteeListClauseNode"|"astAlterSubEntityActionNode"|"astAddSubEntityActionNode"|"astDropSubEntityActionNode";
 }

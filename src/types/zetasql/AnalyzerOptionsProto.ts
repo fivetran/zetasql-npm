@@ -50,6 +50,7 @@ export interface AnalyzerOptionsProto {
   'enabledRewrites'?: (_zetasql_ResolvedASTRewrite | keyof typeof _zetasql_ResolvedASTRewrite)[];
   'parseLocationRecordType'?: (_zetasql_ParseLocationRecordType | keyof typeof _zetasql_ParseLocationRecordType);
   'preserveUnnecessaryCast'?: (boolean);
+  'defaultAnonFunctionReportFormat'?: (string);
 }
 
 export interface AnalyzerOptionsProto__Output {
@@ -73,4 +74,5 @@ export interface AnalyzerOptionsProto__Output {
   'enabledRewrites': (_zetasql_ResolvedASTRewrite)[];
   'parseLocationRecordType': (_zetasql_ParseLocationRecordType);
   'preserveUnnecessaryCast': (boolean);
+  'defaultAnonFunctionReportFormat': (string);
 }

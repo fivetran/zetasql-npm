@@ -7,6 +7,7 @@ import type { ASTWithOffsetProto as _zetasql_ASTWithOffsetProto, ASTWithOffsetPr
 import type { AnyASTExpressionProto as _zetasql_AnyASTExpressionProto, AnyASTExpressionProto__Output as _zetasql_AnyASTExpressionProto__Output } from '../zetasql/AnyASTExpressionProto';
 import type { ASTAssertRowsModifiedProto as _zetasql_ASTAssertRowsModifiedProto, ASTAssertRowsModifiedProto__Output as _zetasql_ASTAssertRowsModifiedProto__Output } from '../zetasql/ASTAssertRowsModifiedProto';
 import type { ASTReturningClauseProto as _zetasql_ASTReturningClauseProto, ASTReturningClauseProto__Output as _zetasql_ASTReturningClauseProto__Output } from '../zetasql/ASTReturningClauseProto';
+import type { ASTHintProto as _zetasql_ASTHintProto, ASTHintProto__Output as _zetasql_ASTHintProto__Output } from '../zetasql/ASTHintProto';
 
 export interface ASTDeleteStatementProto {
   'parent'?: (_zetasql_ASTStatementProto | null);
@@ -16,6 +17,7 @@ export interface ASTDeleteStatementProto {
   'where'?: (_zetasql_AnyASTExpressionProto | null);
   'assertRowsModified'?: (_zetasql_ASTAssertRowsModifiedProto | null);
   'returning'?: (_zetasql_ASTReturningClauseProto | null);
+  'hint'?: (_zetasql_ASTHintProto | null);
 }
 
 export interface ASTDeleteStatementProto__Output {
@@ -26,4 +28,5 @@ export interface ASTDeleteStatementProto__Output {
   'where': (_zetasql_AnyASTExpressionProto__Output | null);
   'assertRowsModified': (_zetasql_ASTAssertRowsModifiedProto__Output | null);
   'returning': (_zetasql_ASTReturningClauseProto__Output | null);
+  'hint': (_zetasql_ASTHintProto__Output | null);
 }

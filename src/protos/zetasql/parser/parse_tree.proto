@@ -168,6 +168,7 @@ message AnyASTNodeProto {
     ASTAuxLoadDataFromFilesOptionsListProto ast_aux_load_data_from_files_options_list_node = 322;
     ASTLabelProto ast_label_node = 324;
     ASTBracedConstructorFieldProto ast_braced_constructor_field_node = 331;
+    ASTWithReportModifierProto ast_with_report_modifier_node = 334;
   }
 }
 
@@ -326,6 +327,7 @@ message AnyASTExpressionProto {
     ASTBracedConstructorFieldValueProto ast_braced_constructor_field_value_node = 330;
     ASTBracedConstructorProto ast_braced_constructor_node = 332;
     ASTBracedNewConstructorProto ast_braced_new_constructor_node = 333;
+    ASTWithExpressionProto ast_with_expression_node = 335;
   }
 }
 message ASTExpressionProto {
@@ -652,7 +654,7 @@ message ASTFunctionCallProto {
   optional ASTPathExpressionProto function = 2;
   repeated AnyASTExpressionProto arguments = 3;
   optional ASTHavingModifierProto having_modifier = 4;
-  // If present, applies to the inputs of anonimized aggregate functions.
+  // If present, applies to the inputs of anonymized aggregate functions.
   optional ASTClampedBetweenModifierProto clamped_between_modifier = 5;
   // If present, applies to the inputs of aggregate functions.
   optional ASTOrderByProto order_by = 6;
@@ -667,6 +669,9 @@ message ASTFunctionCallProto {
   // Used by the Bison parser to mark CURRENT_<date/time> functions to which no
   // parentheses have yet been applied.
   optional bool is_current_date_time_without_parentheses = 12;
+  // If present, the report modifier applies to the result of anonymized
+  // aggregate functions.
+  optional ASTWithReportModifierProto with_report_modifier = 13;
 }
 
 message ASTArrayConstructorProto {
@@ -1308,6 +1313,11 @@ message ASTClampedBetweenModifierProto {
   optional AnyASTExpressionProto high = 3;
 }
 
+message ASTWithReportModifierProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTOptionsListProto options_list = 2;
+}
+
 message ASTFormatClauseProto {
   optional ASTNodeProto parent = 1;
   optional AnyASTExpressionProto format = 2;
@@ -1783,6 +1793,7 @@ message ASTDeleteStatementProto {
   optional AnyASTExpressionProto where = 5;
   optional ASTAssertRowsModifiedProto assert_rows_modified = 6;
   optional ASTReturningClauseProto returning = 7;
+  optional ASTHintProto hint = 8;
 }
 
 message AnyASTColumnAttributeProto {
@@ -1900,6 +1911,7 @@ message ASTInsertStatementProto {
   // parsing.
   optional ASTInsertStatementEnums.ParseProgress parse_progress = 8;
   optional ASTInsertStatementEnums.InsertMode insert_mode = 9;
+  optional ASTHintProto hint = 10;
 }
 
 message ASTUpdateSetValueProto {
@@ -1935,6 +1947,7 @@ message ASTUpdateStatementProto {
   optional AnyASTExpressionProto where = 7;
   optional ASTAssertRowsModifiedProto assert_rows_modified = 8;
   optional ASTReturningClauseProto returning = 9;
+  optional ASTHintProto hint = 10;
 }
 
 message ASTTruncateStatementProto {
@@ -2091,6 +2104,9 @@ message AnyASTAlterActionProto {
     ASTRestrictToClauseProto ast_restrict_to_clause_node = 327;
     ASTAddToRestricteeListClauseProto ast_add_to_restrictee_list_clause_node = 328;
     ASTRemoveFromRestricteeListClauseProto ast_remove_from_restrictee_list_clause_node = 329;
+    ASTAlterSubEntityActionProto ast_alter_sub_entity_action_node = 330;
+    ASTAddSubEntityActionProto ast_add_sub_entity_action_node = 331;
+    ASTDropSubEntityActionProto ast_drop_sub_entity_action_node = 332;
   }
 }
 message ASTAlterActionProto {
@@ -2265,6 +2281,32 @@ message ASTRenameToClauseProto {
 message ASTSetCollateClauseProto {
   optional ASTAlterActionProto parent = 1;
   optional ASTCollateProto collate = 2;
+}
+
+// ALTER action for "ALTER <subentity>" clause
+message ASTAlterSubEntityActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTIdentifierProto type = 2;
+  optional ASTIdentifierProto name = 3;
+  optional AnyASTAlterActionProto action = 4;
+  optional bool is_if_exists = 5;
+}
+
+// ALTER action for "ADD <subentity>" clause
+message ASTAddSubEntityActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTIdentifierProto type = 2;
+  optional ASTIdentifierProto name = 3;
+  optional ASTOptionsListProto options_list = 4;
+  optional bool is_if_not_exists = 5;
+}
+
+// ALTER action for "DROP <subentity>" clause
+message ASTDropSubEntityActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTIdentifierProto type = 2;
+  optional ASTIdentifierProto name = 3;
+  optional bool is_if_exists = 5;
 }
 
 message ASTAlterActionListProto {
@@ -2745,6 +2787,7 @@ message AnyASTAlterStatementBaseProto {
     ASTAlterRowAccessPolicyStatementProto ast_alter_row_access_policy_statement_node = 311;
     ASTAlterEntityStatementProto ast_alter_entity_statement_node = 312;
     ASTAlterPrivilegeRestrictionStatementProto ast_alter_privilege_restriction_statement_node = 325;
+    ASTAlterModelStatementProto ast_alter_model_statement_node = 336;
   }
 }
 message ASTAlterStatementBaseProto {
@@ -2771,6 +2814,10 @@ message ASTAlterViewStatementProto {
 }
 
 message ASTAlterMaterializedViewStatementProto {
+  optional ASTAlterStatementBaseProto parent = 1;
+}
+
+message ASTAlterModelStatementProto {
   optional ASTAlterStatementBaseProto parent = 1;
 }
 
@@ -2894,5 +2941,11 @@ message ASTAuxLoadDataStatementProto {
 message ASTLabelProto {
   optional ASTNodeProto parent = 1;
   optional ASTIdentifierProto name = 2;
+}
+
+message ASTWithExpressionProto {
+  optional ASTExpressionProto parent = 1;
+  optional ASTSelectListProto variables = 2;
+  optional AnyASTExpressionProto expression = 3;
 }
 // clang-format on
