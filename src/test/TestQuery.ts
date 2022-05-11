@@ -1,7 +1,6 @@
 import Long = require('long');
-import * as ffi from 'ffi-napi';
 import { LanguageOptions } from '../LanguageOptions';
-import { terminateServer } from '../server';
+import { runServer, terminateServer } from '../server';
 import { SimpleCatalog } from '../SimpleCatalog';
 import { SimpleColumn } from '../SimpleColumn';
 import { SimpleTable } from '../SimpleTable';
@@ -25,19 +24,7 @@ async function runTest(): Promise<void> {
   const port = 50005;
   const tableName = 'table1';
 
-  // runServer(port).catch(err => console.error(err));
-  const libName = `libremote_server`;
-  const zetaSQLServer = ffi.Library(`${__dirname}/../zetasql/${libName}`, {
-    RunServer: ['void', ['int']],
-  });
-
-  zetaSQLServer.RunServer.async(port, () => {
-    // do nothing
-  });
-
-  // if (port === 50005) {
-  //   return;
-  // }
+  runServer(port).catch(err => console.error(err));
 
   ZetaSQLClient.init(port);
   await ZetaSQLClient.getInstance().testConnection();
@@ -145,7 +132,6 @@ async function analyze(sqlStatement: string): Promise<AnalyzeResponse__Output> {
   // console.log(JSON.stringify(request, null, 2));
 
   const response = await ZetaSQLClient.getInstance().analyze(request);
-  console.log('Analyze finished');
   if (!response) {
     throw new Error('Analyze failed');
   }
