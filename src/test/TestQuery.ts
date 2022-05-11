@@ -95,7 +95,7 @@ async function runTest(): Promise<void> {
         'join table1 as c27 on t.id = c27.id\n' +
         'join table1 as c28 on t.id = c28.id\n' +
         'join table1 as c29 on t.id = c29.id\n' +
-        // 'join table1 as c30 on t.id = c30.id\n' +
+        'join table1 as c30 on t.id = c30.id\n' +
         'join table1 as c31 on t.id = c31.id\n',
     );
     console.log('Tests passed');
