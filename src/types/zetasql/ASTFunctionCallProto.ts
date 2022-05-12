@@ -10,6 +10,7 @@ import type { ASTLimitOffsetProto as _zetasql_ASTLimitOffsetProto, ASTLimitOffse
 import type { ASTHintProto as _zetasql_ASTHintProto, ASTHintProto__Output as _zetasql_ASTHintProto__Output } from '../zetasql/ASTHintProto';
 import type { ASTWithGroupRowsProto as _zetasql_ASTWithGroupRowsProto, ASTWithGroupRowsProto__Output as _zetasql_ASTWithGroupRowsProto__Output } from '../zetasql/ASTWithGroupRowsProto';
 import type { _zetasql_ASTFunctionCallEnums_NullHandlingModifier } from '../zetasql/ASTFunctionCallEnums';
+import type { ASTWithReportModifierProto as _zetasql_ASTWithReportModifierProto, ASTWithReportModifierProto__Output as _zetasql_ASTWithReportModifierProto__Output } from '../zetasql/ASTWithReportModifierProto';
 
 export interface ASTFunctionCallProto {
   'parent'?: (_zetasql_ASTExpressionProto | null);
@@ -24,6 +25,7 @@ export interface ASTFunctionCallProto {
   'nullHandlingModifier'?: (_zetasql_ASTFunctionCallEnums_NullHandlingModifier | keyof typeof _zetasql_ASTFunctionCallEnums_NullHandlingModifier);
   'distinct'?: (boolean);
   'isCurrentDateTimeWithoutParentheses'?: (boolean);
+  'withReportModifier'?: (_zetasql_ASTWithReportModifierProto | null);
 }
 
 export interface ASTFunctionCallProto__Output {
@@ -39,4 +41,5 @@ export interface ASTFunctionCallProto__Output {
   'nullHandlingModifier': (_zetasql_ASTFunctionCallEnums_NullHandlingModifier);
   'distinct': (boolean);
   'isCurrentDateTimeWithoutParentheses': (boolean);
+  'withReportModifier': (_zetasql_ASTWithReportModifierProto__Output | null);
 }

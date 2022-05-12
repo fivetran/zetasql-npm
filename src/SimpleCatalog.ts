@@ -2,6 +2,8 @@ import * as Long from 'long';
 import { SimpleTable } from './SimpleTable';
 import { Type } from './Type';
 import { TypeFactory } from './TypeFactory';
+import { FunctionProto } from './types/zetasql/FunctionProto';
+import { GetBuiltinFunctionsResponse } from './types/zetasql/local_service/GetBuiltinFunctionsResponse';
 import { RegisterCatalogRequest } from './types/zetasql/local_service/RegisterCatalogRequest';
 import { UnregisterRequest } from './types/zetasql/local_service/UnregisterRequest';
 import { SimpleCatalogProto } from './types/zetasql/SimpleCatalogProto';
@@ -18,6 +20,7 @@ export class SimpleCatalog {
   types = new Map<string, Type>();
   catalogs = new Map<string, SimpleCatalog>();
   tablesById = new Map<Long, SimpleTable>();
+  customFunctions = new Map<string, FunctionProto>();
   registeredId: Long | undefined;
   registered = false;
 
@@ -97,7 +100,9 @@ export class SimpleCatalog {
    *
    * @param options used to select which functions get loaded.
    */
-  async addZetaSQLFunctions(options: ZetaSQLBuiltinFunctionOptions): Promise<void> {
+  async addZetaSQLFunctions(
+    options: ZetaSQLBuiltinFunctionOptions,
+  ): Promise<GetBuiltinFunctionsResponse | undefined> {
     if (this.builtinFunctionOptions !== undefined) {
       throw new Error('builtinFunctionOptions should be undefined');
     }
@@ -105,9 +110,22 @@ export class SimpleCatalog {
     this.builtinFunctionOptions = options.serialize();
 
     try {
-      await ZetaSQLClient.getInstance().getBuiltinFunctions(this.builtinFunctionOptions);
+      return await ZetaSQLClient.getInstance().getBuiltinFunctions(this.builtinFunctionOptions);
     } catch (e) {
       throw new Error(`Failed to get builtin functions ${JSON.stringify(e)}`);
+    }
+  }
+
+  addFunction(func: FunctionProto): void {
+    this.checkAlreadyRegistered();
+
+    if (!func.namePath?.length) {
+      throw new Error('namePath must have at least one element');
+    }
+
+    const name = func.namePath[func.namePath.length - 1];
+    if (name) {
+      this.customFunctions.set(name.toLowerCase(), func);
     }
   }
 
@@ -150,6 +168,10 @@ export class SimpleCatalog {
       for (const [, catalog] of this.catalogs) {
         simpleCatalog.catalog.push(catalog.serialize());
       }
+    }
+
+    if (this.customFunctions.size > 0) {
+      simpleCatalog.customFunction = [...this.customFunctions.values()];
     }
 
     return simpleCatalog;

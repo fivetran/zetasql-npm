@@ -38,6 +38,7 @@ export interface ProtoGrpcType {
     ASTAbortBatchStatementProto: MessageTypeDefinition
     ASTAddColumnActionProto: MessageTypeDefinition
     ASTAddConstraintActionProto: MessageTypeDefinition
+    ASTAddSubEntityActionProto: MessageTypeDefinition
     ASTAddToRestricteeListClauseProto: MessageTypeDefinition
     ASTAliasProto: MessageTypeDefinition
     ASTAlterActionListProto: MessageTypeDefinition
@@ -53,10 +54,12 @@ export interface ProtoGrpcType {
     ASTAlterDatabaseStatementProto: MessageTypeDefinition
     ASTAlterEntityStatementProto: MessageTypeDefinition
     ASTAlterMaterializedViewStatementProto: MessageTypeDefinition
+    ASTAlterModelStatementProto: MessageTypeDefinition
     ASTAlterPrivilegeRestrictionStatementProto: MessageTypeDefinition
     ASTAlterRowAccessPolicyStatementProto: MessageTypeDefinition
     ASTAlterSchemaStatementProto: MessageTypeDefinition
     ASTAlterStatementBaseProto: MessageTypeDefinition
+    ASTAlterSubEntityActionProto: MessageTypeDefinition
     ASTAlterTableStatementProto: MessageTypeDefinition
     ASTAlterViewStatementProto: MessageTypeDefinition
     ASTAnalyticFunctionCallProto: MessageTypeDefinition
@@ -161,6 +164,7 @@ export interface ProtoGrpcType {
     ASTDropSnapshotTableStatementProto: MessageTypeDefinition
     ASTDropStatementEnums: MessageTypeDefinition
     ASTDropStatementProto: MessageTypeDefinition
+    ASTDropSubEntityActionProto: MessageTypeDefinition
     ASTDropTableFunctionStatementProto: MessageTypeDefinition
     ASTElseifClauseListProto: MessageTypeDefinition
     ASTElseifClauseProto: MessageTypeDefinition
@@ -398,9 +402,11 @@ export interface ProtoGrpcType {
     ASTWithClauseEntryProto: MessageTypeDefinition
     ASTWithClauseProto: MessageTypeDefinition
     ASTWithConnectionClauseProto: MessageTypeDefinition
+    ASTWithExpressionProto: MessageTypeDefinition
     ASTWithGroupRowsProto: MessageTypeDefinition
     ASTWithOffsetProto: MessageTypeDefinition
     ASTWithPartitionColumnsClauseProto: MessageTypeDefinition
+    ASTWithReportModifierProto: MessageTypeDefinition
     ASTWithWeightProto: MessageTypeDefinition
     AllowedHintsAndOptionsProto: MessageTypeDefinition
     AnalyzerOptionsProto: MessageTypeDefinition
@@ -491,6 +497,7 @@ export interface ProtoGrpcType {
     ResolvedAbortBatchStmtProto: MessageTypeDefinition
     ResolvedAddColumnActionProto: MessageTypeDefinition
     ResolvedAddConstraintActionProto: MessageTypeDefinition
+    ResolvedAddSubEntityActionProto: MessageTypeDefinition
     ResolvedAddToRestricteeListActionProto: MessageTypeDefinition
     ResolvedAggregateFunctionCallProto: MessageTypeDefinition
     ResolvedAggregateHavingModifierEnums: MessageTypeDefinition
@@ -512,6 +519,7 @@ export interface ProtoGrpcType {
     ResolvedAlterPrivilegeRestrictionStmtProto: MessageTypeDefinition
     ResolvedAlterRowAccessPolicyStmtProto: MessageTypeDefinition
     ResolvedAlterSchemaStmtProto: MessageTypeDefinition
+    ResolvedAlterSubEntityActionProto: MessageTypeDefinition
     ResolvedAlterTableSetOptionsStmtProto: MessageTypeDefinition
     ResolvedAlterTableStmtProto: MessageTypeDefinition
     ResolvedAlterViewStmtProto: MessageTypeDefinition
@@ -587,6 +595,7 @@ export interface ProtoGrpcType {
     ResolvedDropSnapshotTableStmtProto: MessageTypeDefinition
     ResolvedDropStmtEnums: MessageTypeDefinition
     ResolvedDropStmtProto: MessageTypeDefinition
+    ResolvedDropSubEntityActionProto: MessageTypeDefinition
     ResolvedDropTableFunctionStmtProto: MessageTypeDefinition
     ResolvedExecuteImmediateArgumentProto: MessageTypeDefinition
     ResolvedExecuteImmediateStmtProto: MessageTypeDefinition

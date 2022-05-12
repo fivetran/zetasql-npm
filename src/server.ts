@@ -7,7 +7,7 @@ export function runServer(port: number): Promise<void> {
   return new Promise((resolve, reject) => {
     worker = new Worker(path.resolve(__dirname, './runServerAddon.js'), { argv: [port] });
     worker.on('message', resolve);
-    worker.on('error', reject);
+    worker.on('error', error => reject(new Error(`Worker stopped due to error ${error}`)));
     worker.on('exit', code => {
       if (code !== 0) reject(new Error(`Worker stopped with exit code ${code}`));
     });

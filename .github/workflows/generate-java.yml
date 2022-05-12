@@ -1,0 +1,30 @@
+name: generate-java
+
+on:
+  workflow_dispatch:
+
+jobs:
+  gen-java:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout zetasql
+        uses: actions/checkout@v2
+        with:
+          repository: pgrivachev/zetasql
+
+      - name: Install Bazel
+        uses: abhinavsingh/setup-bazel@v3
+        with:
+          version: 4.0.0
+
+      - name: Build
+        run: |
+          bazel build //java/com/google/zetasql/parser
+          bazel build //java/com/google/zetasql/resolvedast
+
+      - name: upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: gen java results
+          path: bazel-bin/java/**/*

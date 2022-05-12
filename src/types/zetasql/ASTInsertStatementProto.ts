@@ -9,6 +9,7 @@ import type { ASTAssertRowsModifiedProto as _zetasql_ASTAssertRowsModifiedProto,
 import type { ASTReturningClauseProto as _zetasql_ASTReturningClauseProto, ASTReturningClauseProto__Output as _zetasql_ASTReturningClauseProto__Output } from '../zetasql/ASTReturningClauseProto';
 import type { _zetasql_ASTInsertStatementEnums_ParseProgress } from '../zetasql/ASTInsertStatementEnums';
 import type { _zetasql_ASTInsertStatementEnums_InsertMode } from '../zetasql/ASTInsertStatementEnums';
+import type { ASTHintProto as _zetasql_ASTHintProto, ASTHintProto__Output as _zetasql_ASTHintProto__Output } from '../zetasql/ASTHintProto';
 
 export interface ASTInsertStatementProto {
   'parent'?: (_zetasql_ASTStatementProto | null);
@@ -20,6 +21,7 @@ export interface ASTInsertStatementProto {
   'returning'?: (_zetasql_ASTReturningClauseProto | null);
   'parseProgress'?: (_zetasql_ASTInsertStatementEnums_ParseProgress | keyof typeof _zetasql_ASTInsertStatementEnums_ParseProgress);
   'insertMode'?: (_zetasql_ASTInsertStatementEnums_InsertMode | keyof typeof _zetasql_ASTInsertStatementEnums_InsertMode);
+  'hint'?: (_zetasql_ASTHintProto | null);
 }
 
 export interface ASTInsertStatementProto__Output {
@@ -32,4 +34,5 @@ export interface ASTInsertStatementProto__Output {
   'returning': (_zetasql_ASTReturningClauseProto__Output | null);
   'parseProgress': (_zetasql_ASTInsertStatementEnums_ParseProgress);
   'insertMode': (_zetasql_ASTInsertStatementEnums_InsertMode);
+  'hint': (_zetasql_ASTHintProto__Output | null);
 }

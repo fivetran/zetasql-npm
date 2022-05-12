@@ -9,6 +9,7 @@ export interface SimpleColumnProto {
   'isPseudoColumn'?: (boolean);
   'isWritableColumn'?: (boolean);
   'annotationMap'?: (_zetasql_AnnotationMapProto | null);
+  'canUpdateUnwritableToDefault'?: (boolean);
 }
 
 export interface SimpleColumnProto__Output {
@@ -17,4 +18,5 @@ export interface SimpleColumnProto__Output {
   'isPseudoColumn': (boolean);
   'isWritableColumn': (boolean);
   'annotationMap': (_zetasql_AnnotationMapProto__Output | null);
+  'canUpdateUnwritableToDefault': (boolean);
 }
