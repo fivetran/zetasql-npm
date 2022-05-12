@@ -22,7 +22,7 @@ jobs:
             working-directory: build/zetasql-macos
             cache-path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
             build-command: |
-              bazel build //zetasql/local_service:libremote_server.dylib --copt="-Wno-error=c99-extensions"
+              bazel build ...
               install_name_tool -id "@loader_path/libremote_server.dylib" bazel-bin/zetasql/local_service/libremote_server.dylib
 
           - os: ubuntu-latest
