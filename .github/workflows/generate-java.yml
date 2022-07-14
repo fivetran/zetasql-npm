@@ -11,7 +11,7 @@ jobs:
       - name: Checkout zetasql
         uses: actions/checkout@v2
         with:
-          repository: pgrivachev/zetasql
+          repository: fivetran/zetasql
 
       - name: Install Bazel
         uses: abhinavsingh/setup-bazel@v3
