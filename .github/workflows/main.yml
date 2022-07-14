@@ -31,7 +31,7 @@ jobs:
       - name: Checkout zetasql
         uses: actions/checkout@v2
         with:
-          repository: pgrivachev/zetasql
+          repository: fivetran/zetasql
           path: ${{ matrix.working-directory }}
 
       - name: Set variables
