@@ -8,6 +8,7 @@ import type { ParameterMode as _zetasql_ParameterMode } from '../zetasql/Paramet
 import type { StatementContext as _zetasql_StatementContext } from '../zetasql/StatementContext';
 import type { ResolvedASTRewrite as _zetasql_ResolvedASTRewrite } from '../zetasql/ResolvedASTRewrite';
 import type { ParseLocationRecordType as _zetasql_ParseLocationRecordType } from '../zetasql/ParseLocationRecordType';
+import type { Long } from '@grpc/proto-loader';
 
 export interface _zetasql_AnalyzerOptionsProto_QueryParameterProto {
   'name'?: (string);
@@ -51,6 +52,7 @@ export interface AnalyzerOptionsProto {
   'parseLocationRecordType'?: (_zetasql_ParseLocationRecordType | keyof typeof _zetasql_ParseLocationRecordType);
   'preserveUnnecessaryCast'?: (boolean);
   'defaultAnonFunctionReportFormat'?: (string);
+  'defaultAnonKappaValue'?: (number | string | Long);
 }
 
 export interface AnalyzerOptionsProto__Output {
@@ -75,4 +77,5 @@ export interface AnalyzerOptionsProto__Output {
   'parseLocationRecordType': (_zetasql_ParseLocationRecordType);
   'preserveUnnecessaryCast': (boolean);
   'defaultAnonFunctionReportFormat': (string);
+  'defaultAnonKappaValue': (Long);
 }

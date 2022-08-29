@@ -20,7 +20,7 @@ import type { ResolvedFlattenProto as _zetasql_ResolvedFlattenProto, ResolvedFla
 import type { ResolvedFlattenedArgProto as _zetasql_ResolvedFlattenedArgProto, ResolvedFlattenedArgProto__Output as _zetasql_ResolvedFlattenedArgProto__Output } from '../zetasql/ResolvedFlattenedArgProto';
 import type { ResolvedGetJsonFieldProto as _zetasql_ResolvedGetJsonFieldProto, ResolvedGetJsonFieldProto__Output as _zetasql_ResolvedGetJsonFieldProto__Output } from '../zetasql/ResolvedGetJsonFieldProto';
 import type { ResolvedFilterFieldProto as _zetasql_ResolvedFilterFieldProto, ResolvedFilterFieldProto__Output as _zetasql_ResolvedFilterFieldProto__Output } from '../zetasql/ResolvedFilterFieldProto';
-import type { ResolvedLetExprProto as _zetasql_ResolvedLetExprProto, ResolvedLetExprProto__Output as _zetasql_ResolvedLetExprProto__Output } from '../zetasql/ResolvedLetExprProto';
+import type { ResolvedWithExprProto as _zetasql_ResolvedWithExprProto, ResolvedWithExprProto__Output as _zetasql_ResolvedWithExprProto__Output } from '../zetasql/ResolvedWithExprProto';
 
 export interface AnyResolvedExprProto {
   'resolvedLiteralNode'?: (_zetasql_ResolvedLiteralProto | null);
@@ -43,8 +43,8 @@ export interface AnyResolvedExprProto {
   'resolvedFlattenedArgNode'?: (_zetasql_ResolvedFlattenedArgProto | null);
   'resolvedGetJsonFieldNode'?: (_zetasql_ResolvedGetJsonFieldProto | null);
   'resolvedFilterFieldNode'?: (_zetasql_ResolvedFilterFieldProto | null);
-  'resolvedLetExprNode'?: (_zetasql_ResolvedLetExprProto | null);
-  'node'?: "resolvedLiteralNode"|"resolvedParameterNode"|"resolvedExpressionColumnNode"|"resolvedColumnRefNode"|"resolvedFunctionCallBaseNode"|"resolvedCastNode"|"resolvedMakeStructNode"|"resolvedMakeProtoNode"|"resolvedGetStructFieldNode"|"resolvedGetProtoFieldNode"|"resolvedSubqueryExprNode"|"resolvedDmldefaultNode"|"resolvedArgumentRefNode"|"resolvedConstantNode"|"resolvedReplaceFieldNode"|"resolvedSystemVariableNode"|"resolvedFlattenNode"|"resolvedFlattenedArgNode"|"resolvedGetJsonFieldNode"|"resolvedFilterFieldNode"|"resolvedLetExprNode";
+  'resolvedWithExprNode'?: (_zetasql_ResolvedWithExprProto | null);
+  'node'?: "resolvedLiteralNode"|"resolvedParameterNode"|"resolvedExpressionColumnNode"|"resolvedColumnRefNode"|"resolvedFunctionCallBaseNode"|"resolvedCastNode"|"resolvedMakeStructNode"|"resolvedMakeProtoNode"|"resolvedGetStructFieldNode"|"resolvedGetProtoFieldNode"|"resolvedSubqueryExprNode"|"resolvedDmldefaultNode"|"resolvedArgumentRefNode"|"resolvedConstantNode"|"resolvedReplaceFieldNode"|"resolvedSystemVariableNode"|"resolvedFlattenNode"|"resolvedFlattenedArgNode"|"resolvedGetJsonFieldNode"|"resolvedFilterFieldNode"|"resolvedWithExprNode";
 }
 
 export interface AnyResolvedExprProto__Output {
@@ -68,6 +68,6 @@ export interface AnyResolvedExprProto__Output {
   'resolvedFlattenedArgNode'?: (_zetasql_ResolvedFlattenedArgProto__Output | null);
   'resolvedGetJsonFieldNode'?: (_zetasql_ResolvedGetJsonFieldProto__Output | null);
   'resolvedFilterFieldNode'?: (_zetasql_ResolvedFilterFieldProto__Output | null);
-  'resolvedLetExprNode'?: (_zetasql_ResolvedLetExprProto__Output | null);
-  'node': "resolvedLiteralNode"|"resolvedParameterNode"|"resolvedExpressionColumnNode"|"resolvedColumnRefNode"|"resolvedFunctionCallBaseNode"|"resolvedCastNode"|"resolvedMakeStructNode"|"resolvedMakeProtoNode"|"resolvedGetStructFieldNode"|"resolvedGetProtoFieldNode"|"resolvedSubqueryExprNode"|"resolvedDmldefaultNode"|"resolvedArgumentRefNode"|"resolvedConstantNode"|"resolvedReplaceFieldNode"|"resolvedSystemVariableNode"|"resolvedFlattenNode"|"resolvedFlattenedArgNode"|"resolvedGetJsonFieldNode"|"resolvedFilterFieldNode"|"resolvedLetExprNode";
+  'resolvedWithExprNode'?: (_zetasql_ResolvedWithExprProto__Output | null);
+  'node': "resolvedLiteralNode"|"resolvedParameterNode"|"resolvedExpressionColumnNode"|"resolvedColumnRefNode"|"resolvedFunctionCallBaseNode"|"resolvedCastNode"|"resolvedMakeStructNode"|"resolvedMakeProtoNode"|"resolvedGetStructFieldNode"|"resolvedGetProtoFieldNode"|"resolvedSubqueryExprNode"|"resolvedDmldefaultNode"|"resolvedArgumentRefNode"|"resolvedConstantNode"|"resolvedReplaceFieldNode"|"resolvedSystemVariableNode"|"resolvedFlattenNode"|"resolvedFlattenedArgNode"|"resolvedGetJsonFieldNode"|"resolvedFilterFieldNode"|"resolvedWithExprNode";
 }

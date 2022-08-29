@@ -6,6 +6,7 @@ import type { StructTypeProto as _zetasql_StructTypeProto, StructTypeProto__Outp
 import type { ProtoTypeProto as _zetasql_ProtoTypeProto, ProtoTypeProto__Output as _zetasql_ProtoTypeProto__Output } from '../zetasql/ProtoTypeProto';
 import type { EnumTypeProto as _zetasql_EnumTypeProto, EnumTypeProto__Output as _zetasql_EnumTypeProto__Output } from '../zetasql/EnumTypeProto';
 import type { FileDescriptorSet as _google_protobuf_FileDescriptorSet, FileDescriptorSet__Output as _google_protobuf_FileDescriptorSet__Output } from '../google/protobuf/FileDescriptorSet';
+import type { RangeTypeProto as _zetasql_RangeTypeProto, RangeTypeProto__Output as _zetasql_RangeTypeProto__Output } from '../zetasql/RangeTypeProto';
 
 export interface TypeProto {
   'typeKind'?: (_zetasql_TypeKind | keyof typeof _zetasql_TypeKind);
@@ -15,6 +16,7 @@ export interface TypeProto {
   'enumType'?: (_zetasql_EnumTypeProto | null);
   'fileDescriptorSet'?: (_google_protobuf_FileDescriptorSet)[];
   'extendedTypeName'?: (string);
+  'rangeType'?: (_zetasql_RangeTypeProto | null);
 }
 
 export interface TypeProto__Output {
@@ -25,4 +27,5 @@ export interface TypeProto__Output {
   'enumType': (_zetasql_EnumTypeProto__Output | null);
   'fileDescriptorSet': (_google_protobuf_FileDescriptorSet__Output)[];
   'extendedTypeName': (string);
+  'rangeType': (_zetasql_RangeTypeProto__Output | null);
 }

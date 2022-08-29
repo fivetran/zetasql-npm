@@ -6,6 +6,7 @@ import type { ResolvedAssertRowsModifiedProto as _zetasql_ResolvedAssertRowsModi
 import type { AnyResolvedExprProto as _zetasql_AnyResolvedExprProto, AnyResolvedExprProto__Output as _zetasql_AnyResolvedExprProto__Output } from '../zetasql/AnyResolvedExprProto';
 import type { ResolvedColumnHolderProto as _zetasql_ResolvedColumnHolderProto, ResolvedColumnHolderProto__Output as _zetasql_ResolvedColumnHolderProto__Output } from '../zetasql/ResolvedColumnHolderProto';
 import type { ResolvedReturningClauseProto as _zetasql_ResolvedReturningClauseProto, ResolvedReturningClauseProto__Output as _zetasql_ResolvedReturningClauseProto__Output } from '../zetasql/ResolvedReturningClauseProto';
+import type { _zetasql_ResolvedStatementEnums_ObjectAccess } from '../zetasql/ResolvedStatementEnums';
 
 export interface ResolvedDeleteStmtProto {
   'parent'?: (_zetasql_ResolvedStatementProto | null);
@@ -14,6 +15,7 @@ export interface ResolvedDeleteStmtProto {
   'whereExpr'?: (_zetasql_AnyResolvedExprProto | null);
   'arrayOffsetColumn'?: (_zetasql_ResolvedColumnHolderProto | null);
   'returning'?: (_zetasql_ResolvedReturningClauseProto | null);
+  'columnAccessList'?: (_zetasql_ResolvedStatementEnums_ObjectAccess | keyof typeof _zetasql_ResolvedStatementEnums_ObjectAccess)[];
 }
 
 export interface ResolvedDeleteStmtProto__Output {
@@ -23,4 +25,5 @@ export interface ResolvedDeleteStmtProto__Output {
   'whereExpr': (_zetasql_AnyResolvedExprProto__Output | null);
   'arrayOffsetColumn': (_zetasql_ResolvedColumnHolderProto__Output | null);
   'returning': (_zetasql_ResolvedReturningClauseProto__Output | null);
+  'columnAccessList': (_zetasql_ResolvedStatementEnums_ObjectAccess)[];
 }

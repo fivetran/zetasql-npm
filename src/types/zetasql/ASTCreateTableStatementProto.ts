@@ -6,6 +6,8 @@ import type { ASTCopyDataSourceProto as _zetasql_ASTCopyDataSourceProto, ASTCopy
 import type { ASTPartitionByProto as _zetasql_ASTPartitionByProto, ASTPartitionByProto__Output as _zetasql_ASTPartitionByProto__Output } from '../zetasql/ASTPartitionByProto';
 import type { ASTClusterByProto as _zetasql_ASTClusterByProto, ASTClusterByProto__Output as _zetasql_ASTClusterByProto__Output } from '../zetasql/ASTClusterByProto';
 import type { ASTQueryProto as _zetasql_ASTQueryProto, ASTQueryProto__Output as _zetasql_ASTQueryProto__Output } from '../zetasql/ASTQueryProto';
+import type { ASTSpannerTableOptionsProto as _zetasql_ASTSpannerTableOptionsProto, ASTSpannerTableOptionsProto__Output as _zetasql_ASTSpannerTableOptionsProto__Output } from '../zetasql/ASTSpannerTableOptionsProto';
+import type { ASTTtlClauseProto as _zetasql_ASTTtlClauseProto, ASTTtlClauseProto__Output as _zetasql_ASTTtlClauseProto__Output } from '../zetasql/ASTTtlClauseProto';
 
 export interface ASTCreateTableStatementProto {
   'parent'?: (_zetasql_ASTCreateTableStmtBaseProto | null);
@@ -14,6 +16,8 @@ export interface ASTCreateTableStatementProto {
   'partitionBy'?: (_zetasql_ASTPartitionByProto | null);
   'clusterBy'?: (_zetasql_ASTClusterByProto | null);
   'query'?: (_zetasql_ASTQueryProto | null);
+  'spannerOptions'?: (_zetasql_ASTSpannerTableOptionsProto | null);
+  'ttl'?: (_zetasql_ASTTtlClauseProto | null);
 }
 
 export interface ASTCreateTableStatementProto__Output {
@@ -23,4 +27,6 @@ export interface ASTCreateTableStatementProto__Output {
   'partitionBy': (_zetasql_ASTPartitionByProto__Output | null);
   'clusterBy': (_zetasql_ASTClusterByProto__Output | null);
   'query': (_zetasql_ASTQueryProto__Output | null);
+  'spannerOptions': (_zetasql_ASTSpannerTableOptionsProto__Output | null);
+  'ttl': (_zetasql_ASTTtlClauseProto__Output | null);
 }

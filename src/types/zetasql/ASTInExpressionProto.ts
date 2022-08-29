@@ -6,6 +6,7 @@ import type { ASTHintProto as _zetasql_ASTHintProto, ASTHintProto__Output as _ze
 import type { ASTInListProto as _zetasql_ASTInListProto, ASTInListProto__Output as _zetasql_ASTInListProto__Output } from '../zetasql/ASTInListProto';
 import type { ASTQueryProto as _zetasql_ASTQueryProto, ASTQueryProto__Output as _zetasql_ASTQueryProto__Output } from '../zetasql/ASTQueryProto';
 import type { ASTUnnestExpressionProto as _zetasql_ASTUnnestExpressionProto, ASTUnnestExpressionProto__Output as _zetasql_ASTUnnestExpressionProto__Output } from '../zetasql/ASTUnnestExpressionProto';
+import type { ASTLocationProto as _zetasql_ASTLocationProto, ASTLocationProto__Output as _zetasql_ASTLocationProto__Output } from '../zetasql/ASTLocationProto';
 
 export interface ASTInExpressionProto {
   'parent'?: (_zetasql_ASTExpressionProto | null);
@@ -15,6 +16,7 @@ export interface ASTInExpressionProto {
   'query'?: (_zetasql_ASTQueryProto | null);
   'unnestExpr'?: (_zetasql_ASTUnnestExpressionProto | null);
   'isNot'?: (boolean);
+  'inLocation'?: (_zetasql_ASTLocationProto | null);
 }
 
 export interface ASTInExpressionProto__Output {
@@ -25,4 +27,5 @@ export interface ASTInExpressionProto__Output {
   'query': (_zetasql_ASTQueryProto__Output | null);
   'unnestExpr': (_zetasql_ASTUnnestExpressionProto__Output | null);
   'isNot': (boolean);
+  'inLocation': (_zetasql_ASTLocationProto__Output | null);
 }

@@ -9,6 +9,7 @@ import type { AnyResolvedScanProto as _zetasql_AnyResolvedScanProto, AnyResolved
 import type { ResolvedInsertRowProto as _zetasql_ResolvedInsertRowProto, ResolvedInsertRowProto__Output as _zetasql_ResolvedInsertRowProto__Output } from '../zetasql/ResolvedInsertRowProto';
 import type { ResolvedColumnRefProto as _zetasql_ResolvedColumnRefProto, ResolvedColumnRefProto__Output as _zetasql_ResolvedColumnRefProto__Output } from '../zetasql/ResolvedColumnRefProto';
 import type { ResolvedReturningClauseProto as _zetasql_ResolvedReturningClauseProto, ResolvedReturningClauseProto__Output as _zetasql_ResolvedReturningClauseProto__Output } from '../zetasql/ResolvedReturningClauseProto';
+import type { _zetasql_ResolvedStatementEnums_ObjectAccess } from '../zetasql/ResolvedStatementEnums';
 
 export interface ResolvedInsertStmtProto {
   'parent'?: (_zetasql_ResolvedStatementProto | null);
@@ -21,6 +22,7 @@ export interface ResolvedInsertStmtProto {
   'queryOutputColumnList'?: (_zetasql_ResolvedColumnProto)[];
   'queryParameterList'?: (_zetasql_ResolvedColumnRefProto)[];
   'returning'?: (_zetasql_ResolvedReturningClauseProto | null);
+  'columnAccessList'?: (_zetasql_ResolvedStatementEnums_ObjectAccess | keyof typeof _zetasql_ResolvedStatementEnums_ObjectAccess)[];
 }
 
 export interface ResolvedInsertStmtProto__Output {
@@ -34,4 +36,5 @@ export interface ResolvedInsertStmtProto__Output {
   'queryOutputColumnList': (_zetasql_ResolvedColumnProto__Output)[];
   'queryParameterList': (_zetasql_ResolvedColumnRefProto__Output)[];
   'returning': (_zetasql_ResolvedReturningClauseProto__Output | null);
+  'columnAccessList': (_zetasql_ResolvedStatementEnums_ObjectAccess)[];
 }
