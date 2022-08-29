@@ -165,10 +165,16 @@ message AnyASTNodeProto {
     ASTExecuteIntoClauseProto ast_execute_into_clause_node = 318;
     ASTExecuteUsingArgumentProto ast_execute_using_argument_node = 319;
     ASTExecuteUsingClauseProto ast_execute_using_clause_node = 320;
-    ASTAuxLoadDataFromFilesOptionsListProto ast_aux_load_data_from_files_options_list_node = 322;
-    ASTLabelProto ast_label_node = 324;
     ASTBracedConstructorFieldProto ast_braced_constructor_field_node = 331;
     ASTWithReportModifierProto ast_with_report_modifier_node = 334;
+    ASTLocationProto ast_location_node = 337;
+    ASTAuxLoadDataFromFilesOptionsListProto ast_aux_load_data_from_files_options_list_node = 341;
+    ASTLabelProto ast_label_node = 343;
+    ASTPrimaryKeyElementProto ast_primary_key_element_node = 344;
+    ASTPrimaryKeyElementListProto ast_primary_key_element_list_node = 345;
+    ASTSpannerTableOptionsProto ast_spanner_table_options_node = 346;
+    ASTSpannerInterleaveClauseProto ast_spanner_interleave_clause_node = 347;
+    ASTTtlClauseProto ast_ttl_clause_node = 348;
   }
 }
 
@@ -328,6 +334,7 @@ message AnyASTExpressionProto {
     ASTBracedConstructorProto ast_braced_constructor_node = 332;
     ASTBracedNewConstructorProto ast_braced_new_constructor_node = 333;
     ASTWithExpressionProto ast_with_expression_node = 335;
+    ASTRangeLiteralProto ast_range_literal_node = 354;
   }
 }
 message ASTExpressionProto {
@@ -719,6 +726,9 @@ message ASTInExpressionProto {
   optional ASTUnnestExpressionProto unnest_expr = 6;
   // Signifies whether the IN operator has a preceding NOT to it.
   optional bool is_not = 7;
+  // Represents the location of the 'IN' token. Used only for error
+  // messages.
+  optional ASTLocationProto in_location = 8;
 }
 
 // This implementation is shared with the IN operator and LIKE ANY/SOME/ALL.
@@ -734,6 +744,9 @@ message ASTBetweenExpressionProto {
   optional AnyASTExpressionProto high = 4;
   // Signifies whether the BETWEEN operator has a preceding NOT to it.
   optional bool is_not = 5;
+  // Represents the location of the 'BETWEEEN' token. Used only for
+  // error messages.
+  optional ASTLocationProto between_location = 6;
 }
 
 message ASTNumericLiteralProto {
@@ -778,6 +791,7 @@ message ASTArrayElementProto {
   optional ASTGeneralizedPathExpressionProto parent = 1;
   optional AnyASTExpressionProto array = 2;
   optional AnyASTExpressionProto position = 3;
+  optional ASTLocationProto open_bracket_location = 4;
 }
 
 message ASTBitwiseShiftExpressionProto {
@@ -787,6 +801,7 @@ message ASTBitwiseShiftExpressionProto {
   // Signifies whether the bitwise shift is of left shift type "<<" or right
   // shift type ">>".
   optional bool is_left_shift = 4;
+  optional ASTLocationProto operator_location = 5;
 }
 
 message ASTCollateProto {
@@ -974,6 +989,8 @@ message ASTLikeExpressionProto {
   optional ASTUnnestExpressionProto unnest_expr = 7;
   // Signifies whether the LIKE operator has a preceding NOT to it.
   optional bool is_not = 8;
+  // Location of the 'LIKE' token. Used for error messages.
+  optional ASTLocationProto like_location = 9;
 }
 
 message ASTWindowSpecificationProto {
@@ -1609,6 +1626,9 @@ message ASTCreateProcedureStatementProto {
   // The body of a procedure. Always consists of a single BeginEndBlock
   // including the BEGIN/END keywords and text in between.
   optional ASTScriptProto body = 5;
+  optional ASTWithConnectionClauseProto with_connection_clause = 6;
+  optional ASTIdentifierProto language = 7;
+  optional ASTStringLiteralProto code = 8;
 }
 
 // This represents a CREATE SCHEMA statement, i.e.,
@@ -1669,6 +1689,8 @@ message ASTCreateIndexStatementProto {
   optional ASTOptionsListProto options_list = 8;
   optional bool is_unique = 9;
   optional bool is_search = 10;
+  optional ASTSpannerInterleaveClauseProto spanner_interleave_clause = 11;
+  optional bool spanner_is_null_filtered = 12;
 }
 
 message ASTExportDataStatementProto {
@@ -2104,9 +2126,14 @@ message AnyASTAlterActionProto {
     ASTRestrictToClauseProto ast_restrict_to_clause_node = 327;
     ASTAddToRestricteeListClauseProto ast_add_to_restrictee_list_clause_node = 328;
     ASTRemoveFromRestricteeListClauseProto ast_remove_from_restrictee_list_clause_node = 329;
-    ASTAlterSubEntityActionProto ast_alter_sub_entity_action_node = 330;
-    ASTAddSubEntityActionProto ast_add_sub_entity_action_node = 331;
-    ASTDropSubEntityActionProto ast_drop_sub_entity_action_node = 332;
+    ASTAlterSubEntityActionProto ast_alter_sub_entity_action_node = 338;
+    ASTAddSubEntityActionProto ast_add_sub_entity_action_node = 339;
+    ASTDropSubEntityActionProto ast_drop_sub_entity_action_node = 340;
+    ASTAddTtlActionProto ast_add_ttl_action_node = 349;
+    ASTReplaceTtlActionProto ast_replace_ttl_action_node = 350;
+    ASTDropTtlActionProto ast_drop_ttl_action_node = 351;
+    ASTSpannerAlterColumnActionProto ast_spanner_alter_column_action_node = 352;
+    ASTSpannerSetOnDeleteActionProto ast_spanner_set_on_delete_action_node = 353;
   }
 }
 message ASTAlterActionProto {
@@ -2309,6 +2336,26 @@ message ASTDropSubEntityActionProto {
   optional bool is_if_exists = 5;
 }
 
+// ALTER action for "ADD ROW DELETION POLICY clause
+message ASTAddTtlActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional AnyASTExpressionProto expression = 2;
+  optional bool is_if_not_exists = 3;
+}
+
+// ALTER action for "REPLACE ROW DELETION POLICY clause
+message ASTReplaceTtlActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional AnyASTExpressionProto expression = 2;
+  optional bool is_if_exists = 3;
+}
+
+// ALTER action for "DROP ROW DELETION POLICY clause
+message ASTDropTtlActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional bool is_if_exists = 2;
+}
+
 message ASTAlterActionListProto {
   optional ASTNodeProto parent = 1;
   repeated AnyASTAlterActionProto actions = 2;
@@ -2462,6 +2509,18 @@ message ASTArrayColumnSchemaProto {
   optional AnyASTColumnSchemaProto element_schema = 2;
 }
 
+message ASTPrimaryKeyElementProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTIdentifierProto column = 2;
+  optional ASTOrderingExpressionEnums.OrderingSpec ordering_spec = 3;
+  optional ASTNullOrderProto null_order = 4;
+}
+
+message ASTPrimaryKeyElementListProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTPrimaryKeyElementProto elements = 2;
+}
+
 // Base class for constraints, including primary key, foreign key and check
 // constraints.
 message AnyASTTableConstraintProto {
@@ -2477,7 +2536,7 @@ message ASTTableConstraintProto {
 
 message ASTPrimaryKeyProto {
   optional ASTTableConstraintProto parent = 1;
-  optional ASTColumnListProto column_list = 2;
+  optional ASTPrimaryKeyElementListProto element_list = 2;
   optional ASTOptionsListProto options_list = 3;
   optional ASTIdentifierProto constraint_name = 4;
   optional bool enforced = 5;
@@ -2679,7 +2738,7 @@ message AnyASTCreateTableStmtBaseProto {
   oneof node {
     ASTCreateTableStatementProto ast_create_table_statement_node = 296;
     ASTCreateExternalTableStatementProto ast_create_external_table_statement_node = 297;
-    ASTAuxLoadDataStatementProto ast_aux_load_data_statement_node = 323;
+    ASTAuxLoadDataStatementProto ast_aux_load_data_statement_node = 342;
   }
 }
 message ASTCreateTableStmtBaseProto {
@@ -2698,6 +2757,8 @@ message ASTCreateTableStatementProto {
   optional ASTPartitionByProto partition_by = 4;
   optional ASTClusterByProto cluster_by = 5;
   optional ASTQueryProto query = 6;
+  optional ASTSpannerTableOptionsProto spanner_options = 7;
+  optional ASTTtlClauseProto ttl = 8;
 }
 
 message ASTCreateExternalTableStatementProto {
@@ -2947,5 +3008,56 @@ message ASTWithExpressionProto {
   optional ASTExpressionProto parent = 1;
   optional ASTSelectListProto variables = 2;
   optional AnyASTExpressionProto expression = 3;
+}
+
+message ASTTtlClauseProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto expression = 2;
+}
+
+// A non-functional node used only to carry a location for better error
+// messages.
+message ASTLocationProto {
+  optional ASTNodeProto parent = 1;
+}
+
+// Represents Spanner-specific extensions for CREATE TABLE statement.
+message ASTSpannerTableOptionsProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTPrimaryKeyProto primary_key = 2;
+  optional ASTSpannerInterleaveClauseProto interleave_clause = 3;
+}
+
+// Represents an INTERLEAVE clause used in Spanner-specific DDL statements.
+message ASTSpannerInterleaveClauseProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTPathExpressionProto table_name = 2;
+  optional ASTSpannerInterleaveClauseEnums.Type type = 3;
+  optional ASTForeignKeyActionsEnums.Action action = 4;
+}
+
+// ALTER TABLE action for Spanner-specific "ALTER COLUMN" clause
+message ASTSpannerAlterColumnActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTColumnDefinitionProto column_definition = 2;
+}
+
+// ALTER TABLE action for Spanner-specific "SET ON DELETE" clause
+message ASTSpannerSetOnDeleteActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTForeignKeyActionsEnums.Action action = 2;
+}
+
+// This node results from ranges constructed with the RANGE keyword followed
+// by a literal. Example:
+//   RANGE<DATE> '[2022-08-01, 2022-08-02)'
+//   RANGE<TIMESTAMP> '[2020-10-01 12:00:00+08, 2020-12-31 12:00:00+08)';
+message ASTRangeLiteralProto {
+  optional ASTExpressionProto parent = 1;
+  optional AnyASTTypeProto type = 2;
+  // String literal representing the range, must have format
+  // "[range start, range end)" where "range start" and "range end"
+  // are literals of the type specified RANGE<type>
+  optional ASTStringLiteralProto range_value = 3;
 }
 // clang-format on

@@ -129,7 +129,7 @@ message AnyResolvedExprProto {
     ResolvedFlattenedArgProto resolved_flattened_arg_node = 150;
     ResolvedGetJsonFieldProto resolved_get_json_field_node = 165;
     ResolvedFilterFieldProto resolved_filter_field_node = 174;
-    ResolvedLetExprProto resolved_let_expr_node = 197;
+    ResolvedWithExprProto resolved_with_expr_node = 197;
   }
 }
 
@@ -388,7 +388,7 @@ message ResolvedFunctionCallProto {
   optional ResolvedFunctionCallInfoProto function_call_info = 2;
 }
 
-// Common base class for scalar and aggregate function calls.
+// Common base class for analytic and aggregate function calls.
 message AnyResolvedNonScalarFunctionCallBaseProto {
   oneof node {
     ResolvedAggregateFunctionCallProto resolved_aggregate_function_call_node = 9;
@@ -837,7 +837,7 @@ message ResolvedSubqueryExprProto {
   repeated ResolvedOptionProto hint_list = 6;
 }
 
-// ResolvedLetExpr introduces one or more columns in <assignment_list> that
+// ResolvedWithExpr introduces one or more columns in <assignment_list> that
 // can then be referenced inside <expr>. Each assigned expression is
 // evaluated once, and each reference to that column in <expr> sees the same
 // value even if the assigned expression is volatile. Multiple assignment
@@ -846,9 +846,9 @@ message ResolvedSubqueryExprProto {
 //
 // <assignment_list> One or more columns that are computed before evaluating
 //                   <expr>, and which may be referenced by <expr>.
-// <expr> Computes the result of the ResolvedLetExpr. May reference columns
+// <expr> Computes the result of the ResolvedWithExpr. May reference columns
 //        from <assignment_list>.
-message ResolvedLetExprProto {
+message ResolvedWithExprProto {
   optional ResolvedExprProto parent = 1;
 
   repeated ResolvedComputedColumnProto assignment_list = 2;
@@ -2589,6 +2589,9 @@ message ResolvedWithEntryProto {
 // and a database system should ignore any hints targeted to different
 // systems.
 //
+// <qualifier> is set only for hints, and will always be empty in options
+// lists.
+//
 // The SQL syntax allows using an identifier as a hint value.
 // Such values are stored here as ResolvedLiterals with string type.
 message ResolvedOptionProto {
@@ -2762,6 +2765,11 @@ message ResolvedInsertRowProto {
 //
 // The returning clause has a <output_column_list> to represent the data
 // sent back to clients. It can only access columns from the <table_scan>.
+//
+// <column_access_list> indicates for each column in <table_scan.column_list>
+// whether it was read and/or written. The query engine may also require
+// read or write permissions across all columns, including unreferenced
+// columns, depending on the operation.
 message ResolvedInsertStmtProto {
   optional ResolvedStatementProto parent = 1;
 
@@ -2776,6 +2784,7 @@ message ResolvedInsertStmtProto {
   optional AnyResolvedScanProto query = 6;
   repeated ResolvedColumnProto query_output_column_list = 8;
   repeated ResolvedInsertRowProto row_list = 7;
+  repeated ResolvedStatementEnums.ObjectAccess column_access_list = 11;
 }
 
 // This represents a DELETE statement or a nested DELETE inside an
@@ -2800,12 +2809,18 @@ message ResolvedInsertStmtProto {
 //
 // This returning clause has a <output_column_list> to represent the data
 // sent back to clients. It can only access columns from the <table_scan>.
+//
+// <column_access_list> indicates for each column in <table_scan.column_list>
+// whether it was read and/or written. The query engine may also require
+// read or write permissions across all columns, including unreferenced
+// columns, depending on the operation.
 message ResolvedDeleteStmtProto {
   optional ResolvedStatementProto parent = 1;
 
   optional ResolvedTableScanProto table_scan = 2;
   optional ResolvedAssertRowsModifiedProto assert_rows_modified = 3;
   optional ResolvedReturningClauseProto returning = 6;
+  repeated ResolvedStatementEnums.ObjectAccess column_access_list = 7;
   optional ResolvedColumnHolderProto array_offset_column = 5;
   optional AnyResolvedExprProto where_expr = 4;
 }
@@ -3224,6 +3239,7 @@ message AnyResolvedAlterObjectStmtProto {
     ResolvedAlterEntityStmtProto resolved_alter_entity_stmt_node = 155;
     ResolvedAlterSchemaStmtProto resolved_alter_schema_stmt_node = 160;
     ResolvedAlterPrivilegeRestrictionStmtProto resolved_alter_privilege_restriction_stmt_node = 196;
+    ResolvedAlterModelStmtProto resolved_alter_model_stmt_node = 205;
   }
 }
 
@@ -3254,6 +3270,13 @@ message ResolvedAlterMaterializedViewStmtProto {
 // This statement:
 // ALTER SCHEMA [IF NOT EXISTS] <name_path> <alter_action_list>;
 message ResolvedAlterSchemaStmtProto {
+  optional ResolvedAlterObjectStmtProto parent = 1;
+
+}
+
+// This statement:
+// ALTER MODEL [IF EXISTS] <name_path> <alter_action_list>
+message ResolvedAlterModelStmtProto {
   optional ResolvedAlterObjectStmtProto parent = 1;
 
 }
@@ -4287,20 +4310,20 @@ message ResolvedCreateMaterializedViewStmtProto {
 
 // This statement creates a user-defined procedure:
 // CREATE [OR REPLACE] [TEMP] PROCEDURE [IF NOT EXISTS] <name_path>
-// (<arg_list>) [OPTIONS (<option_list>)]
-// BEGIN
-// <procedure_body>
-// END;
+// (<arg_list>) [WITH CONNECTION <connection>] [OPTIONS (<option_list>)]
+// [BEGIN <procedure_body> END | LANGUAGE <language> [AS <code>]];
 //
 // <name_path> is the identifier path of the procedure.
 // <argument_name_list> The names of the function arguments.
 // <signature> is the FunctionSignature of the created procedure, with all
 //        options.  This can be used to create a procedure to load into a
 //        Catalog for future queries.
+// <connection> is the identifier path of the connection object.
 // <option_list> has engine-specific directives for modifying procedures.
-// <procedure_body> is a string literal that contains the procedure body.
-//        It includes everything from the BEGIN keyword to the END keyword,
-//        inclusive.
+// <procedure_body> is a string literal that contains the SQL procedure
+//        body. It includes everything from the BEGIN keyword to the END
+//        keyword, inclusive. This will always be set for SQL procedures
+//        and unset for external language procedures.
 //
 //        The resolver will perform some basic validation on the procedure
 //        body, for example, verifying that DECLARE statements are in the
@@ -4311,6 +4334,11 @@ message ResolvedCreateMaterializedViewStmtProto {
 //        makes it possible to define a procedure which references a table
 //        or routine that does not yet exist, so long as the entity is
 //        created before the procedure is called.
+// <language> is the programming language used by the procedure. This field
+//        is set to the language name specified in the LANGUAGE clause.
+//        Exactly one of <procedure_body> and <language> must be set.
+// <code> is a string literal that contains the external language procedure
+//        definition. It is allowed only if <language> is set.
 message ResolvedCreateProcedureStmtProto {
   optional ResolvedCreateStatementProto parent = 1;
 
@@ -4318,6 +4346,9 @@ message ResolvedCreateProcedureStmtProto {
   optional FunctionSignatureProto signature = 3;
   repeated ResolvedOptionProto option_list = 4;
   optional string procedure_body = 5;
+  optional ResolvedConnectionProto connection = 6;
+  optional string language = 7;
+  optional string code = 8;
 }
 
 // An argument for an EXECUTE IMMEDIATE's USING clause.

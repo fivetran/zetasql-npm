@@ -20,6 +20,7 @@ copy zetasql/public/annotation.proto protos/zetasql/public/annotation.proto
 copy zetasql/public/builtin_function.proto protos/zetasql/public/builtin_function.proto
 copy zetasql/public/deprecation_warning.proto protos/zetasql/public/deprecation_warning.proto
 copy zetasql/public/error_location.proto protos/zetasql/public/error_location.proto
+copy zetasql/public/formatter_options.proto protos/zetasql/public/formatter_options.proto
 copy zetasql/public/function.proto protos/zetasql/public/function.proto
 copy zetasql/public/options.proto protos/zetasql/public/options.proto
 copy zetasql/public/parse_location_range.proto protos/zetasql/public/parse_location_range.proto
