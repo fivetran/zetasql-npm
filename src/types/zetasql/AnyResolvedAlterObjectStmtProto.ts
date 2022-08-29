@@ -9,6 +9,7 @@ import type { ResolvedAlterAllRowAccessPoliciesStmtProto as _zetasql_ResolvedAlt
 import type { ResolvedAlterEntityStmtProto as _zetasql_ResolvedAlterEntityStmtProto, ResolvedAlterEntityStmtProto__Output as _zetasql_ResolvedAlterEntityStmtProto__Output } from '../zetasql/ResolvedAlterEntityStmtProto';
 import type { ResolvedAlterSchemaStmtProto as _zetasql_ResolvedAlterSchemaStmtProto, ResolvedAlterSchemaStmtProto__Output as _zetasql_ResolvedAlterSchemaStmtProto__Output } from '../zetasql/ResolvedAlterSchemaStmtProto';
 import type { ResolvedAlterPrivilegeRestrictionStmtProto as _zetasql_ResolvedAlterPrivilegeRestrictionStmtProto, ResolvedAlterPrivilegeRestrictionStmtProto__Output as _zetasql_ResolvedAlterPrivilegeRestrictionStmtProto__Output } from '../zetasql/ResolvedAlterPrivilegeRestrictionStmtProto';
+import type { ResolvedAlterModelStmtProto as _zetasql_ResolvedAlterModelStmtProto, ResolvedAlterModelStmtProto__Output as _zetasql_ResolvedAlterModelStmtProto__Output } from '../zetasql/ResolvedAlterModelStmtProto';
 
 export interface AnyResolvedAlterObjectStmtProto {
   'resolvedAlterRowAccessPolicyStmtNode'?: (_zetasql_ResolvedAlterRowAccessPolicyStmtProto | null);
@@ -20,7 +21,8 @@ export interface AnyResolvedAlterObjectStmtProto {
   'resolvedAlterEntityStmtNode'?: (_zetasql_ResolvedAlterEntityStmtProto | null);
   'resolvedAlterSchemaStmtNode'?: (_zetasql_ResolvedAlterSchemaStmtProto | null);
   'resolvedAlterPrivilegeRestrictionStmtNode'?: (_zetasql_ResolvedAlterPrivilegeRestrictionStmtProto | null);
-  'node'?: "resolvedAlterRowAccessPolicyStmtNode"|"resolvedAlterTableStmtNode"|"resolvedAlterViewStmtNode"|"resolvedAlterMaterializedViewStmtNode"|"resolvedAlterDatabaseStmtNode"|"resolvedAlterAllRowAccessPoliciesStmtNode"|"resolvedAlterEntityStmtNode"|"resolvedAlterSchemaStmtNode"|"resolvedAlterPrivilegeRestrictionStmtNode";
+  'resolvedAlterModelStmtNode'?: (_zetasql_ResolvedAlterModelStmtProto | null);
+  'node'?: "resolvedAlterRowAccessPolicyStmtNode"|"resolvedAlterTableStmtNode"|"resolvedAlterViewStmtNode"|"resolvedAlterMaterializedViewStmtNode"|"resolvedAlterDatabaseStmtNode"|"resolvedAlterAllRowAccessPoliciesStmtNode"|"resolvedAlterEntityStmtNode"|"resolvedAlterSchemaStmtNode"|"resolvedAlterPrivilegeRestrictionStmtNode"|"resolvedAlterModelStmtNode";
 }
 
 export interface AnyResolvedAlterObjectStmtProto__Output {
@@ -33,5 +35,6 @@ export interface AnyResolvedAlterObjectStmtProto__Output {
   'resolvedAlterEntityStmtNode'?: (_zetasql_ResolvedAlterEntityStmtProto__Output | null);
   'resolvedAlterSchemaStmtNode'?: (_zetasql_ResolvedAlterSchemaStmtProto__Output | null);
   'resolvedAlterPrivilegeRestrictionStmtNode'?: (_zetasql_ResolvedAlterPrivilegeRestrictionStmtProto__Output | null);
-  'node': "resolvedAlterRowAccessPolicyStmtNode"|"resolvedAlterTableStmtNode"|"resolvedAlterViewStmtNode"|"resolvedAlterMaterializedViewStmtNode"|"resolvedAlterDatabaseStmtNode"|"resolvedAlterAllRowAccessPoliciesStmtNode"|"resolvedAlterEntityStmtNode"|"resolvedAlterSchemaStmtNode"|"resolvedAlterPrivilegeRestrictionStmtNode";
+  'resolvedAlterModelStmtNode'?: (_zetasql_ResolvedAlterModelStmtProto__Output | null);
+  'node': "resolvedAlterRowAccessPolicyStmtNode"|"resolvedAlterTableStmtNode"|"resolvedAlterViewStmtNode"|"resolvedAlterMaterializedViewStmtNode"|"resolvedAlterDatabaseStmtNode"|"resolvedAlterAllRowAccessPoliciesStmtNode"|"resolvedAlterEntityStmtNode"|"resolvedAlterSchemaStmtNode"|"resolvedAlterPrivilegeRestrictionStmtNode"|"resolvedAlterModelStmtNode";
 }

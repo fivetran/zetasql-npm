@@ -22,6 +22,16 @@ export interface _zetasql_ValueProto_Datetime__Output {
   'nanos': (number);
 }
 
+export interface _zetasql_ValueProto_Range {
+  'start'?: (_zetasql_ValueProto | null);
+  'end'?: (_zetasql_ValueProto | null);
+}
+
+export interface _zetasql_ValueProto_Range__Output {
+  'start': (_zetasql_ValueProto__Output | null);
+  'end': (_zetasql_ValueProto__Output | null);
+}
+
 export interface _zetasql_ValueProto_Struct {
   'field'?: (_zetasql_ValueProto)[];
 }
@@ -53,8 +63,9 @@ export interface ValueProto {
   'bignumericValue'?: (Buffer | Uint8Array | string);
   'jsonValue'?: (string);
   'intervalValue'?: (Buffer | Uint8Array | string);
+  'rangeValue'?: (_zetasql_ValueProto_Range | null);
   '__ValueProto_SwitchMustHaveADefault'?: (boolean);
-  'value'?: "int32Value"|"int64Value"|"uint32Value"|"uint64Value"|"boolValue"|"floatValue"|"doubleValue"|"stringValue"|"bytesValue"|"dateValue"|"enumValue"|"arrayValue"|"structValue"|"protoValue"|"timestampValue"|"datetimeValue"|"timeValue"|"geographyValue"|"numericValue"|"bignumericValue"|"jsonValue"|"intervalValue"|"__ValueProto_SwitchMustHaveADefault";
+  'value'?: "int32Value"|"int64Value"|"uint32Value"|"uint64Value"|"boolValue"|"floatValue"|"doubleValue"|"stringValue"|"bytesValue"|"dateValue"|"enumValue"|"arrayValue"|"structValue"|"protoValue"|"timestampValue"|"datetimeValue"|"timeValue"|"geographyValue"|"numericValue"|"bignumericValue"|"jsonValue"|"intervalValue"|"rangeValue"|"__ValueProto_SwitchMustHaveADefault";
 }
 
 export interface ValueProto__Output {
@@ -80,6 +91,7 @@ export interface ValueProto__Output {
   'bignumericValue'?: (Buffer);
   'jsonValue'?: (string);
   'intervalValue'?: (Buffer);
+  'rangeValue'?: (_zetasql_ValueProto_Range__Output | null);
   '__ValueProto_SwitchMustHaveADefault'?: (boolean);
-  'value': "int32Value"|"int64Value"|"uint32Value"|"uint64Value"|"boolValue"|"floatValue"|"doubleValue"|"stringValue"|"bytesValue"|"dateValue"|"enumValue"|"arrayValue"|"structValue"|"protoValue"|"timestampValue"|"datetimeValue"|"timeValue"|"geographyValue"|"numericValue"|"bignumericValue"|"jsonValue"|"intervalValue"|"__ValueProto_SwitchMustHaveADefault";
+  'value': "int32Value"|"int64Value"|"uint32Value"|"uint64Value"|"boolValue"|"floatValue"|"doubleValue"|"stringValue"|"bytesValue"|"dateValue"|"enumValue"|"arrayValue"|"structValue"|"protoValue"|"timestampValue"|"datetimeValue"|"timeValue"|"geographyValue"|"numericValue"|"bignumericValue"|"jsonValue"|"intervalValue"|"rangeValue"|"__ValueProto_SwitchMustHaveADefault";
 }
