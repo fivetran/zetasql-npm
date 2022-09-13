@@ -94,6 +94,7 @@ jobs:
           mkdir -p zetasql-npm/lib/zetasql
           cp zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib zetasql-npm/lib/zetasql/
           tar -xzvf zetasql-npm/zetasql/darwin-arm-64/libremote_server_arm.dylib.tar.gz -C zetasql-npm/lib/zetasql/
+          tar -xzvf zetasql-npm/zetasql/linux-arm-64/libremote_server_arm.so.tar.gz -C zetasql-npm/lib/zetasql/
           cp zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so zetasql-npm/lib/zetasql/
           cp -R zetasql-npm/src/protos zetasql-npm/lib/protos
 

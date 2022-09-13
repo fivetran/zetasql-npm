@@ -5,4 +5,5 @@ node_modules
 libremote_server.dylib
 libremote_server_arm.dylib
 libremote_server.so
+libremote_server_arm.so
 .eslintcache
