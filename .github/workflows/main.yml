@@ -125,7 +125,7 @@ jobs:
           key: package-results-${{ github.sha }}-${{ github.ref }}
 
       - name: delete libraries for other platforms
-        run: find ./build/zetasql-npm/lib/zetasql ! -name '${{ matrix.zetasql-lib }}' -type f -exec rm -f {} +
+        run: find ./build/zetasql-npm/lib/zetasql ! -name 'libremote_server.dylib' -type f -exec rm -f {} +
 
       - name: run e2e test
         working-directory: build/zetasql-npm
