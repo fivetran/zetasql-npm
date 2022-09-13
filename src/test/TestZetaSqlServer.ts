@@ -1,9 +1,11 @@
+import * as tcpPortUsed from 'tcp-port-used';
 import { runServer, terminateServer, ZetaSQLClient } from '..';
 
 // This test should run and terminate ZetaSQL gRPC server
 
 const port = 50005;
-new Promise(resolve => setTimeout(resolve, 4000))
+tcpPortUsed
+  .waitUntilUsed(port, 500, 1000 * 60 * 5)
   .then(() => {
     console.log('Init...');
     ZetaSQLClient.init(port);
