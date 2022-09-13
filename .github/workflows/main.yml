@@ -113,19 +113,9 @@ jobs:
           path: build/zetasql-npm
           key: package-results-${{ github.sha }}-${{ github.ref }}
 
-  e2e:
+  e2e-macos:
     needs: package
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - os: macos-latest
-            zetasql-lib: libremote_server.dylib
-
-          - os: ubuntu-latest
-            zetasql-lib: libremote_server.so
+    runs-on: macos-latest
 
     steps:
       - name: load package results
@@ -143,10 +133,38 @@ jobs:
           npm ci
           ./e2e.sh
 
+  e2e-linux:
+    needs: package
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: available platforms
+        run: echo ${{ steps.buildx.outputs.platforms }}
+
+      - name: load package results
+        uses: actions/cache@v2
+        with:
+          path: build/zetasql-npm
+          key: package-results-${{ github.sha }}-${{ github.ref }}
+
+      - name: delete libraries for other platforms
+        run: find ./build/zetasql-npm/lib/zetasql ! -name '*.so' -type f -exec rm -f {} +
+
+      - name: run e2e test
+        working-directory: build/zetasql-npm
+        run: docker buildx build --platform=linux/amd64,linux/arm64 --progress=plain --no-cache .
+
   publish-npm:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v')
-    needs: [build, package, e2e]
+    needs: [build, package, e2e-macos, e2e-linux]
     steps:
       - name: Load package results
         uses: actions/cache@v2
