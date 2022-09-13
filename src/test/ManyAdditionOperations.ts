@@ -9,7 +9,7 @@ const catalog = new SimpleCatalog('catalog');
 let languageOptions: LanguageOptions | undefined;
 
 async function runTest(): Promise<void> {
-  const port = 50055;
+  const port = 50005;
 
   runServer(port).catch(err => console.error(err));
 

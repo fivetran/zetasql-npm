@@ -35,7 +35,7 @@ fi
 # actualResult=$(node lib/test/ManyJoins.js)
 
 # if [[ "${expectedResult}" != "${actualResult}" ]]; then
-#     printf "TestQuery error!\n"
+#     printf "ManyJoins error!\n"
 #     printf "Expected result is:\n ${expectedResult}\n\n"
 #     printf "Actual result is:\n ${actualResult}\n\n"
 #     exit 1;
@@ -48,7 +48,7 @@ Tests passed"
 actualResult=$(node lib/test/ManyAdditionOperations.js)
 
 if [[ "${expectedResult}" != "${actualResult}" ]]; then
-    printf "TestQuery error!\n"
+    printf "ManyAdditionOperations error!\n"
     printf "Expected result is:\n ${expectedResult}\n\n"
     printf "Actual result is:\n ${actualResult}\n\n"
     exit 1;
