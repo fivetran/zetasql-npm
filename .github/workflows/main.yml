@@ -64,7 +64,9 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.os }}
-          path: ${{ matrix.cache-path }}
+          path: |
+            ${{ matrix.cache-path }}
+            build/zetasql-macos/bazel-bin/java/com/google/zetasql/jni_channel_darwin_jar.jar
 
   package:
     runs-on: ubuntu-latest
