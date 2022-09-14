@@ -45,7 +45,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ matrix.cache-path }}
-          key: ${{ matrix.os }}-${{ steps.vars.outputs.sha_short }}
+          key: ${{ matrix.os }}-${{ steps.vars.outputs.sha_short }}-1
 
       - name: Install Bazel
         if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
@@ -81,13 +81,13 @@ jobs:
         uses: actions/cache@v2
         with:
           path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
-          key: ubuntu-latest-${{ needs.build.outputs.sha_short }}
+          key: ubuntu-latest-${{ needs.build.outputs.sha_short }}-1
 
       - name: Load build macos
         uses: actions/cache@v2
         with:
           path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
-          key: macos-12-${{ needs.build.outputs.sha_short }}
+          key: macos-12-${{ needs.build.outputs.sha_short }}-1
 
       - name: Copy files
         working-directory: build
