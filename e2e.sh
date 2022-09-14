@@ -29,17 +29,17 @@ if [[ "${expectedResult}" != "${actualResult}" ]]; then
 fi
 
 # TODO: fix this test on macOS
-# expectedResult="Running server on 0.0.0.0:50005...
-# Server listening on 0.0.0.0:50005
-# Tests passed"
-# actualResult=$(node lib/test/ManyJoins.js)
+expectedResult="Running server on 0.0.0.0:50005...
+Server listening on 0.0.0.0:50005
+Tests passed"
+actualResult=$(node lib/test/ManyJoins.js)
 
-# if [[ "${expectedResult}" != "${actualResult}" ]]; then
-#     printf "ManyJoins error!\n"
-#     printf "Expected result is:\n ${expectedResult}\n\n"
-#     printf "Actual result is:\n ${actualResult}\n\n"
-#     exit 1;
-# fi
+if [[ "${expectedResult}" != "${actualResult}" ]]; then
+    printf "ManyJoins error!\n"
+    printf "Expected result is:\n ${expectedResult}\n\n"
+    printf "Actual result is:\n ${actualResult}\n\n"
+    exit 1;
+fi
 
 # TODO: fix this test on macOS
 # expectedResult="Running server on 0.0.0.0:50005...
