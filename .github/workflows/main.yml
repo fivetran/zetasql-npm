@@ -17,7 +17,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: macos-latest
+          - os: macos-12
             working-directory: build/zetasql-macos
             cache-path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
             after-build: install_name_tool -id "@loader_path/libremote_server.dylib" bazel-bin/zetasql/local_service/libremote_server.dylib
@@ -87,7 +87,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
-          key: macos-latest-${{ needs.build.outputs.sha_short }}
+          key: macos-12-${{ needs.build.outputs.sha_short }}
 
       - name: Copy files
         working-directory: build
@@ -116,7 +116,7 @@ jobs:
 
   e2e-macos:
     needs: package
-    runs-on: macos-latest
+    runs-on: macos-12
 
     steps:
       - name: load package results
@@ -197,7 +197,7 @@ jobs:
 
       - uses: actions/download-artifact@v3
         with:
-          name: macos-latest
+          name: macos-12
 
       - run: |
           mkdir -p old
