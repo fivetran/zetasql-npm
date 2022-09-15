@@ -16,7 +16,7 @@
     "plugin:sonarjs/recommended"
   ],
   "rules": {
-    "no-param-reassign":["error"],
+    "no-param-reassign": ["error"],
     "prefer-template": ["error"],
     "no-restricted-syntax": [
       "error",
@@ -45,21 +45,30 @@
 
     "@typescript-eslint/no-shadow": ["error"],
     "@typescript-eslint/explicit-function-return-type": ["error"],
-    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "argsIgnorePattern": "^_" }
+    ],
     "@typescript-eslint/return-await": ["error"],
     "@typescript-eslint/no-useless-constructor": ["error"],
-    "@typescript-eslint/consistent-type-assertions": ["error", {"assertionStyle": "as", "objectLiteralTypeAssertions": "never"}],
+    "@typescript-eslint/consistent-type-assertions": [
+      "error",
+      { "assertionStyle": "as", "objectLiteralTypeAssertions": "never" }
+    ],
     "@typescript-eslint/no-unnecessary-condition": ["error"],
     "@typescript-eslint/no-unsafe-return": ["error"],
-    
-    "@typescript-eslint/no-misused-promises": ["error", { "checksVoidReturn": false } ],
+
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      { "checksVoidReturn": false }
+    ],
     "@typescript-eslint/no-explicit-any": ["off"],
     "@typescript-eslint/no-unsafe-assignment": ["off"],
     "@typescript-eslint/no-unsafe-argument": ["off"],
     "@typescript-eslint/no-unsafe-member-access": ["off"],
     "@typescript-eslint/no-unsafe-call": ["off"],
     "@typescript-eslint/restrict-template-expressions": ["off"],
-    
+
     "sonarjs/cognitive-complexity": ["off"], // TODO: enable
 
     "prettier/prettier": ["error"]

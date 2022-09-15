@@ -77,8 +77,6 @@ async function analyze(sqlStatement: string): Promise<AnalyzeResponse__Output> {
     },
   };
 
-  // console.log(JSON.stringify(request));
-
   const response = await ZetaSQLClient.getInstance().analyze(request);
   if (!response) {
     throw new Error('Analyze failed');

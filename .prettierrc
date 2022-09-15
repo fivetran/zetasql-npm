@@ -1,5 +1,4 @@
 {
-  "parser": "typescript",
   "semi": true,
   "trailingComma": "all",
   "singleQuote": true,
@@ -7,5 +6,13 @@
   "arrowParens": "avoid",
   "tabWidth": 2,
   "jsxSingleQuote": true,
-  "bracketSpacing": true
+  "bracketSpacing": true,
+  "overrides": [
+    {
+      "files": "*.json",
+      "options": {
+        "printWidth": 80
+      }
+    }
+  ]
 }
