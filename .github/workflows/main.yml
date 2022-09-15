@@ -20,11 +20,14 @@ jobs:
           - os: macos-latest
             working-directory: build/zetasql-macos
             cache-path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
-            after-build: install_name_tool -id "@loader_path/libremote_server.dylib" bazel-bin/zetasql/local_service/libremote_server.dylib
+            build-commands: |
+              bazel build --copt "-O3" //zetasql/local_service:libremote_server.dylib
+              install_name_tool -id "@loader_path/libremote_server.dylib" bazel-bin/zetasql/local_service/libremote_server.dylib
 
           - os: ubuntu-latest
             working-directory: build/zetasql-linux
             cache-path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
+            build-commands: bazel build --copt "-O3" //zetasql/local_service:libremote_server.so
 
     steps:
       - name: Checkout zetasql
@@ -57,8 +60,7 @@ jobs:
         if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
         working-directory: ${{ matrix.working-directory }}
         run: |
-          bazel build --copt "-O3" ...
-          ${{ matrix.after-build }}
+          ${{ matrix.build-commands }}
 
       - name: upload build result
         uses: actions/upload-artifact@v3
