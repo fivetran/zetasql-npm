@@ -17,7 +17,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: macos-12
+          - os: macos-latest
             working-directory: build/zetasql-macos
             cache-path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
             after-build: install_name_tool -id "@loader_path/libremote_server.dylib" bazel-bin/zetasql/local_service/libremote_server.dylib
@@ -45,7 +45,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ matrix.cache-path }}
-          key: ${{ matrix.os }}-${{ steps.vars.outputs.sha_short }}-1
+          key: ${{ matrix.os }}-${{ steps.vars.outputs.sha_short }}-2
 
       - name: Install Bazel
         if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
@@ -57,7 +57,7 @@ jobs:
         if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
         working-directory: ${{ matrix.working-directory }}
         run: |
-          bazel build ...
+          bazel build --copt "-O3" ...
           ${{ matrix.after-build }}
 
       - name: upload build result
@@ -66,7 +66,7 @@ jobs:
           name: ${{ matrix.os }}
           path: |
             ${{ matrix.cache-path }}
-            build/zetasql-macos/bazel-bin/java/com/google/zetasql/jni_channel_darwin_jar.jar
+          # build/zetasql-macos/bazel-bin/java/com/google/zetasql/jni_channel_darwin_jar.jar
 
   package:
     runs-on: ubuntu-latest
@@ -81,13 +81,13 @@ jobs:
         uses: actions/cache@v2
         with:
           path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
-          key: ubuntu-latest-${{ needs.build.outputs.sha_short }}-1
+          key: ubuntu-latest-${{ needs.build.outputs.sha_short }}-2
 
       - name: Load build macos
         uses: actions/cache@v2
         with:
           path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
-          key: macos-12-${{ needs.build.outputs.sha_short }}-1
+          key: macos-latest-${{ needs.build.outputs.sha_short }}-2
 
       - name: Copy files
         working-directory: build
@@ -116,7 +116,7 @@ jobs:
 
   e2e-macos:
     needs: package
-    runs-on: macos-12
+    runs-on: macos-latest
 
     steps:
       - name: load package results
@@ -197,7 +197,7 @@ jobs:
 
       - uses: actions/download-artifact@v3
         with:
-          name: macos-12
+          name: macos-latest
 
       - run: |
           mkdir -p old
