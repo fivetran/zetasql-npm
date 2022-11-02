@@ -19,6 +19,8 @@ import { ZetaSqlLocalServiceClient } from './types/zetasql/local_service/ZetaSql
 import { ZetaSQLBuiltinFunctionOptionsProto } from './types/zetasql/ZetaSQLBuiltinFunctionOptionsProto';
 
 export class ZetaSQLClient {
+  private static readonly SIZE_LIMIT_BYTES = 500 * 1024 * 1024;
+
   public static API: ZetaSqlLocalServiceClient;
 
   private static readonly HOST = 'localhost';
@@ -45,6 +47,10 @@ export class ZetaSQLClient {
     ZetaSQLClient.API = new proto.zetasql.local_service.ZetaSqlLocalService(
       `${ZetaSQLClient.HOST}:${port}`,
       grpc.credentials.createInsecure(),
+      {
+        'grpc.max_send_message_length': ZetaSQLClient.SIZE_LIMIT_BYTES,
+        'grpc.max_receive_message_length': ZetaSQLClient.SIZE_LIMIT_BYTES,
+      },
     );
   }
 
