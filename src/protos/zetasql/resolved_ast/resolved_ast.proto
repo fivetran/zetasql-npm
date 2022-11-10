@@ -130,6 +130,7 @@ message AnyResolvedExprProto {
     ResolvedGetJsonFieldProto resolved_get_json_field_node = 165;
     ResolvedFilterFieldProto resolved_filter_field_node = 174;
     ResolvedWithExprProto resolved_with_expr_node = 197;
+    ResolvedCatalogColumnRefProto resolved_catalog_column_ref_node = 206;
   }
 }
 
@@ -194,6 +195,16 @@ message ResolvedExpressionColumnProto {
   optional ResolvedExprProto parent = 1;
 
   optional string name = 2;
+}
+
+// An expression referencing a Column from the Catalog. This is used to
+// represent a column reference in an expression inside a DDL statement.
+// The DDL statement will normally define the Table context, and the
+// referenced Column should be a Column of that Table.
+message ResolvedCatalogColumnRefProto {
+  optional ResolvedExprProto parent = 1;
+
+  optional ColumnRefProto column = 2;
 }
 
 // An expression referencing the value of some column visible in the
@@ -583,6 +594,10 @@ message ResolvedGetStructFieldProto {
 
   optional AnyResolvedExprProto expr = 2;
   optional int64 field_idx = 3;
+  // True if using s[OFFSET(0)] syntax rather than
+  // specifying field name, Only for preserving user intent; no
+  // semantic consequences
+  optional bool field_expr_is_positional = 4;
 }
 
 message ResolvedGetProtoFieldProto {
@@ -893,6 +908,7 @@ message AnyResolvedScanProto {
     ResolvedPivotScanProto resolved_pivot_scan_node = 161;
     ResolvedUnpivotScanProto resolved_unpivot_scan_node = 172;
     ResolvedGroupRowsScanProto resolved_group_rows_scan_node = 176;
+    ResolvedExecuteAsRoleScanProto resolved_execute_as_role_scan_node = 207;
   }
 }
 
@@ -902,6 +918,24 @@ message ResolvedScanProto {
   repeated ResolvedColumnProto column_list = 2;
   repeated ResolvedOptionProto hint_list = 3;
   optional bool is_ordered = 4;
+}
+
+// This node provides the role context for its subtree. The role object is
+// attached to this node and covers the whole subtree underneath it, except
+// subtrees under other nested ResolvedExecuteAsRoleScan nodes.
+//
+// This node is useful when inlining definer-rights functions or views.
+//
+// Always creates new output columns in <column_list>, which map 1:1 with
+// the <input_scan>'s output columns. Most rewriters trace their columns all
+// the way back to the scan that defined them so this makes this node a
+// boundary, as desired.
+message ResolvedExecuteAsRoleScanProto {
+  optional ResolvedScanProto parent = 1;
+
+  // The input scan whose subtree is to be encompassed by the current
+  // role context.
+  optional AnyResolvedScanProto input_scan = 2;
 }
 
 // Represents a machine learning model as a TVF argument.
@@ -2060,20 +2094,45 @@ message ResolvedCreateTableAsSelectStmtProto {
 }
 
 // This statement:
-//   CREATE [TEMP] MODEL <name> [TRANSFORM(...)] [OPTIONS (...)] AS SELECT ..
+//   CREATE [TEMP] MODEL <name> [INPUT(...) OUTPUT(...)] [TRANSFORM(...)]
+//   [REMOTE [WITH CONNECTION ...]] [OPTIONS (...)] [AS SELECT ...]
+//
+// Models can be evaluated either locally or remotely. Orthogonally, they can
+// be either trained using SQL or come from external source. Depending on
+// these properties, different clauses are expected to be present.
+//
+// * Local models <is_remote> = FALSE
+//   * Trained: <query> IS NOT NULL
+//   * External: <query> IS NULL
+// * Remote models <is_remote> = TRUE
+//   * Trained: <query> IS NOT NULL [Not supported yet]
+//   * External: <query> IS NULL
 //
 // <option_list> has engine-specific directives for how to train this model.
-// <output_column_list> matches 1:1 with the <query>'s column_list and the
-//                      <column_definition_list>, and identifies the names
-//                      and types of the columns output from the select
-//                      statement.
-// <query> is the select statement.
+// <query> is the select statement. It can be only set when <is_remote> is
+//   false and both <input_column_definition_list>,
+//   <output_column_definition_list> are empty.
+// <output_column_list> matches 1:1 with the <query>'s column_list and
+//   identifies the names and types of the columns output from the select
+//   statement. Set only when <query> is present.
+// <input_column_definition_list> contains names and types of model's input
+//   columns. Cannot be set when <query> and <output_column_list> are
+//   present. Might be absent when <is_remote> is true, meaning schema is
+//   read from the remote model itself.
+// <output_column_definition_list> contains names and types of model's output
+//   columns. Cannot be set when <query> and <output_column_list> are
+//   present. Might be absent when <is_remote> is true, meaning schema is
+//   read from the remote model itself.
+// <is_remote> is true if this is a remote model. Cannot be set when <query>
+//   is present.
+// <connection> is the identifier path of the connection object. It can be
+//   only set when <is_remote> is true.
+// <transform_list> is the list of ResolvedComputedColumn in TRANSFORM
+//   clause. It can be only set when <query> is present.
 // <transform_input_column_list> introduces new ResolvedColumns that have the
 //   same names and types of the columns in the <output_column_list>. The
 //   transform expressions resolve against these ResolvedColumns. It's only
 //   set when <transform_list> is non-empty.
-// <transform_list> is the list of ResolvedComputedColumn in TRANSFORM
-//   clause.
 // <transform_output_column_list> matches 1:1 with <transform_list> output.
 //   It records the names of the output columns from TRANSFORM clause.
 // <transform_analytic_function_group_list> is the list of
@@ -2110,6 +2169,10 @@ message ResolvedCreateModelStmtProto {
   repeated ResolvedComputedColumnProto transform_list = 5;
   repeated ResolvedOutputColumnProto transform_output_column_list = 6;
   repeated ResolvedAnalyticFunctionGroupProto transform_analytic_function_group_list = 7;
+  repeated ResolvedColumnDefinitionProto input_column_definition_list = 9;
+  repeated ResolvedColumnDefinitionProto output_column_definition_list = 10;
+  optional bool is_remote = 11;
+  optional ResolvedConnectionProto connection = 12;
 }
 
 // Common superclass for CREATE view/materialized view:

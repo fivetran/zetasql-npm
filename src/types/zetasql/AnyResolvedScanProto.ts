@@ -21,6 +21,7 @@ import type { ResolvedRecursiveScanProto as _zetasql_ResolvedRecursiveScanProto,
 import type { ResolvedPivotScanProto as _zetasql_ResolvedPivotScanProto, ResolvedPivotScanProto__Output as _zetasql_ResolvedPivotScanProto__Output } from '../zetasql/ResolvedPivotScanProto';
 import type { ResolvedUnpivotScanProto as _zetasql_ResolvedUnpivotScanProto, ResolvedUnpivotScanProto__Output as _zetasql_ResolvedUnpivotScanProto__Output } from '../zetasql/ResolvedUnpivotScanProto';
 import type { ResolvedGroupRowsScanProto as _zetasql_ResolvedGroupRowsScanProto, ResolvedGroupRowsScanProto__Output as _zetasql_ResolvedGroupRowsScanProto__Output } from '../zetasql/ResolvedGroupRowsScanProto';
+import type { ResolvedExecuteAsRoleScanProto as _zetasql_ResolvedExecuteAsRoleScanProto, ResolvedExecuteAsRoleScanProto__Output as _zetasql_ResolvedExecuteAsRoleScanProto__Output } from '../zetasql/ResolvedExecuteAsRoleScanProto';
 
 export interface AnyResolvedScanProto {
   'resolvedSingleRowScanNode'?: (_zetasql_ResolvedSingleRowScanProto | null);
@@ -44,7 +45,8 @@ export interface AnyResolvedScanProto {
   'resolvedPivotScanNode'?: (_zetasql_ResolvedPivotScanProto | null);
   'resolvedUnpivotScanNode'?: (_zetasql_ResolvedUnpivotScanProto | null);
   'resolvedGroupRowsScanNode'?: (_zetasql_ResolvedGroupRowsScanProto | null);
-  'node'?: "resolvedSingleRowScanNode"|"resolvedTableScanNode"|"resolvedJoinScanNode"|"resolvedArrayScanNode"|"resolvedFilterScanNode"|"resolvedSetOperationScanNode"|"resolvedOrderByScanNode"|"resolvedLimitOffsetScanNode"|"resolvedWithRefScanNode"|"resolvedAnalyticScanNode"|"resolvedSampleScanNode"|"resolvedProjectScanNode"|"resolvedWithScanNode"|"resolvedTvfscanNode"|"resolvedRelationArgumentScanNode"|"resolvedAggregateScanBaseNode"|"resolvedRecursiveRefScanNode"|"resolvedRecursiveScanNode"|"resolvedPivotScanNode"|"resolvedUnpivotScanNode"|"resolvedGroupRowsScanNode";
+  'resolvedExecuteAsRoleScanNode'?: (_zetasql_ResolvedExecuteAsRoleScanProto | null);
+  'node'?: "resolvedSingleRowScanNode"|"resolvedTableScanNode"|"resolvedJoinScanNode"|"resolvedArrayScanNode"|"resolvedFilterScanNode"|"resolvedSetOperationScanNode"|"resolvedOrderByScanNode"|"resolvedLimitOffsetScanNode"|"resolvedWithRefScanNode"|"resolvedAnalyticScanNode"|"resolvedSampleScanNode"|"resolvedProjectScanNode"|"resolvedWithScanNode"|"resolvedTvfscanNode"|"resolvedRelationArgumentScanNode"|"resolvedAggregateScanBaseNode"|"resolvedRecursiveRefScanNode"|"resolvedRecursiveScanNode"|"resolvedPivotScanNode"|"resolvedUnpivotScanNode"|"resolvedGroupRowsScanNode"|"resolvedExecuteAsRoleScanNode";
 }
 
 export interface AnyResolvedScanProto__Output {
@@ -69,5 +71,6 @@ export interface AnyResolvedScanProto__Output {
   'resolvedPivotScanNode'?: (_zetasql_ResolvedPivotScanProto__Output | null);
   'resolvedUnpivotScanNode'?: (_zetasql_ResolvedUnpivotScanProto__Output | null);
   'resolvedGroupRowsScanNode'?: (_zetasql_ResolvedGroupRowsScanProto__Output | null);
-  'node': "resolvedSingleRowScanNode"|"resolvedTableScanNode"|"resolvedJoinScanNode"|"resolvedArrayScanNode"|"resolvedFilterScanNode"|"resolvedSetOperationScanNode"|"resolvedOrderByScanNode"|"resolvedLimitOffsetScanNode"|"resolvedWithRefScanNode"|"resolvedAnalyticScanNode"|"resolvedSampleScanNode"|"resolvedProjectScanNode"|"resolvedWithScanNode"|"resolvedTvfscanNode"|"resolvedRelationArgumentScanNode"|"resolvedAggregateScanBaseNode"|"resolvedRecursiveRefScanNode"|"resolvedRecursiveScanNode"|"resolvedPivotScanNode"|"resolvedUnpivotScanNode"|"resolvedGroupRowsScanNode";
+  'resolvedExecuteAsRoleScanNode'?: (_zetasql_ResolvedExecuteAsRoleScanProto__Output | null);
+  'node': "resolvedSingleRowScanNode"|"resolvedTableScanNode"|"resolvedJoinScanNode"|"resolvedArrayScanNode"|"resolvedFilterScanNode"|"resolvedSetOperationScanNode"|"resolvedOrderByScanNode"|"resolvedLimitOffsetScanNode"|"resolvedWithRefScanNode"|"resolvedAnalyticScanNode"|"resolvedSampleScanNode"|"resolvedProjectScanNode"|"resolvedWithScanNode"|"resolvedTvfscanNode"|"resolvedRelationArgumentScanNode"|"resolvedAggregateScanBaseNode"|"resolvedRecursiveRefScanNode"|"resolvedRecursiveScanNode"|"resolvedPivotScanNode"|"resolvedUnpivotScanNode"|"resolvedGroupRowsScanNode"|"resolvedExecuteAsRoleScanNode";
 }
