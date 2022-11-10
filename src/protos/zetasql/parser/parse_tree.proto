@@ -175,6 +175,7 @@ message AnyASTNodeProto {
     ASTSpannerTableOptionsProto ast_spanner_table_options_node = 346;
     ASTSpannerInterleaveClauseProto ast_spanner_interleave_clause_node = 347;
     ASTTtlClauseProto ast_ttl_clause_node = 348;
+    ASTInputOutputClauseProto ast_input_output_clause_node = 355;
   }
 }
 
@@ -577,6 +578,7 @@ message ASTJoinProto {
   optional int64 unmatched_join_count = 11;
   optional bool transformation_needed = 12;
   optional bool contains_comma_join = 13;
+  optional ASTLocationProto join_location = 14;
 }
 
 message ASTWithClauseProto {
@@ -595,6 +597,7 @@ message AnyASTTypeProto {
     ASTSimpleTypeProto ast_simple_type_node = 38;
     ASTArrayTypeProto ast_array_type_node = 39;
     ASTStructTypeProto ast_struct_type_node = 41;
+    ASTRangeTypeProto ast_range_type_node = 358;
   }
 }
 message ASTTypeProto {
@@ -1651,6 +1654,9 @@ message ASTCreateModelStatementProto {
   optional ASTTransformClauseProto transform_clause = 3;
   optional ASTOptionsListProto options_list = 4;
   optional ASTQueryProto query = 5;
+  optional ASTInputOutputClauseProto input_output_clause = 6;
+  optional bool is_remote = 7;
+  optional ASTWithConnectionClauseProto with_connection_clause = 8;
 }
 
 // Represents 'ALL COLUMNS' index key expression.
@@ -3021,6 +3027,12 @@ message ASTLocationProto {
   optional ASTNodeProto parent = 1;
 }
 
+message ASTInputOutputClauseProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTTableElementListProto input = 2;
+  optional ASTTableElementListProto output = 3;
+}
+
 // Represents Spanner-specific extensions for CREATE TABLE statement.
 message ASTSpannerTableOptionsProto {
   optional ASTNodeProto parent = 1;
@@ -3054,10 +3066,17 @@ message ASTSpannerSetOnDeleteActionProto {
 //   RANGE<TIMESTAMP> '[2020-10-01 12:00:00+08, 2020-12-31 12:00:00+08)';
 message ASTRangeLiteralProto {
   optional ASTExpressionProto parent = 1;
-  optional AnyASTTypeProto type = 2;
+  optional ASTRangeTypeProto type = 2;
   // String literal representing the range, must have format
   // "[range start, range end)" where "range start" and "range end"
   // are literals of the type specified RANGE<type>
   optional ASTStringLiteralProto range_value = 3;
+}
+
+message ASTRangeTypeProto {
+  optional ASTTypeProto parent = 1;
+  optional AnyASTTypeProto element_type = 2;
+  optional ASTTypeParameterListProto type_parameters = 3;
+  optional ASTCollateProto collate = 4;
 }
 // clang-format on
