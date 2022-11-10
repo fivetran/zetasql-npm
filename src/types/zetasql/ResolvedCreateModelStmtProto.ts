@@ -7,6 +7,7 @@ import type { AnyResolvedScanProto as _zetasql_AnyResolvedScanProto, AnyResolved
 import type { ResolvedComputedColumnProto as _zetasql_ResolvedComputedColumnProto, ResolvedComputedColumnProto__Output as _zetasql_ResolvedComputedColumnProto__Output } from '../zetasql/ResolvedComputedColumnProto';
 import type { ResolvedAnalyticFunctionGroupProto as _zetasql_ResolvedAnalyticFunctionGroupProto, ResolvedAnalyticFunctionGroupProto__Output as _zetasql_ResolvedAnalyticFunctionGroupProto__Output } from '../zetasql/ResolvedAnalyticFunctionGroupProto';
 import type { ResolvedColumnDefinitionProto as _zetasql_ResolvedColumnDefinitionProto, ResolvedColumnDefinitionProto__Output as _zetasql_ResolvedColumnDefinitionProto__Output } from '../zetasql/ResolvedColumnDefinitionProto';
+import type { ResolvedConnectionProto as _zetasql_ResolvedConnectionProto, ResolvedConnectionProto__Output as _zetasql_ResolvedConnectionProto__Output } from '../zetasql/ResolvedConnectionProto';
 
 export interface ResolvedCreateModelStmtProto {
   'parent'?: (_zetasql_ResolvedCreateStatementProto | null);
@@ -17,6 +18,10 @@ export interface ResolvedCreateModelStmtProto {
   'transformOutputColumnList'?: (_zetasql_ResolvedOutputColumnProto)[];
   'transformAnalyticFunctionGroupList'?: (_zetasql_ResolvedAnalyticFunctionGroupProto)[];
   'transformInputColumnList'?: (_zetasql_ResolvedColumnDefinitionProto)[];
+  'inputColumnDefinitionList'?: (_zetasql_ResolvedColumnDefinitionProto)[];
+  'outputColumnDefinitionList'?: (_zetasql_ResolvedColumnDefinitionProto)[];
+  'isRemote'?: (boolean);
+  'connection'?: (_zetasql_ResolvedConnectionProto | null);
 }
 
 export interface ResolvedCreateModelStmtProto__Output {
@@ -28,4 +33,8 @@ export interface ResolvedCreateModelStmtProto__Output {
   'transformOutputColumnList': (_zetasql_ResolvedOutputColumnProto__Output)[];
   'transformAnalyticFunctionGroupList': (_zetasql_ResolvedAnalyticFunctionGroupProto__Output)[];
   'transformInputColumnList': (_zetasql_ResolvedColumnDefinitionProto__Output)[];
+  'inputColumnDefinitionList': (_zetasql_ResolvedColumnDefinitionProto__Output)[];
+  'outputColumnDefinitionList': (_zetasql_ResolvedColumnDefinitionProto__Output)[];
+  'isRemote': (boolean);
+  'connection': (_zetasql_ResolvedConnectionProto__Output | null);
 }

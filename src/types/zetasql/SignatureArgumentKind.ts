@@ -19,5 +19,6 @@ export enum SignatureArgumentKind {
   ARG_TYPE_CONNECTION = 12,
   ARG_TYPE_DESCRIPTOR = 13,
   ARG_TYPE_LAMBDA = 17,
+  ARG_RANGE_TYPE_ANY = 18,
   __SignatureArgumentKind__switch_must_have_a_default__ = -1,
 }

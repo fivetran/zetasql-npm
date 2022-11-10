@@ -6,6 +6,7 @@ export interface EnumTypeProto {
   'enumFileName'?: (string);
   'fileDescriptorSetIndex'?: (number);
   'catalogNamePath'?: (string)[];
+  'isOpaque'?: (boolean);
 }
 
 export interface EnumTypeProto__Output {
@@ -13,4 +14,5 @@ export interface EnumTypeProto__Output {
   'enumFileName': (string);
   'fileDescriptorSetIndex': (number);
   'catalogNamePath': (string)[];
+  'isOpaque': (boolean);
 }

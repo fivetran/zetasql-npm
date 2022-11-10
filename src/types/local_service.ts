@@ -231,6 +231,7 @@ export interface ProtoGrpcType {
     ASTIndexStoringExpressionListProto: MessageTypeDefinition
     ASTIndexUnnestExpressionListProto: MessageTypeDefinition
     ASTInferredTypeColumnSchemaProto: MessageTypeDefinition
+    ASTInputOutputClauseProto: MessageTypeDefinition
     ASTInsertStatementEnums: MessageTypeDefinition
     ASTInsertStatementProto: MessageTypeDefinition
     ASTInsertValuesRowListProto: MessageTypeDefinition
@@ -297,6 +298,7 @@ export interface ProtoGrpcType {
     ASTQueryStatementProto: MessageTypeDefinition
     ASTRaiseStatementProto: MessageTypeDefinition
     ASTRangeLiteralProto: MessageTypeDefinition
+    ASTRangeTypeProto: MessageTypeDefinition
     ASTRemoveFromRestricteeListClauseProto: MessageTypeDefinition
     ASTRenameColumnActionProto: MessageTypeDefinition
     ASTRenameStatementProto: MessageTypeDefinition
@@ -468,6 +470,7 @@ export interface ProtoGrpcType {
     AnyResolvedStatementProto: MessageTypeDefinition
     ArgumentTypeLambdaProto: MessageTypeDefinition
     ArrayTypeProto: MessageTypeDefinition
+    ColumnRefProto: MessageTypeDefinition
     ConnectionRefProto: MessageTypeDefinition
     ConstantRefProto: MessageTypeDefinition
     DeprecatedEncoding: MessageTypeDefinition
@@ -476,6 +479,7 @@ export interface ProtoGrpcType {
     ErrorLocation: MessageTypeDefinition
     ErrorMessageMode: EnumTypeDefinition
     ErrorSource: MessageTypeDefinition
+    ExpressionAttributeProto: MessageTypeDefinition
     ExtendedTypeParametersProto: MessageTypeDefinition
     FieldDescriptorRefProto: MessageTypeDefinition
     FieldFormat: MessageTypeDefinition
@@ -499,6 +503,8 @@ export interface ProtoGrpcType {
     NameResolutionMode: EnumTypeDefinition
     NumericTypeParametersProto: MessageTypeDefinition
     OneofDescriptorRefProto: MessageTypeDefinition
+    OpaqueEnumTypeOptions: MessageTypeDefinition
+    OpaqueEnumValueOptions: MessageTypeDefinition
     ParameterMode: EnumTypeDefinition
     ParseLocationRangeProto: MessageTypeDefinition
     ParseLocationRecordType: EnumTypeDefinition
@@ -560,6 +566,7 @@ export interface ProtoGrpcType {
     ResolvedBeginStmtProto: MessageTypeDefinition
     ResolvedCallStmtProto: MessageTypeDefinition
     ResolvedCastProto: MessageTypeDefinition
+    ResolvedCatalogColumnRefProto: MessageTypeDefinition
     ResolvedCheckConstraintProto: MessageTypeDefinition
     ResolvedCloneDataStmtProto: MessageTypeDefinition
     ResolvedCollationProto: MessageTypeDefinition
@@ -614,6 +621,7 @@ export interface ProtoGrpcType {
     ResolvedDropStmtProto: MessageTypeDefinition
     ResolvedDropSubEntityActionProto: MessageTypeDefinition
     ResolvedDropTableFunctionStmtProto: MessageTypeDefinition
+    ResolvedExecuteAsRoleScanProto: MessageTypeDefinition
     ResolvedExecuteImmediateArgumentProto: MessageTypeDefinition
     ResolvedExecuteImmediateStmtProto: MessageTypeDefinition
     ResolvedExplainStmtProto: MessageTypeDefinition

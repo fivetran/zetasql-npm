@@ -8,10 +8,12 @@ export interface ResolvedGetStructFieldProto {
   'parent'?: (_zetasql_ResolvedExprProto | null);
   'expr'?: (_zetasql_AnyResolvedExprProto | null);
   'fieldIdx'?: (number | string | Long);
+  'fieldExprIsPositional'?: (boolean);
 }
 
 export interface ResolvedGetStructFieldProto__Output {
   'parent': (_zetasql_ResolvedExprProto__Output | null);
   'expr': (_zetasql_AnyResolvedExprProto__Output | null);
   'fieldIdx': (Long);
+  'fieldExprIsPositional': (boolean);
 }

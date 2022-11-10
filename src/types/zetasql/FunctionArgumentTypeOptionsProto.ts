@@ -30,6 +30,10 @@ export interface FunctionArgumentTypeOptionsProto {
   'defaultValueType'?: (_zetasql_TypeProto | null);
   'argumentCollationMode'?: (_zetasql_FunctionEnums_ArgumentCollationMode | keyof typeof _zetasql_FunctionEnums_ArgumentCollationMode);
   'usesArrayElementForCollation'?: (boolean);
+  'mustSupportGrouping'?: (boolean);
+  'arrayElementMustSupportEquality'?: (boolean);
+  'arrayElementMustSupportOrdering'?: (boolean);
+  'arrayElementMustSupportGrouping'?: (boolean);
 }
 
 export interface FunctionArgumentTypeOptionsProto__Output {
@@ -53,4 +57,8 @@ export interface FunctionArgumentTypeOptionsProto__Output {
   'defaultValueType': (_zetasql_TypeProto__Output | null);
   'argumentCollationMode': (_zetasql_FunctionEnums_ArgumentCollationMode);
   'usesArrayElementForCollation': (boolean);
+  'mustSupportGrouping': (boolean);
+  'arrayElementMustSupportEquality': (boolean);
+  'arrayElementMustSupportOrdering': (boolean);
+  'arrayElementMustSupportGrouping': (boolean);
 }

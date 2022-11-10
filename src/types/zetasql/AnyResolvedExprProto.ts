@@ -21,6 +21,7 @@ import type { ResolvedFlattenedArgProto as _zetasql_ResolvedFlattenedArgProto, R
 import type { ResolvedGetJsonFieldProto as _zetasql_ResolvedGetJsonFieldProto, ResolvedGetJsonFieldProto__Output as _zetasql_ResolvedGetJsonFieldProto__Output } from '../zetasql/ResolvedGetJsonFieldProto';
 import type { ResolvedFilterFieldProto as _zetasql_ResolvedFilterFieldProto, ResolvedFilterFieldProto__Output as _zetasql_ResolvedFilterFieldProto__Output } from '../zetasql/ResolvedFilterFieldProto';
 import type { ResolvedWithExprProto as _zetasql_ResolvedWithExprProto, ResolvedWithExprProto__Output as _zetasql_ResolvedWithExprProto__Output } from '../zetasql/ResolvedWithExprProto';
+import type { ResolvedCatalogColumnRefProto as _zetasql_ResolvedCatalogColumnRefProto, ResolvedCatalogColumnRefProto__Output as _zetasql_ResolvedCatalogColumnRefProto__Output } from '../zetasql/ResolvedCatalogColumnRefProto';
 
 export interface AnyResolvedExprProto {
   'resolvedLiteralNode'?: (_zetasql_ResolvedLiteralProto | null);
@@ -44,7 +45,8 @@ export interface AnyResolvedExprProto {
   'resolvedGetJsonFieldNode'?: (_zetasql_ResolvedGetJsonFieldProto | null);
   'resolvedFilterFieldNode'?: (_zetasql_ResolvedFilterFieldProto | null);
   'resolvedWithExprNode'?: (_zetasql_ResolvedWithExprProto | null);
-  'node'?: "resolvedLiteralNode"|"resolvedParameterNode"|"resolvedExpressionColumnNode"|"resolvedColumnRefNode"|"resolvedFunctionCallBaseNode"|"resolvedCastNode"|"resolvedMakeStructNode"|"resolvedMakeProtoNode"|"resolvedGetStructFieldNode"|"resolvedGetProtoFieldNode"|"resolvedSubqueryExprNode"|"resolvedDmldefaultNode"|"resolvedArgumentRefNode"|"resolvedConstantNode"|"resolvedReplaceFieldNode"|"resolvedSystemVariableNode"|"resolvedFlattenNode"|"resolvedFlattenedArgNode"|"resolvedGetJsonFieldNode"|"resolvedFilterFieldNode"|"resolvedWithExprNode";
+  'resolvedCatalogColumnRefNode'?: (_zetasql_ResolvedCatalogColumnRefProto | null);
+  'node'?: "resolvedLiteralNode"|"resolvedParameterNode"|"resolvedExpressionColumnNode"|"resolvedColumnRefNode"|"resolvedFunctionCallBaseNode"|"resolvedCastNode"|"resolvedMakeStructNode"|"resolvedMakeProtoNode"|"resolvedGetStructFieldNode"|"resolvedGetProtoFieldNode"|"resolvedSubqueryExprNode"|"resolvedDmldefaultNode"|"resolvedArgumentRefNode"|"resolvedConstantNode"|"resolvedReplaceFieldNode"|"resolvedSystemVariableNode"|"resolvedFlattenNode"|"resolvedFlattenedArgNode"|"resolvedGetJsonFieldNode"|"resolvedFilterFieldNode"|"resolvedWithExprNode"|"resolvedCatalogColumnRefNode";
 }
 
 export interface AnyResolvedExprProto__Output {
@@ -69,5 +71,6 @@ export interface AnyResolvedExprProto__Output {
   'resolvedGetJsonFieldNode'?: (_zetasql_ResolvedGetJsonFieldProto__Output | null);
   'resolvedFilterFieldNode'?: (_zetasql_ResolvedFilterFieldProto__Output | null);
   'resolvedWithExprNode'?: (_zetasql_ResolvedWithExprProto__Output | null);
-  'node': "resolvedLiteralNode"|"resolvedParameterNode"|"resolvedExpressionColumnNode"|"resolvedColumnRefNode"|"resolvedFunctionCallBaseNode"|"resolvedCastNode"|"resolvedMakeStructNode"|"resolvedMakeProtoNode"|"resolvedGetStructFieldNode"|"resolvedGetProtoFieldNode"|"resolvedSubqueryExprNode"|"resolvedDmldefaultNode"|"resolvedArgumentRefNode"|"resolvedConstantNode"|"resolvedReplaceFieldNode"|"resolvedSystemVariableNode"|"resolvedFlattenNode"|"resolvedFlattenedArgNode"|"resolvedGetJsonFieldNode"|"resolvedFilterFieldNode"|"resolvedWithExprNode";
+  'resolvedCatalogColumnRefNode'?: (_zetasql_ResolvedCatalogColumnRefProto__Output | null);
+  'node': "resolvedLiteralNode"|"resolvedParameterNode"|"resolvedExpressionColumnNode"|"resolvedColumnRefNode"|"resolvedFunctionCallBaseNode"|"resolvedCastNode"|"resolvedMakeStructNode"|"resolvedMakeProtoNode"|"resolvedGetStructFieldNode"|"resolvedGetProtoFieldNode"|"resolvedSubqueryExprNode"|"resolvedDmldefaultNode"|"resolvedArgumentRefNode"|"resolvedConstantNode"|"resolvedReplaceFieldNode"|"resolvedSystemVariableNode"|"resolvedFlattenNode"|"resolvedFlattenedArgNode"|"resolvedGetJsonFieldNode"|"resolvedFilterFieldNode"|"resolvedWithExprNode"|"resolvedCatalogColumnRefNode";
 }

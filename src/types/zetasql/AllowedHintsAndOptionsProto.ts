@@ -31,6 +31,7 @@ export interface AllowedHintsAndOptionsProto {
   'disallowUnknownHintsWithQualifier'?: (string)[];
   'hint'?: (_zetasql_AllowedHintsAndOptionsProto_HintProto)[];
   'option'?: (_zetasql_AllowedHintsAndOptionsProto_OptionProto)[];
+  'anonymizationOption'?: (_zetasql_AllowedHintsAndOptionsProto_OptionProto)[];
 }
 
 export interface AllowedHintsAndOptionsProto__Output {
@@ -38,4 +39,5 @@ export interface AllowedHintsAndOptionsProto__Output {
   'disallowUnknownHintsWithQualifier': (string)[];
   'hint': (_zetasql_AllowedHintsAndOptionsProto_HintProto__Output)[];
   'option': (_zetasql_AllowedHintsAndOptionsProto_OptionProto__Output)[];
+  'anonymizationOption': (_zetasql_AllowedHintsAndOptionsProto_OptionProto__Output)[];
 }

@@ -8,6 +8,7 @@ import type { ASTUsingClauseProto as _zetasql_ASTUsingClauseProto, ASTUsingClaus
 import type { ASTOnOrUsingClauseListProto as _zetasql_ASTOnOrUsingClauseListProto, ASTOnOrUsingClauseListProto__Output as _zetasql_ASTOnOrUsingClauseListProto__Output } from '../zetasql/ASTOnOrUsingClauseListProto';
 import type { _zetasql_ASTJoinEnums_JoinType } from '../zetasql/ASTJoinEnums';
 import type { _zetasql_ASTJoinEnums_JoinHint } from '../zetasql/ASTJoinEnums';
+import type { ASTLocationProto as _zetasql_ASTLocationProto, ASTLocationProto__Output as _zetasql_ASTLocationProto__Output } from '../zetasql/ASTLocationProto';
 import type { Long } from '@grpc/proto-loader';
 
 export interface ASTJoinProto {
@@ -24,6 +25,7 @@ export interface ASTJoinProto {
   'unmatchedJoinCount'?: (number | string | Long);
   'transformationNeeded'?: (boolean);
   'containsCommaJoin'?: (boolean);
+  'joinLocation'?: (_zetasql_ASTLocationProto | null);
 }
 
 export interface ASTJoinProto__Output {
@@ -40,4 +42,5 @@ export interface ASTJoinProto__Output {
   'unmatchedJoinCount': (Long);
   'transformationNeeded': (boolean);
   'containsCommaJoin': (boolean);
+  'joinLocation': (_zetasql_ASTLocationProto__Output | null);
 }
