@@ -1,5 +1,5 @@
 /build
-/lib
+npm-zetasql/lib
 node_modules
 *.DS_Store
 libremote_server.dylib

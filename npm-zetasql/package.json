@@ -55,7 +55,7 @@
     "test": "mocha",
     "lint": "eslint --cache --no-fix --ext .ts src",
     "lint:fix": "eslint --cache --fix --ext .ts src",
-    "prepare": "husky install"
+    "prepare": "cd .. && husky install"
   },
   "publishConfig": {
     "access": "public"
