@@ -153,7 +153,7 @@ jobs:
         run: find ./build/zetasql-npm/npm-zetasql/lib/zetasql ! -name '*.so' -type f -exec rm -f {} +
 
       - name: run e2e test
-        working-directory: build/zetasql-npm/npm-zetasql
+        working-directory: build/zetasql-npm
         run: docker buildx build --platform=linux/amd64,linux/arm64 --progress=plain --no-cache .
 
   publish-npm:
