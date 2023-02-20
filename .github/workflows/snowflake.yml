@@ -1,0 +1,212 @@
+name: CI
+
+on:
+  push:
+    branches:
+    tags:
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    outputs:
+      sha_short: ${{ steps.vars.outputs.sha_short }}
+
+    strategy:
+      matrix:
+        include:
+          - os: macos-latest
+            working-directory: build/zetasql-macos
+            cache-path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
+            build-commands: |
+              npx @bazel/bazelisk build --copt "-O3" --config=clang //zetasql/local_service:libremote_server.dylib
+              install_name_tool -id "@loader_path/libremote_server.dylib" bazel-bin/zetasql/local_service/libremote_server.dylib
+
+          - os: ubuntu-latest
+            working-directory: build/zetasql-linux
+            cache-path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
+            build-commands: npx @bazel/bazelisk build --copt "-O3" //zetasql/local_service:libremote_server.so
+
+    steps:
+      - name: Checkout zetasql
+        uses: actions/checkout@v2
+        with:
+          repository: fivetran/snowsql
+          path: ${{ matrix.working-directory }}
+
+      - name: Set variables
+        id: vars
+        working-directory: ${{ matrix.working-directory }}
+        run: |
+          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+          echo $(git rev-parse --short HEAD)
+
+      - name: Cache zetasql build
+        id: cache-zetasql-build
+        uses: actions/cache@v2
+        with:
+          path: ${{ matrix.cache-path }}
+          key: ${{ matrix.os }}-${{ steps.vars.outputs.sha_short }}-2
+
+      - name: Build
+        if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
+        working-directory: ${{ matrix.working-directory }}
+        run: |
+          ${{ matrix.build-commands }}
+
+      - name: upload build result
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.os }}
+          path: ${{ matrix.cache-path }}
+
+  package:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout zetasql-npm
+        uses: actions/checkout@v2
+        with:
+          path: build/zetasql-npm
+
+      - name: Load build linux
+        uses: actions/cache@v2
+        with:
+          path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
+          key: ubuntu-latest-${{ needs.build.outputs.sha_short }}-2
+
+      - name: Load build macos
+        uses: actions/cache@v2
+        with:
+          path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
+          key: macos-latest-${{ needs.build.outputs.sha_short }}-2
+
+      - name: Copy files
+        working-directory: build
+        run: |
+          mkdir -p zetasql-npm/npm-snowflake/lib/zetasql
+          cp zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib zetasql-npm/npm-snowflake/lib/zetasql/
+          tar -xzvf zetasql-npm/zetasql/darwin-arm-64/libremote_server_arm.dylib.tar.gz -C zetasql-npm/npm-snowflake/lib/zetasql/
+          tar -xzvf zetasql-npm/zetasql/linux-arm-64/libremote_server_arm.so.tar.gz -C zetasql-npm/npm-snowflake/lib/zetasql/
+          cp zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so zetasql-npm/npm-snowflake/lib/zetasql/
+          cp -R zetasql-npm/npm-snowflake/src/protos zetasql-npm/npm-snowflake/lib/protos
+
+      - name: Build and Test
+        working-directory: build/zetasql-npm/npm-snowflake
+        run: |
+          echo ${{ github.ref }}
+          npm install
+          npm run build
+          npm run test
+          npm run lint
+
+      - name: Cache package results
+        uses: actions/cache@v2
+        with:
+          path: build/zetasql-npm
+          key: package-results-${{ github.sha }}-${{ github.ref }}
+
+  e2e-macos:
+    needs: package
+    runs-on: macos-latest
+
+    steps:
+      - name: load package results
+        uses: actions/cache@v2
+        with:
+          path: build/zetasql-npm
+          key: package-results-${{ github.sha }}-${{ github.ref }}
+
+      - name: delete libraries for other platforms
+        run: find ./build/zetasql-npm/npm-snowflake/lib/zetasql ! -name 'libremote_server.dylib' -type f -exec rm -f {} +
+
+      - name: run e2e test
+        working-directory: build/zetasql-npm/npm-snowflake
+        run: |
+          npm ci
+          ./e2e.sh
+
+  e2e-linux:
+    needs: package
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: available platforms
+        run: echo ${{ steps.buildx.outputs.platforms }}
+
+      - name: load package results
+        uses: actions/cache@v2
+        with:
+          path: build/zetasql-npm
+          key: package-results-${{ github.sha }}-${{ github.ref }}
+
+      - name: delete libraries for other platforms
+        run: find ./build/zetasql-npm/npm-snowflake/lib/zetasql ! -name '*.so' -type f -exec rm -f {} +
+
+      - name: run e2e test
+        working-directory: build/zetasql-npm/npm-snowflake
+        run: docker buildx build --platform=linux/amd64,linux/arm64 --progress=plain --no-cache .
+
+  publish-npm:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [build, package, e2e-macos, e2e-linux]
+    steps:
+      - name: Load package results
+        uses: actions/cache@v2
+        with:
+          path: build/zetasql-npm
+          key: package-results-${{ github.sha }}-${{ github.ref }}
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Publish
+        working-directory: build/zetasql-npm/npm-snowflake
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  update-lib-archives:
+    needs: build
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout zetasql-npm
+        uses: actions/checkout@v2
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ubuntu-latest
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: macos-latest
+
+      - run: |
+          mkdir -p old
+          tar -xzvf snowsql/darwin-x86-64/libremote_server.dylib.tar.gz -C old
+          tar -xzvf snowsql/linux-x86-64/libremote_server.so.tar.gz -C old
+
+          if ! diff -q libremote_server.dylib old/libremote_server.dylib &>/dev/null; then
+            tar -zcf snowsql/darwin-x86-64/libremote_server.dylib.tar.gz libremote_server.dylib
+          fi
+
+          if ! diff -q libremote_server.so old/libremote_server.so &>/dev/null; then
+            tar -zcf snowsql/linux-x86-64/libremote_server.so.tar.gz libremote_server.so
+          fi
+
+      - uses: EndBug/add-and-commit@v9
+        with:
+          add: 'zetasql'
+          message: 'update artifacts'

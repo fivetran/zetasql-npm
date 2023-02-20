@@ -1,4 +1,5 @@
 /build
+npm-snowflake/lib
 npm-zetasql/lib
 node_modules
 *.DS_Store
