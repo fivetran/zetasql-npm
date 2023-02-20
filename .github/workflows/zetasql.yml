@@ -208,5 +208,5 @@ jobs:
 
       - uses: EndBug/add-and-commit@v9
         with:
-          add: 'zetasql'
+          add: 'npm-zetasql/zetasql'
           message: 'update artifacts'
