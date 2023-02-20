@@ -86,15 +86,15 @@ jobs:
       - name: Copy files
         working-directory: build
         run: |
-          mkdir -p zetasql-npm/lib/zetasql
+          mkdir -p zetasql-npm/npm-zetasql/lib/zetasql
           cp zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib zetasql-npm/lib/zetasql/
           tar -xzvf zetasql-npm/zetasql/darwin-arm-64/libremote_server_arm.dylib.tar.gz -C zetasql-npm/lib/zetasql/
           tar -xzvf zetasql-npm/zetasql/linux-arm-64/libremote_server_arm.so.tar.gz -C zetasql-npm/lib/zetasql/
-          cp zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so zetasql-npm/lib/zetasql/
-          cp -R zetasql-npm/src/protos zetasql-npm/lib/protos
+          cp zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so zetasql-npm/npm-zetasql/lib/zetasql/
+          cp -R zetasql-npm/npm-zetasql/src/protos zetasql-npm/npm-zetasql/lib/protos
 
       - name: Build and Test
-        working-directory: build/zetasql-npm
+        working-directory: build/zetasql-npm/npm-zetasql
         run: |
           echo ${{ github.ref }}
           npm install
@@ -120,10 +120,10 @@ jobs:
           key: package-results-${{ github.sha }}-${{ github.ref }}
 
       - name: delete libraries for other platforms
-        run: find ./build/zetasql-npm/lib/zetasql ! -name 'libremote_server.dylib' -type f -exec rm -f {} +
+        run: find ./build/zetasql-npm/npm-zetasql/lib/zetasql ! -name 'libremote_server.dylib' -type f -exec rm -f {} +
 
       - name: run e2e test
-        working-directory: build/zetasql-npm
+        working-directory: build/zetasql-npm/npm-zetasql
         run: |
           npm ci
           ./e2e.sh
@@ -146,14 +146,14 @@ jobs:
       - name: load package results
         uses: actions/cache@v2
         with:
-          path: build/zetasql-npm
+          path: build/zetasql-npm/npm-zetasql
           key: package-results-${{ github.sha }}-${{ github.ref }}
 
       - name: delete libraries for other platforms
-        run: find ./build/zetasql-npm/lib/zetasql ! -name '*.so' -type f -exec rm -f {} +
+        run: find ./build/zetasql-npm/npm-zetasql/lib/zetasql ! -name '*.so' -type f -exec rm -f {} +
 
       - name: run e2e test
-        working-directory: build/zetasql-npm
+        working-directory: build/zetasql-npm/npm-zetasql
         run: docker buildx build --platform=linux/amd64,linux/arm64 --progress=plain --no-cache .
 
   publish-npm:
@@ -172,7 +172,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Publish
-        working-directory: build/zetasql-npm
+        working-directory: build/zetasql-npm/npm-zetasql
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
