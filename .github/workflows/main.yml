@@ -146,7 +146,7 @@ jobs:
       - name: load package results
         uses: actions/cache@v2
         with:
-          path: build/zetasql-npm/npm-zetasql
+          path: build/zetasql-npm
           key: package-results-${{ github.sha }}-${{ github.ref }}
 
       - name: delete libraries for other platforms
