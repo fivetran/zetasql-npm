@@ -195,15 +195,15 @@ jobs:
 
       - run: |
           mkdir -p old
-          tar -xzvf snowsql/darwin-x86-64/libremote_server.dylib.tar.gz -C old
-          tar -xzvf snowsql/linux-x86-64/libremote_server.so.tar.gz -C old
+          tar -xzvf npm-snowflake/snowflake/darwin-x86-64/libremote_server.dylib.tar.gz -C old
+          tar -xzvf npm-snowflake/snowflake/linux-x86-64/libremote_server.so.tar.gz -C old
 
           if ! diff -q libremote_server.dylib old/libremote_server.dylib &>/dev/null; then
-            tar -zcf snowsql/darwin-x86-64/libremote_server.dylib.tar.gz libremote_server.dylib
+            tar -zcf npm-snowflake/snowflake/darwin-x86-64/libremote_server.dylib.tar.gz libremote_server.dylib
           fi
 
           if ! diff -q libremote_server.so old/libremote_server.so &>/dev/null; then
-            tar -zcf snowsql/linux-x86-64/libremote_server.so.tar.gz libremote_server.so
+            tar -zcf npm-snowflake/snowflake/linux-x86-64/libremote_server.so.tar.gz libremote_server.so
           fi
 
       - uses: EndBug/add-and-commit@v9
