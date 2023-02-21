@@ -51,7 +51,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ matrix.cache-path }}
-          key: ${{ matrix.os }}-${{ steps.vars.outputs.sha_short }}-2
+          key: snowflake-${{ matrix.os }}-${{ steps.vars.outputs.sha_short }}-2
 
       - name: Build
         if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
@@ -78,13 +78,13 @@ jobs:
         uses: actions/cache@v2
         with:
           path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
-          key: ubuntu-latest-${{ needs.build.outputs.sha_short }}-2
+          key: snowflake-ubuntu-latest-${{ needs.build.outputs.sha_short }}-2
 
       - name: Load build macos
         uses: actions/cache@v2
         with:
           path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
-          key: macos-latest-${{ needs.build.outputs.sha_short }}-2
+          key: snowflake-macos-latest-${{ needs.build.outputs.sha_short }}-2
 
       - name: Copy files
         working-directory: build
@@ -109,7 +109,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: build/zetasql-npm
-          key: package-results-${{ github.sha }}-${{ github.ref }}
+          key: snowflake-package-results-${{ github.sha }}-${{ github.ref }}
 
   e2e-macos:
     needs: package
@@ -120,7 +120,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: build/zetasql-npm
-          key: package-results-${{ github.sha }}-${{ github.ref }}
+          key: snowflake-package-results-${{ github.sha }}-${{ github.ref }}
 
       - name: delete libraries for other platforms
         run: find ./build/zetasql-npm/npm-snowflake/lib/zetasql ! -name 'libremote_server.dylib' -type f -exec rm -f {} +
@@ -150,7 +150,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: build/zetasql-npm
-          key: package-results-${{ github.sha }}-${{ github.ref }}
+          key: snowflake-package-results-${{ github.sha }}-${{ github.ref }}
 
       - name: delete libraries for other platforms
         run: find ./build/zetasql-npm/npm-snowflake/lib/zetasql ! -name '*.so' -type f -exec rm -f {} +
@@ -168,7 +168,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: build/zetasql-npm
-          key: package-results-${{ github.sha }}-${{ github.ref }}
+          key: snowflake-package-results-${{ github.sha }}-${{ github.ref }}
       - uses: actions/setup-node@v2
         with:
           node-version: '14.x'
