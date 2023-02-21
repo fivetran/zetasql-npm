@@ -2,7 +2,7 @@ import * as ffi from 'ffi-napi';
 
 const extension = process.arch.startsWith('arm') ? '_arm' : '';
 const libName = `libremote_server${extension}`;
-const zetaSQLServer = ffi.Library(`${__dirname}/snowflake/${libName}`, {
+const zetaSQLServer = ffi.Library(`${__dirname}/zetasql/${libName}`, {
   RunServer: ['void', ['int']],
 });
 
