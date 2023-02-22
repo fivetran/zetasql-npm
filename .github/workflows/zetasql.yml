@@ -62,7 +62,7 @@ jobs:
       - name: upload build result
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ matrix.os }}
+          name: zetasql-${{ matrix.os }}
           path: ${{ matrix.cache-path }}
 
   package:
@@ -190,11 +190,11 @@ jobs:
 
       - uses: actions/download-artifact@v3
         with:
-          name: ubuntu-latest
+          name: zetasql-ubuntu-latest
 
       - uses: actions/download-artifact@v3
         with:
-          name: macos-latest
+          name: zetasql-macos-latest
 
       - run: |
           mkdir -p old
