@@ -1,5 +1,8 @@
 FROM node:current
 
+ADD . /build
+WORKDIR /build
+
 RUN uname -a \
   && ls ./lib/zetasql \
   && npm ci \
