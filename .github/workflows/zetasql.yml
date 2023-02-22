@@ -1,9 +1,12 @@
-name: CI
+name: CI-zetasql
 
 on:
   push:
     branches:
     tags:
+    paths:
+      - "zetasql/**"
+      - ".github/workflows/zetasql.yml"
 
   workflow_dispatch:
 
@@ -86,15 +89,15 @@ jobs:
       - name: Copy files
         working-directory: build
         run: |
-          mkdir -p zetasql-npm/lib/zetasql
-          cp zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib zetasql-npm/lib/zetasql/
-          tar -xzvf zetasql-npm/zetasql/darwin-arm-64/libremote_server_arm.dylib.tar.gz -C zetasql-npm/lib/zetasql/
-          tar -xzvf zetasql-npm/zetasql/linux-arm-64/libremote_server_arm.so.tar.gz -C zetasql-npm/lib/zetasql/
-          cp zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so zetasql-npm/lib/zetasql/
-          cp -R zetasql-npm/src/protos zetasql-npm/lib/protos
+          mkdir -p zetasql-npm/zetasql/lib/zetasql
+          cp zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib zetasql-npm/zetasql/lib/zetasql/
+          tar -xzvf zetasql-npm/zetasql/zetasql-bin/darwin-arm-64/libremote_server_arm.dylib.tar.gz -C zetasql-npm/zetasql/lib/zetasql/
+          tar -xzvf zetasql-npm/zetasql/zetasql-bin/linux-arm-64/libremote_server_arm.so.tar.gz -C zetasql-npm/zetasql/lib/zetasql/
+          cp zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so zetasql-npm/zetasql/lib/zetasql/
+          cp -R zetasql-npm/zetasql/src/protos zetasql-npm/zetasql/lib/protos
 
       - name: Build and Test
-        working-directory: build/zetasql-npm
+        working-directory: build/zetasql-npm/zetasql
         run: |
           echo ${{ github.ref }}
           npm install
@@ -105,7 +108,7 @@ jobs:
       - name: Cache package results
         uses: actions/cache@v2
         with:
-          path: build/zetasql-npm
+          path: build/zetasql-npm/zetasql
           key: package-results-${{ github.sha }}-${{ github.ref }}
 
   e2e-macos:
@@ -116,14 +119,14 @@ jobs:
       - name: load package results
         uses: actions/cache@v2
         with:
-          path: build/zetasql-npm
+          path: build/zetasql-npm/zetasql
           key: package-results-${{ github.sha }}-${{ github.ref }}
 
       - name: delete libraries for other platforms
-        run: find ./build/zetasql-npm/lib/zetasql ! -name 'libremote_server.dylib' -type f -exec rm -f {} +
+        run: find ./build/zetasql-npm/zetasql/lib/zetasql ! -name 'libremote_server.dylib' -type f -exec rm -f {} +
 
       - name: run e2e test
-        working-directory: build/zetasql-npm
+        working-directory: build/zetasql-npm/zetasql
         run: |
           npm ci
           ./e2e.sh
@@ -146,14 +149,14 @@ jobs:
       - name: load package results
         uses: actions/cache@v2
         with:
-          path: build/zetasql-npm
+          path: build/zetasql-npm/zetasql
           key: package-results-${{ github.sha }}-${{ github.ref }}
 
       - name: delete libraries for other platforms
-        run: find ./build/zetasql-npm/lib/zetasql ! -name '*.so' -type f -exec rm -f {} +
+        run: find ./build/zetasql-npm/zetasql/lib/zetasql ! -name '*.so' -type f -exec rm -f {} +
 
       - name: run e2e test
-        working-directory: build/zetasql-npm
+        working-directory: build/zetasql-npm/zetasql
         run: docker buildx build --platform=linux/amd64,linux/arm64 --progress=plain --no-cache .
 
   publish-npm:
@@ -164,15 +167,15 @@ jobs:
       - name: Load package results
         uses: actions/cache@v2
         with:
-          path: build/zetasql-npm
+          path: build/zetasql-npm/zetasql
           key: package-results-${{ github.sha }}-${{ github.ref }}
       - uses: actions/setup-node@v2
         with:
-          node-version: '14.x'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "14.x"
+          registry-url: "https://registry.npmjs.org"
 
       - name: Publish
-        working-directory: build/zetasql-npm
+        working-directory: build/zetasql-npm/zetasql
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -195,18 +198,18 @@ jobs:
 
       - run: |
           mkdir -p old
-          tar -xzvf zetasql/darwin-x86-64/libremote_server.dylib.tar.gz -C old
-          tar -xzvf zetasql/linux-x86-64/libremote_server.so.tar.gz -C old
+          tar -xzvf zetasql/zetasql-bin/darwin-x86-64/libremote_server.dylib.tar.gz -C old
+          tar -xzvf zetasql/zetasql-bin/linux-x86-64/libremote_server.so.tar.gz -C old
 
           if ! diff -q libremote_server.dylib old/libremote_server.dylib &>/dev/null; then
-            tar -zcf zetasql/darwin-x86-64/libremote_server.dylib.tar.gz libremote_server.dylib
+            tar -zcf zetasql/zetasql-bin/darwin-x86-64/libremote_server.dylib.tar.gz libremote_server.dylib
           fi
 
           if ! diff -q libremote_server.so old/libremote_server.so &>/dev/null; then
-            tar -zcf zetasql/linux-x86-64/libremote_server.so.tar.gz libremote_server.so
+            tar -zcf zetasql/zetasql-bin/linux-x86-64/libremote_server.so.tar.gz libremote_server.so
           fi
 
       - uses: EndBug/add-and-commit@v9
         with:
-          add: 'zetasql'
-          message: 'update artifacts'
+          add: "zetasql/zetasql-bin"
+          message: "update artifacts"
