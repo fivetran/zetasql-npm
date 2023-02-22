@@ -1,10 +1,7 @@
 FROM node:current
 
-ADD . /build
-WORKDIR /build
-
 RUN uname -a \
-  && ls ./lib/test \
+  && ls ./lib/zetasql \
   && npm ci \
   && npm run build:all \
   && ls -la lib/zetasql \
