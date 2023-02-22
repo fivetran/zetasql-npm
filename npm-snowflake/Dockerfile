@@ -5,6 +5,8 @@ WORKDIR /build
 
 RUN uname -a \
   && node -v \
+  && ls \
+  && pwd \
   && npm ci \
   && npm run build:all \
   && ls -la lib/zetasql \
