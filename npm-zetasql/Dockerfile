@@ -4,9 +4,7 @@ ADD . /build
 WORKDIR /build
 
 RUN uname -a \
-  && node -v \
-  && ls \
-  && pwd \
+  && ls ./lib/test \
   && npm ci \
   && npm run build:all \
   && ls -la lib/zetasql \
