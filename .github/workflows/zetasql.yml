@@ -54,7 +54,6 @@ jobs:
           key: ${{ matrix.os }}-${{ steps.vars.outputs.sha_short }}-3
 
       - name: Install Bazel
-        if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
         uses: abhinavsingh/setup-bazel@v3
         with:
           version: 4.1.0
