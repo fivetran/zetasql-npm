@@ -24,13 +24,13 @@ jobs:
             working-directory: build/zetasql-macos
             cache-path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
             build-commands: |
-              npx @bazel/bazelisk build --copt "-O3" --config=clang //zetasql/local_service:libremote_server.dylib
+              bazel build --config=clang --copt "-O3" //zetasql/local_service:libremote_server.dylib
               install_name_tool -id "@loader_path/libremote_server.dylib" bazel-bin/zetasql/local_service/libremote_server.dylib
 
           - os: ubuntu-latest
             working-directory: build/zetasql-linux
             cache-path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
-            build-commands: npx @bazel/bazelisk build --copt "-O3" //zetasql/local_service:libremote_server.so
+            build-commands: bazel build //zetasql/local_service:libremote_server.so
 
     steps:
       - name: Checkout zetasql
@@ -52,6 +52,12 @@ jobs:
         with:
           path: ${{ matrix.cache-path }}
           key: ${{ matrix.os }}-${{ steps.vars.outputs.sha_short }}-2
+
+      - name: Install Bazel
+        if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
+        uses: abhinavsingh/setup-bazel@v3
+        with:
+          version: 4.1.0
 
       - name: Build
         if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
