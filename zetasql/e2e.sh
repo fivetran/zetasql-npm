@@ -1,7 +1,6 @@
 #!/bin/bash
 printf "Running e2e tests.\n"
 
-
 expectedResult="Running server on 0.0.0.0:50005...
 Server listening on 0.0.0.0:50005
 Init...
