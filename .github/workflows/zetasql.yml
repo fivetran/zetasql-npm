@@ -30,7 +30,7 @@ jobs:
           - os: ubuntu-latest
             working-directory: build/zetasql-linux
             cache-path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
-            build-commands: bazel build //zetasql/local_service:libremote_server.so
+            build-commands: bazel build --copt "-O3" //zetasql/local_service:libremote_server.so
 
     steps:
       - name: Checkout zetasql
