@@ -27,7 +27,7 @@ jobs:
               npx @bazel/bazelisk build --copt "-O3" --config=clang //zetasql/local_service:libremote_server.dylib
               install_name_tool -id "@loader_path/libremote_server.dylib" bazel-bin/zetasql/local_service/libremote_server.dylib
 
-          - os: ubuntu-latest
+          - os: ubuntu-20.04
             working-directory: build/zetasql-linux
             cache-path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
             build-commands: npx @bazel/bazelisk build --copt "-O3" //zetasql/local_service:libremote_server.so
@@ -51,7 +51,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ matrix.cache-path }}
-          key: ${{ matrix.os }}-${{ steps.vars.outputs.sha_short }}-5
+          key: ${{ matrix.os }}-${{ steps.vars.outputs.sha_short }}-6
 
       - name: Build
         if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
@@ -66,7 +66,7 @@ jobs:
           path: ${{ matrix.cache-path }}
 
   package:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs: build
     steps:
       - name: Checkout zetasql-npm
@@ -78,13 +78,13 @@ jobs:
         uses: actions/cache@v2
         with:
           path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
-          key: ubuntu-latest-${{ needs.build.outputs.sha_short }}-5
+          key: ubuntu-20.04-${{ needs.build.outputs.sha_short }}-6
 
       - name: Load build macos
         uses: actions/cache@v2
         with:
           path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
-          key: macos-latest-${{ needs.build.outputs.sha_short }}-5
+          key: macos-latest-${{ needs.build.outputs.sha_short }}-6
 
       - name: Copy files
         working-directory: build
@@ -133,7 +133,7 @@ jobs:
 
   e2e-linux:
     needs: package
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
       - name: set up QEMU
@@ -160,7 +160,7 @@ jobs:
         run: docker buildx build --platform=linux/amd64,linux/arm64 --progress=plain --no-cache .
 
   publish-npm:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     if: startsWith(github.ref, 'refs/tags/v')
     needs: [build, package, e2e-macos, e2e-linux]
     steps:
@@ -183,14 +183,14 @@ jobs:
   update-lib-archives:
     needs: build
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout zetasql-npm
         uses: actions/checkout@v2
 
       - uses: actions/download-artifact@v3
         with:
-          name: zetasql-ubuntu-latest
+          name: zetasql-ubuntu-20.04
 
       - uses: actions/download-artifact@v3
         with:
