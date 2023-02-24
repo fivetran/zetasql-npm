@@ -119,7 +119,7 @@ jobs:
       - name: load package results
         uses: actions/cache@v2
         with:
-          path: build/zetasql-npm/zetasql
+          path: build/zetasql-npm/snowflake
           key: package-results-${{ github.sha }}-${{ github.ref }}
 
       - name: delete libraries for other platforms
