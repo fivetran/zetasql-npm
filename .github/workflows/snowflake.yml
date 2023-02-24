@@ -5,7 +5,7 @@ on:
     branches:
     tags:
     paths:
-      - "zetasql/**"
+      - "snowflake/**"
       - ".github/workflows/snowflake.yml"
 
   workflow_dispatch:
