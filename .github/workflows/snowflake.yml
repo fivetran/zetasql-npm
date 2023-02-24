@@ -91,8 +91,8 @@ jobs:
         run: |
           mkdir -p zetasql-npm/snowflake/lib/zetasql
           cp zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib zetasql-npm/snowflake/lib/zetasql/
-          tar -xzvf zetasql-npm/snowflake/zetasql-bin/darwin-arm-64/libremote_server_arm.dylib.tar.gz -C zetasql-npm/snowflake/lib/zetasql/
-          tar -xzvf zetasql-npm/snowflake/zetasql-bin/linux-arm-64/libremote_server_arm.so.tar.gz -C zetasql-npm/snowflake/lib/zetasql/
+          tar -xzvf zetasql-npm/snowflake/snowflake-bin/darwin-arm-64/libremote_server_arm.dylib.tar.gz -C zetasql-npm/snowflake/lib/zetasql/
+          tar -xzvf zetasql-npm/snowflake/snowflake-bin/linux-arm-64/libremote_server_arm.so.tar.gz -C zetasql-npm/snowflake/lib/zetasql/
           cp zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so zetasql-npm/snowflake/lib/zetasql/
           cp -R zetasql-npm/snowflake/src/protos zetasql-npm/snowflake/lib/protos
 
@@ -190,11 +190,11 @@ jobs:
 
       - uses: actions/download-artifact@v3
         with:
-          name: snowflake-ubuntu-20.04
+          name: zetasql-snowflake-ubuntu-20.04
 
       - uses: actions/download-artifact@v3
         with:
-          name: snowflake-macos-latest
+          name: zetasql-snowflake-macos-latest
 
       - run: |
           mkdir -p old
