@@ -161,7 +161,7 @@ jobs:
 
   publish-npm:
     runs-on: ubuntu-20.04
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/tags/sf-v')
     needs: [build, package, e2e-macos, e2e-linux]
     steps:
       - name: Load package results
