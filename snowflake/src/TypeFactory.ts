@@ -34,6 +34,18 @@ export abstract class TypeFactory {
     ['numeric', TypeKind.TYPE_NUMERIC], // external
     ['bignumeric', TypeKind.TYPE_BIGNUMERIC], // external
     ['json', TypeKind.TYPE_JSON], // external
+
+    // Snowflake types
+    ['int', TypeKind.TYPE_INT64], // external
+    ['integer', TypeKind.TYPE_INT64], // external
+    ['bigint', TypeKind.TYPE_INT64], // external
+    ['smallint', TypeKind.TYPE_INT64], // external
+    ['tinyint', TypeKind.TYPE_INT64], // external
+    ['byteint', TypeKind.TYPE_INT64], // external
+    ['float4', TypeKind.TYPE_DOUBLE], // external
+    ['float8', TypeKind.TYPE_DOUBLE], // external
+    ['double precision', TypeKind.TYPE_DOUBLE], // external
+    ['real', TypeKind.TYPE_DOUBLE], // external
   ]);
 
   static EXTERNAL_MODE_SIMPLE_TYPE_KIND_NAMES = new Set([
@@ -53,6 +65,17 @@ export abstract class TypeFactory {
     'bignumeric',
     'json',
     'tokenlist',
+    // Snowflake types
+    'int',
+    'integer',
+    'bigint',
+    'smallint',
+    'tinyint',
+    'byteint',
+    'float4',
+    'float8',
+    'double precision',
+    'real',
   ]);
 
   static SIMPLE_TYPE_KINDS = new Set<TypeKind>(TypeFactory.SIMPLE_TYPE_KIND_NAMES.values());

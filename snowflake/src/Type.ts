@@ -48,5 +48,17 @@ export abstract class Type {
     'JSON',
     'INTERVAL',
     'TOKENLIST',
+
+    // Snowflake types
+    'INT',
+    'INTEGER',
+    'BIGINT',
+    'SMALLINT',
+    'TINYINT',
+    'BYTEINT',
+    'FLOAT4',
+    'FLOAT8',
+    'DOUBLE PRECISION',
+    'REAL',
   ];
 }
