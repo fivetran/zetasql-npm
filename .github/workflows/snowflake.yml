@@ -157,7 +157,7 @@ jobs:
 
       - name: run e2e test
         working-directory: build/zetasql-npm/snowflake
-        run: docker buildx build --platform=linux/amd64,linux/arm64 --progress=plain --no-cache .
+        run: docker buildx build --platform=linux/amd64 --progress=plain --no-cache .
 
   publish-npm:
     runs-on: ubuntu-20.04
