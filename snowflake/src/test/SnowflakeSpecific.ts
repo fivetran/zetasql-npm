@@ -1,4 +1,13 @@
-import { runServer, SimpleCatalog, terminateServer, ZetaSQLClient } from '..';
+import {
+  runServer,
+  SimpleCatalog,
+  SimpleColumn,
+  SimpleTable,
+  SimpleType,
+  terminateServer,
+  TypeKind,
+  ZetaSQLClient,
+} from '..';
 import { LanguageOptions } from '../LanguageOptions';
 import { AnalyzeResponse__Output } from '../types/zetasql/local_service/AnalyzeResponse';
 import { ProductMode } from '../types/zetasql/ProductMode';
@@ -52,6 +61,17 @@ async function registerAllLanguageFeatures(): Promise<void> {
     languageOptions.options.productMode = ProductMode.PRODUCT_INTERNAL;
     languageOptions.options.supportedStatementKinds = [ResolvedNodeKind.RESOLVED_QUERY_STMT];
     await catalog.addZetaSQLFunctions(new ZetaSQLBuiltinFunctionOptions(languageOptions));
+
+    const simpleTableA = new SimpleTable('table_a');
+    const column1 = new SimpleColumn('table_a', 'id', new SimpleType(TypeKind.TYPE_STRING));
+    simpleTableA.addSimpleColumn(column1);
+
+    const simpleTableB = new SimpleTable('table_b');
+    const column2 = new SimpleColumn('table_b', 'id', new SimpleType(TypeKind.TYPE_STRING));
+    simpleTableB.addSimpleColumn(column2);
+
+    catalog.addSimpleTable('table_a', simpleTableA);
+    catalog.addSimpleTable('table_b', simpleTableB);
   }
 }
 
