@@ -5,8 +5,8 @@ on:
     branches:
     tags:
     paths:
-      - "snowflake/**"
-      - ".github/workflows/snowflake.yml"
+      - 'snowflake/**'
+      - '.github/workflows/snowflake.yml'
 
   workflow_dispatch:
 
@@ -171,8 +171,8 @@ jobs:
           key: package-results-${{ github.sha }}-${{ github.ref }}
       - uses: actions/setup-node@v2
         with:
-          node-version: "14.x"
-          registry-url: "https://registry.npmjs.org"
+          node-version: '14.x'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Publish
         working-directory: build/zetasql-npm/snowflake
@@ -211,5 +211,5 @@ jobs:
 
       - uses: EndBug/add-and-commit@v9
         with:
-          add: "snowflake/snowflake-bin"
-          message: "update artifacts"
+          add: 'snowflake/snowflake-bin'
+          message: 'update artifacts'
