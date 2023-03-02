@@ -1,0 +1,3117 @@
+//
+// Copyright 2019 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+syntax = "proto2";
+
+package zetasql;
+option java_package = "com.google.zetasql.parser";
+option java_multiple_files = true;
+
+import "zetasql/parser/ast_enums.proto";
+import "zetasql/public/parse_location_range.proto";
+import "zetasql/public/type.proto";
+
+// clang-format off
+
+// AnyASTNodeProto holds one of the direct subclasses of ASTNode
+message AnyASTNodeProto {
+  oneof node {
+    AnyASTStatementProto ast_statement_node = 1;
+    AnyASTQueryExpressionProto ast_query_expression_node = 3;
+    ASTSelectListProto ast_select_list_node = 6;
+    ASTSelectColumnProto ast_select_column_node = 7;
+    AnyASTExpressionProto ast_expression_node = 8;
+    ASTAliasProto ast_alias_node = 12;
+    AnyASTTableExpressionProto ast_table_expression_node = 15;
+    ASTFromClauseProto ast_from_clause_node = 17;
+    ASTWhereClauseProto ast_where_clause_node = 18;
+    ASTGroupingItemProto ast_grouping_item_node = 25;
+    ASTGroupByProto ast_group_by_node = 26;
+    ASTOrderingExpressionProto ast_ordering_expression_node = 27;
+    ASTOrderByProto ast_order_by_node = 28;
+    ASTLimitOffsetProto ast_limit_offset_node = 29;
+    ASTOnClauseProto ast_on_clause_node = 32;
+    ASTWithClauseEntryProto ast_with_clause_entry_node = 33;
+    ASTWithClauseProto ast_with_clause_node = 35;
+    ASTHavingProto ast_having_node = 36;
+    AnyASTTypeProto ast_type_node = 37;
+    ASTStructFieldProto ast_struct_field_node = 40;
+    ASTSelectAsProto ast_select_as_node = 43;
+    ASTRollupProto ast_rollup_node = 44;
+    ASTStructConstructorArgProto ast_struct_constructor_arg_node = 47;
+    ASTInListProto ast_in_list_node = 51;
+    ASTCollateProto ast_collate_node = 63;
+    ASTHavingModifierProto ast_having_modifier_node = 70;
+    ASTNullOrderProto ast_null_order_node = 73;
+    ASTOnOrUsingClauseListProto ast_on_or_using_clause_list_node = 74;
+    ASTPartitionByProto ast_partition_by_node = 76;
+    ASTStarExceptListProto ast_star_except_list_node = 78;
+    ASTStarModifiersProto ast_star_modifiers_node = 79;
+    ASTStarReplaceItemProto ast_star_replace_item_node = 80;
+    ASTUnnestExpressionProto ast_unnest_expression_node = 84;
+    ASTWindowClauseProto ast_window_clause_node = 85;
+    ASTWindowDefinitionProto ast_window_definition_node = 86;
+    ASTWindowFrameProto ast_window_frame_node = 87;
+    ASTWindowFrameExprProto ast_window_frame_expr_node = 88;
+    ASTWindowSpecificationProto ast_window_specification_node = 90;
+    ASTWithOffsetProto ast_with_offset_node = 91;
+    ASTAnySomeAllOpProto ast_any_some_all_op_node = 92;
+    ASTStatementListProto ast_statement_list_node = 94;
+    AnyASTTransactionModeProto ast_transaction_mode_node = 100;
+    ASTTransactionModeListProto ast_transaction_mode_list_node = 103;
+    ASTWithConnectionClauseProto ast_with_connection_clause_node = 122;
+    ASTIntoAliasProto ast_into_alias_node = 123;
+    ASTUnnestExpressionWithOptAliasAndOffsetProto ast_unnest_expression_with_opt_alias_and_offset_node = 124;
+    ASTPivotExpressionProto ast_pivot_expression_node = 125;
+    ASTPivotValueProto ast_pivot_value_node = 126;
+    ASTPivotExpressionListProto ast_pivot_expression_list_node = 127;
+    ASTPivotValueListProto ast_pivot_value_list_node = 128;
+    ASTPivotClauseProto ast_pivot_clause_node = 129;
+    ASTUnpivotInItemProto ast_unpivot_in_item_node = 130;
+    ASTUnpivotInItemListProto ast_unpivot_in_item_list_node = 131;
+    ASTUnpivotClauseProto ast_unpivot_clause_node = 132;
+    ASTUsingClauseProto ast_using_clause_node = 133;
+    ASTForSystemTimeProto ast_for_system_time_node = 134;
+    ASTQualifyProto ast_qualify_node = 135;
+    ASTClampedBetweenModifierProto ast_clamped_between_modifier_node = 136;
+    ASTFormatClauseProto ast_format_clause_node = 137;
+    ASTPathExpressionListProto ast_path_expression_list_node = 138;
+    ASTWithGroupRowsProto ast_with_group_rows_node = 141;
+    ASTClusterByProto ast_cluster_by_node = 145;
+    ASTNewConstructorArgProto ast_new_constructor_arg_node = 146;
+    ASTOptionsListProto ast_options_list_node = 148;
+    ASTOptionsEntryProto ast_options_entry_node = 149;
+    ASTFunctionParameterProto ast_function_parameter_node = 151;
+    ASTFunctionParametersProto ast_function_parameters_node = 152;
+    ASTFunctionDeclarationProto ast_function_declaration_node = 153;
+    ASTSqlFunctionBodyProto ast_sql_function_body_node = 154;
+    ASTTVFArgumentProto ast_tvf_argument_node = 155;
+    ASTTableClauseProto ast_table_clause_node = 157;
+    ASTModelClauseProto ast_model_clause_node = 158;
+    ASTConnectionClauseProto ast_connection_clause_node = 159;
+    ASTCloneDataSourceListProto ast_clone_data_source_list_node = 163;
+    ASTTransformClauseProto ast_transform_clause_node = 169;
+    ASTIndexItemListProto ast_index_item_list_node = 172;
+    ASTIndexStoringExpressionListProto ast_index_storing_expression_list_node = 173;
+    ASTIndexUnnestExpressionListProto ast_index_unnest_expression_list_node = 174;
+    ASTWithPartitionColumnsClauseProto ast_with_partition_columns_clause_node = 180;
+    ASTTypeParameterListProto ast_type_parameter_list_node = 182;
+    ASTTVFSchemaProto ast_tvf_schema_node = 183;
+    ASTTVFSchemaColumnProto ast_tvf_schema_column_node = 184;
+    ASTTableAndColumnInfoProto ast_table_and_column_info_node = 185;
+    ASTTableAndColumnInfoListProto ast_table_and_column_info_list_node = 186;
+    ASTTemplatedParameterTypeProto ast_templated_parameter_type_node = 187;
+    ASTAssertRowsModifiedProto ast_assert_rows_modified_node = 191;
+    ASTReturningClauseProto ast_returning_clause_node = 192;
+    AnyASTColumnAttributeProto ast_column_attribute_node = 194;
+    ASTColumnAttributeListProto ast_column_attribute_list_node = 199;
+    ASTStructColumnFieldProto ast_struct_column_field_node = 200;
+    ASTGeneratedColumnInfoProto ast_generated_column_info_node = 201;
+    AnyASTTableElementProto ast_table_element_node = 202;
+    ASTTableElementListProto ast_table_element_list_node = 204;
+    ASTColumnListProto ast_column_list_node = 205;
+    ASTColumnPositionProto ast_column_position_node = 206;
+    ASTInsertValuesRowProto ast_insert_values_row_node = 207;
+    ASTInsertValuesRowListProto ast_insert_values_row_list_node = 208;
+    ASTUpdateSetValueProto ast_update_set_value_node = 210;
+    ASTUpdateItemProto ast_update_item_node = 211;
+    ASTUpdateItemListProto ast_update_item_list_node = 212;
+    ASTMergeActionProto ast_merge_action_node = 215;
+    ASTMergeWhenClauseProto ast_merge_when_clause_node = 216;
+    ASTMergeWhenClauseListProto ast_merge_when_clause_list_node = 217;
+    ASTPrivilegeProto ast_privilege_node = 219;
+    ASTPrivilegesProto ast_privileges_node = 220;
+    ASTGranteeListProto ast_grantee_list_node = 221;
+    ASTRepeatableClauseProto ast_repeatable_clause_node = 224;
+    ASTFilterFieldsArgProto ast_filter_fields_arg_node = 225;
+    ASTReplaceFieldsArgProto ast_replace_fields_arg_node = 227;
+    ASTSampleSizeProto ast_sample_size_node = 229;
+    ASTWithWeightProto ast_with_weight_node = 230;
+    ASTSampleSuffixProto ast_sample_suffix_node = 231;
+    ASTSampleClauseProto ast_sample_clause_node = 232;
+    AnyASTAlterActionProto ast_alter_action_node = 233;
+    ASTAlterActionListProto ast_alter_action_list_node = 252;
+    ASTForeignKeyActionsProto ast_foreign_key_actions_node = 254;
+    ASTForeignKeyReferenceProto ast_foreign_key_reference_node = 255;
+    ASTScriptProto ast_script_node = 256;
+    ASTElseifClauseProto ast_elseif_clause_node = 257;
+    ASTElseifClauseListProto ast_elseif_clause_list_node = 258;
+    ASTWhenThenClauseProto ast_when_then_clause_node = 260;
+    ASTWhenThenClauseListProto ast_when_then_clause_list_node = 261;
+    ASTHintProto ast_hint_node = 263;
+    ASTHintEntryProto ast_hint_entry_node = 264;
+    ASTUnpivotInItemLabelProto ast_unpivot_in_item_label_node = 265;
+    ASTDescriptorProto ast_descriptor_node = 266;
+    AnyASTColumnSchemaProto ast_column_schema_node = 267;
+    ASTDescriptorColumnProto ast_descriptor_column_node = 274;
+    ASTDescriptorColumnListProto ast_descriptor_column_list_node = 275;
+    ASTExceptionHandlerProto ast_exception_handler_node = 278;
+    ASTExceptionHandlerListProto ast_exception_handler_list_node = 279;
+    ASTIdentifierListProto ast_identifier_list_node = 281;
+    ASTUntilClauseProto ast_until_clause_node = 283;
+    ASTExecuteIntoClauseProto ast_execute_into_clause_node = 318;
+    ASTExecuteUsingArgumentProto ast_execute_using_argument_node = 319;
+    ASTExecuteUsingClauseProto ast_execute_using_clause_node = 320;
+    ASTBracedConstructorFieldProto ast_braced_constructor_field_node = 331;
+    ASTWithReportModifierProto ast_with_report_modifier_node = 334;
+    ASTLocationProto ast_location_node = 337;
+    ASTAuxLoadDataFromFilesOptionsListProto ast_aux_load_data_from_files_options_list_node = 341;
+    ASTLabelProto ast_label_node = 343;
+    ASTPrimaryKeyElementProto ast_primary_key_element_node = 344;
+    ASTPrimaryKeyElementListProto ast_primary_key_element_list_node = 345;
+    ASTSpannerTableOptionsProto ast_spanner_table_options_node = 346;
+    ASTSpannerInterleaveClauseProto ast_spanner_interleave_clause_node = 347;
+    ASTTtlClauseProto ast_ttl_clause_node = 348;
+    ASTInputOutputClauseProto ast_input_output_clause_node = 355;
+    ASTTopProto ast_top_node = 364;
+    ASTGroupingSetsProto ast_grouping_sets_node = 365;
+    ASTOffsetFetchProto ast_offset_fetch_node = 366;
+    ASTCubeProto ast_cube_node = 367;
+  }
+}
+
+message ASTNodeProto {
+  optional ParseLocationRangeProto parse_location_range = 1;
+}
+
+// Each class ASTFoo has a corresponding proto message ASTFooProto.
+// If ASTFoo is abstract, it additionally has a message AnyASTFooProto.
+
+// Superclass of all Statements.
+message AnyASTStatementProto {
+  oneof node {
+    ASTQueryStatementProto ast_query_statement_node = 2;
+    AnyASTScriptStatementProto ast_script_statement_node = 95;
+    ASTHintedStatementProto ast_hinted_statement_node = 96;
+    ASTExplainStatementProto ast_explain_statement_node = 97;
+    ASTDescribeStatementProto ast_describe_statement_node = 98;
+    ASTShowStatementProto ast_show_statement_node = 99;
+    ASTBeginStatementProto ast_begin_statement_node = 104;
+    ASTSetTransactionStatementProto ast_set_transaction_statement_node = 105;
+    ASTCommitStatementProto ast_commit_statement_node = 106;
+    ASTRollbackStatementProto ast_rollback_statement_node = 107;
+    ASTStartBatchStatementProto ast_start_batch_statement_node = 108;
+    ASTRunBatchStatementProto ast_run_batch_statement_node = 109;
+    ASTAbortBatchStatementProto ast_abort_batch_statement_node = 110;
+    AnyASTDdlStatementProto ast_ddl_statement_node = 111;
+    ASTDropAllRowAccessPoliciesStatementProto ast_drop_all_row_access_policies_statement_node = 115;
+    ASTRenameStatementProto ast_rename_statement_node = 119;
+    ASTImportStatementProto ast_import_statement_node = 120;
+    ASTModuleStatementProto ast_module_statement_node = 121;
+    ASTCloneDataStatementProto ast_clone_data_statement_node = 164;
+    ASTCreateDatabaseStatementProto ast_create_database_statement_node = 166;
+    ASTExportDataStatementProto ast_export_data_statement_node = 176;
+    ASTExportModelStatementProto ast_export_model_statement_node = 177;
+    ASTCallStatementProto ast_call_statement_node = 178;
+    ASTDefineTableStatementProto ast_define_table_statement_node = 179;
+    ASTAnalyzeStatementProto ast_analyze_statement_node = 189;
+    ASTAssertStatementProto ast_assert_statement_node = 190;
+    ASTDeleteStatementProto ast_delete_statement_node = 193;
+    ASTInsertStatementProto ast_insert_statement_node = 209;
+    ASTUpdateStatementProto ast_update_statement_node = 213;
+    ASTTruncateStatementProto ast_truncate_statement_node = 214;
+    ASTMergeStatementProto ast_merge_statement_node = 218;
+    ASTGrantStatementProto ast_grant_statement_node = 222;
+    ASTRevokeStatementProto ast_revoke_statement_node = 223;
+    ASTAlterAllRowAccessPoliciesStatementProto ast_alter_all_row_access_policies_statement_node = 253;
+    ASTParameterAssignmentProto ast_parameter_assignment_node = 292;
+    ASTSystemVariableAssignmentProto ast_system_variable_assignment_node = 293;
+    ASTExecuteImmediateStatementProto ast_execute_immediate_statement_node = 321;
+  }
+}
+message ASTStatementProto {
+  optional ASTNodeProto parent = 1;
+}
+
+// Represents a single query statement.
+message ASTQueryStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional ASTQueryProto query = 2;
+}
+
+// Superclass for all query expressions.  These are top-level syntactic
+// constructs (outside individual SELECTs) making up a query.  These include
+// Query itself, Select, UnionAll, etc.
+message AnyASTQueryExpressionProto {
+  oneof node {
+    ASTQueryProto ast_query_node = 4;
+    ASTSelectProto ast_select_node = 5;
+    ASTSetOperationProto ast_set_operation_node = 77;
+  }
+}
+message ASTQueryExpressionProto {
+  optional ASTNodeProto parent = 1;
+  optional bool parenthesized = 2;
+}
+
+message ASTQueryProto {
+  optional ASTQueryExpressionProto parent = 1;
+  // If present, the WITH clause wrapping this query.
+  optional ASTWithClauseProto with_clause = 2;
+  // The query_expr can be a single Select, or a more complex structure
+  // composed out of nodes like SetOperation and Query.
+  optional AnyASTQueryExpressionProto query_expr = 3;
+  // If present, applies to the result of <query_expr_> as appropriate.
+  optional ASTOrderByProto order_by = 4;
+  // If present, this applies after the result of <query_expr_> and
+  // <order_by_>.
+  optional ASTLimitOffsetProto limit_offset = 5;
+  // If present, this applies after the result of <query_expr_> and
+  // <order_by_>.
+  optional ASTOffsetFetchProto offset_fetch = 6;
+  optional bool is_nested = 7;
+  // True if this query represents the input to a pivot clause.
+  optional bool is_pivot_input = 8;
+}
+
+message ASTSelectProto {
+  optional ASTQueryExpressionProto parent = 1;
+  optional ASTHintProto hint = 2;
+  optional ASTTopProto top = 3;
+  optional ASTOptionsListProto anonymization_options = 4;
+  optional bool distinct = 5;
+  optional ASTSelectAsProto select_as = 6;
+  optional ASTSelectListProto select_list = 7;
+  optional ASTFromClauseProto from_clause = 8;
+  optional ASTWhereClauseProto where_clause = 9;
+  optional ASTGroupByProto group_by = 10;
+  optional ASTHavingProto having = 11;
+  optional ASTQualifyProto qualify = 12;
+  optional ASTWindowClauseProto window_clause = 13;
+}
+
+message ASTSelectListProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTSelectColumnProto columns = 2;
+}
+
+message ASTSelectColumnProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto expression = 2;
+  optional ASTAliasProto alias = 3;
+}
+
+message AnyASTExpressionProto {
+  oneof node {
+    AnyASTLeafProto ast_leaf_node = 9;
+    ASTIdentifierProto ast_identifier_node = 11;
+    AnyASTGeneralizedPathExpressionProto ast_generalized_path_expression_node = 13;
+    ASTAndExprProto ast_and_expr_node = 20;
+    ASTBinaryExpressionProto ast_binary_expression_node = 21;
+    ASTOrExprProto ast_or_expr_node = 24;
+    ASTCastExpressionProto ast_cast_expression_node = 42;
+    ASTFunctionCallProto ast_function_call_node = 45;
+    ASTArrayConstructorProto ast_array_constructor_node = 46;
+    ASTStructConstructorWithParensProto ast_struct_constructor_with_parens_node = 48;
+    ASTStructConstructorWithKeywordProto ast_struct_constructor_with_keyword_node = 49;
+    ASTInExpressionProto ast_in_expression_node = 50;
+    ASTBetweenExpressionProto ast_between_expression_node = 52;
+    ASTDateOrTimeLiteralProto ast_date_or_time_literal_node = 56;
+    ASTCaseValueExpressionProto ast_case_value_expression_node = 59;
+    ASTCaseNoValueExpressionProto ast_case_no_value_expression_node = 60;
+    ASTBitwiseShiftExpressionProto ast_bitwise_shift_expression_node = 62;
+    ASTDotStarProto ast_dot_star_node = 66;
+    ASTDotStarWithModifiersProto ast_dot_star_with_modifiers_node = 67;
+    ASTExpressionSubqueryProto ast_expression_subquery_node = 68;
+    ASTExtractExpressionProto ast_extract_expression_node = 69;
+    ASTIntervalExprProto ast_interval_expr_node = 71;
+    ASTNamedArgumentProto ast_named_argument_node = 72;
+    ASTStarWithModifiersProto ast_star_with_modifiers_node = 81;
+    ASTUnaryExpressionProto ast_unary_expression_node = 83;
+    ASTLikeExpressionProto ast_like_expression_node = 89;
+    AnyASTParameterExprBaseProto ast_parameter_expr_base_node = 93;
+    ASTLambdaProto ast_lambda_node = 142;
+    ASTAnalyticFunctionCallProto ast_analytic_function_call_node = 143;
+    ASTFunctionCallWithGroupRowsProto ast_function_call_with_group_rows_node = 144;
+    ASTNewConstructorProto ast_new_constructor_node = 147;
+    ASTDefaultLiteralProto ast_default_literal_node = 188;
+    ASTReplaceFieldsExpressionProto ast_replace_fields_expression_node = 228;
+    ASTBracedConstructorFieldValueProto ast_braced_constructor_field_value_node = 330;
+    ASTBracedConstructorProto ast_braced_constructor_node = 332;
+    ASTBracedNewConstructorProto ast_braced_new_constructor_node = 333;
+    ASTWithExpressionProto ast_with_expression_node = 335;
+    ASTRangeLiteralProto ast_range_literal_node = 354;
+  }
+}
+message ASTExpressionProto {
+  optional ASTNodeProto parent = 1;
+  optional bool parenthesized = 2;
+}
+
+message AnyASTLeafProto {
+  oneof node {
+    ASTIntLiteralProto ast_int_literal_node = 10;
+    ASTBooleanLiteralProto ast_boolean_literal_node = 19;
+    ASTStringLiteralProto ast_string_literal_node = 22;
+    ASTStarProto ast_star_node = 23;
+    ASTFloatLiteralProto ast_float_literal_node = 30;
+    ASTNullLiteralProto ast_null_literal_node = 31;
+    ASTNumericLiteralProto ast_numeric_literal_node = 53;
+    ASTBigNumericLiteralProto ast_bignumeric_literal_node = 54;
+    ASTBytesLiteralProto ast_bytes_literal_node = 55;
+    ASTMaxLiteralProto ast_max_literal_node = 57;
+    ASTJSONLiteralProto ast_json_literal_node = 58;
+    ASTIndexAllColumnsProto ast_index_all_columns_node = 171;
+  }
+}
+message ASTLeafProto {
+  optional ASTExpressionProto parent = 1;
+  optional string image = 2;
+}
+
+message ASTIntLiteralProto {
+  optional ASTLeafProto parent = 1;
+}
+
+message ASTIdentifierProto {
+  optional ASTExpressionProto parent = 1;
+  optional string id_string = 2;
+}
+
+message ASTAliasProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTIdentifierProto identifier = 2;
+}
+
+// Parent class that corresponds to the subset of ASTExpression nodes that are
+// allowed by the <generalized_path_expression> grammar rule. It allows for some
+// extra type safety vs. simply passing around ASTExpression as
+// <generalized_path_expression>s.
+//
+// Only the following node kinds are allowed:
+// - AST_PATH_EXPRESSION
+// - AST_DOT_GENERALIZED_FIELD where the left hand side is a
+//   <generalized_path_expression>.
+// - AST_DOT_IDENTIFIER where the left hand side is a
+//   <generalized_path_expression>.
+// - AST_ARRAY_ELEMENT where the left hand side is a
+//   <generalized_path_expression>
+//
+// Note that the type system does not capture the "pureness constraint" that,
+// e.g., the left hand side of an AST_DOT_GENERALIZED_FIELD must be a
+// <generalized_path_expression> in order for the node. However, it is still
+// considered a bug to create a variable with type ASTGeneralizedPathExpression
+// that does not satisfy the pureness constraint (similarly, it is considered a
+// bug to call a function with an ASTGeneralizedPathExpression argument that
+// does not satisfy the pureness constraint).
+message AnyASTGeneralizedPathExpressionProto {
+  oneof node {
+    ASTPathExpressionProto ast_path_expression_node = 14;
+    ASTArrayElementProto ast_array_element_node = 61;
+    ASTDotGeneralizedFieldProto ast_dot_generalized_field_node = 64;
+    ASTDotIdentifierProto ast_dot_identifier_node = 65;
+  }
+}
+message ASTGeneralizedPathExpressionProto {
+  optional ASTExpressionProto parent = 1;
+}
+
+// This is used for dotted identifier paths only, not dotting into
+// arbitrary expressions (see ASTDotIdentifier below).
+message ASTPathExpressionProto {
+  optional ASTGeneralizedPathExpressionProto parent = 1;
+  repeated ASTIdentifierProto names = 2;
+}
+
+// Superclass for all table expressions.  These are things that appear in the
+// from clause and produce a stream of rows like a table.
+// This includes table scans, joins and subqueries.
+message AnyASTTableExpressionProto {
+  oneof node {
+    ASTTablePathExpressionProto ast_table_path_expression_node = 16;
+    ASTJoinProto ast_join_node = 34;
+    ASTParenthesizedJoinProto ast_parenthesized_join_node = 75;
+    ASTTableSubqueryProto ast_table_subquery_node = 82;
+    ASTTVFProto ast_tvf_node = 156;
+    AnyASTTableDataSourceProto ast_table_data_source_node = 160;
+  }
+}
+message ASTTableExpressionProto {
+  optional ASTNodeProto parent = 1;
+}
+
+// TablePathExpression are the TableExpressions that introduce a single scan,
+// referenced by a path expression or UNNEST, and can optionally have
+// aliases, hints, and WITH OFFSET.
+message ASTTablePathExpressionProto {
+  optional ASTTableExpressionProto parent = 1;
+  // Exactly one of path_exp or unnest_expr must be non-NULL.
+  optional ASTPathExpressionProto path_expr = 2;
+  optional ASTUnnestExpressionProto unnest_expr = 3;
+  optional ASTHintProto hint = 4;
+  optional ASTAliasProto alias = 5;
+  // Present if the scan had WITH OFFSET.
+  optional ASTWithOffsetProto with_offset = 6;
+  // At most one of pivot_clause or unpivot_clause can be present.
+  optional ASTPivotClauseProto pivot_clause = 7;
+  optional ASTUnpivotClauseProto unpivot_clause = 8;
+  optional ASTForSystemTimeProto for_system_time = 9;
+  optional ASTSampleClauseProto sample_clause = 10;
+}
+
+message ASTFromClauseProto {
+  optional ASTNodeProto parent = 1;
+  // A FromClause has exactly one TableExpression child.
+  // If the FROM clause has commas, they will be expressed as a tree
+  // of ASTJoin nodes with join_type=COMMA.
+  optional AnyASTTableExpressionProto table_expression = 2;
+}
+
+message ASTWhereClauseProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto expression = 2;
+}
+
+message ASTBooleanLiteralProto {
+  optional ASTLeafProto parent = 1;
+  optional bool value = 2;
+}
+
+message ASTAndExprProto {
+  optional ASTExpressionProto parent = 1;
+  repeated AnyASTExpressionProto conjuncts = 2;
+}
+
+message ASTBinaryExpressionProto {
+  optional ASTExpressionProto parent = 1;
+  // See description of Op values in ast_enums.proto.
+  optional ASTBinaryExpressionEnums.Op op = 2;
+  // Signifies whether the binary operator has a preceding NOT to it.
+  // For NOT LIKE and IS NOT.
+  optional bool is_not = 3;
+  optional AnyASTExpressionProto lhs = 4;
+  optional AnyASTExpressionProto rhs = 5;
+}
+
+message ASTStringLiteralProto {
+  optional ASTLeafProto parent = 1;
+  optional string string_value = 2;
+}
+
+message ASTStarProto {
+  optional ASTLeafProto parent = 1;
+}
+
+message ASTOrExprProto {
+  optional ASTExpressionProto parent = 1;
+  repeated AnyASTExpressionProto disjuncts = 2;
+}
+
+// Represents a grouping item, which is either an expression (a regular
+// group by key) or a rollup list.
+message ASTGroupingItemProto {
+  optional ASTNodeProto parent = 1;
+  // Exactly one of expression() and rollup() will be non-NULL.
+  optional AnyASTExpressionProto expression = 2;
+  optional ASTRollupProto rollup = 3;
+  optional ASTGroupingSetsProto grouping_sets = 4;
+  optional ASTCubeProto cube = 5;
+}
+
+message ASTGroupByProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTHintProto hint = 2;
+  repeated ASTGroupingItemProto grouping_items = 3;
+}
+
+message ASTOrderingExpressionProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto expression = 2;
+  optional ASTCollateProto collate = 3;
+  optional ASTNullOrderProto null_order = 4;
+  optional ASTOrderingExpressionEnums.OrderingSpec ordering_spec = 5;
+}
+
+message ASTOrderByProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTHintProto hint = 2;
+  repeated ASTOrderingExpressionProto ordering_expressions = 3;
+}
+
+message ASTLimitOffsetProto {
+  optional ASTNodeProto parent = 1;
+  // The LIMIT value. Never NULL.
+  optional AnyASTExpressionProto limit = 2;
+  // The OFFSET value. NULL if no OFFSET specified.
+  optional AnyASTExpressionProto offset = 3;
+}
+
+message ASTFloatLiteralProto {
+  optional ASTLeafProto parent = 1;
+}
+
+message ASTNullLiteralProto {
+  optional ASTLeafProto parent = 1;
+}
+
+message ASTOnClauseProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto expression = 2;
+}
+
+message ASTWithClauseEntryProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTIdentifierProto alias = 2;
+  optional ASTQueryProto query = 3;
+}
+
+// Joins could introduce multiple scans and cannot have aliases.
+// It can also represent a JOIN with a list of consecutive ON/USING
+// clauses. Such a JOIN is only for internal use, and will never show up in
+// the final parse tree.
+message ASTJoinProto {
+  optional ASTTableExpressionProto parent = 1;
+  optional AnyASTTableExpressionProto lhs = 2;
+  optional ASTHintProto hint = 3;
+  optional AnyASTTableExpressionProto rhs = 4;
+  optional ASTOnClauseProto on_clause = 5;
+  optional ASTUsingClauseProto using_clause = 6;
+  optional ASTOnOrUsingClauseListProto clause_list = 7;
+  optional ASTJoinEnums.JoinType join_type = 8;
+  optional ASTJoinEnums.JoinHint join_hint = 9;
+  optional bool natural = 10;
+  // unmatched_join_count_ and transformation_needed are for internal use for
+  // handling consecutive ON/USING clauses. They are not used in the final AST.
+  optional int64 unmatched_join_count = 11;
+  optional bool transformation_needed = 12;
+  optional bool contains_comma_join = 13;
+  optional ASTLocationProto join_location = 14;
+  optional bool lateral = 15;
+}
+
+message ASTWithClauseProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTWithClauseEntryProto with = 2;
+  optional bool recursive = 3;
+}
+
+message ASTHavingProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto expression = 2;
+}
+
+message AnyASTTypeProto {
+  oneof node {
+    ASTSimpleTypeProto ast_simple_type_node = 38;
+    ASTArrayTypeProto ast_array_type_node = 39;
+    ASTStructTypeProto ast_struct_type_node = 41;
+    ASTRangeTypeProto ast_range_type_node = 358;
+  }
+}
+message ASTTypeProto {
+  optional ASTNodeProto parent = 1;
+}
+
+// TODO This takes a PathExpression and isn't really a simple type.
+// Calling this NamedType or TypeName may be more appropriate.
+message ASTSimpleTypeProto {
+  optional ASTTypeProto parent = 1;
+  optional ASTPathExpressionProto type_name = 2;
+  optional ASTTypeParameterListProto type_parameters = 3;
+  optional ASTCollateProto collate = 4;
+}
+
+message ASTArrayTypeProto {
+  optional ASTTypeProto parent = 1;
+  optional AnyASTTypeProto element_type = 2;
+  optional ASTTypeParameterListProto type_parameters = 3;
+  optional ASTCollateProto collate = 4;
+}
+
+message ASTStructFieldProto {
+  optional ASTNodeProto parent = 1;
+  // name_ will be NULL for anonymous fields like in STRUCT<int, string>.
+  optional ASTIdentifierProto name = 2;
+  optional AnyASTTypeProto type = 3;
+}
+
+message ASTStructTypeProto {
+  optional ASTTypeProto parent = 1;
+  repeated ASTStructFieldProto struct_fields = 2;
+  optional ASTTypeParameterListProto type_parameters = 3;
+  optional ASTCollateProto collate = 4;
+}
+
+message ASTCastExpressionProto {
+  optional ASTExpressionProto parent = 1;
+  optional AnyASTExpressionProto expr = 2;
+  optional AnyASTTypeProto type = 3;
+  optional ASTFormatClauseProto format = 4;
+  optional bool is_safe_cast = 5;
+}
+
+// This represents a SELECT with an AS clause giving it an output type.
+//   SELECT AS STRUCT ...
+//   SELECT AS VALUE ...
+//   SELECT AS <type_name> ...
+// Exactly one of these is present.
+message ASTSelectAsProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTPathExpressionProto type_name = 2;
+  // Set if as_mode() == kTypeName;
+  optional ASTSelectAsEnums.AsMode as_mode = 3;
+}
+
+message ASTRollupProto {
+  optional ASTNodeProto parent = 1;
+  repeated AnyASTExpressionProto expressions = 2;
+}
+
+message ASTFunctionCallProto {
+  optional ASTExpressionProto parent = 1;
+  optional ASTPathExpressionProto function = 2;
+  repeated AnyASTExpressionProto arguments = 3;
+  optional ASTHavingModifierProto having_modifier = 4;
+  // If present, applies to the inputs of anonymized aggregate functions.
+  optional ASTClampedBetweenModifierProto clamped_between_modifier = 5;
+  // If present, applies to the inputs of aggregate functions.
+  optional ASTOrderByProto order_by = 6;
+  // If present, this applies to the inputs of aggregate functions.
+  optional ASTLimitOffsetProto limit_offset = 7;
+  // hint if not null.
+  optional ASTHintProto hint = 8;
+  optional ASTWithGroupRowsProto with_group_rows = 9;
+  // If present, modifies the input behavior of aggregate functions.
+  optional ASTFunctionCallEnums.NullHandlingModifier null_handling_modifier = 10;
+  optional bool distinct = 11;
+  // Used by the Bison parser to mark CURRENT_<date/time> functions to which no
+  // parentheses have yet been applied.
+  optional bool is_current_date_time_without_parentheses = 12;
+  // If present, the report modifier applies to the result of anonymized
+  // aggregate functions.
+  optional ASTWithReportModifierProto with_report_modifier = 13;
+}
+
+message ASTArrayConstructorProto {
+  optional ASTExpressionProto parent = 1;
+  // May return NULL. Occurs only if the array is constructed through
+  // ARRAY<type>[...] syntax and not ARRAY[...] or [...].
+  optional ASTArrayTypeProto type = 2;
+  repeated AnyASTExpressionProto elements = 3;
+}
+
+message ASTStructConstructorArgProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto expression = 2;
+  optional ASTAliasProto alias = 3;
+}
+
+// This node results from structs constructed with (expr, expr, ...).
+// This will only occur when there are at least two expressions.
+message ASTStructConstructorWithParensProto {
+  optional ASTExpressionProto parent = 1;
+  repeated AnyASTExpressionProto field_expressions = 2;
+}
+
+// This node results from structs constructed with the STRUCT keyword.
+//   STRUCT(expr [AS alias], ...)
+//   STRUCT<...>(expr [AS alias], ...)
+// Both forms support empty field lists.
+// The struct_type_ child will be non-NULL for the second form,
+// which includes the struct's field list.
+message ASTStructConstructorWithKeywordProto {
+  optional ASTExpressionProto parent = 1;
+  optional ASTStructTypeProto struct_type = 2;
+  repeated ASTStructConstructorArgProto fields = 3;
+}
+
+message ASTInExpressionProto {
+  optional ASTExpressionProto parent = 1;
+  optional AnyASTExpressionProto lhs = 2;
+  // Hints specified on IN clause.
+  // This can be set only if IN clause has subquery as RHS.
+  optional ASTHintProto hint = 3;
+  // Exactly one of in_list, query or unnest_expr is present.
+  optional ASTInListProto in_list = 4;
+  optional ASTQueryProto query = 5;
+  optional ASTUnnestExpressionProto unnest_expr = 6;
+  // Signifies whether the IN operator has a preceding NOT to it.
+  optional bool is_not = 7;
+  // Represents the location of the 'IN' token. Used only for error
+  // messages.
+  optional ASTLocationProto in_location = 8;
+}
+
+// This implementation is shared with the IN operator and LIKE ANY/SOME/ALL.
+message ASTInListProto {
+  optional ASTNodeProto parent = 1;
+  repeated AnyASTExpressionProto list = 2;
+}
+
+message ASTBetweenExpressionProto {
+  optional ASTExpressionProto parent = 1;
+  optional AnyASTExpressionProto lhs = 2;
+  optional AnyASTExpressionProto low = 3;
+  optional AnyASTExpressionProto high = 4;
+  // Signifies whether the BETWEEN operator has a preceding NOT to it.
+  optional bool is_not = 5;
+  // Represents the location of the 'BETWEEEN' token. Used only for
+  // error messages.
+  optional ASTLocationProto between_location = 6;
+}
+
+message ASTNumericLiteralProto {
+  optional ASTLeafProto parent = 1;
+}
+
+message ASTBigNumericLiteralProto {
+  optional ASTLeafProto parent = 1;
+}
+
+message ASTBytesLiteralProto {
+  optional ASTLeafProto parent = 1;
+}
+
+message ASTDateOrTimeLiteralProto {
+  optional ASTExpressionProto parent = 1;
+  optional ASTStringLiteralProto string_literal = 2;
+  optional zetasql.TypeKind type_kind = 3;
+}
+
+// This represents the value MAX that shows up in type parameter lists.
+// It will not show up as a general expression anywhere else.
+message ASTMaxLiteralProto {
+  optional ASTLeafProto parent = 1;
+}
+
+message ASTJSONLiteralProto {
+  optional ASTLeafProto parent = 1;
+}
+
+message ASTCaseValueExpressionProto {
+  optional ASTExpressionProto parent = 1;
+  repeated AnyASTExpressionProto arguments = 2;
+}
+
+message ASTCaseNoValueExpressionProto {
+  optional ASTExpressionProto parent = 1;
+  repeated AnyASTExpressionProto arguments = 2;
+}
+
+message ASTArrayElementProto {
+  optional ASTGeneralizedPathExpressionProto parent = 1;
+  optional AnyASTExpressionProto array = 2;
+  optional AnyASTExpressionProto position = 3;
+  optional ASTLocationProto open_bracket_location = 4;
+}
+
+message ASTBitwiseShiftExpressionProto {
+  optional ASTExpressionProto parent = 1;
+  optional AnyASTExpressionProto lhs = 2;
+  optional AnyASTExpressionProto rhs = 3;
+  // Signifies whether the bitwise shift is of left shift type "<<" or right
+  // shift type ">>".
+  optional bool is_left_shift = 4;
+  optional ASTLocationProto operator_location = 5;
+}
+
+message ASTCollateProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto collation_name = 2;
+}
+
+// This is a generalized form of extracting a field from an expression.
+// It uses a parenthesized path_expression instead of a single identifier
+// to select the field.
+message ASTDotGeneralizedFieldProto {
+  optional ASTGeneralizedPathExpressionProto parent = 1;
+  optional AnyASTExpressionProto expr = 2;
+  optional ASTPathExpressionProto path = 3;
+}
+
+// This is used for using dot to extract a field from an arbitrary expression.
+// In cases where we know the left side is always an identifier path, we
+// use ASTPathExpression instead.
+message ASTDotIdentifierProto {
+  optional ASTGeneralizedPathExpressionProto parent = 1;
+  optional AnyASTExpressionProto expr = 2;
+  optional ASTIdentifierProto name = 3;
+}
+
+message ASTDotStarProto {
+  optional ASTExpressionProto parent = 1;
+  optional AnyASTExpressionProto expr = 2;
+}
+
+// SELECT x.* EXCEPT(...) REPLACE(...).  See (broken link).
+message ASTDotStarWithModifiersProto {
+  optional ASTExpressionProto parent = 1;
+  optional AnyASTExpressionProto expr = 2;
+  optional ASTStarModifiersProto modifiers = 3;
+}
+
+// A subquery in an expression.  (Not in the FROM clause.)
+message ASTExpressionSubqueryProto {
+  optional ASTExpressionProto parent = 1;
+  optional ASTHintProto hint = 2;
+  optional ASTQueryProto query = 3;
+  // The syntactic modifier on this expression subquery.
+  optional ASTExpressionSubqueryEnums.Modifier modifier = 4;
+}
+
+message ASTExtractExpressionProto {
+  optional ASTExpressionProto parent = 1;
+  optional AnyASTExpressionProto lhs_expr = 2;
+  optional AnyASTExpressionProto rhs_expr = 3;
+  optional AnyASTExpressionProto time_zone_expr = 4;
+}
+
+message ASTHavingModifierProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto expr = 2;
+  optional ASTHavingModifierEnums.ModifierKind modifier_kind = 3;
+}
+
+message ASTIntervalExprProto {
+  optional ASTExpressionProto parent = 1;
+  optional AnyASTExpressionProto interval_value = 2;
+  optional ASTIdentifierProto date_part_name = 3;
+  optional ASTIdentifierProto date_part_name_to = 4;
+}
+
+// Represents a named function call argument using syntax: name => expression.
+// The resolver will match these against available argument names in the
+// function signature.
+message ASTNamedArgumentProto {
+  optional ASTExpressionProto parent = 1;
+  optional ASTIdentifierProto name = 2;
+  optional AnyASTExpressionProto expr = 3;
+}
+
+message ASTNullOrderProto {
+  optional ASTNodeProto parent = 1;
+  optional bool nulls_first = 2;
+}
+
+message ASTOnOrUsingClauseListProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTNodeProto on_or_using_clause_list = 2;
+}
+
+message ASTParenthesizedJoinProto {
+  optional ASTTableExpressionProto parent = 1;
+  optional ASTJoinProto join = 2;
+  optional ASTSampleClauseProto sample_clause = 3;
+}
+
+message ASTPartitionByProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTHintProto hint = 2;
+  repeated AnyASTExpressionProto partitioning_expressions = 3;
+}
+
+message ASTSetOperationProto {
+  optional ASTQueryExpressionProto parent = 1;
+  optional ASTHintProto hint = 2;
+  repeated AnyASTQueryExpressionProto inputs = 3;
+  optional ASTSetOperationEnums.OperationType op_type = 4;
+  optional bool distinct = 5;
+}
+
+message ASTStarExceptListProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTIdentifierProto identifiers = 2;
+}
+
+// SELECT * EXCEPT(...) REPLACE(...).  See (broken link).
+message ASTStarModifiersProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTStarExceptListProto except_list = 2;
+  repeated ASTStarReplaceItemProto replace_items = 3;
+}
+
+message ASTStarReplaceItemProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto expression = 2;
+  optional ASTIdentifierProto alias = 3;
+}
+
+// SELECT * EXCEPT(...) REPLACE(...).  See (broken link).
+message ASTStarWithModifiersProto {
+  optional ASTExpressionProto parent = 1;
+  optional ASTStarModifiersProto modifiers = 2;
+}
+
+message ASTTableSubqueryProto {
+  optional ASTTableExpressionProto parent = 1;
+  optional ASTQueryProto subquery = 2;
+  optional ASTAliasProto alias = 3;
+  optional ASTPivotClauseProto pivot_clause = 4;
+  optional ASTUnpivotClauseProto unpivot_clause = 5;
+  optional ASTSampleClauseProto sample_clause = 6;
+}
+
+message ASTUnaryExpressionProto {
+  optional ASTExpressionProto parent = 1;
+  optional AnyASTExpressionProto operand = 2;
+  optional ASTUnaryExpressionEnums.Op op = 3;
+}
+
+message ASTUnnestExpressionProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto expression = 2;
+}
+
+message ASTWindowClauseProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTWindowDefinitionProto windows = 2;
+}
+
+message ASTWindowDefinitionProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTIdentifierProto name = 2;
+  optional ASTWindowSpecificationProto window_spec = 3;
+}
+
+message ASTWindowFrameProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTWindowFrameExprProto start_expr = 2;
+  optional ASTWindowFrameExprProto end_expr = 3;
+  optional ASTWindowFrameEnums.FrameUnit frame_unit = 4;
+}
+
+message ASTWindowFrameExprProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto expression = 2;
+  optional ASTWindowFrameExprEnums.BoundaryType boundary_type = 3;
+}
+
+message ASTLikeExpressionProto {
+  optional ASTExpressionProto parent = 1;
+  optional AnyASTExpressionProto lhs = 2;
+  // The any, some, or all operation used.
+  optional ASTAnySomeAllOpProto op = 3;
+  // Hints specified on LIKE clause.
+  // This can be set only if LIKE clause has subquery as RHS.
+  optional ASTHintProto hint = 4;
+  // Exactly one of in_list, query or unnest_expr is present
+  optional ASTInListProto in_list = 5;
+  optional ASTQueryProto query = 6;
+  optional ASTUnnestExpressionProto unnest_expr = 7;
+  // Signifies whether the LIKE operator has a preceding NOT to it.
+  optional bool is_not = 8;
+  // Location of the 'LIKE' token. Used for error messages.
+  optional ASTLocationProto like_location = 9;
+}
+
+message ASTWindowSpecificationProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTIdentifierProto base_window_name = 2;
+  optional ASTPartitionByProto partition_by = 3;
+  optional ASTOrderByProto order_by = 4;
+  optional ASTWindowFrameProto window_frame = 5;
+}
+
+message ASTWithOffsetProto {
+  optional ASTNodeProto parent = 1;
+  // alias may be NULL.
+  optional ASTAliasProto alias = 2;
+}
+
+message ASTAnySomeAllOpProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTAnySomeAllOpEnums.Op op = 2;
+}
+
+message AnyASTParameterExprBaseProto {
+  oneof node {
+    ASTParameterExprProto ast_parameter_expr_node = 139;
+    ASTSystemVariableExprProto ast_system_variable_expr_node = 140;
+  }
+}
+message ASTParameterExprBaseProto {
+  optional ASTExpressionProto parent = 1;
+}
+
+// Contains a list of statements.  Variable declarations allowed only at the
+// start of the list, and only if variable_declarations_allowed() is true.
+message ASTStatementListProto {
+  optional ASTNodeProto parent = 1;
+  repeated AnyASTStatementProto statement_list = 2;
+  optional bool variable_declarations_allowed = 3;
+}
+
+message AnyASTScriptStatementProto {
+  oneof node {
+    ASTIfStatementProto ast_if_statement_node = 259;
+    ASTCaseStatementProto ast_case_statement_node = 262;
+    ASTRaiseStatementProto ast_raise_statement_node = 277;
+    ASTBeginEndBlockProto ast_begin_end_block_node = 280;
+    ASTVariableDeclarationProto ast_variable_declaration_node = 282;
+    AnyASTBreakContinueStatementProto ast_break_continue_statement_node = 284;
+    ASTReturnStatementProto ast_return_statement_node = 290;
+    ASTSingleAssignmentProto ast_single_assignment_node = 291;
+    ASTAssignmentFromStructProto ast_assignment_from_struct_node = 294;
+    AnyASTLoopStatementProto ast_loop_statement_node = 301;
+  }
+}
+message ASTScriptStatementProto {
+  optional ASTStatementProto parent = 1;
+}
+
+// This wraps any other statement to add statement-level hints.
+message ASTHintedStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional ASTHintProto hint = 2;
+  optional AnyASTStatementProto statement = 3;
+}
+
+// Represents an EXPLAIN statement.
+message ASTExplainStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional AnyASTStatementProto statement = 2;
+}
+
+// Represents a DESCRIBE statement.
+message ASTDescribeStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional ASTIdentifierProto optional_identifier = 2;
+  optional ASTPathExpressionProto name = 3;
+  optional ASTPathExpressionProto optional_from_name = 4;
+}
+
+// Represents a SHOW statement.
+message ASTShowStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional ASTIdentifierProto identifier = 2;
+  optional ASTPathExpressionProto optional_name = 3;
+  optional ASTStringLiteralProto optional_like_string = 4;
+}
+
+// Base class transaction modifier elements.
+message AnyASTTransactionModeProto {
+  oneof node {
+    ASTTransactionIsolationLevelProto ast_transaction_isolation_level_node = 101;
+    ASTTransactionReadWriteModeProto ast_transaction_read_write_mode_node = 102;
+  }
+}
+message ASTTransactionModeProto {
+  optional ASTNodeProto parent = 1;
+}
+
+message ASTTransactionIsolationLevelProto {
+  optional ASTTransactionModeProto parent = 1;
+  optional ASTIdentifierProto identifier1 = 2;
+  // Second identifier can be non-null only if first identifier is non-null.
+  optional ASTIdentifierProto identifier2 = 3;
+}
+
+message ASTTransactionReadWriteModeProto {
+  optional ASTTransactionModeProto parent = 1;
+  optional ASTTransactionReadWriteModeEnums.Mode mode = 2;
+}
+
+message ASTTransactionModeListProto {
+  optional ASTNodeProto parent = 1;
+  repeated AnyASTTransactionModeProto elements = 2;
+}
+
+// Represents a BEGIN or START TRANSACTION statement.
+message ASTBeginStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional ASTTransactionModeListProto mode_list = 2;
+}
+
+// Represents a SET TRANSACTION statement.
+message ASTSetTransactionStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional ASTTransactionModeListProto mode_list = 2;
+}
+
+// Represents a COMMIT statement.
+message ASTCommitStatementProto {
+  optional ASTStatementProto parent = 1;
+}
+
+// Represents a ROLLBACK statement.
+message ASTRollbackStatementProto {
+  optional ASTStatementProto parent = 1;
+}
+
+message ASTStartBatchStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional ASTIdentifierProto batch_type = 2;
+}
+
+message ASTRunBatchStatementProto {
+  optional ASTStatementProto parent = 1;
+}
+
+message ASTAbortBatchStatementProto {
+  optional ASTStatementProto parent = 1;
+}
+
+// Common superclass of DDL statements.
+message AnyASTDdlStatementProto {
+  oneof node {
+    ASTDropEntityStatementProto ast_drop_entity_statement_node = 112;
+    ASTDropFunctionStatementProto ast_drop_function_statement_node = 113;
+    ASTDropTableFunctionStatementProto ast_drop_table_function_statement_node = 114;
+    ASTDropMaterializedViewStatementProto ast_drop_materialized_view_statement_node = 116;
+    ASTDropSnapshotTableStatementProto ast_drop_snapshot_table_statement_node = 117;
+    ASTDropSearchIndexStatementProto ast_drop_search_index_statement_node = 118;
+    AnyASTCreateStatementProto ast_create_statement_node = 150;
+    ASTDropRowAccessPolicyStatementProto ast_drop_row_access_policy_statement_node = 287;
+    ASTDropStatementProto ast_drop_statement_node = 289;
+    AnyASTAlterStatementBaseProto ast_alter_statement_base_node = 305;
+    ASTDropPrivilegeRestrictionStatementProto ast_drop_privilege_restriction_statement_node = 326;
+  }
+}
+message ASTDdlStatementProto {
+  optional ASTStatementProto parent = 1;
+}
+
+// Generic DROP statement (broken link).
+message ASTDropEntityStatementProto {
+  optional ASTDdlStatementProto parent = 1;
+  optional ASTIdentifierProto entity_type = 2;
+  optional ASTPathExpressionProto name = 3;
+  optional bool is_if_exists = 4;
+}
+
+// Represents a DROP FUNCTION statement.
+message ASTDropFunctionStatementProto {
+  optional ASTDdlStatementProto parent = 1;
+  optional ASTPathExpressionProto name = 2;
+  optional ASTFunctionParametersProto parameters = 3;
+  optional bool is_if_exists = 4;
+}
+
+// Represents a DROP TABLE FUNCTION statement.
+// Note: Table functions don't support overloading so function parameters are
+//       not accepted in this statement.
+//       (broken link)
+message ASTDropTableFunctionStatementProto {
+  optional ASTDdlStatementProto parent = 1;
+  optional ASTPathExpressionProto name = 2;
+  optional bool is_if_exists = 3;
+}
+
+// Represents a DROP ALL ROW ACCESS POLICIES statement.
+message ASTDropAllRowAccessPoliciesStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional ASTPathExpressionProto table_name = 2;
+  optional bool has_access_keyword = 3;
+}
+
+// Represents a DROP MATERIALIZED VIEW statement.
+message ASTDropMaterializedViewStatementProto {
+  optional ASTDdlStatementProto parent = 1;
+  optional ASTPathExpressionProto name = 2;
+  optional bool is_if_exists = 3;
+}
+
+// Represents a DROP SNAPSHOT TABLE statement.
+message ASTDropSnapshotTableStatementProto {
+  optional ASTDdlStatementProto parent = 1;
+  optional ASTPathExpressionProto name = 2;
+  optional bool is_if_exists = 3;
+}
+
+// Represents a DROP SEARCH INDEX statement.
+message ASTDropSearchIndexStatementProto {
+  optional ASTDdlStatementProto parent = 1;
+  optional ASTPathExpressionProto name = 2;
+  optional ASTPathExpressionProto table_name = 3;
+  optional bool is_if_exists = 4;
+}
+
+// Represents a RENAME statement.
+message ASTRenameStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional ASTIdentifierProto identifier = 2;
+  optional ASTPathExpressionProto old_name = 3;
+  optional ASTPathExpressionProto new_name = 4;
+}
+
+// Represents an IMPORT statement, which currently support MODULE or PROTO
+// kind. We want this statement to be a generic import at some point.
+message ASTImportStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional ASTPathExpressionProto name = 2;
+  optional ASTStringLiteralProto string_value = 3;
+  optional ASTAliasProto alias = 4;
+  optional ASTIntoAliasProto into_alias = 5;
+  optional ASTOptionsListProto options_list = 6;
+  optional ASTImportStatementEnums.ImportKind import_kind = 7;
+}
+
+message ASTModuleStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional ASTPathExpressionProto name = 2;
+  optional ASTOptionsListProto options_list = 3;
+}
+
+message ASTWithConnectionClauseProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTConnectionClauseProto connection_clause = 2;
+}
+
+message ASTIntoAliasProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTIdentifierProto identifier = 2;
+}
+
+// A conjunction of the unnest expression and the optional alias and offset.
+message ASTUnnestExpressionWithOptAliasAndOffsetProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTUnnestExpressionProto unnest_expression = 2;
+  optional ASTAliasProto optional_alias = 3;
+  optional ASTWithOffsetProto optional_with_offset = 4;
+}
+
+message ASTPivotExpressionProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto expression = 2;
+  optional ASTAliasProto alias = 3;
+}
+
+message ASTPivotValueProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto value = 2;
+  optional ASTAliasProto alias = 3;
+}
+
+message ASTPivotExpressionListProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTPivotExpressionProto expressions = 2;
+}
+
+message ASTPivotValueListProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTPivotValueProto values = 2;
+}
+
+message ASTPivotClauseProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTPivotExpressionListProto pivot_expressions = 2;
+  optional AnyASTExpressionProto for_expression = 3;
+  optional ASTPivotValueListProto pivot_values = 4;
+  optional ASTAliasProto output_alias = 5;
+}
+
+message ASTUnpivotInItemProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTPathExpressionListProto unpivot_columns = 2;
+  optional ASTUnpivotInItemLabelProto alias = 3;
+}
+
+message ASTUnpivotInItemListProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTUnpivotInItemProto in_items = 2;
+}
+
+message ASTUnpivotClauseProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTPathExpressionListProto unpivot_output_value_columns = 2;
+  optional ASTPathExpressionProto unpivot_output_name_column = 3;
+  optional ASTUnpivotInItemListProto unpivot_in_items = 4;
+  optional ASTAliasProto output_alias = 5;
+  optional ASTUnpivotClauseEnums.NullFilter null_filter = 6;
+}
+
+message ASTUsingClauseProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTIdentifierProto keys = 2;
+}
+
+message ASTForSystemTimeProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto expression = 2;
+}
+
+message ASTQualifyProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto expression = 2;
+}
+
+message ASTClampedBetweenModifierProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto low = 2;
+  optional AnyASTExpressionProto high = 3;
+}
+
+message ASTWithReportModifierProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTOptionsListProto options_list = 2;
+}
+
+message ASTFormatClauseProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto format = 2;
+  optional AnyASTExpressionProto time_zone_expr = 3;
+}
+
+message ASTPathExpressionListProto {
+  optional ASTNodeProto parent = 1;
+  // Guaranteed by the parser to never be empty.
+  repeated ASTPathExpressionProto path_expression_list = 2;
+}
+
+message ASTParameterExprProto {
+  optional ASTParameterExprBaseProto parent = 1;
+  optional ASTIdentifierProto name = 2;
+  optional int64 position = 3;
+}
+
+message ASTSystemVariableExprProto {
+  optional ASTParameterExprBaseProto parent = 1;
+  optional ASTPathExpressionProto path = 2;
+}
+
+message ASTWithGroupRowsProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTQueryProto subquery = 2;
+}
+
+// Function argument is required to be expression.
+message ASTLambdaProto {
+  optional ASTExpressionProto parent = 1;
+  optional AnyASTExpressionProto argument_list = 2;
+  optional AnyASTExpressionProto body = 3;
+}
+
+message ASTAnalyticFunctionCallProto {
+  optional ASTExpressionProto parent = 1;
+  optional AnyASTExpressionProto expression = 2;
+  optional ASTWindowSpecificationProto window_spec = 3;
+}
+
+message ASTFunctionCallWithGroupRowsProto {
+  optional ASTExpressionProto parent = 1;
+  optional ASTFunctionCallProto function = 2;
+  optional ASTQueryProto subquery = 3;
+}
+
+message ASTClusterByProto {
+  optional ASTNodeProto parent = 1;
+  repeated AnyASTExpressionProto clustering_expressions = 2;
+}
+
+// At most one of 'optional_identifier' and 'optional_path_expression' are
+// set.
+message ASTNewConstructorArgProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto expression = 2;
+  optional ASTIdentifierProto optional_identifier = 3;
+  optional ASTPathExpressionProto optional_path_expression = 4;
+}
+
+message ASTNewConstructorProto {
+  optional ASTExpressionProto parent = 1;
+  optional ASTSimpleTypeProto type_name = 2;
+  repeated ASTNewConstructorArgProto arguments = 3;
+}
+
+message ASTBracedConstructorFieldValueProto {
+  optional ASTExpressionProto parent = 1;
+  optional AnyASTExpressionProto expression = 2;
+}
+
+// Exactly one of 'identifier' and 'parenthesized_path' is
+// set.
+message ASTBracedConstructorFieldProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTIdentifierProto identifier = 2;
+  optional ASTPathExpressionProto parenthesized_path = 3;
+  optional ASTBracedConstructorFieldValueProto value = 4;
+}
+
+message ASTBracedConstructorProto {
+  optional ASTExpressionProto parent = 1;
+  repeated ASTBracedConstructorFieldProto fields = 3;
+}
+
+message ASTBracedNewConstructorProto {
+  optional ASTExpressionProto parent = 1;
+  optional ASTSimpleTypeProto type_name = 2;
+  optional ASTBracedConstructorProto braced_constructor = 3;
+}
+
+message ASTOptionsListProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTOptionsEntryProto options_entries = 2;
+}
+
+message ASTOptionsEntryProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTIdentifierProto name = 2;
+  // Value is always an identifier, literal, or parameter.
+  optional AnyASTExpressionProto value = 3;
+}
+
+// Common superclass of CREATE statements supporting the common
+// modifiers:
+//   CREATE [OR REPLACE] [TEMP|PUBLIC|PRIVATE] <object> [IF NOT EXISTS].
+message AnyASTCreateStatementProto {
+  oneof node {
+    ASTCreateConstantStatementProto ast_create_constant_statement_node = 165;
+    ASTCreateProcedureStatementProto ast_create_procedure_statement_node = 167;
+    ASTCreateSchemaStatementProto ast_create_schema_statement_node = 168;
+    ASTCreateModelStatementProto ast_create_model_statement_node = 170;
+    ASTCreateIndexStatementProto ast_create_index_statement_node = 175;
+    ASTCreateSnapshotTableStatementProto ast_create_snapshot_table_statement_node = 181;
+    ASTCreateEntityStatementProto ast_create_entity_statement_node = 276;
+    ASTCreateRowAccessPolicyStatementProto ast_create_row_access_policy_statement_node = 288;
+    AnyASTCreateTableStmtBaseProto ast_create_table_stmt_base_node = 295;
+    AnyASTCreateViewStatementBaseProto ast_create_view_statement_base_node = 298;
+    AnyASTCreateFunctionStmtBaseProto ast_create_function_stmt_base_node = 313;
+    ASTCreatePrivilegeRestrictionStatementProto ast_create_privilege_restriction_statement_node = 324;
+  }
+}
+message ASTCreateStatementProto {
+  optional ASTDdlStatementProto parent = 1;
+  optional ASTCreateStatementEnums.Scope scope = 2;
+  optional bool is_or_replace = 3;
+  optional bool is_if_not_exists = 4;
+}
+
+message ASTFunctionParameterProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTIdentifierProto name = 2;
+  optional AnyASTTypeProto type = 3;
+  optional ASTTemplatedParameterTypeProto templated_parameter_type = 4;
+  optional ASTTVFSchemaProto tvf_schema = 5;
+  optional ASTAliasProto alias = 6;
+  optional AnyASTExpressionProto default_value = 7;
+  optional ASTFunctionParameterEnums.ProcedureParameterMode procedure_parameter_mode = 8;
+  optional bool is_not_aggregate = 9;
+}
+
+message ASTFunctionParametersProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTFunctionParameterProto parameter_entries = 2;
+}
+
+message ASTFunctionDeclarationProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTPathExpressionProto name = 2;
+  optional ASTFunctionParametersProto parameters = 3;
+}
+
+message ASTSqlFunctionBodyProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto expression = 2;
+}
+
+// This represents an argument to a table-valued function (TVF). ZetaSQL can
+// parse the argument in one of the following ways:
+//
+// (1) ZetaSQL parses the argument as an expression; if any arguments are
+//     table subqueries then ZetaSQL will parse them as subquery expressions
+//     and the resolver may interpret them as needed later. In this case the
+//     expr_ of this class is filled.
+//
+// (2) ZetaSQL parses the argument as "TABLE path"; this syntax represents a
+//     table argument including all columns in the named table. In this case the
+//     table_clause_ of this class is non-empty.
+//
+// (3) ZetaSQL parses the argument as "MODEL path"; this syntax represents a
+//     model argument. In this case the model_clause_ of this class is
+//     non-empty.
+//
+// (4) ZetaSQL parses the argument as "CONNECTION path"; this syntax
+//     represents a connection argument. In this case the connection_clause_ of
+//     this class is non-empty.
+//
+// (5) ZetaSQL parses the argument as a named argument; this behaves like when
+//     the argument is an expression with the extra requirement that the
+//     resolver rearranges the provided named arguments to match the required
+//     argument names from the function signature, if present. The named
+//     argument is stored in the expr_ of this class in this case since an
+//     ASTNamedArgument is a subclass of ASTExpression.
+// (6) ZetaSQL parses the argument as "DESCRIPTOR"; this syntax represents a
+//    descriptor on a list of columns with optional types.
+message ASTTVFArgumentProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto expr = 2;
+  optional ASTTableClauseProto table_clause = 3;
+  optional ASTModelClauseProto model_clause = 4;
+  optional ASTConnectionClauseProto connection_clause = 5;
+  optional ASTDescriptorProto desc = 6;
+}
+
+// This represents a call to a table-valued function (TVF). Each TVF returns an
+// entire output relation instead of a single scalar value. The enclosing query
+// may refer to the TVF as if it were a table subquery. The TVF may accept
+// scalar arguments and/or other input relations.
+message ASTTVFProto {
+  optional ASTTableExpressionProto parent = 1;
+  optional ASTPathExpressionProto name = 2;
+  repeated ASTTVFArgumentProto argument_entries = 3;
+  optional ASTHintProto hint = 4;
+  optional ASTAliasProto alias = 5;
+  optional ASTPivotClauseProto pivot_clause = 6;
+  optional ASTUnpivotClauseProto unpivot_clause = 7;
+  optional ASTSampleClauseProto sample = 8;
+}
+
+// This represents a clause of form "TABLE <target>", where <target> is either
+// a path expression representing a table name, or <target> is a TVF call.
+// It is currently only supported for relation arguments to table-valued
+// functions.
+message ASTTableClauseProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTPathExpressionProto table_path = 2;
+  optional ASTTVFProto tvf = 3;
+}
+
+// This represents a clause of form "MODEL <target>", where <target> is a model
+// name.
+message ASTModelClauseProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTPathExpressionProto model_path = 2;
+}
+
+// This represents a clause of form "CONNECTION <target>", where <target> is a
+// connection name.
+message ASTConnectionClauseProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTPathExpressionProto connection_path = 2;
+}
+
+message AnyASTTableDataSourceProto {
+  oneof node {
+    ASTCloneDataSourceProto ast_clone_data_source_node = 161;
+    ASTCopyDataSourceProto ast_copy_data_source_node = 162;
+  }
+}
+message ASTTableDataSourceProto {
+  optional ASTTableExpressionProto parent = 1;
+  optional ASTPathExpressionProto path_expr = 2;
+  optional ASTForSystemTimeProto for_system_time = 3;
+  optional ASTWhereClauseProto where_clause = 4;
+}
+
+message ASTCloneDataSourceProto {
+  optional ASTTableDataSourceProto parent = 1;
+}
+
+message ASTCopyDataSourceProto {
+  optional ASTTableDataSourceProto parent = 1;
+}
+
+message ASTCloneDataSourceListProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTCloneDataSourceProto data_sources = 2;
+}
+
+message ASTCloneDataStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional ASTPathExpressionProto target_path = 2;
+  optional ASTCloneDataSourceListProto data_source_list = 3;
+}
+
+// This represents a CREATE CONSTANT statement, i.e.,
+// CREATE [OR REPLACE] [TEMP|TEMPORARY|PUBLIC|PRIVATE] CONSTANT
+//   [IF NOT EXISTS] <name_path> = <expression>;
+message ASTCreateConstantStatementProto {
+  optional ASTCreateStatementProto parent = 1;
+  optional ASTPathExpressionProto name = 2;
+  optional AnyASTExpressionProto expr = 3;
+}
+
+// This represents a CREATE DATABASE statement, i.e.,
+// CREATE DATABASE <name> [OPTIONS (name=value, ...)];
+message ASTCreateDatabaseStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional ASTPathExpressionProto name = 2;
+  optional ASTOptionsListProto options_list = 3;
+}
+
+message ASTCreateProcedureStatementProto {
+  optional ASTCreateStatementProto parent = 1;
+  optional ASTPathExpressionProto name = 2;
+  optional ASTFunctionParametersProto parameters = 3;
+  optional ASTOptionsListProto options_list = 4;
+  // The body of a procedure. Always consists of a single BeginEndBlock
+  // including the BEGIN/END keywords and text in between.
+  optional ASTScriptProto body = 5;
+  optional ASTWithConnectionClauseProto with_connection_clause = 6;
+  optional ASTIdentifierProto language = 7;
+  optional ASTStringLiteralProto code = 8;
+}
+
+// This represents a CREATE SCHEMA statement, i.e.,
+// CREATE SCHEMA <name> [OPTIONS (name=value, ...)];
+message ASTCreateSchemaStatementProto {
+  optional ASTCreateStatementProto parent = 1;
+  optional ASTPathExpressionProto name = 2;
+  optional ASTCollateProto collate = 3;
+  optional ASTOptionsListProto options_list = 4;
+}
+
+message ASTTransformClauseProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTSelectListProto select_list = 2;
+}
+
+message ASTCreateModelStatementProto {
+  optional ASTCreateStatementProto parent = 1;
+  optional ASTPathExpressionProto name = 2;
+  optional ASTTransformClauseProto transform_clause = 3;
+  optional ASTOptionsListProto options_list = 4;
+  optional ASTQueryProto query = 5;
+  optional ASTInputOutputClauseProto input_output_clause = 6;
+  optional bool is_remote = 7;
+  optional ASTWithConnectionClauseProto with_connection_clause = 8;
+}
+
+// Represents 'ALL COLUMNS' index key expression.
+message ASTIndexAllColumnsProto {
+  optional ASTLeafProto parent = 1;
+}
+
+// Represents the list of expressions used to order an index.
+message ASTIndexItemListProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTOrderingExpressionProto ordering_expressions = 2;
+}
+
+// Represents the list of expressions being used in the STORING clause of an
+// index.
+message ASTIndexStoringExpressionListProto {
+  optional ASTNodeProto parent = 1;
+  repeated AnyASTExpressionProto expressions = 2;
+}
+
+// Represents the list of unnest expressions for create_index.
+message ASTIndexUnnestExpressionListProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTUnnestExpressionWithOptAliasAndOffsetProto unnest_expressions = 2;
+}
+
+// Represents a CREATE INDEX statement.
+message ASTCreateIndexStatementProto {
+  optional ASTCreateStatementProto parent = 1;
+  optional ASTPathExpressionProto name = 2;
+  optional ASTPathExpressionProto table_name = 3;
+  optional ASTAliasProto optional_table_alias = 4;
+  optional ASTIndexUnnestExpressionListProto optional_index_unnest_expression_list = 5;
+  optional ASTIndexItemListProto index_item_list = 6;
+  optional ASTIndexStoringExpressionListProto optional_index_storing_expressions = 7;
+  optional ASTOptionsListProto options_list = 8;
+  optional bool is_unique = 9;
+  optional bool is_search = 10;
+  optional ASTSpannerInterleaveClauseProto spanner_interleave_clause = 11;
+  optional bool spanner_is_null_filtered = 12;
+}
+
+message ASTExportDataStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional ASTWithConnectionClauseProto with_connection_clause = 2;
+  optional ASTOptionsListProto options_list = 3;
+  optional ASTQueryProto query = 4;
+}
+
+message ASTExportModelStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional ASTPathExpressionProto model_name_path = 2;
+  optional ASTWithConnectionClauseProto with_connection_clause = 3;
+  optional ASTOptionsListProto options_list = 4;
+}
+
+message ASTCallStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional ASTPathExpressionProto procedure_name = 2;
+  repeated ASTTVFArgumentProto arguments = 3;
+}
+
+message ASTDefineTableStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional ASTPathExpressionProto name = 2;
+  optional ASTOptionsListProto options_list = 3;
+}
+
+message ASTWithPartitionColumnsClauseProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTTableElementListProto table_element_list = 2;
+}
+
+message ASTCreateSnapshotTableStatementProto {
+  optional ASTCreateStatementProto parent = 1;
+  optional ASTPathExpressionProto name = 2;
+  optional ASTCloneDataSourceProto clone_data_source = 3;
+  optional ASTOptionsListProto options_list = 4;
+}
+
+message ASTTypeParameterListProto {
+  optional ASTNodeProto parent = 1;
+  repeated AnyASTLeafProto parameters = 2;
+}
+
+// This represents a relation argument or return type for a table-valued
+// function (TVF). The resolver can convert each ASTTVFSchema directly into a
+// TVFRelation object suitable for use in TVF signatures. For more information
+// about the TVFRelation object, please refer to public/table_valued_function.h.
+// TODO: Change the names of these objects to make them generic and
+// re-usable wherever we want to represent the schema of some intermediate or
+// final table. Same for ASTTVFSchemaColumn.
+message ASTTVFSchemaProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTTVFSchemaColumnProto columns = 2;
+}
+
+// This represents one column of a relation argument or return value for a
+// table-valued function (TVF). It contains the name and type of the column.
+message ASTTVFSchemaColumnProto {
+  optional ASTNodeProto parent = 1;
+  // name_ will be NULL for value tables.
+  optional ASTIdentifierProto name = 2;
+  optional AnyASTTypeProto type = 3;
+}
+
+message ASTTableAndColumnInfoProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTPathExpressionProto table_name = 2;
+  optional ASTColumnListProto column_list = 3;
+}
+
+message ASTTableAndColumnInfoListProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTTableAndColumnInfoProto table_and_column_info_entries = 2;
+}
+
+message ASTTemplatedParameterTypeProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTTemplatedParameterTypeEnums.TemplatedTypeKind kind = 2;
+}
+
+// This represents the value DEFAULT that shows up in DML statements.
+// It will not show up as a general expression anywhere else.
+message ASTDefaultLiteralProto {
+  optional ASTExpressionProto parent = 1;
+}
+
+message ASTAnalyzeStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional ASTOptionsListProto options_list = 2;
+  optional ASTTableAndColumnInfoListProto table_and_column_info_list = 3;
+}
+
+message ASTAssertStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional AnyASTExpressionProto expr = 2;
+  optional ASTStringLiteralProto description = 3;
+}
+
+message ASTAssertRowsModifiedProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto num_rows = 2;
+}
+
+// This represents the {THEN RETURN} clause.
+// (broken link)
+message ASTReturningClauseProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTSelectListProto select_list = 2;
+  optional ASTAliasProto action_alias = 3;
+}
+
+// This is used for both top-level DELETE statements and for nested DELETEs
+// inside ASTUpdateItem. When used at the top-level, the target is always a
+// path expression.
+message ASTDeleteStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional AnyASTGeneralizedPathExpressionProto target_path = 2;
+  optional ASTAliasProto alias = 3;
+  optional ASTWithOffsetProto offset = 4;
+  optional AnyASTExpressionProto where = 5;
+  optional ASTAssertRowsModifiedProto assert_rows_modified = 6;
+  optional ASTReturningClauseProto returning = 7;
+  optional ASTHintProto hint = 8;
+}
+
+message AnyASTColumnAttributeProto {
+  oneof node {
+    ASTNotNullColumnAttributeProto ast_not_null_column_attribute_node = 195;
+    ASTHiddenColumnAttributeProto ast_hidden_column_attribute_node = 196;
+    ASTPrimaryKeyColumnAttributeProto ast_primary_key_column_attribute_node = 197;
+    ASTForeignKeyColumnAttributeProto ast_foreign_key_column_attribute_node = 198;
+  }
+}
+message ASTColumnAttributeProto {
+  optional ASTNodeProto parent = 1;
+}
+
+message ASTNotNullColumnAttributeProto {
+  optional ASTColumnAttributeProto parent = 1;
+}
+
+message ASTHiddenColumnAttributeProto {
+  optional ASTColumnAttributeProto parent = 1;
+}
+
+message ASTPrimaryKeyColumnAttributeProto {
+  optional ASTColumnAttributeProto parent = 1;
+  optional bool enforced = 2;
+}
+
+message ASTForeignKeyColumnAttributeProto {
+  optional ASTColumnAttributeProto parent = 1;
+  optional ASTIdentifierProto constraint_name = 2;
+  optional ASTForeignKeyReferenceProto reference = 3;
+}
+
+message ASTColumnAttributeListProto {
+  optional ASTNodeProto parent = 1;
+  repeated AnyASTColumnAttributeProto values = 2;
+}
+
+message ASTStructColumnFieldProto {
+  optional ASTNodeProto parent = 1;
+  // name_ will be NULL for anonymous fields like in STRUCT<int, string>.
+  optional ASTIdentifierProto name = 2;
+  optional AnyASTColumnSchemaProto schema = 3;
+}
+
+message ASTGeneratedColumnInfoProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto expression = 2;
+  optional ASTGeneratedColumnInfoEnums.StoredMode stored_mode = 3;
+}
+
+// Base class for CREATE TABLE elements, including column definitions and
+// table constraints.
+message AnyASTTableElementProto {
+  oneof node {
+    ASTColumnDefinitionProto ast_column_definition_node = 203;
+    AnyASTTableConstraintProto ast_table_constraint_node = 270;
+  }
+}
+message ASTTableElementProto {
+  optional ASTNodeProto parent = 1;
+}
+
+message ASTColumnDefinitionProto {
+  optional ASTTableElementProto parent = 1;
+  optional ASTIdentifierProto name = 2;
+  optional AnyASTColumnSchemaProto schema = 3;
+}
+
+message ASTTableElementListProto {
+  optional ASTNodeProto parent = 1;
+  repeated AnyASTTableElementProto elements = 2;
+}
+
+message ASTColumnListProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTIdentifierProto identifiers = 2;
+}
+
+message ASTColumnPositionProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTIdentifierProto identifier = 2;
+  optional ASTColumnPositionEnums.RelativePositionType type = 3;
+}
+
+message ASTInsertValuesRowProto {
+  optional ASTNodeProto parent = 1;
+  // A row of values in a VALUES clause.  May include ASTDefaultLiteral.
+  repeated AnyASTExpressionProto values = 2;
+}
+
+message ASTInsertValuesRowListProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTInsertValuesRowProto rows = 2;
+}
+
+// This is used for both top-level INSERT statements and for nested INSERTs
+// inside ASTUpdateItem. When used at the top-level, the target is always a
+// path expression.
+message ASTInsertStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional AnyASTGeneralizedPathExpressionProto target_path = 2;
+  optional ASTColumnListProto column_list = 3;
+  // Non-NULL rows() means we had a VALUES clause.
+  // This is mutually exclusive with query() and with().
+  optional ASTInsertValuesRowListProto rows = 4;
+  optional ASTQueryProto query = 5;
+  optional ASTAssertRowsModifiedProto assert_rows_modified = 6;
+  optional ASTReturningClauseProto returning = 7;
+  // This is used by the Bison parser to store the latest element of the INSERT
+  // syntax that was seen. The INSERT statement is extremely complicated to
+  // parse in bison because it is very free-form, almost everything is optional
+  // and almost all of the keywords are also usable as identifiers. So we parse
+  // it in a very free-form way, and enforce the grammar in code during/after
+  // parsing.
+  optional ASTInsertStatementEnums.ParseProgress parse_progress = 8;
+  optional ASTInsertStatementEnums.InsertMode insert_mode = 9;
+  optional ASTHintProto hint = 10;
+}
+
+message ASTUpdateSetValueProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTGeneralizedPathExpressionProto path = 2;
+  // The rhs of SET X=Y.  May be ASTDefaultLiteral.
+  optional AnyASTExpressionProto value = 3;
+}
+
+message ASTUpdateItemProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTUpdateSetValueProto set_value = 2;
+  optional ASTInsertStatementProto insert_statement = 3;
+  optional ASTDeleteStatementProto delete_statement = 4;
+  optional ASTUpdateStatementProto update_statement = 5;
+}
+
+message ASTUpdateItemListProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTUpdateItemProto update_items = 2;
+}
+
+// This is used for both top-level UPDATE statements and for nested UPDATEs
+// inside ASTUpdateItem. When used at the top-level, the target is always a
+// path expression.
+message ASTUpdateStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional AnyASTGeneralizedPathExpressionProto target_path = 2;
+  optional ASTAliasProto alias = 3;
+  optional ASTWithOffsetProto offset = 4;
+  optional ASTUpdateItemListProto update_item_list = 5;
+  optional ASTFromClauseProto from_clause = 6;
+  optional AnyASTExpressionProto where = 7;
+  optional ASTAssertRowsModifiedProto assert_rows_modified = 8;
+  optional ASTReturningClauseProto returning = 9;
+  optional ASTHintProto hint = 10;
+}
+
+message ASTTruncateStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional ASTPathExpressionProto target_path = 2;
+  optional AnyASTExpressionProto where = 3;
+}
+
+message ASTMergeActionProto {
+  optional ASTNodeProto parent = 1;
+  // Exactly one of the INSERT/UPDATE/DELETE operation must be defined in
+  // following ways,
+  //   -- INSERT, action_type() is INSERT. The insert_column_list() is optional.
+  //      The insert_row() must be non-null, but may have an empty value list.
+  //   -- UPDATE, action_type() is UPDATE. update_item_list() is non-null.
+  //   -- DELETE, action_type() is DELETE.
+  optional ASTColumnListProto insert_column_list = 2;
+  optional ASTInsertValuesRowProto insert_row = 3;
+  optional ASTUpdateItemListProto update_item_list = 4;
+  optional ASTMergeActionEnums.ActionType action_type = 5;
+}
+
+message ASTMergeWhenClauseProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto search_condition = 2;
+  optional ASTMergeActionProto action = 3;
+  optional ASTMergeWhenClauseEnums.MatchType match_type = 4;
+}
+
+message ASTMergeWhenClauseListProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTMergeWhenClauseProto clause_list = 2;
+}
+
+message ASTMergeStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional ASTPathExpressionProto target_path = 2;
+  optional ASTAliasProto alias = 3;
+  optional AnyASTTableExpressionProto table_expression = 4;
+  optional AnyASTExpressionProto merge_condition = 5;
+  optional ASTMergeWhenClauseListProto when_clauses = 6;
+}
+
+message ASTPrivilegeProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTIdentifierProto privilege_action = 2;
+  optional ASTPathExpressionListProto paths = 3;
+}
+
+// Represents privileges to be granted or revoked. It can be either or a
+// non-empty list of ASTPrivilege, or "ALL PRIVILEGES" in which case the list
+// will be empty.
+message ASTPrivilegesProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTPrivilegeProto privileges = 2;
+}
+
+message ASTGranteeListProto {
+  optional ASTNodeProto parent = 1;
+  repeated AnyASTExpressionProto grantee_list = 2;
+}
+
+message ASTGrantStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional ASTPrivilegesProto privileges = 2;
+  optional ASTIdentifierProto target_type = 3;
+  optional ASTPathExpressionProto target_path = 4;
+  optional ASTGranteeListProto grantee_list = 5;
+}
+
+message ASTRevokeStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional ASTPrivilegesProto privileges = 2;
+  optional ASTIdentifierProto target_type = 3;
+  optional ASTPathExpressionProto target_path = 4;
+  optional ASTGranteeListProto grantee_list = 5;
+}
+
+message ASTRepeatableClauseProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto argument = 2;
+}
+
+message ASTFilterFieldsArgProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTGeneralizedPathExpressionProto path_expression = 2;
+  optional ASTFilterFieldsArgEnums.FilterType filter_type = 3;
+}
+
+message ASTReplaceFieldsArgProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto expression = 2;
+  optional AnyASTGeneralizedPathExpressionProto path_expression = 3;
+}
+
+message ASTReplaceFieldsExpressionProto {
+  optional ASTExpressionProto parent = 1;
+  optional AnyASTExpressionProto expr = 2;
+  repeated ASTReplaceFieldsArgProto arguments = 3;
+}
+
+message ASTSampleSizeProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto size = 2;
+  optional ASTPartitionByProto partition_by = 3;
+  // Returns the token kind corresponding to the sample-size unit, i.e.
+  // parser::ROWS or parser::PERCENT.
+  optional ASTSampleSizeEnums.Unit unit = 4;
+}
+
+message ASTWithWeightProto {
+  optional ASTNodeProto parent = 1;
+  // alias may be NULL.
+  optional ASTAliasProto alias = 2;
+}
+
+message ASTSampleSuffixProto {
+  optional ASTNodeProto parent = 1;
+  // weight and repeat may be NULL.
+  optional ASTWithWeightProto weight = 2;
+  optional ASTRepeatableClauseProto repeat = 3;
+}
+
+message ASTSampleClauseProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTIdentifierProto sample_method = 2;
+  optional ASTSampleSizeProto sample_size = 3;
+  optional ASTSampleSuffixProto sample_suffix = 4;
+}
+
+// Common parent for all actions in ALTER statements
+message AnyASTAlterActionProto {
+  oneof node {
+    ASTSetOptionsActionProto ast_set_options_action_node = 234;
+    ASTSetAsActionProto ast_set_as_action_node = 235;
+    ASTAddConstraintActionProto ast_add_constraint_action_node = 236;
+    ASTDropPrimaryKeyActionProto ast_drop_primary_key_action_node = 237;
+    ASTDropConstraintActionProto ast_drop_constraint_action_node = 238;
+    ASTAlterConstraintEnforcementActionProto ast_alter_constraint_enforcement_action_node = 239;
+    ASTAlterConstraintSetOptionsActionProto ast_alter_constraint_set_options_action_node = 240;
+    ASTAddColumnActionProto ast_add_column_action_node = 241;
+    ASTDropColumnActionProto ast_drop_column_action_node = 242;
+    ASTRenameColumnActionProto ast_rename_column_action_node = 243;
+    ASTAlterColumnTypeActionProto ast_alter_column_type_action_node = 244;
+    ASTAlterColumnOptionsActionProto ast_alter_column_options_action_node = 245;
+    ASTAlterColumnDropNotNullActionProto ast_alter_column_drop_not_null_action_node = 246;
+    ASTGrantToClauseProto ast_grant_to_clause_node = 247;
+    ASTFilterUsingClauseProto ast_filter_using_clause_node = 248;
+    ASTRevokeFromClauseProto ast_revoke_from_clause_node = 249;
+    ASTRenameToClauseProto ast_rename_to_clause_node = 250;
+    ASTSetCollateClauseProto ast_set_collate_clause_node = 251;
+    ASTAlterColumnSetDefaultActionProto ast_alter_column_set_default_action_node = 322;
+    ASTAlterColumnDropDefaultActionProto ast_alter_column_drop_default_action_node = 323;
+    ASTRestrictToClauseProto ast_restrict_to_clause_node = 327;
+    ASTAddToRestricteeListClauseProto ast_add_to_restrictee_list_clause_node = 328;
+    ASTRemoveFromRestricteeListClauseProto ast_remove_from_restrictee_list_clause_node = 329;
+    ASTAlterSubEntityActionProto ast_alter_sub_entity_action_node = 338;
+    ASTAddSubEntityActionProto ast_add_sub_entity_action_node = 339;
+    ASTDropSubEntityActionProto ast_drop_sub_entity_action_node = 340;
+    ASTAddTtlActionProto ast_add_ttl_action_node = 349;
+    ASTReplaceTtlActionProto ast_replace_ttl_action_node = 350;
+    ASTDropTtlActionProto ast_drop_ttl_action_node = 351;
+    ASTSpannerAlterColumnActionProto ast_spanner_alter_column_action_node = 352;
+    ASTSpannerSetOnDeleteActionProto ast_spanner_set_on_delete_action_node = 353;
+  }
+}
+message ASTAlterActionProto {
+  optional ASTNodeProto parent = 1;
+}
+
+// ALTER action for "SET OPTIONS ()" clause
+message ASTSetOptionsActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTOptionsListProto options_list = 2;
+}
+
+// ALTER action for "SET AS" clause
+message ASTSetAsActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTJSONLiteralProto json_body = 2;
+  optional ASTStringLiteralProto text_body = 3;
+}
+
+// ALTER table action for "ADD CONSTRAINT" clause
+message ASTAddConstraintActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional AnyASTTableConstraintProto constraint = 2;
+  optional bool is_if_not_exists = 3;
+}
+
+// ALTER table action for "DROP PRIMARY KEY" clause
+message ASTDropPrimaryKeyActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional bool is_if_exists = 2;
+}
+
+// ALTER table action for "DROP CONSTRAINT" clause
+message ASTDropConstraintActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTIdentifierProto constraint_name = 2;
+  optional bool is_if_exists = 3;
+}
+
+// ALTER table action for "ALTER CONSTRAINT identifier [NOT] ENFORCED" clause
+message ASTAlterConstraintEnforcementActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTIdentifierProto constraint_name = 2;
+  optional bool is_if_exists = 3;
+  optional bool is_enforced = 4;
+}
+
+// ALTER table action for "ALTER CONSTRAINT identifier SET OPTIONS" clause
+message ASTAlterConstraintSetOptionsActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTIdentifierProto constraint_name = 2;
+  optional ASTOptionsListProto options_list = 3;
+  optional bool is_if_exists = 4;
+}
+
+// ALTER table action for "ADD COLUMN" clause
+message ASTAddColumnActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTColumnDefinitionProto column_definition = 2;
+  // Optional children.
+  optional ASTColumnPositionProto column_position = 3;
+  optional AnyASTExpressionProto fill_expression = 4;
+  optional bool is_if_not_exists = 5;
+}
+
+// ALTER table action for "DROP COLUMN" clause
+message ASTDropColumnActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTIdentifierProto column_name = 2;
+  optional bool is_if_exists = 3;
+}
+
+// ALTER table action for "RENAME COLUMN" clause
+message ASTRenameColumnActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTIdentifierProto column_name = 2;
+  optional ASTIdentifierProto new_column_name = 3;
+  optional bool is_if_exists = 4;
+}
+
+// ALTER table action for "ALTER COLUMN SET TYPE" clause
+message ASTAlterColumnTypeActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTIdentifierProto column_name = 2;
+  optional AnyASTColumnSchemaProto schema = 3;
+  optional ASTCollateProto collate = 4;
+  optional bool is_if_exists = 5;
+}
+
+// ALTER table action for "ALTER COLUMN SET OPTIONS" clause
+message ASTAlterColumnOptionsActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTIdentifierProto column_name = 2;
+  optional ASTOptionsListProto options_list = 3;
+  optional bool is_if_exists = 4;
+}
+
+// ALTER table action for "ALTER COLUMN SET DEFAULT" clause
+message ASTAlterColumnSetDefaultActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTIdentifierProto column_name = 2;
+  optional AnyASTExpressionProto default_expression = 3;
+  optional bool is_if_exists = 4;
+}
+
+// ALTER table action for "ALTER COLUMN DROP DEFAULT" clause
+message ASTAlterColumnDropDefaultActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTIdentifierProto column_name = 2;
+  optional bool is_if_exists = 3;
+}
+
+// ALTER table action for "ALTER COLUMN DROP NOT NULL" clause
+message ASTAlterColumnDropNotNullActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTIdentifierProto column_name = 2;
+  optional bool is_if_exists = 3;
+}
+
+// ALTER ROW ACCESS POLICY action for "GRANT TO (<grantee_list>)" or "TO
+// <grantee_list>" clause, also used by CREATE ROW ACCESS POLICY
+message ASTGrantToClauseProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTGranteeListProto grantee_list = 2;
+  optional bool has_grant_keyword_and_parens = 3;
+}
+
+// ALTER PRIVILEGE RESTRICTION action for "RESTRICT TO (<restrictee_list>)"
+// clause, also used by CREATE PRIVILEGE RESTRICTION
+message ASTRestrictToClauseProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTGranteeListProto restrictee_list = 2;
+}
+
+// ALTER PRIVILEGE RESTRICTION action for "ADD (<restrictee_list>)" clause
+message ASTAddToRestricteeListClauseProto {
+  optional ASTAlterActionProto parent = 1;
+  optional bool is_if_not_exists = 2;
+  optional ASTGranteeListProto restrictee_list = 3;
+}
+
+// ALTER PRIVILEGE RESTRICTION action for "REMOVE (<restrictee_list>)" clause
+message ASTRemoveFromRestricteeListClauseProto {
+  optional ASTAlterActionProto parent = 1;
+  optional bool is_if_exists = 2;
+  optional ASTGranteeListProto restrictee_list = 3;
+}
+
+// ALTER ROW ACCESS POLICY action for "[FILTER] USING (<expression>)" clause,
+// also used by CREATE ROW ACCESS POLICY
+message ASTFilterUsingClauseProto {
+  optional ASTAlterActionProto parent = 1;
+  optional AnyASTExpressionProto predicate = 2;
+  optional bool has_filter_keyword = 3;
+}
+
+// ALTER ROW ACCESS POLICY action for "REVOKE FROM (<grantee_list>)|ALL" clause
+message ASTRevokeFromClauseProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTGranteeListProto revoke_from_list = 2;
+  optional bool is_revoke_from_all = 3;
+}
+
+// ALTER ROW ACCESS POLICY action for "RENAME TO <new_name>" clause,
+// and ALTER table action for "RENAME TO" clause.
+message ASTRenameToClauseProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTPathExpressionProto new_name = 2;
+}
+
+// ALTER action for "SET COLLATE ()" clause
+message ASTSetCollateClauseProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTCollateProto collate = 2;
+}
+
+// ALTER action for "ALTER <subentity>" clause
+message ASTAlterSubEntityActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTIdentifierProto type = 2;
+  optional ASTIdentifierProto name = 3;
+  optional AnyASTAlterActionProto action = 4;
+  optional bool is_if_exists = 5;
+}
+
+// ALTER action for "ADD <subentity>" clause
+message ASTAddSubEntityActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTIdentifierProto type = 2;
+  optional ASTIdentifierProto name = 3;
+  optional ASTOptionsListProto options_list = 4;
+  optional bool is_if_not_exists = 5;
+}
+
+// ALTER action for "DROP <subentity>" clause
+message ASTDropSubEntityActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTIdentifierProto type = 2;
+  optional ASTIdentifierProto name = 3;
+  optional bool is_if_exists = 5;
+}
+
+// ALTER action for "ADD ROW DELETION POLICY clause
+message ASTAddTtlActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional AnyASTExpressionProto expression = 2;
+  optional bool is_if_not_exists = 3;
+}
+
+// ALTER action for "REPLACE ROW DELETION POLICY clause
+message ASTReplaceTtlActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional AnyASTExpressionProto expression = 2;
+  optional bool is_if_exists = 3;
+}
+
+// ALTER action for "DROP ROW DELETION POLICY clause
+message ASTDropTtlActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional bool is_if_exists = 2;
+}
+
+message ASTAlterActionListProto {
+  optional ASTNodeProto parent = 1;
+  repeated AnyASTAlterActionProto actions = 2;
+}
+
+message ASTAlterAllRowAccessPoliciesStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional ASTPathExpressionProto table_name_path = 2;
+  optional AnyASTAlterActionProto alter_action = 3;
+}
+
+message ASTForeignKeyActionsProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTForeignKeyActionsEnums.Action update_action = 2;
+  optional ASTForeignKeyActionsEnums.Action delete_action = 3;
+}
+
+message ASTForeignKeyReferenceProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTPathExpressionProto table_name = 2;
+  optional ASTColumnListProto column_list = 3;
+  optional ASTForeignKeyActionsProto actions = 4;
+  optional ASTForeignKeyReferenceEnums.Match match = 5;
+  optional bool enforced = 6;
+}
+
+// A top-level script.
+message ASTScriptProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTStatementListProto statement_list_node = 2;
+}
+
+// Represents an ELSEIF clause in an IF statement.
+message ASTElseifClauseProto {
+  optional ASTNodeProto parent = 1;
+  // condition and body are both required.
+  optional AnyASTExpressionProto condition = 2;
+  optional ASTStatementListProto body = 3;
+}
+
+// Represents a list of ELSEIF clauses.  Note that this list is never empty,
+// as the grammar will not create an ASTElseifClauseList object unless there
+// exists at least one ELSEIF clause.
+message ASTElseifClauseListProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTElseifClauseProto elseif_clauses = 2;
+}
+
+message ASTIfStatementProto {
+  optional ASTScriptStatementProto parent = 1;
+  // condition and then_list are both required.
+  optional AnyASTExpressionProto condition = 2;
+  optional ASTStatementListProto then_list = 3;
+  // Optional; nullptr if no ELSEIF clauses are specified.  If present, the
+  // list will never be empty.
+  optional ASTElseifClauseListProto elseif_clauses = 4;
+  // Optional; nullptr if no ELSE clause is specified
+  optional ASTStatementListProto else_list = 5;
+}
+
+// Represents a WHEN...THEN clause in a CASE statement.
+message ASTWhenThenClauseProto {
+  optional ASTNodeProto parent = 1;
+  // condition and body are both required.
+  optional AnyASTExpressionProto condition = 2;
+  optional ASTStatementListProto body = 3;
+}
+
+// Represents a list of WHEN...THEN clauses. Note that this list is never empty,
+// as the grammar mandates that there is at least one WHEN...THEN clause in
+// a CASE statement.
+message ASTWhenThenClauseListProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTWhenThenClauseProto when_then_clauses = 2;
+}
+
+message ASTCaseStatementProto {
+  optional ASTScriptStatementProto parent = 1;
+  // Optional; nullptr if not specified
+  optional AnyASTExpressionProto expression = 2;
+  // Required field.
+  optional ASTWhenThenClauseListProto when_then_clauses = 3;
+  optional ASTStatementListProto else_list = 4;
+}
+
+message ASTHintProto {
+  optional ASTNodeProto parent = 1;
+  // This is the @num_shards hint shorthand that can occur anywhere that a
+  // hint can occur, prior to @{...} hints.
+  // At least one of num_shards_hints is non-NULL or hint_entries is non-empty.
+  optional ASTIntLiteralProto num_shards_hint = 2;
+  repeated ASTHintEntryProto hint_entries = 3;
+}
+
+message ASTHintEntryProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTIdentifierProto qualifier = 2;
+  optional ASTIdentifierProto name = 3;
+  // Value is always an identifier, literal, or parameter.
+  optional AnyASTExpressionProto value = 4;
+}
+
+message ASTUnpivotInItemLabelProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTStringLiteralProto string_label = 2;
+  optional ASTIntLiteralProto int_label = 3;
+}
+
+message ASTDescriptorProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTDescriptorColumnListProto columns = 2;
+}
+
+// A column schema identifies the column type and the column annotations.
+// The annotations consist of the column attributes and the column options.
+//
+// This class is used only in column definitions of CREATE TABLE statements,
+// and is unrelated to CREATE SCHEMA despite the usage of the overloaded term
+// "schema".
+//
+// The hierarchy of column schema is similar to the type hierarchy.
+// The annotations can be applied on struct fields or array elements, for
+// example, as in STRUCT<x INT64 NOT NULL, y STRING OPTIONS(foo="bar")>.
+// In this case, some column attributes, such as PRIMARY KEY and HIDDEN, are
+// disallowed as field attributes.
+message AnyASTColumnSchemaProto {
+  oneof node {
+    ASTSimpleColumnSchemaProto ast_simple_column_schema_node = 268;
+    ASTArrayColumnSchemaProto ast_array_column_schema_node = 269;
+    ASTStructColumnSchemaProto ast_struct_column_schema_node = 316;
+    ASTInferredTypeColumnSchemaProto ast_inferred_type_column_schema_node = 317;
+  }
+}
+message ASTColumnSchemaProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTTypeParameterListProto type_parameters = 2;
+  optional ASTGeneratedColumnInfoProto generated_column_info = 3;
+  optional AnyASTExpressionProto default_expression = 4;
+  optional ASTCollateProto collate = 5;
+  optional ASTColumnAttributeListProto attributes = 6;
+  optional ASTOptionsListProto options_list = 7;
+}
+
+message ASTSimpleColumnSchemaProto {
+  optional ASTColumnSchemaProto parent = 1;
+  optional ASTPathExpressionProto type_name = 2;
+}
+
+message ASTArrayColumnSchemaProto {
+  optional ASTColumnSchemaProto parent = 1;
+  optional AnyASTColumnSchemaProto element_schema = 2;
+}
+
+message ASTPrimaryKeyElementProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTIdentifierProto column = 2;
+  optional ASTOrderingExpressionEnums.OrderingSpec ordering_spec = 3;
+  optional ASTNullOrderProto null_order = 4;
+}
+
+message ASTPrimaryKeyElementListProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTPrimaryKeyElementProto elements = 2;
+}
+
+// Base class for constraints, including primary key, foreign key and check
+// constraints.
+message AnyASTTableConstraintProto {
+  oneof node {
+    ASTPrimaryKeyProto ast_primary_key_node = 271;
+    ASTForeignKeyProto ast_foreign_key_node = 272;
+    ASTCheckConstraintProto ast_check_constraint_node = 273;
+  }
+}
+message ASTTableConstraintProto {
+  optional ASTTableElementProto parent = 1;
+}
+
+message ASTPrimaryKeyProto {
+  optional ASTTableConstraintProto parent = 1;
+  optional ASTPrimaryKeyElementListProto element_list = 2;
+  optional ASTOptionsListProto options_list = 3;
+  optional ASTIdentifierProto constraint_name = 4;
+  optional bool enforced = 5;
+}
+
+message ASTForeignKeyProto {
+  optional ASTTableConstraintProto parent = 1;
+  optional ASTColumnListProto column_list = 2;
+  optional ASTForeignKeyReferenceProto reference = 3;
+  optional ASTOptionsListProto options_list = 4;
+  optional ASTIdentifierProto constraint_name = 5;
+}
+
+message ASTCheckConstraintProto {
+  optional ASTTableConstraintProto parent = 1;
+  optional AnyASTExpressionProto expression = 2;
+  optional ASTOptionsListProto options_list = 3;
+  optional ASTIdentifierProto constraint_name = 4;
+  optional bool is_enforced = 5;
+}
+
+message ASTDescriptorColumnProto {
+  optional ASTNodeProto parent = 1;
+  // Required field
+  optional ASTIdentifierProto name = 2;
+}
+
+message ASTDescriptorColumnListProto {
+  optional ASTNodeProto parent = 1;
+  // Guaranteed by the parser to never be empty.
+  repeated ASTDescriptorColumnProto descriptor_column_list = 2;
+}
+
+message ASTCreateEntityStatementProto {
+  optional ASTCreateStatementProto parent = 1;
+  optional ASTIdentifierProto type = 2;
+  optional ASTPathExpressionProto name = 3;
+  optional ASTOptionsListProto options_list = 4;
+  optional ASTJSONLiteralProto json_body = 5;
+  optional ASTStringLiteralProto text_body = 6;
+}
+
+message ASTRaiseStatementProto {
+  optional ASTScriptStatementProto parent = 1;
+  optional AnyASTExpressionProto message = 2;
+}
+
+message ASTExceptionHandlerProto {
+  optional ASTNodeProto parent = 1;
+  // Required field; even an empty block still contains an empty statement list.
+  optional ASTStatementListProto statement_list = 2;
+}
+
+// Represents a list of exception handlers in a block.  Currently restricted
+// to one element, but may contain multiple elements in the future, once there
+// are multiple error codes for a block to catch.
+message ASTExceptionHandlerListProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTExceptionHandlerProto exception_handler_list = 2;
+}
+
+message ASTBeginEndBlockProto {
+  optional ASTScriptStatementProto parent = 1;
+  optional ASTLabelProto label = 2;
+  optional ASTStatementListProto statement_list_node = 3;
+  // Optional; nullptr indicates a BEGIN block without an EXCEPTION clause.
+  optional ASTExceptionHandlerListProto handler_list = 4;
+}
+
+message ASTIdentifierListProto {
+  optional ASTNodeProto parent = 1;
+  // Guaranteed by the parser to never be empty.
+  repeated ASTIdentifierProto identifier_list = 2;
+}
+
+message ASTVariableDeclarationProto {
+  optional ASTScriptStatementProto parent = 1;
+  // Required fields
+  optional ASTIdentifierListProto variable_list = 2;
+  // Optional fields; at least one of <type> and <default_value> must be
+  // present.
+  optional AnyASTTypeProto type = 3;
+  optional AnyASTExpressionProto default_value = 4;
+}
+
+// Represents UNTIL in a REPEAT statement.
+message ASTUntilClauseProto {
+  optional ASTNodeProto parent = 1;
+  // Required field
+  optional AnyASTExpressionProto condition = 2;
+}
+
+// Base class shared by break and continue statements.
+message AnyASTBreakContinueStatementProto {
+  oneof node {
+    ASTBreakStatementProto ast_break_statement_node = 285;
+    ASTContinueStatementProto ast_continue_statement_node = 286;
+  }
+}
+message ASTBreakContinueStatementProto {
+  optional ASTScriptStatementProto parent = 1;
+  optional ASTLabelProto label = 2;
+}
+
+message ASTBreakStatementProto {
+  optional ASTBreakContinueStatementProto parent = 1;
+  optional ASTBreakContinueStatementEnums.BreakContinueKeyword keyword = 2;
+}
+
+message ASTContinueStatementProto {
+  optional ASTBreakContinueStatementProto parent = 1;
+  optional ASTBreakContinueStatementEnums.BreakContinueKeyword keyword = 2;
+}
+
+message ASTDropPrivilegeRestrictionStatementProto {
+  optional ASTDdlStatementProto parent = 1;
+  optional bool is_if_exists = 2;
+  optional ASTPrivilegesProto privileges = 3;
+  optional ASTIdentifierProto object_type = 4;
+  optional ASTPathExpressionProto name_path = 5;
+}
+
+// Represents a DROP ROW ACCESS POLICY statement.
+message ASTDropRowAccessPolicyStatementProto {
+  optional ASTDdlStatementProto parent = 1;
+  optional ASTPathExpressionProto name = 2;
+  optional ASTPathExpressionProto table_name = 3;
+  optional bool is_if_exists = 4;
+}
+
+message ASTCreatePrivilegeRestrictionStatementProto {
+  optional ASTCreateStatementProto parent = 1;
+  optional ASTPrivilegesProto privileges = 2;
+  optional ASTIdentifierProto object_type = 3;
+  optional ASTPathExpressionProto name_path = 4;
+  optional ASTRestrictToClauseProto restrict_to = 5;
+}
+
+message ASTCreateRowAccessPolicyStatementProto {
+  optional ASTCreateStatementProto parent = 1;
+  optional ASTPathExpressionProto target_path = 2;
+  optional ASTGrantToClauseProto grant_to = 3;
+  optional ASTFilterUsingClauseProto filter_using = 4;
+  optional ASTPathExpressionProto name = 5;
+  optional bool has_access_keyword = 6;
+}
+
+// Represents a DROP statement.
+message ASTDropStatementProto {
+  optional ASTDdlStatementProto parent = 1;
+  optional ASTPathExpressionProto name = 2;
+  optional ASTDropStatementEnums.DropMode drop_mode = 3;
+  optional bool is_if_exists = 4;
+  optional SchemaObjectKind schema_object_kind = 5;
+}
+
+message ASTReturnStatementProto {
+  optional ASTScriptStatementProto parent = 1;
+}
+
+// A statement which assigns to a single variable from an expression.
+// Example:
+//   SET x = 3;
+message ASTSingleAssignmentProto {
+  optional ASTScriptStatementProto parent = 1;
+  optional ASTIdentifierProto variable = 2;
+  optional AnyASTExpressionProto expression = 3;
+}
+
+// A statement which assigns to a query parameter from an expression.
+// Example:
+//   SET @x = 3;
+message ASTParameterAssignmentProto {
+  optional ASTStatementProto parent = 1;
+  optional ASTParameterExprProto parameter = 2;
+  optional AnyASTExpressionProto expression = 3;
+}
+
+// A statement which assigns to a system variable from an expression.
+// Example:
+//   SET @@x = 3;
+message ASTSystemVariableAssignmentProto {
+  optional ASTStatementProto parent = 1;
+  optional ASTSystemVariableExprProto system_variable = 2;
+  optional AnyASTExpressionProto expression = 3;
+}
+
+// A statement which assigns multiple variables to fields in a struct,
+// which each variable assigned to one field.
+// Example:
+//   SET (x, y) = (5, 10);
+message ASTAssignmentFromStructProto {
+  optional ASTScriptStatementProto parent = 1;
+  optional ASTIdentifierListProto variables = 2;
+  optional AnyASTExpressionProto struct_expression = 3;
+}
+
+message AnyASTCreateTableStmtBaseProto {
+  oneof node {
+    ASTCreateTableStatementProto ast_create_table_statement_node = 296;
+    ASTCreateExternalTableStatementProto ast_create_external_table_statement_node = 297;
+    ASTAuxLoadDataStatementProto ast_aux_load_data_statement_node = 342;
+  }
+}
+message ASTCreateTableStmtBaseProto {
+  optional ASTCreateStatementProto parent = 1;
+  optional ASTPathExpressionProto name = 2;
+  optional ASTTableElementListProto table_element_list = 3;
+  optional ASTOptionsListProto options_list = 4;
+  optional ASTPathExpressionProto like_table_name = 5;
+  optional ASTCollateProto collate = 6;
+}
+
+message ASTCreateTableStatementProto {
+  optional ASTCreateTableStmtBaseProto parent = 1;
+  optional ASTCloneDataSourceProto clone_data_source = 2;
+  optional ASTCopyDataSourceProto copy_data_source = 3;
+  optional ASTPartitionByProto partition_by = 4;
+  optional ASTClusterByProto cluster_by = 5;
+  optional ASTQueryProto query = 6;
+  optional ASTSpannerTableOptionsProto spanner_options = 7;
+  optional ASTTtlClauseProto ttl = 8;
+}
+
+message ASTCreateExternalTableStatementProto {
+  optional ASTCreateTableStmtBaseProto parent = 1;
+  optional ASTWithPartitionColumnsClauseProto with_partition_columns_clause = 2;
+  optional ASTWithConnectionClauseProto with_connection_clause = 3;
+}
+
+message AnyASTCreateViewStatementBaseProto {
+  oneof node {
+    ASTCreateViewStatementProto ast_create_view_statement_node = 299;
+    ASTCreateMaterializedViewStatementProto ast_create_materialized_view_statement_node = 300;
+  }
+}
+message ASTCreateViewStatementBaseProto {
+  optional ASTCreateStatementProto parent = 1;
+  optional ASTPathExpressionProto name = 2;
+  optional ASTColumnListProto column_list = 3;
+  optional ASTOptionsListProto options_list = 4;
+  optional ASTQueryProto query = 5;
+  optional ASTCreateStatementEnums.SqlSecurity sql_security = 6;
+  optional bool recursive = 7;
+}
+
+message ASTCreateViewStatementProto {
+  optional ASTCreateViewStatementBaseProto parent = 1;
+}
+
+message ASTCreateMaterializedViewStatementProto {
+  optional ASTCreateViewStatementBaseProto parent = 1;
+  optional ASTPartitionByProto partition_by = 2;
+  optional ASTClusterByProto cluster_by = 3;
+}
+
+// Base class for all loop statements (loop/end loop, while, foreach, etc.).
+// Every loop has a body.
+message AnyASTLoopStatementProto {
+  oneof node {
+    ASTWhileStatementProto ast_while_statement_node = 302;
+    ASTRepeatStatementProto ast_repeat_statement_node = 303;
+    ASTForInStatementProto ast_for_in_statement_node = 304;
+  }
+}
+message ASTLoopStatementProto {
+  optional ASTScriptStatementProto parent = 1;
+  // Optional field
+  optional ASTLabelProto label = 2;
+  // Required field
+  optional ASTStatementListProto body = 3;
+}
+
+// Represents either:
+// - LOOP...END LOOP (if condition is nullptr).  This is semantically
+//                  equivalent to WHILE(true)...END WHILE.
+// - WHILE...END WHILE (if condition is not nullptr)
+message ASTWhileStatementProto {
+  optional ASTLoopStatementProto parent = 1;
+  // The <condition> is optional.  A null <condition> indicates a
+  // LOOP...END LOOP construct.
+  optional AnyASTExpressionProto condition = 2;
+}
+
+// Represents the statement REPEAT...UNTIL...END REPEAT.
+// This is conceptually also called do-while.
+message ASTRepeatStatementProto {
+  optional ASTLoopStatementProto parent = 1;
+  // Required field.
+  optional ASTUntilClauseProto until_clause = 2;
+}
+
+// Represents the statement FOR...IN...DO...END FOR.
+// This is conceptually also called for-each.
+message ASTForInStatementProto {
+  optional ASTLoopStatementProto parent = 1;
+  optional ASTIdentifierProto variable = 2;
+  optional ASTQueryProto query = 3;
+}
+
+// Common parent class for ALTER statement, e.g., ALTER TABLE/ALTER VIEW
+message AnyASTAlterStatementBaseProto {
+  oneof node {
+    ASTAlterDatabaseStatementProto ast_alter_database_statement_node = 306;
+    ASTAlterSchemaStatementProto ast_alter_schema_statement_node = 307;
+    ASTAlterTableStatementProto ast_alter_table_statement_node = 308;
+    ASTAlterViewStatementProto ast_alter_view_statement_node = 309;
+    ASTAlterMaterializedViewStatementProto ast_alter_materialized_view_statement_node = 310;
+    ASTAlterRowAccessPolicyStatementProto ast_alter_row_access_policy_statement_node = 311;
+    ASTAlterEntityStatementProto ast_alter_entity_statement_node = 312;
+    ASTAlterPrivilegeRestrictionStatementProto ast_alter_privilege_restriction_statement_node = 325;
+    ASTAlterModelStatementProto ast_alter_model_statement_node = 336;
+  }
+}
+message ASTAlterStatementBaseProto {
+  optional ASTDdlStatementProto parent = 1;
+  optional ASTPathExpressionProto path = 2;
+  optional ASTAlterActionListProto action_list = 3;
+  optional bool is_if_exists = 4;
+}
+
+message ASTAlterDatabaseStatementProto {
+  optional ASTAlterStatementBaseProto parent = 1;
+}
+
+message ASTAlterSchemaStatementProto {
+  optional ASTAlterStatementBaseProto parent = 1;
+}
+
+message ASTAlterTableStatementProto {
+  optional ASTAlterStatementBaseProto parent = 1;
+}
+
+message ASTAlterViewStatementProto {
+  optional ASTAlterStatementBaseProto parent = 1;
+}
+
+message ASTAlterMaterializedViewStatementProto {
+  optional ASTAlterStatementBaseProto parent = 1;
+}
+
+message ASTAlterModelStatementProto {
+  optional ASTAlterStatementBaseProto parent = 1;
+}
+
+message ASTAlterPrivilegeRestrictionStatementProto {
+  optional ASTAlterStatementBaseProto parent = 1;
+  // Required field.
+  optional ASTPrivilegesProto privileges = 2;
+  // Required field.
+  optional ASTIdentifierProto object_type = 3;
+}
+
+message ASTAlterRowAccessPolicyStatementProto {
+  optional ASTAlterStatementBaseProto parent = 1;
+  // Required field.
+  optional ASTIdentifierProto name = 2;
+}
+
+message ASTAlterEntityStatementProto {
+  optional ASTAlterStatementBaseProto parent = 1;
+  optional ASTIdentifierProto type = 2;
+}
+
+// This is the common superclass of CREATE FUNCTION and CREATE TABLE FUNCTION
+// statements. It contains all fields shared between the two types of
+// statements, including the function declaration, return type, OPTIONS list,
+// and string body (if present).
+message AnyASTCreateFunctionStmtBaseProto {
+  oneof node {
+    ASTCreateFunctionStatementProto ast_create_function_statement_node = 314;
+    ASTCreateTableFunctionStatementProto ast_create_table_function_statement_node = 315;
+  }
+}
+message ASTCreateFunctionStmtBaseProto {
+  optional ASTCreateStatementProto parent = 1;
+  optional ASTFunctionDeclarationProto function_declaration = 2;
+  optional ASTIdentifierProto language = 3;
+  optional ASTStringLiteralProto code = 4;
+  optional ASTOptionsListProto options_list = 5;
+  optional ASTCreateFunctionStmtBaseEnums.DeterminismLevel determinism_level = 6;
+  optional ASTCreateStatementEnums.SqlSecurity sql_security = 7;
+}
+
+// This may represent an "external language" function (e.g., implemented in a
+// non-SQL programming language such as JavaScript), a "sql" function, or a
+// "remote" function (e.g., implemented in a remote service and with an agnostic
+// programming language).
+// Note that some combinations of field setting can represent functions that are
+// not actually valid due to optional members that would be inappropriate for
+// one type of function or another; validity of the parsed function must be
+// checked by the analyzer.
+message ASTCreateFunctionStatementProto {
+  optional ASTCreateFunctionStmtBaseProto parent = 1;
+  optional AnyASTTypeProto return_type = 2;
+  optional ASTSqlFunctionBodyProto sql_function_body = 3;
+  optional bool is_aggregate = 4;
+  optional bool is_remote = 5;
+  optional ASTWithConnectionClauseProto with_connection_clause = 6;
+}
+
+// This represents a table-valued function declaration statement in ZetaSQL,
+// using the CREATE TABLE FUNCTION syntax. Note that some combinations of field
+// settings can represent functions that are not actually valid, since optional
+// members may be inappropriate for one type of function or another; validity of
+// the parsed function must be checked by the analyzer.
+message ASTCreateTableFunctionStatementProto {
+  optional ASTCreateFunctionStmtBaseProto parent = 1;
+  optional ASTTVFSchemaProto return_tvf_schema = 2;
+  optional ASTQueryProto query = 3;
+}
+
+message ASTStructColumnSchemaProto {
+  optional ASTColumnSchemaProto parent = 1;
+  repeated ASTStructColumnFieldProto struct_fields = 2;
+}
+
+message ASTInferredTypeColumnSchemaProto {
+  optional ASTColumnSchemaProto parent = 1;
+}
+
+message ASTExecuteIntoClauseProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTIdentifierListProto identifiers = 2;
+}
+
+message ASTExecuteUsingArgumentProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto expression = 2;
+  // Optional. Absent if this argument is positional. Present if it is named.
+  optional ASTAliasProto alias = 3;
+}
+
+message ASTExecuteUsingClauseProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTExecuteUsingArgumentProto arguments = 2;
+}
+
+message ASTExecuteImmediateStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional AnyASTExpressionProto sql = 2;
+  optional ASTExecuteIntoClauseProto into_clause = 3;
+  optional ASTExecuteUsingClauseProto using_clause = 4;
+}
+
+message ASTAuxLoadDataFromFilesOptionsListProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTOptionsListProto options_list = 2;
+}
+
+// Auxiliary statement used by some engines but not formally part of the
+// ZetaSQL language.
+message ASTAuxLoadDataStatementProto {
+  optional ASTCreateTableStmtBaseProto parent = 1;
+  optional ASTAuxLoadDataStatementEnums.InsertionMode insertion_mode = 2;
+  optional ASTPartitionByProto partition_by = 3;
+  optional ASTClusterByProto cluster_by = 4;
+  optional ASTAuxLoadDataFromFilesOptionsListProto from_files = 5;
+  optional ASTWithPartitionColumnsClauseProto with_partition_columns_clause = 6;
+  optional ASTWithConnectionClauseProto with_connection_clause = 7;
+}
+
+message ASTLabelProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTIdentifierProto name = 2;
+}
+
+message ASTWithExpressionProto {
+  optional ASTExpressionProto parent = 1;
+  optional ASTSelectListProto variables = 2;
+  optional AnyASTExpressionProto expression = 3;
+}
+
+message ASTTopProto {
+  optional ASTNodeProto parent = 1;
+  // The TOP value. Never NULL.
+  optional AnyASTExpressionProto top = 2;
+}
+
+message ASTTtlClauseProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto expression = 2;
+}
+
+// A non-functional node used only to carry a location for better error
+// messages.
+message ASTLocationProto {
+  optional ASTNodeProto parent = 1;
+}
+
+message ASTInputOutputClauseProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTTableElementListProto input = 2;
+  optional ASTTableElementListProto output = 3;
+}
+
+// Represents Spanner-specific extensions for CREATE TABLE statement.
+message ASTSpannerTableOptionsProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTPrimaryKeyProto primary_key = 2;
+  optional ASTSpannerInterleaveClauseProto interleave_clause = 3;
+}
+
+// Represents an INTERLEAVE clause used in Spanner-specific DDL statements.
+message ASTSpannerInterleaveClauseProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTPathExpressionProto table_name = 2;
+  optional ASTSpannerInterleaveClauseEnums.Type type = 3;
+  optional ASTForeignKeyActionsEnums.Action action = 4;
+}
+
+// ALTER TABLE action for Spanner-specific "ALTER COLUMN" clause
+message ASTSpannerAlterColumnActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTColumnDefinitionProto column_definition = 2;
+}
+
+// ALTER TABLE action for Spanner-specific "SET ON DELETE" clause
+message ASTSpannerSetOnDeleteActionProto {
+  optional ASTAlterActionProto parent = 1;
+  optional ASTForeignKeyActionsEnums.Action action = 2;
+}
+
+// This node results from ranges constructed with the RANGE keyword followed
+// by a literal. Example:
+//   RANGE<DATE> '[2022-08-01, 2022-08-02)'
+//   RANGE<TIMESTAMP> '[2020-10-01 12:00:00+08, 2020-12-31 12:00:00+08)';
+message ASTRangeLiteralProto {
+  optional ASTExpressionProto parent = 1;
+  optional ASTRangeTypeProto type = 2;
+  // String literal representing the range, must have format
+  // "[range start, range end)" where "range start" and "range end"
+  // are literals of the type specified RANGE<type>
+  optional ASTStringLiteralProto range_value = 3;
+}
+
+message ASTRangeTypeProto {
+  optional ASTTypeProto parent = 1;
+  optional AnyASTTypeProto element_type = 2;
+  optional ASTTypeParameterListProto type_parameters = 3;
+  optional ASTCollateProto collate = 4;
+}
+
+message ASTGroupingSetsProto {
+  optional ASTNodeProto parent = 1;
+  repeated AnyASTExpressionProto expressions = 2;
+}
+
+message ASTOffsetFetchProto {
+  optional ASTNodeProto parent = 1;
+  // The FETCH value. Never NULL.
+  optional AnyASTExpressionProto fetch = 2;
+  // The OFFSET value. NULL if no OFFSET specified.
+  optional AnyASTExpressionProto offset = 3;
+}
+
+message ASTCubeProto {
+  optional ASTNodeProto parent = 1;
+  repeated AnyASTExpressionProto expressions = 2;
+}
+// clang-format on

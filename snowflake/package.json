@@ -1,0 +1,75 @@
+{
+  "name": "@fivetrandevelopers/zetasql-snowflake",
+  "description": "ZetaSQL Snowflake gRPC server and client",
+  "version": "1.7.0",
+  "publisher": "Fivetran",
+  "license": "MIT",
+  "keywords": [
+    "ZetaSQL",
+    "Snowflake",
+    "SQL",
+    "gRPC"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fivetran/zetasql-npm.git",
+    "directory": "snowflake"
+  },
+  "homepage": "https://github.com/fivetran/zetasql-npm/snowflake#readme",
+  "dependencies": {
+    "@grpc/grpc-js": "^1.7.3",
+    "@grpc/proto-loader": "^0.7.3",
+    "@types/ffi-napi": "^4.0.6",
+    "@types/long": "^4.0.2",
+    "@types/ref-napi": "^3.0.5",
+    "ffi-napi": "^4.0.3"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.0",
+    "@types/node": "^18.11.9",
+    "@types/tcp-port-used": "^1.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.42.1",
+    "@typescript-eslint/parser": "^5.42.1",
+    "eslint": "^8.27.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-sonarjs": "^0.16.0",
+    "hamjest": "^3.7.3",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.0.3",
+    "mocha": "^10.1.0",
+    "prettier": "^2.7.1",
+    "prettier-plugin-organize-imports": "^3.2.0",
+    "source-map-support": "^0.5.21",
+    "tcp-port-used": "^1.0.2",
+    "ts-mockito": "^2.6.1",
+    "typescript": "^4.8.4"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "watch": "tsc -b -w",
+    "build:proto": "proto-loader-gen-types --defaults --oneofs --grpcLib=@grpc/grpc-js --includeDirs=src/protos --outDir=src/types local_service.proto",
+    "prebuild": "npm run build:proto",
+    "build:server": "mkdir -p lib/zetasql && tar -xzvf snowflake-bin/darwin-x86-64/libremote_server.dylib.tar.gz -C lib/zetasql/ && tar -xzvf snowflake-bin/darwin-arm-64/libremote_server_arm.dylib.tar.gz -C lib/zetasql/ && tar -xzvf snowflake-bin/linux-x86-64/libremote_server.so.tar.gz -C lib/zetasql/ && tar -xzvf snowflake-bin/linux-arm-64/libremote_server_arm.so.tar.gz -C lib/zetasql/ && cp -R src/protos/ lib/protos/",
+    "build:all": "npm run build:server && npm run lint && npm run build",
+    "test": "mocha",
+    "lint": "eslint --cache --no-fix --ext .ts src",
+    "lint:fix": "eslint --cache --fix --ext .ts src",
+    "prepare": "cd .. && husky install"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "package.json",
+    "lib/**/*",
+    "!lib/test/**/*",
+    "!lib/TestZetaSqlServer*"
+  ],
+  "lint-staged": {
+    "*.ts": [
+      "eslint --cache --ext .ts --fix src"
+    ]
+  }
+}
