@@ -1,8 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-cd ./snowflake
-npx lint-staged
-
-cd ../zetasql
+cd ./zetasql
 npx lint-staged
