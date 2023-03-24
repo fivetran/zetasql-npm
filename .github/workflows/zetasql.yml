@@ -15,3 +15,5 @@ jobs:
     uses: ./.github/workflows/base-workflow.yml
     with:
       cpp-repo-name: zetasql
+      npm-package-name: zetasql
+      tag: bq-v

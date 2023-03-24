@@ -6,6 +6,12 @@ on:
       cpp-repo-name:
         required: true
         type: string
+      npm-package-name:
+        required: true
+        type: string
+      tag:
+        required: true
+        type: string
 
 jobs:
   build:
@@ -86,15 +92,15 @@ jobs:
       - name: copy files
         working-directory: build
         run: |
-          mkdir -p zetasql-npm/${{ inputs.cpp-repo-name }}/lib/zetasql
-          cp zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib zetasql-npm/${{ inputs.cpp-repo-name }}/lib/zetasql/
-          tar -xzvf zetasql-npm/${{ inputs.cpp-repo-name }}/snowflake-bin/darwin-arm-64/libremote_server_arm.dylib.tar.gz -C zetasql-npm/${{ inputs.cpp-repo-name }}/lib/zetasql/
-          tar -xzvf zetasql-npm/${{ inputs.cpp-repo-name }}/snowflake-bin/linux-arm-64/libremote_server_arm.so.tar.gz -C zetasql-npm/${{ inputs.cpp-repo-name }}/lib/zetasql/
-          cp zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so zetasql-npm/${{ inputs.cpp-repo-name }}/lib/zetasql/
-          cp -R zetasql-npm/${{ inputs.cpp-repo-name }}/src/protos zetasql-npm/${{ inputs.cpp-repo-name }}/lib/protos
+          mkdir -p zetasql-npm/${{ inputs.npm-package-name }}/lib/zetasql
+          cp zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib zetasql-npm/${{ inputs.npm-package-name }}/lib/zetasql/
+          tar -xzvf zetasql-npm/${{ inputs.npm-package-name }}/${{ inputs.npm-package-name }}-bin/darwin-arm-64/libremote_server_arm.dylib.tar.gz -C zetasql-npm/${{ inputs.npm-package-name }}/lib/zetasql/
+          tar -xzvf zetasql-npm/${{ inputs.npm-package-name }}/${{ inputs.npm-package-name }}-bin/linux-arm-64/libremote_server_arm.so.tar.gz -C zetasql-npm/${{ inputs.npm-package-name }}/lib/zetasql/
+          cp zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so zetasql-npm/${{ inputs.npm-package-name }}/lib/zetasql/
+          cp -R zetasql-npm/${{ inputs.npm-package-name }}/src/protos zetasql-npm/${{ inputs.npm-package-name }}/lib/protos
 
       - name: build and test
-        working-directory: build/zetasql-npm/${{ inputs.cpp-repo-name }}
+        working-directory: build/zetasql-npm/${{ inputs.npm-package-name }}
         run: |
           echo ${{ github.ref }}
           npm install
@@ -105,7 +111,7 @@ jobs:
       - name: Cache package results
         uses: actions/cache@v2
         with:
-          path: build/zetasql-npm/${{ inputs.cpp-repo-name }}
+          path: build/zetasql-npm/${{ inputs.npm-package-name }}
           key: package-results-${{ github.sha }}-${{ github.ref }}
 
   e2e-macos:
@@ -116,14 +122,97 @@ jobs:
       - name: load package results
         uses: actions/cache@v2
         with:
-          path: build/zetasql-npm/${{ inputs.cpp-repo-name }}
+          path: build/zetasql-npm/${{ inputs.npm-package-name }}
           key: package-results-${{ github.sha }}-${{ github.ref }}
 
       - name: delete libraries for other platforms
-        run: find ./build/zetasql-npm/${{ inputs.cpp-repo-name }}/lib/zetasql ! -name 'libremote_server.dylib' -type f -exec rm -f {} +
+        run: find ./build/zetasql-npm/${{ inputs.npm-package-name }}/lib/zetasql ! -name 'libremote_server.dylib' -type f -exec rm -f {} +
 
       - name: run e2e test
-        working-directory: build/zetasql-npm/${{ inputs.cpp-repo-name }}
+        working-directory: build/zetasql-npm/${{ inputs.npm-package-name }}
         run: |
           npm ci
           ./e2e.sh
+
+  e2e-linux:
+    needs: package
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: set up docker buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: available platforms
+        run: echo ${{ steps.buildx.outputs.platforms }}
+
+      - name: load package results
+        uses: actions/cache@v2
+        with:
+          path: build/zetasql-npm/${{ inputs.npm-package-name }}
+          key: package-results-${{ github.sha }}-${{ github.ref }}
+
+      - name: delete libraries for other platforms
+        run: find ./build/zetasql-npm/${{ inputs.npm-package-name }}/lib/zetasql ! -name '*.so' -type f -exec rm -f {} +
+
+      - name: run e2e test
+        working-directory: build/zetasql-npm/${{ inputs.npm-package-name }}
+        run: docker buildx build --platform=linux/amd64,linux/arm64 --progress=plain --no-cache .
+
+  publish-npm:
+    runs-on: ubuntu-20.04
+    if: startsWith(github.ref, 'refs/tags/${{ inputs.tag }}')
+    needs: [build, package, e2e-macos, e2e-linux]
+    steps:
+      - name: load package results
+        uses: actions/cache@v2
+        with:
+          path: build/zetasql-npm/${{ inputs.npm-package-name }}
+          key: package-results-${{ github.sha }}-${{ github.ref }}
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: publish
+        working-directory: build/zetasql-npm/${{ inputs.npm-package-name }}
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  update-lib-archives:
+    needs: build
+
+    runs-on: ubuntu-20.04
+    steps:
+      - name: checkout zetasql-npm
+        uses: actions/checkout@v2
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.cpp-repo-name }}-ubuntu-20.04
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.cpp-repo-name }}-macos-latest
+
+      - run: |
+          mkdir -p old
+          tar -xzvf ${{ inputs.npm-package-name }}/${{ inputs.npm-package-name }}-bin/darwin-x86-64/libremote_server.dylib.tar.gz -C old
+          tar -xzvf ${{ inputs.npm-package-name }}/${{ inputs.npm-package-name }}-bin/linux-x86-64/libremote_server.so.tar.gz -C old
+
+          if ! diff -q libremote_server.dylib old/libremote_server.dylib &>/dev/null; then
+            tar -zcf ${{ inputs.npm-package-name }}/${{ inputs.npm-package-name }}-bin/darwin-x86-64/libremote_server.dylib.tar.gz libremote_server.dylib
+          fi
+
+          if ! diff -q libremote_server.so old/libremote_server.so &>/dev/null; then
+            tar -zcf ${{ inputs.npm-package-name }}/${{ inputs.npm-package-name }}-bin/linux-x86-64/libremote_server.so.tar.gz libremote_server.so
+          fi
+
+      - uses: EndBug/add-and-commit@v9
+        with:
+          add: "${{ inputs.npm-package-name }}/${{ inputs.npm-package-name }}-bin"
+          message: "update artifacts"
