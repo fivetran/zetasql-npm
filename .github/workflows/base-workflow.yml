@@ -1,0 +1,129 @@
+name: Base Workflow
+
+on:
+  workflow_call:
+    inputs:
+      cpp-repo-name:
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    outputs:
+      sha_short: ${{ steps.vars.outputs.sha_short }}
+
+    strategy:
+      matrix:
+        include:
+          - os: macos-latest
+            working-directory: build/zetasql-macos
+            cache-path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
+            build-commands: |
+              npx @bazel/bazelisk build --copt "-O3" --config=clang //zetasql/local_service:libremote_server.dylib
+              install_name_tool -id "@loader_path/libremote_server.dylib" bazel-bin/zetasql/local_service/libremote_server.dylib
+
+          - os: ubuntu-20.04
+            working-directory: build/zetasql-linux
+            cache-path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
+            build-commands: npx @bazel/bazelisk build --copt "-O3" //zetasql/local_service:libremote_server.so
+
+    steps:
+      - name: checkout C++ library
+        uses: actions/checkout@v2
+        with:
+          repository: fivetran/${{ inputs.cpp-repo-name }}
+          path: ${{ matrix.working-directory }}
+
+      - name: set variables
+        id: vars
+        working-directory: ${{ matrix.working-directory }}
+        run: |
+          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+          echo $(git rev-parse --short HEAD)
+
+      - name: cache zetasql build
+        id: cache-zetasql-build
+        uses: actions/cache@v2
+        with:
+          path: ${{ matrix.cache-path }}
+          key: ${{ matrix.os }}-${{ steps.vars.outputs.sha_short }}-6
+
+      - name: build
+        if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
+        working-directory: ${{ matrix.working-directory }}
+        run: |
+          ${{ matrix.build-commands }}
+
+      - name: upload build result
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ inputs.cpp-repo-name }}-${{ matrix.os }}
+          path: ${{ matrix.cache-path }}
+
+  package:
+    runs-on: ubuntu-20.04
+    needs: build
+    steps:
+      - name: checkout zetasql-npm
+        uses: actions/checkout@v2
+        with:
+          path: build/zetasql-npm
+
+      - name: load linux build
+        uses: actions/cache@v2
+        with:
+          path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
+          key: ubuntu-20.04-${{ needs.build.outputs.sha_short }}-6
+
+      - name: load macos build
+        uses: actions/cache@v2
+        with:
+          path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
+          key: macos-latest-${{ needs.build.outputs.sha_short }}-6
+
+      - name: copy files
+        working-directory: build
+        run: |
+          mkdir -p zetasql-npm/${{ inputs.cpp-repo-name }}/lib/zetasql
+          cp zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib zetasql-npm/${{ inputs.cpp-repo-name }}/lib/zetasql/
+          tar -xzvf zetasql-npm/${{ inputs.cpp-repo-name }}/snowflake-bin/darwin-arm-64/libremote_server_arm.dylib.tar.gz -C zetasql-npm/${{ inputs.cpp-repo-name }}/lib/zetasql/
+          tar -xzvf zetasql-npm/${{ inputs.cpp-repo-name }}/snowflake-bin/linux-arm-64/libremote_server_arm.so.tar.gz -C zetasql-npm/${{ inputs.cpp-repo-name }}/lib/zetasql/
+          cp zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so zetasql-npm/${{ inputs.cpp-repo-name }}/lib/zetasql/
+          cp -R zetasql-npm/${{ inputs.cpp-repo-name }}/src/protos zetasql-npm/${{ inputs.cpp-repo-name }}/lib/protos
+
+      - name: build and test
+        working-directory: build/zetasql-npm/${{ inputs.cpp-repo-name }}
+        run: |
+          echo ${{ github.ref }}
+          npm install
+          npm run build
+          npm run test
+          npm run lint
+
+      - name: Cache package results
+        uses: actions/cache@v2
+        with:
+          path: build/zetasql-npm/${{ inputs.cpp-repo-name }}
+          key: package-results-${{ github.sha }}-${{ github.ref }}
+
+  e2e-macos:
+    needs: package
+    runs-on: macos-latest
+
+    steps:
+      - name: load package results
+        uses: actions/cache@v2
+        with:
+          path: build/zetasql-npm/${{ inputs.cpp-repo-name }}
+          key: package-results-${{ github.sha }}-${{ github.ref }}
+
+      - name: delete libraries for other platforms
+        run: find ./build/zetasql-npm/${{ inputs.cpp-repo-name }}/lib/zetasql ! -name 'libremote_server.dylib' -type f -exec rm -f {} +
+
+      - name: run e2e test
+        working-directory: build/zetasql-npm/${{ inputs.cpp-repo-name }}
+        run: |
+          npm ci
+          ./e2e.sh
