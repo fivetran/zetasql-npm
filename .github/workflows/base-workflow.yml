@@ -164,7 +164,7 @@ jobs:
 
   publish-npm:
     runs-on: ubuntu-20.04
-    if: startsWith(github.ref, 'refs/tags/${{ inputs.tag }}')
+    if: startsWith(github.ref, format('refs/tags/{0}', inputs.tag))
     needs: [build, package, e2e-macos, e2e-linux]
     steps:
       - name: load package results
@@ -172,6 +172,7 @@ jobs:
         with:
           path: build/zetasql-npm/${{ inputs.npm-package-name }}
           key: package-results-${{ github.sha }}-${{ github.ref }}
+
       - uses: actions/setup-node@v2
         with:
           node-version: "14.x"
