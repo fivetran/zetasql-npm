@@ -46,7 +46,7 @@ jobs:
         id: vars
         working-directory: ${{ matrix.working-directory }}
         run: |
-          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+          echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
           echo $(git rev-parse --short HEAD)
 
       - name: cache zetasql build
