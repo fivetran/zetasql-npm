@@ -108,7 +108,7 @@ jobs:
           npm run test
           npm run lint
 
-      - name: Cache package results
+      - name: cache package results
         uses: actions/cache@v2
         with:
           path: build/zetasql-npm/${{ inputs.npm-package-name }}
@@ -131,7 +131,7 @@ jobs:
       - name: run e2e test
         working-directory: build/zetasql-npm/${{ inputs.npm-package-name }}
         run: |
-          npm install --prefix ..
+          npm ci
           ./e2e.sh
 
   e2e-linux:
