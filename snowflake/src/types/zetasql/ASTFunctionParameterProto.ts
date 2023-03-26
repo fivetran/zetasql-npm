@@ -7,7 +7,7 @@ import type { ASTTemplatedParameterTypeProto as _zetasql_ASTTemplatedParameterTy
 import type { ASTTVFSchemaProto as _zetasql_ASTTVFSchemaProto, ASTTVFSchemaProto__Output as _zetasql_ASTTVFSchemaProto__Output } from '../zetasql/ASTTVFSchemaProto';
 import type { ASTAliasProto as _zetasql_ASTAliasProto, ASTAliasProto__Output as _zetasql_ASTAliasProto__Output } from '../zetasql/ASTAliasProto';
 import type { AnyASTExpressionProto as _zetasql_AnyASTExpressionProto, AnyASTExpressionProto__Output as _zetasql_AnyASTExpressionProto__Output } from '../zetasql/AnyASTExpressionProto';
-import type { _zetasql_ASTFunctionParameterEnums_ProcedureParameterMode, _zetasql_ASTFunctionParameterEnums_ProcedureParameterMode__Output } from '../zetasql/ASTFunctionParameterEnums';
+import type { _zetasql_ASTFunctionParameterEnums_ProcedureParameterMode } from '../zetasql/ASTFunctionParameterEnums';
 
 export interface ASTFunctionParameterProto {
   'parent'?: (_zetasql_ASTNodeProto | null);
@@ -17,7 +17,7 @@ export interface ASTFunctionParameterProto {
   'tvfSchema'?: (_zetasql_ASTTVFSchemaProto | null);
   'alias'?: (_zetasql_ASTAliasProto | null);
   'defaultValue'?: (_zetasql_AnyASTExpressionProto | null);
-  'procedureParameterMode'?: (_zetasql_ASTFunctionParameterEnums_ProcedureParameterMode);
+  'procedureParameterMode'?: (_zetasql_ASTFunctionParameterEnums_ProcedureParameterMode | keyof typeof _zetasql_ASTFunctionParameterEnums_ProcedureParameterMode);
   'isNotAggregate'?: (boolean);
 }
 
@@ -29,6 +29,6 @@ export interface ASTFunctionParameterProto__Output {
   'tvfSchema': (_zetasql_ASTTVFSchemaProto__Output | null);
   'alias': (_zetasql_ASTAliasProto__Output | null);
   'defaultValue': (_zetasql_AnyASTExpressionProto__Output | null);
-  'procedureParameterMode': (_zetasql_ASTFunctionParameterEnums_ProcedureParameterMode__Output);
+  'procedureParameterMode': (_zetasql_ASTFunctionParameterEnums_ProcedureParameterMode);
   'isNotAggregate': (boolean);
 }

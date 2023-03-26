@@ -5,7 +5,7 @@ import type { FunctionSignatureProto as _zetasql_FunctionSignatureProto, Functio
 import type { ResolvedOptionProto as _zetasql_ResolvedOptionProto, ResolvedOptionProto__Output as _zetasql_ResolvedOptionProto__Output } from '../zetasql/ResolvedOptionProto';
 import type { AnyResolvedScanProto as _zetasql_AnyResolvedScanProto, AnyResolvedScanProto__Output as _zetasql_AnyResolvedScanProto__Output } from '../zetasql/AnyResolvedScanProto';
 import type { ResolvedOutputColumnProto as _zetasql_ResolvedOutputColumnProto, ResolvedOutputColumnProto__Output as _zetasql_ResolvedOutputColumnProto__Output } from '../zetasql/ResolvedOutputColumnProto';
-import type { _zetasql_ResolvedCreateStatementEnums_SqlSecurity, _zetasql_ResolvedCreateStatementEnums_SqlSecurity__Output } from '../zetasql/ResolvedCreateStatementEnums';
+import type { _zetasql_ResolvedCreateStatementEnums_SqlSecurity } from '../zetasql/ResolvedCreateStatementEnums';
 
 export interface ResolvedCreateTableFunctionStmtProto {
   'parent'?: (_zetasql_ResolvedCreateStatementProto | null);
@@ -17,7 +17,7 @@ export interface ResolvedCreateTableFunctionStmtProto {
   'query'?: (_zetasql_AnyResolvedScanProto | null);
   'outputColumnList'?: (_zetasql_ResolvedOutputColumnProto)[];
   'isValueTable'?: (boolean);
-  'sqlSecurity'?: (_zetasql_ResolvedCreateStatementEnums_SqlSecurity);
+  'sqlSecurity'?: (_zetasql_ResolvedCreateStatementEnums_SqlSecurity | keyof typeof _zetasql_ResolvedCreateStatementEnums_SqlSecurity);
   'hasExplicitReturnSchema'?: (boolean);
 }
 
@@ -31,6 +31,6 @@ export interface ResolvedCreateTableFunctionStmtProto__Output {
   'query': (_zetasql_AnyResolvedScanProto__Output | null);
   'outputColumnList': (_zetasql_ResolvedOutputColumnProto__Output)[];
   'isValueTable': (boolean);
-  'sqlSecurity': (_zetasql_ResolvedCreateStatementEnums_SqlSecurity__Output);
+  'sqlSecurity': (_zetasql_ResolvedCreateStatementEnums_SqlSecurity);
   'hasExplicitReturnSchema': (boolean);
 }

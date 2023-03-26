@@ -6,8 +6,8 @@ import type { AnyResolvedExprProto as _zetasql_AnyResolvedExprProto, AnyResolved
 import type { ResolvedOptionProto as _zetasql_ResolvedOptionProto, ResolvedOptionProto__Output as _zetasql_ResolvedOptionProto__Output } from '../zetasql/ResolvedOptionProto';
 import type { ResolvedComputedColumnProto as _zetasql_ResolvedComputedColumnProto, ResolvedComputedColumnProto__Output as _zetasql_ResolvedComputedColumnProto__Output } from '../zetasql/ResolvedComputedColumnProto';
 import type { FunctionSignatureProto as _zetasql_FunctionSignatureProto, FunctionSignatureProto__Output as _zetasql_FunctionSignatureProto__Output } from '../zetasql/FunctionSignatureProto';
-import type { _zetasql_ResolvedCreateStatementEnums_SqlSecurity, _zetasql_ResolvedCreateStatementEnums_SqlSecurity__Output } from '../zetasql/ResolvedCreateStatementEnums';
-import type { _zetasql_ResolvedCreateStatementEnums_DeterminismLevel, _zetasql_ResolvedCreateStatementEnums_DeterminismLevel__Output } from '../zetasql/ResolvedCreateStatementEnums';
+import type { _zetasql_ResolvedCreateStatementEnums_SqlSecurity } from '../zetasql/ResolvedCreateStatementEnums';
+import type { _zetasql_ResolvedCreateStatementEnums_DeterminismLevel } from '../zetasql/ResolvedCreateStatementEnums';
 import type { ResolvedConnectionProto as _zetasql_ResolvedConnectionProto, ResolvedConnectionProto__Output as _zetasql_ResolvedConnectionProto__Output } from '../zetasql/ResolvedConnectionProto';
 
 export interface ResolvedCreateFunctionStmtProto {
@@ -21,9 +21,9 @@ export interface ResolvedCreateFunctionStmtProto {
   'aggregateExpressionList'?: (_zetasql_ResolvedComputedColumnProto)[];
   'signature'?: (_zetasql_FunctionSignatureProto | null);
   'argumentNameList'?: (string)[];
-  'sqlSecurity'?: (_zetasql_ResolvedCreateStatementEnums_SqlSecurity);
+  'sqlSecurity'?: (_zetasql_ResolvedCreateStatementEnums_SqlSecurity | keyof typeof _zetasql_ResolvedCreateStatementEnums_SqlSecurity);
   'hasExplicitReturnType'?: (boolean);
-  'determinismLevel'?: (_zetasql_ResolvedCreateStatementEnums_DeterminismLevel);
+  'determinismLevel'?: (_zetasql_ResolvedCreateStatementEnums_DeterminismLevel | keyof typeof _zetasql_ResolvedCreateStatementEnums_DeterminismLevel);
   'isRemote'?: (boolean);
   'connection'?: (_zetasql_ResolvedConnectionProto | null);
 }
@@ -39,9 +39,9 @@ export interface ResolvedCreateFunctionStmtProto__Output {
   'aggregateExpressionList': (_zetasql_ResolvedComputedColumnProto__Output)[];
   'signature': (_zetasql_FunctionSignatureProto__Output | null);
   'argumentNameList': (string)[];
-  'sqlSecurity': (_zetasql_ResolvedCreateStatementEnums_SqlSecurity__Output);
+  'sqlSecurity': (_zetasql_ResolvedCreateStatementEnums_SqlSecurity);
   'hasExplicitReturnType': (boolean);
-  'determinismLevel': (_zetasql_ResolvedCreateStatementEnums_DeterminismLevel__Output);
+  'determinismLevel': (_zetasql_ResolvedCreateStatementEnums_DeterminismLevel);
   'isRemote': (boolean);
   'connection': (_zetasql_ResolvedConnectionProto__Output | null);
 }
