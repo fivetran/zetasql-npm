@@ -35,8 +35,7 @@
     "build:all": "npm run build:server && npm run build",
     "test": "mocha",
     "lint": "DEBUG=eslint:cli-engine eslint --cache --no-fix --ext .ts src",
-    "lint:fix": "eslint --cache --fix --ext .ts src",
-    "prepare": "cd .. && husky install"
+    "lint:fix": "eslint --cache --fix --ext .ts src"
   },
   "publishConfig": {
     "access": "public"

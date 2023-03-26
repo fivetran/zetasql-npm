@@ -25,7 +25,8 @@
     "build:all": "cd zetasql && npm run build:all && cd ../snowflake && npm run build:all",
     "test": "mocha",
     "lint": "eslint --cache --no-fix --ext .ts **/src",
-    "lint:fix": "eslint --cache --fix --ext .ts src"
+    "lint:fix": "eslint --cache --fix --ext .ts src",
+    "prepare": "husky install"
   },
   "workspaces": [
     "zetasql",
