@@ -1,6 +1,0 @@
-{
-  "slow": "75ms",
-  "timeout": "1s",
-  "spec": "**/lib/test/**/*.spec.js",
-  "fail-zero": true
-}

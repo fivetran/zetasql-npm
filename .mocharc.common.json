@@ -1,4 +1,6 @@
 {
-  "//_comment": "This file is used for Text Explorer extension for VS Code",
-  "extends": "../.mocharc.common.json"
+  "slow": "75ms",
+  "timeout": "1s",
+  "spec": "**/lib/test/**/*.spec.js",
+  "fail-zero": true
 }
