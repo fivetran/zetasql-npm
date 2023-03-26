@@ -103,7 +103,7 @@ jobs:
         working-directory: build/zetasql-npm/${{ inputs.npm-package-name }}
         run: |
           echo ${{ github.ref }}
-          npm install
+          npm install --prefix ..
           npm run build
           npm run test
           npm run lint
@@ -175,8 +175,8 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: "14.x"
-          registry-url: "https://registry.npmjs.org"
+          node-version: '14.x'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: publish
         working-directory: build/zetasql-npm/${{ inputs.npm-package-name }}
@@ -215,5 +215,5 @@ jobs:
 
       - uses: EndBug/add-and-commit@v9
         with:
-          add: "${{ inputs.npm-package-name }}/bin"
-          message: "update artifacts"
+          add: '${{ inputs.npm-package-name }}/bin'
+          message: 'update artifacts'
