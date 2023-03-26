@@ -5,9 +5,9 @@ on:
     branches:
     tags:
     paths:
-      - "snowflake/**"
-      - ".github/workflows/snowflake.yml"
-      - ".github/workflows/base-workflow.yml"
+      - 'snowflake/**'
+      - '.github/workflows/snowflake.yml'
+      - '.github/workflows/base-workflow.yml'
 
   workflow_dispatch:
 

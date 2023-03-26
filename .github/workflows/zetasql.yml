@@ -5,9 +5,9 @@ on:
     branches:
     tags:
     paths:
-      - "zetasql/**"
-      - ".github/workflows/zetasql.yml"
-      - ".github/workflows/base-workflow.yml"
+      - 'zetasql/**'
+      - '.github/workflows/zetasql.yml'
+      - '.github/workflows/base-workflow.yml'
 
   workflow_dispatch:
 
