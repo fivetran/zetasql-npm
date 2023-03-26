@@ -131,7 +131,7 @@ jobs:
       - name: run e2e test
         working-directory: build/zetasql-npm/${{ inputs.npm-package-name }}
         run: |
-          npm ci
+          npm install --prefix ..
           ./e2e.sh
 
   e2e-linux:
