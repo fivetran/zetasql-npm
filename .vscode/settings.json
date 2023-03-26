@@ -7,9 +7,9 @@
   "editor.insertSpaces": true,
   "editor.detectIndentation": false,
 
-  "mochaExplorer.files": "lib/test/**/*.js",
+  "mochaExplorer.files": "**/lib/test/**/*.js",
   "mochaExplorer.require": "source-map-support/register",
-  "mochaExplorer.watch": "lib/**/*.js",
+  "mochaExplorer.watch": "**/lib/**/*.js",
 
   "cSpell.words": [
     "abhinavsingh",
