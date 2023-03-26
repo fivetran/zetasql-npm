@@ -37,7 +37,7 @@ jobs:
 
     steps:
       - name: checkout C++ library
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: fivetran/${{ inputs.cpp-repo-name }}
           path: ${{ matrix.working-directory }}
@@ -51,7 +51,7 @@ jobs:
 
       - name: cache zetasql build
         id: cache-zetasql-build
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ matrix.cache-path }}
           key: ${{ matrix.os }}-${{ steps.vars.outputs.sha_short }}-6
@@ -73,18 +73,18 @@ jobs:
     needs: build
     steps:
       - name: checkout zetasql-npm
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: build/zetasql-npm
 
       - name: load linux build
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
           key: ubuntu-20.04-${{ needs.build.outputs.sha_short }}-6
 
       - name: load macos build
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
           key: macos-latest-${{ needs.build.outputs.sha_short }}-6
@@ -109,7 +109,7 @@ jobs:
           npm run lint
 
       - name: cache package results
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: build/zetasql-npm
           key: package-results-${{ inputs.npm-package-name }}-${{ github.sha }}-${{ github.ref }}
@@ -120,7 +120,7 @@ jobs:
 
     steps:
       - name: load package results
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: build/zetasql-npm
           key: package-results-${{ inputs.npm-package-name }}-${{ github.sha }}-${{ github.ref }}
@@ -140,17 +140,17 @@ jobs:
 
     steps:
       - name: set up QEMU
-        uses: docker/setup-qemu-action@v1
+        uses: docker/setup-qemu-action@v2
 
       - name: set up docker buildx
         id: buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
 
       - name: available platforms
         run: echo ${{ steps.buildx.outputs.platforms }}
 
       - name: load package results
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: build/zetasql-npm
           key: package-results-${{ inputs.npm-package-name }}-${{ github.sha }}-${{ github.ref }}
@@ -168,7 +168,7 @@ jobs:
     needs: [build, package, e2e-macos, e2e-linux]
     steps:
       - name: load package results
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: build/zetasql-npm
           key: package-results-${{ inputs.npm-package-name }}-${{ github.sha }}-${{ github.ref }}
@@ -189,7 +189,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: checkout zetasql-npm
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - uses: actions/download-artifact@v3
         with:
