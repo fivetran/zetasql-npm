@@ -1,21 +1,8 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es2021",
-    "lib": ["es2021"],
     "outDir": "lib",
-    "rootDir": "src",
-    "moduleResolution": "node",
-    "declaration": true,
-    "allowUnreachableCode": false,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitOverride": true,
-    "noImplicitReturns": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noUnusedLocals": true,
-    "sourceMap": true,
-    "strict": true
+    "rootDir": "src"
   },
-  "include": ["src"],
-  "exclude": ["node_modules", ".vscode-test"]
+  "extends": "../tsconfig.base.json",
+  "include": ["src"]
 }

@@ -1,0 +1,4 @@
+{
+  "include": ["src"],
+  "references": [{ "path": "./zetasql" }, { "path": "./snowflake" }]
+}

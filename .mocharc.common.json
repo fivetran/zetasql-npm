@@ -1,0 +1,4 @@
+{
+  "//_comment": "This file is used for Text Explorer extension for VS Code",
+  "extends": "../.mocharc.common.json"
+}
