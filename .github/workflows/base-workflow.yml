@@ -159,8 +159,8 @@ jobs:
         run: find ./build/zetasql-npm/${{ inputs.npm-package-name }}/lib/zetasql ! -name '*.so' -type f -exec rm -f {} +
 
       - name: run e2e test
-        working-directory: build/zetasql-npm/${{ inputs.npm-package-name }}
-        run: docker buildx build --platform=linux/amd64,linux/arm64 --progress=plain --no-cache .
+        working-directory: build/zetasql-npm
+        run: docker buildx build --build-arg package_name=${{ inputs.npm-package-name }} --platform=linux/amd64,linux/arm64 --progress=plain --no-cache .
 
   publish-npm:
     runs-on: ubuntu-20.04
@@ -175,7 +175,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: '19.8'
+          node-version: '19.x'
 
       - name: publish
         working-directory: build/zetasql-npm/${{ inputs.npm-package-name }}
