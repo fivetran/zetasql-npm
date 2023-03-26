@@ -26,9 +26,6 @@
     "@types/ref-napi": "^3.0.5",
     "ffi-napi": "^4.0.3"
   },
-  "devDependencies": {
-    "tcp-port-used": "^1.0.2"
-  },
   "scripts": {
     "build": "tsc -b",
     "watch": "tsc -b -w",
