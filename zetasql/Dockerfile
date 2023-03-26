@@ -1,4 +1,4 @@
-FROM node:current
+FROM node:19.8
 
 ADD . /build
 WORKDIR /build

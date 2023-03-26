@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  zetasql:
+  npm-package:
     uses: ./.github/workflows/base-workflow.yml
     with:
       cpp-repo-name: zetasql-snowflake
