@@ -112,7 +112,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: build/zetasql-npm
-          key: package-results-${{ github.sha }}-${{ github.ref }}
+          key: package-results-${{ inputs.npm-package-name }}-${{ github.sha }}-${{ github.ref }}
 
   e2e-macos:
     needs: package
@@ -123,7 +123,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: build/zetasql-npm
-          key: package-results-${{ github.sha }}-${{ github.ref }}
+          key: package-results-${{ inputs.npm-package-name }}-${{ github.sha }}-${{ github.ref }}
 
       - name: delete libraries for other platforms
         run: find ./build/zetasql-npm/${{ inputs.npm-package-name }}/lib/zetasql ! -name 'libremote_server.dylib' -type f -exec rm -f {} +
@@ -153,7 +153,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: build/zetasql-npm
-          key: package-results-${{ github.sha }}-${{ github.ref }}
+          key: package-results-${{ inputs.npm-package-name }}-${{ github.sha }}-${{ github.ref }}
 
       - name: delete libraries for other platforms
         run: find ./build/zetasql-npm/${{ inputs.npm-package-name }}/lib/zetasql ! -name '*.so' -type f -exec rm -f {} +
@@ -171,7 +171,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: build/zetasql-npm
-          key: package-results-${{ github.sha }}-${{ github.ref }}
+          key: package-results-${{ inputs.npm-package-name }}-${{ github.sha }}-${{ github.ref }}
 
       - uses: actions/setup-node@v2
         with:
