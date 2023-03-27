@@ -8,17 +8,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout zetasql
-        uses: actions/checkout@v2
+      - name: checkout zetasql
+        uses: actions/checkout@v3
         with:
           repository: fivetran/zetasql
 
-      - name: Install Bazel
+      - name: install bazel
         uses: abhinavsingh/setup-bazel@v3
         with:
           version: 4.0.0
 
-      - name: Build
+      - name: build
         run: |
           bazel build //java/com/google/zetasql/parser
           bazel build //java/com/google/zetasql/resolvedast

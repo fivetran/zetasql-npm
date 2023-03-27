@@ -5,7 +5,7 @@ import type { ASTPathExpressionListProto as _zetasql_ASTPathExpressionListProto,
 import type { ASTPathExpressionProto as _zetasql_ASTPathExpressionProto, ASTPathExpressionProto__Output as _zetasql_ASTPathExpressionProto__Output } from '../zetasql/ASTPathExpressionProto';
 import type { ASTUnpivotInItemListProto as _zetasql_ASTUnpivotInItemListProto, ASTUnpivotInItemListProto__Output as _zetasql_ASTUnpivotInItemListProto__Output } from '../zetasql/ASTUnpivotInItemListProto';
 import type { ASTAliasProto as _zetasql_ASTAliasProto, ASTAliasProto__Output as _zetasql_ASTAliasProto__Output } from '../zetasql/ASTAliasProto';
-import type { _zetasql_ASTUnpivotClauseEnums_NullFilter, _zetasql_ASTUnpivotClauseEnums_NullFilter__Output } from '../zetasql/ASTUnpivotClauseEnums';
+import type { _zetasql_ASTUnpivotClauseEnums_NullFilter } from '../zetasql/ASTUnpivotClauseEnums';
 
 export interface ASTUnpivotClauseProto {
   'parent'?: (_zetasql_ASTNodeProto | null);
@@ -13,7 +13,7 @@ export interface ASTUnpivotClauseProto {
   'unpivotOutputNameColumn'?: (_zetasql_ASTPathExpressionProto | null);
   'unpivotInItems'?: (_zetasql_ASTUnpivotInItemListProto | null);
   'outputAlias'?: (_zetasql_ASTAliasProto | null);
-  'nullFilter'?: (_zetasql_ASTUnpivotClauseEnums_NullFilter);
+  'nullFilter'?: (_zetasql_ASTUnpivotClauseEnums_NullFilter | keyof typeof _zetasql_ASTUnpivotClauseEnums_NullFilter);
 }
 
 export interface ASTUnpivotClauseProto__Output {
@@ -22,5 +22,5 @@ export interface ASTUnpivotClauseProto__Output {
   'unpivotOutputNameColumn': (_zetasql_ASTPathExpressionProto__Output | null);
   'unpivotInItems': (_zetasql_ASTUnpivotInItemListProto__Output | null);
   'outputAlias': (_zetasql_ASTAliasProto__Output | null);
-  'nullFilter': (_zetasql_ASTUnpivotClauseEnums_NullFilter__Output);
+  'nullFilter': (_zetasql_ASTUnpivotClauseEnums_NullFilter);
 }

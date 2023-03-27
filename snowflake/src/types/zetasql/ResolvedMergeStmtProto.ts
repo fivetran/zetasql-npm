@@ -5,7 +5,7 @@ import type { ResolvedTableScanProto as _zetasql_ResolvedTableScanProto, Resolve
 import type { AnyResolvedScanProto as _zetasql_AnyResolvedScanProto, AnyResolvedScanProto__Output as _zetasql_AnyResolvedScanProto__Output } from '../zetasql/AnyResolvedScanProto';
 import type { AnyResolvedExprProto as _zetasql_AnyResolvedExprProto, AnyResolvedExprProto__Output as _zetasql_AnyResolvedExprProto__Output } from '../zetasql/AnyResolvedExprProto';
 import type { ResolvedMergeWhenProto as _zetasql_ResolvedMergeWhenProto, ResolvedMergeWhenProto__Output as _zetasql_ResolvedMergeWhenProto__Output } from '../zetasql/ResolvedMergeWhenProto';
-import type { _zetasql_ResolvedStatementEnums_ObjectAccess, _zetasql_ResolvedStatementEnums_ObjectAccess__Output } from '../zetasql/ResolvedStatementEnums';
+import type { _zetasql_ResolvedStatementEnums_ObjectAccess } from '../zetasql/ResolvedStatementEnums';
 
 export interface ResolvedMergeStmtProto {
   'parent'?: (_zetasql_ResolvedStatementProto | null);
@@ -13,7 +13,7 @@ export interface ResolvedMergeStmtProto {
   'fromScan'?: (_zetasql_AnyResolvedScanProto | null);
   'mergeExpr'?: (_zetasql_AnyResolvedExprProto | null);
   'whenClauseList'?: (_zetasql_ResolvedMergeWhenProto)[];
-  'columnAccessList'?: (_zetasql_ResolvedStatementEnums_ObjectAccess)[];
+  'columnAccessList'?: (_zetasql_ResolvedStatementEnums_ObjectAccess | keyof typeof _zetasql_ResolvedStatementEnums_ObjectAccess)[];
 }
 
 export interface ResolvedMergeStmtProto__Output {
@@ -22,5 +22,5 @@ export interface ResolvedMergeStmtProto__Output {
   'fromScan': (_zetasql_AnyResolvedScanProto__Output | null);
   'mergeExpr': (_zetasql_AnyResolvedExprProto__Output | null);
   'whenClauseList': (_zetasql_ResolvedMergeWhenProto__Output)[];
-  'columnAccessList': (_zetasql_ResolvedStatementEnums_ObjectAccess__Output)[];
+  'columnAccessList': (_zetasql_ResolvedStatementEnums_ObjectAccess)[];
 }

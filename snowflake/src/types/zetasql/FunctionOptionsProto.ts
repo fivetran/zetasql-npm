@@ -1,21 +1,21 @@
 // Original file: src/protos/zetasql/proto/function.proto
 
-import type { _zetasql_FunctionEnums_WindowOrderSupport, _zetasql_FunctionEnums_WindowOrderSupport__Output } from '../zetasql/FunctionEnums';
-import type { _zetasql_FunctionEnums_Volatility, _zetasql_FunctionEnums_Volatility__Output } from '../zetasql/FunctionEnums';
-import type { LanguageFeature as _zetasql_LanguageFeature, LanguageFeature__Output as _zetasql_LanguageFeature__Output } from '../zetasql/LanguageFeature';
+import type { _zetasql_FunctionEnums_WindowOrderSupport } from '../zetasql/FunctionEnums';
+import type { _zetasql_FunctionEnums_Volatility } from '../zetasql/FunctionEnums';
+import type { LanguageFeature as _zetasql_LanguageFeature } from '../zetasql/LanguageFeature';
 
 export interface FunctionOptionsProto {
   'supportsOverClause'?: (boolean);
-  'windowOrderingSupport'?: (_zetasql_FunctionEnums_WindowOrderSupport);
+  'windowOrderingSupport'?: (_zetasql_FunctionEnums_WindowOrderSupport | keyof typeof _zetasql_FunctionEnums_WindowOrderSupport);
   'supportsWindowFraming'?: (boolean);
   'argumentsAreCoercible'?: (boolean);
   'isDeprecated'?: (boolean);
   'aliasName'?: (string);
   'sqlName'?: (string);
   'allowExternalUsage'?: (boolean);
-  'volatility'?: (_zetasql_FunctionEnums_Volatility);
+  'volatility'?: (_zetasql_FunctionEnums_Volatility | keyof typeof _zetasql_FunctionEnums_Volatility);
   'supportsOrderBy'?: (boolean);
-  'requiredLanguageFeature'?: (_zetasql_LanguageFeature)[];
+  'requiredLanguageFeature'?: (_zetasql_LanguageFeature | keyof typeof _zetasql_LanguageFeature)[];
   'supportsLimit'?: (boolean);
   'supportsNullHandlingModifier'?: (boolean);
   'supportsSafeErrorMode'?: (boolean);
@@ -26,16 +26,16 @@ export interface FunctionOptionsProto {
 
 export interface FunctionOptionsProto__Output {
   'supportsOverClause': (boolean);
-  'windowOrderingSupport': (_zetasql_FunctionEnums_WindowOrderSupport__Output);
+  'windowOrderingSupport': (_zetasql_FunctionEnums_WindowOrderSupport);
   'supportsWindowFraming': (boolean);
   'argumentsAreCoercible': (boolean);
   'isDeprecated': (boolean);
   'aliasName': (string);
   'sqlName': (string);
   'allowExternalUsage': (boolean);
-  'volatility': (_zetasql_FunctionEnums_Volatility__Output);
+  'volatility': (_zetasql_FunctionEnums_Volatility);
   'supportsOrderBy': (boolean);
-  'requiredLanguageFeature': (_zetasql_LanguageFeature__Output)[];
+  'requiredLanguageFeature': (_zetasql_LanguageFeature)[];
   'supportsLimit': (boolean);
   'supportsNullHandlingModifier': (boolean);
   'supportsSafeErrorMode': (boolean);

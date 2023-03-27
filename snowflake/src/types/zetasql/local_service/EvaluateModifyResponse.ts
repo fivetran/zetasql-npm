@@ -5,33 +5,21 @@ import type { ValueProto as _zetasql_ValueProto, ValueProto__Output as _zetasql_
 
 // Original file: src/protos/local_service.proto
 
-export const _zetasql_local_service_EvaluateModifyResponse_Row_Operation = {
-  UNKNOWN: 0,
-  INSERT: 1,
-  DELETE: 2,
-  UPDATE: 3,
-} as const;
-
-export type _zetasql_local_service_EvaluateModifyResponse_Row_Operation =
-  | 'UNKNOWN'
-  | 0
-  | 'INSERT'
-  | 1
-  | 'DELETE'
-  | 2
-  | 'UPDATE'
-  | 3
-
-export type _zetasql_local_service_EvaluateModifyResponse_Row_Operation__Output = typeof _zetasql_local_service_EvaluateModifyResponse_Row_Operation[keyof typeof _zetasql_local_service_EvaluateModifyResponse_Row_Operation]
+export enum _zetasql_local_service_EvaluateModifyResponse_Row_Operation {
+  UNKNOWN = 0,
+  INSERT = 1,
+  DELETE = 2,
+  UPDATE = 3,
+}
 
 export interface _zetasql_local_service_EvaluateModifyResponse_Row {
-  'operation'?: (_zetasql_local_service_EvaluateModifyResponse_Row_Operation);
+  'operation'?: (_zetasql_local_service_EvaluateModifyResponse_Row_Operation | keyof typeof _zetasql_local_service_EvaluateModifyResponse_Row_Operation);
   'cell'?: (_zetasql_ValueProto)[];
   'oldPrimaryKey'?: (_zetasql_ValueProto)[];
 }
 
 export interface _zetasql_local_service_EvaluateModifyResponse_Row__Output {
-  'operation': (_zetasql_local_service_EvaluateModifyResponse_Row_Operation__Output);
+  'operation': (_zetasql_local_service_EvaluateModifyResponse_Row_Operation);
   'cell': (_zetasql_ValueProto__Output)[];
   'oldPrimaryKey': (_zetasql_ValueProto__Output)[];
 }

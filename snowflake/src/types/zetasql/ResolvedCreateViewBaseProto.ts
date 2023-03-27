@@ -4,7 +4,7 @@ import type { ResolvedCreateStatementProto as _zetasql_ResolvedCreateStatementPr
 import type { ResolvedOptionProto as _zetasql_ResolvedOptionProto, ResolvedOptionProto__Output as _zetasql_ResolvedOptionProto__Output } from '../zetasql/ResolvedOptionProto';
 import type { ResolvedOutputColumnProto as _zetasql_ResolvedOutputColumnProto, ResolvedOutputColumnProto__Output as _zetasql_ResolvedOutputColumnProto__Output } from '../zetasql/ResolvedOutputColumnProto';
 import type { AnyResolvedScanProto as _zetasql_AnyResolvedScanProto, AnyResolvedScanProto__Output as _zetasql_AnyResolvedScanProto__Output } from '../zetasql/AnyResolvedScanProto';
-import type { _zetasql_ResolvedCreateStatementEnums_SqlSecurity, _zetasql_ResolvedCreateStatementEnums_SqlSecurity__Output } from '../zetasql/ResolvedCreateStatementEnums';
+import type { _zetasql_ResolvedCreateStatementEnums_SqlSecurity } from '../zetasql/ResolvedCreateStatementEnums';
 
 export interface ResolvedCreateViewBaseProto {
   'parent'?: (_zetasql_ResolvedCreateStatementProto | null);
@@ -13,7 +13,7 @@ export interface ResolvedCreateViewBaseProto {
   'isValueTable'?: (boolean);
   'query'?: (_zetasql_AnyResolvedScanProto | null);
   'sql'?: (string);
-  'sqlSecurity'?: (_zetasql_ResolvedCreateStatementEnums_SqlSecurity);
+  'sqlSecurity'?: (_zetasql_ResolvedCreateStatementEnums_SqlSecurity | keyof typeof _zetasql_ResolvedCreateStatementEnums_SqlSecurity);
   'recursive'?: (boolean);
   'hasExplicitColumns'?: (boolean);
 }
@@ -25,7 +25,7 @@ export interface ResolvedCreateViewBaseProto__Output {
   'isValueTable': (boolean);
   'query': (_zetasql_AnyResolvedScanProto__Output | null);
   'sql': (string);
-  'sqlSecurity': (_zetasql_ResolvedCreateStatementEnums_SqlSecurity__Output);
+  'sqlSecurity': (_zetasql_ResolvedCreateStatementEnums_SqlSecurity);
   'recursive': (boolean);
   'hasExplicitColumns': (boolean);
 }
