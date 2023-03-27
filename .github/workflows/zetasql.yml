@@ -4,6 +4,7 @@ on:
   push:
     branches:
     tags:
+      - bq-v*
     paths:
       - 'zetasql/**'
       - '.github/workflows/zetasql.yml'
