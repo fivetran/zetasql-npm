@@ -176,11 +176,12 @@ jobs:
         with:
           node-version: '19.x'
           registry-url: 'https://registry.npmjs.org'
-          always-auth: true
 
       - name: publish
-        working-directory: build/zetasql-npm/${{ inputs.npm-package-name }}
-        run: npm publish --verbose
+        working-directory: build/zetasql-npm
+        run: |
+          npm config set '//registry.npmjs.org/:_authToken' "${NODE_AUTH_TOKEN}"
+          npm publish --workspace=${{ inputs.npm-package-name }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
