@@ -176,6 +176,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '19.x'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: publish
         working-directory: build/zetasql-npm/${{ inputs.npm-package-name }}
