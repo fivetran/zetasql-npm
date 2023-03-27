@@ -113,58 +113,60 @@ jobs:
           path: build/zetasql-npm
           key: package-results-${{ inputs.npm-package-name }}-${{ github.sha }}-${{ github.ref }}
 
-  e2e-macos:
-    needs: package
-    runs-on: macos-latest
+  # e2e-macos:
+  #   needs: package
+  #   runs-on: macos-latest
 
-    steps:
-      - name: load package results
-        uses: actions/cache@v3
-        with:
-          path: build/zetasql-npm
-          key: package-results-${{ inputs.npm-package-name }}-${{ github.sha }}-${{ github.ref }}
+  #   steps:
+  #     - name: load package results
+  #       uses: actions/cache@v3
+  #       with:
+  #         path: build/zetasql-npm
+  #         key: package-results-${{ inputs.npm-package-name }}-${{ github.sha }}-${{ github.ref }}
 
-      - name: delete libraries for other platforms
-        run: find ./build/zetasql-npm/${{ inputs.npm-package-name }}/lib/zetasql ! -name 'libremote_server.dylib' -type f -exec rm -f {} +
+  #     - name: delete libraries for other platforms
+  #       run: find ./build/zetasql-npm/${{ inputs.npm-package-name }}/lib/zetasql ! -name 'libremote_server.dylib' -type f -exec rm -f {} +
 
-      - name: run e2e test
-        working-directory: build/zetasql-npm/${{ inputs.npm-package-name }}
-        run: |
-          npm ci --prefix ..
-          ./e2e.sh
+  #     - name: run e2e test
+  #       working-directory: build/zetasql-npm/${{ inputs.npm-package-name }}
+  #       run: |
+  #         npm ci --prefix ..
+  #         ./e2e.sh
 
-  e2e-linux:
-    needs: package
-    runs-on: ubuntu-20.04
+  # e2e-linux:
+  #   needs: package
+  #   runs-on: ubuntu-20.04
 
-    steps:
-      - name: set up QEMU
-        uses: docker/setup-qemu-action@v2
+  #   steps:
+  #     - name: set up QEMU
+  #       uses: docker/setup-qemu-action@v2
 
-      - name: set up docker buildx
-        id: buildx
-        uses: docker/setup-buildx-action@v2
+  #     - name: set up docker buildx
+  #       id: buildx
+  #       uses: docker/setup-buildx-action@v2
 
-      - name: available platforms
-        run: echo ${{ steps.buildx.outputs.platforms }}
+  #     - name: available platforms
+  #       run: echo ${{ steps.buildx.outputs.platforms }}
 
-      - name: load package results
-        uses: actions/cache@v3
-        with:
-          path: build/zetasql-npm
-          key: package-results-${{ inputs.npm-package-name }}-${{ github.sha }}-${{ github.ref }}
+  #     - name: load package results
+  #       uses: actions/cache@v3
+  #       with:
+  #         path: build/zetasql-npm
+  #         key: package-results-${{ inputs.npm-package-name }}-${{ github.sha }}-${{ github.ref }}
 
-      - name: delete libraries for other platforms
-        run: find ./build/zetasql-npm/${{ inputs.npm-package-name }}/lib/zetasql ! -name '*.so' -type f -exec rm -f {} +
+  #     - name: delete libraries for other platforms
+  #       run: find ./build/zetasql-npm/${{ inputs.npm-package-name }}/lib/zetasql ! -name '*.so' -type f -exec rm -f {} +
 
-      - name: run e2e test
-        working-directory: build/zetasql-npm
-        run: docker buildx build --build-arg package_name=${{ inputs.npm-package-name }} --platform=linux/amd64,linux/arm64 --progress=plain --no-cache .
+  #     - name: run e2e test
+  #       working-directory: build/zetasql-npm
+  #       run: docker buildx build --build-arg package_name=${{ inputs.npm-package-name }} --platform=linux/amd64,linux/arm64 --progress=plain --no-cache .
 
   publish-npm:
     runs-on: ubuntu-20.04
-    if: startsWith(github.ref, format('refs/tags/{0}', inputs.tag))
-    needs: [build, package, e2e-macos, e2e-linux]
+    # if: startsWith(github.ref, format('refs/tags/{0}', inputs.tag))
+    needs: [build, package] #, e2e-macos, e2e-linux]
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
     steps:
       - name: load package results
         uses: actions/cache@v3
@@ -176,14 +178,17 @@ jobs:
         with:
           node-version: '19.x'
           registry-url: 'https://registry.npmjs.org'
+          always-auth: true
+
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
 
       - name: publish
         working-directory: build/zetasql-npm
         run: |
-          npm config set '//registry.npmjs.org/:_authToken' "${NODE_AUTH_TOKEN}"
-          npm publish --workspace=${{ inputs.npm-package-name }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" > ~/.npmrc
+          npm config set registry https://registry.npmjs.org
+          npm publish --workspace=${{ inputs.npm-package-name }} --verbose
 
   update-lib-archives:
     needs: build

@@ -6,8 +6,7 @@ on:
       - 'snowflake/**'
       - '.github/workflows/snowflake.yml'
       - '.github/workflows/base-workflow.yml'
-
-  create:
+    branches:
     tags:
       - 'sf-v*'
 

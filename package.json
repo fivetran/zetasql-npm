@@ -1,5 +1,4 @@
 {
-  "private": true,
   "devDependencies": {
     "@types/mocha": "^10.0.0",
     "@types/node": "^18.11.9",
@@ -32,5 +31,9 @@
   "workspaces": [
     "zetasql",
     "snowflake"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fivetran/zetasql-npm.git"
+  }
 }

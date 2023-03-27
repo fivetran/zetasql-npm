@@ -6,8 +6,7 @@ on:
       - 'zetasql/**'
       - '.github/workflows/zetasql.yml'
       - '.github/workflows/base-workflow.yml'
-
-  create:
+    branches:
     tags:
       - 'bq-v*'
 
