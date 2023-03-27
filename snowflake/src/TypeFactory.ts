@@ -1,5 +1,3 @@
-import { SimpleType } from './SimpleType';
-import { ProductMode } from './types/zetasql/ProductMode';
 import { TypeKind } from './types/zetasql/TypeKind';
 
 /**
@@ -77,56 +75,4 @@ export abstract class TypeFactory {
     'double precision',
     'real',
   ]);
-
-  static SIMPLE_TYPE_KINDS = new Set<TypeKind>(TypeFactory.SIMPLE_TYPE_KIND_NAMES.values());
-
-  static SIMPLE_TYPES = new Map<TypeKind, SimpleType>(
-    [...TypeFactory.SIMPLE_TYPE_KINDS].map(type => [type, new SimpleType(type)]),
-  );
-
-  /**
-   * Returns whether the given type kind is a simple type.
-   *
-   * <p>Simple types are those that can be represented with just a TypeKind, with no parameters.
-   */
-  static isSimpleType(kind: TypeKind): boolean {
-    return TypeFactory.SIMPLE_TYPE_KINDS.has(kind);
-  }
-
-  /**
-   * Returns whether {@code typeName} identifies a simple type.
-   *
-   * <p>Simple types are those that can be represented with just a TypeKind, with no parameters.
-   */
-  static isSimpleTypeName(typeName: string, prodMode: ProductMode): boolean {
-    if (prodMode === ProductMode.PRODUCT_EXTERNAL) {
-      return TypeFactory.EXTERNAL_MODE_SIMPLE_TYPE_KIND_NAMES.has(typeName.toLowerCase());
-    }
-    return TypeFactory.SIMPLE_TYPE_KIND_NAMES.has(typeName.toLowerCase());
-  }
-
-  /**
-   * Returns a TypeFactory which does *not* enforce uniquely named types.
-   *
-   * <p>The returned TypeFactory allows the creation of {@link EnumType EnumTypes} and {@link
-   * ProtoType ProtoTypes} with different descriptors, even if they share the same full name.
-   */
-  static nonUniqueNames(): TypeFactory {
-    return NonUniqueNamesTypeFactory.getInstance();
-  }
-
-  /** Returns a SimpleType of given {@code kind}. */
-  static createSimpleType(kind: TypeKind): SimpleType | undefined {
-    return TypeFactory.SIMPLE_TYPES.get(kind);
-  }
-}
-
-abstract class AbstractTypeFactory extends TypeFactory {}
-
-class NonUniqueNamesTypeFactory extends AbstractTypeFactory {
-  static INSTANCE = new NonUniqueNamesTypeFactory();
-
-  static getInstance(): NonUniqueNamesTypeFactory {
-    return NonUniqueNamesTypeFactory.INSTANCE;
-  }
 }

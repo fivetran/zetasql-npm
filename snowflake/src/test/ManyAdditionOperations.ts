@@ -1,12 +1,11 @@
-import { runServer, SimpleCatalog, terminateServer, ZetaSQLClient } from '..';
+import { runServer, terminateServer, ZetaSQLClient } from '..';
 import { LanguageOptions } from '../LanguageOptions';
 import { AnalyzeResponse__Output } from '../types/zetasql/local_service/AnalyzeResponse';
-import { ProductMode } from '../types/zetasql/ProductMode';
-import { ResolvedNodeKind } from '../types/zetasql/ResolvedNodeKind';
-import { ZetaSQLBuiltinFunctionOptions } from '../ZetaSQLBuiltinFunctionOptions';
+import { SimpleCatalogProto } from '../types/zetasql/SimpleCatalogProto';
 
-const catalog = new SimpleCatalog('catalog');
-let languageOptions: LanguageOptions | undefined;
+const simpleCatalog: SimpleCatalogProto = {
+  name: 'catalog',
+};
 
 async function runTest(): Promise<void> {
   const port = 50005;
@@ -71,10 +70,7 @@ from table_a`,
 async function analyze(sqlStatement: string): Promise<AnalyzeResponse__Output> {
   const request = {
     sqlStatement,
-    simpleCatalog: catalog.serialize(),
-    options: {
-      languageOptions: languageOptions?.serialize(),
-    },
+    simpleCatalog,
   };
 
   const response = await ZetaSQLClient.getInstance().analyze(request);
@@ -85,14 +81,10 @@ async function analyze(sqlStatement: string): Promise<AnalyzeResponse__Output> {
 }
 
 async function registerAllLanguageFeatures(): Promise<void> {
-  if (!catalog.builtinFunctionOptions) {
-    languageOptions = await new LanguageOptions().enableMaximumLanguageFeatures();
-
-    languageOptions.options.errorOnDeprecatedSyntax = false;
-    languageOptions.options.productMode = ProductMode.PRODUCT_INTERNAL;
-    languageOptions.options.supportedStatementKinds = [ResolvedNodeKind.RESOLVED_QUERY_STMT];
-    await catalog.addZetaSQLFunctions(new ZetaSQLBuiltinFunctionOptions(languageOptions));
-  }
+  const languageOptions = await new LanguageOptions().enableMaximumLanguageFeatures();
+  simpleCatalog.builtinFunctionOptions = {
+    languageOptions: languageOptions.serialize(),
+  };
 }
 
 runTest().catch(e => console.error(e));

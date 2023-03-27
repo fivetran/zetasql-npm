@@ -1,20 +1,15 @@
-import {
-  runServer,
-  SimpleCatalog,
-  SimpleColumn,
-  SimpleTable,
-  SimpleType,
-  terminateServer,
-  TypeKind,
-  ZetaSQLClient,
-} from '..';
+import { runServer, terminateServer, TypeKind, ZetaSQLClient } from '..';
 import { LanguageOptions } from '../LanguageOptions';
 import { AnalyzeResponse__Output } from '../types/zetasql/local_service/AnalyzeResponse';
 import { ProductMode } from '../types/zetasql/ProductMode';
 import { ResolvedNodeKind } from '../types/zetasql/ResolvedNodeKind';
-import { ZetaSQLBuiltinFunctionOptions } from '../ZetaSQLBuiltinFunctionOptions';
+import { SimpleCatalogProto } from '../types/zetasql/SimpleCatalogProto';
+import { SimpleColumnProto } from '../types/zetasql/SimpleColumnProto';
+import { SimpleTableProto } from '../types/zetasql/SimpleTableProto';
 
-const catalog = new SimpleCatalog('catalog');
+const catalog: SimpleCatalogProto = {
+  name: 'catalog',
+};
 let languageOptions: LanguageOptions | undefined;
 
 async function runTest(): Promise<void> {
@@ -52,7 +47,7 @@ async function runTest(): Promise<void> {
 async function analyze(sqlStatement: string): Promise<AnalyzeResponse__Output> {
   const request = {
     sqlStatement,
-    simpleCatalog: catalog.serialize(),
+    simpleCatalog: catalog,
     options: {
       languageOptions: languageOptions?.serialize(),
     },
@@ -72,18 +67,22 @@ async function registerAllLanguageFeatures(): Promise<void> {
     languageOptions.options.errorOnDeprecatedSyntax = false;
     languageOptions.options.productMode = ProductMode.PRODUCT_INTERNAL;
     languageOptions.options.supportedStatementKinds = [ResolvedNodeKind.RESOLVED_QUERY_STMT];
-    await catalog.addZetaSQLFunctions(new ZetaSQLBuiltinFunctionOptions(languageOptions));
 
-    const simpleTableA = new SimpleTable('table_a');
-    const column1 = new SimpleColumn('table_a', 'id', new SimpleType(TypeKind.TYPE_STRING));
-    simpleTableA.addSimpleColumn(column1);
+    const simpleTableA: SimpleTableProto = { name: 'table_a' };
+    const column1: SimpleColumnProto = {
+      name: 'table_a',
+      type: { typeKind: TypeKind.TYPE_STRING },
+    };
+    simpleTableA.column = [column1];
 
-    const simpleTableB = new SimpleTable('table_b');
-    const column2 = new SimpleColumn('table_b', 'id', new SimpleType(TypeKind.TYPE_STRING));
-    simpleTableB.addSimpleColumn(column2);
+    const simpleTableB: SimpleTableProto = { name: 'table_b' };
+    const column2: SimpleColumnProto = {
+      name: 'table_b',
+      type: { typeKind: TypeKind.TYPE_STRING },
+    };
+    simpleTableB.column = [column2];
 
-    catalog.addSimpleTable('table_a', simpleTableA);
-    catalog.addSimpleTable('table_b', simpleTableB);
+    catalog.table = [simpleTableA, simpleTableB];
   }
 }
 
