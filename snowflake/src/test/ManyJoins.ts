@@ -1,24 +1,20 @@
-import Long = require('long');
 import { LanguageOptions } from '../LanguageOptions';
 import { runServer, terminateServer } from '../server';
-import { SimpleCatalog } from '../SimpleCatalog';
-import { SimpleColumn } from '../SimpleColumn';
-import { SimpleTable } from '../SimpleTable';
-import { SimpleType } from '../SimpleType';
 import { ErrorMessageMode } from '../types/zetasql/ErrorMessageMode';
 import { AnalyzeResponse__Output } from '../types/zetasql/local_service/AnalyzeResponse';
 import { ParameterMode } from '../types/zetasql/ParameterMode';
 import { ParseLocationRecordType } from '../types/zetasql/ParseLocationRecordType';
-import { ProductMode } from '../types/zetasql/ProductMode';
 import { ResolvedASTRewrite } from '../types/zetasql/ResolvedASTRewrite';
-import { ResolvedNodeKind } from '../types/zetasql/ResolvedNodeKind';
+import { SimpleCatalogProto } from '../types/zetasql/SimpleCatalogProto';
+import { SimpleColumnProto } from '../types/zetasql/SimpleColumnProto';
+import { SimpleTableProto } from '../types/zetasql/SimpleTableProto';
 import { StatementContext } from '../types/zetasql/StatementContext';
 import { TypeKind } from '../types/zetasql/TypeKind';
-import { ZetaSQLBuiltinFunctionOptions } from '../ZetaSQLBuiltinFunctionOptions';
 import { ZetaSQLClient } from '../ZetaSQLClient';
 
-const catalog = new SimpleCatalog('catalog');
-let languageOptions: LanguageOptions | undefined;
+const catalog: SimpleCatalogProto = {
+  name: 'catalog',
+};
 
 async function runTest(): Promise<void> {
   const port = 50005;
@@ -29,17 +25,16 @@ async function runTest(): Promise<void> {
   ZetaSQLClient.init(port);
   await ZetaSQLClient.getInstance().testConnection();
 
-  const usersTable = new SimpleTable(tableName, new Long(1));
-  catalog.addSimpleTable(tableName, usersTable);
+  const usersTable: SimpleTableProto = { name: tableName };
 
-  const column = new SimpleColumn(tableName, 'id', new SimpleType(TypeKind.TYPE_STRING));
-  usersTable.addSimpleColumn(column);
+  const column: SimpleColumnProto = { name: 'id', type: { typeKind: TypeKind.TYPE_STRING } };
+  usersTable.column = [column];
 
-  const usersTable2 = new SimpleTable('table2', new Long(2));
-  catalog.addSimpleTable('table2', usersTable2);
+  const usersTable2: SimpleTableProto = { name: 'table2' };
+  catalog.table = [usersTable, usersTable2];
 
-  const column2 = new SimpleColumn('table2', 'id', new SimpleType(TypeKind.TYPE_STRING));
-  usersTable2.addSimpleColumn(column2);
+  const column2: SimpleColumnProto = { name: 'id', type: { typeKind: TypeKind.TYPE_STRING } };
+  usersTable2.column = [column2];
 
   await registerAllLanguageFeatures();
 
@@ -90,7 +85,7 @@ async function runTest(): Promise<void> {
 async function analyze(sqlStatement: string): Promise<AnalyzeResponse__Output> {
   const request = {
     sqlStatement,
-    simpleCatalog: catalog.serialize(),
+    simpleCatalog: catalog,
     options: {
       parseLocationRecordType: ParseLocationRecordType.PARSE_LOCATION_RECORD_NONE,
       preserveUnnecessaryCast: false,
@@ -117,7 +112,6 @@ async function analyze(sqlStatement: string): Promise<AnalyzeResponse__Output> {
         ResolvedASTRewrite.REWRITE_TYPEOF_FUNCTION,
         ResolvedASTRewrite.REWRITE_NULLIFERROR_FUNCTION,
       ],
-      languageOptions: languageOptions?.serialize(),
     },
   };
 
@@ -129,14 +123,10 @@ async function analyze(sqlStatement: string): Promise<AnalyzeResponse__Output> {
 }
 
 async function registerAllLanguageFeatures(): Promise<void> {
-  if (!catalog.builtinFunctionOptions) {
-    languageOptions = await new LanguageOptions().enableMaximumLanguageFeatures();
-
-    languageOptions.options.errorOnDeprecatedSyntax = false;
-    languageOptions.options.productMode = ProductMode.PRODUCT_INTERNAL;
-    languageOptions.options.supportedStatementKinds = [ResolvedNodeKind.RESOLVED_QUERY_STMT];
-    await catalog.addZetaSQLFunctions(new ZetaSQLBuiltinFunctionOptions(languageOptions));
-  }
+  const languageOptions = await new LanguageOptions().enableMaximumLanguageFeatures();
+  catalog.builtinFunctionOptions = {
+    languageOptions: languageOptions.serialize(),
+  };
 }
 
 runTest().catch(e => console.error(e));
