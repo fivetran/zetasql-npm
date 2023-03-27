@@ -2,13 +2,15 @@ name: CI-snowflake
 
 on:
   push:
-    branches:
-    tags:
-      - sf-v*
     paths:
       - 'snowflake/**'
       - '.github/workflows/snowflake.yml'
       - '.github/workflows/base-workflow.yml'
+    branches:
+
+  create:
+    tags:
+      - 'sf-v*'
 
   workflow_dispatch:
 
