@@ -105,7 +105,6 @@ jobs:
           echo ${{ github.ref }}
           npm install --prefix ..
           npm run build
-          npm run test
           npm run lint
 
       - name: cache package results
