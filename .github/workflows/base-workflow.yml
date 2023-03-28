@@ -165,6 +165,9 @@ jobs:
     runs-on: ubuntu-20.04
     # if: startsWith(github.ref, format('refs/tags/{0}', inputs.tag))
     needs: [build, package] #, e2e-macos, e2e-linux]
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+
     steps:
       - name: load package results
         uses: actions/cache@v3
@@ -186,18 +189,17 @@ jobs:
       #   env:
       #     NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
 
-      # - name: Setup tmate session
-      #   uses: mxschmitt/action-tmate@v3
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
 
       - name: publish
         working-directory: build/zetasql-npm
         run: |
           # echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
           # cat .npmrc
+          cat /home/runner/work/_temp/.npmrc
           npm whoami
           npm publish --workspace=${{ inputs.npm-package-name }} --verbose
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
 
   update-lib-archives:
     needs: build
