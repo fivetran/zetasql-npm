@@ -177,25 +177,10 @@ jobs:
         with:
           node-version: '19.x'
           registry-url: 'https://registry.npmjs.org'
-          always-auth: true
-
-      # - name: prepare config
-      #   working-directory: build/zetasql-npm
-      #   run: |
-      #     echo "//registry.npmjs.org/:_authToken=$env:NODE_AUTH_TOKEN" > .npmrc
-      #     cat .npmrc
-      #   env:
-      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
-
-      # - name: Setup tmate session
-      #   uses: mxschmitt/action-tmate@v3
 
       - name: publish
         working-directory: build/zetasql-npm
         run: |
-          # echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
-          # cat .npmrc
-          cat /home/runner/work/_temp/.npmrc
           npm whoami
           npm publish --workspace=${{ inputs.npm-package-name }} --verbose
         env:
