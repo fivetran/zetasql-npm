@@ -5,12 +5,8 @@ This is npm package for [ZetaSQL](https://github.com/google/zetasql) library tha
 ## Installation
 
 ```sh
-npm i @fivetrandevelopers/zetasql 
+npm i @fivetrandevelopers/zetasql
 ```
-
-## Example Usage
-
-Please review this [project](https://github.com/fivetran/zetasql-npm-examples) with examples of usage.
 
 ## How to build
 
@@ -20,5 +16,6 @@ Run the following commands in the root directory
 
 ```sh
 npm install
+cd zetasql
 npm run build:all
 ```
