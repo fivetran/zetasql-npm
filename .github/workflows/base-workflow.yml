@@ -180,10 +180,10 @@ jobs:
       - name: publish
         working-directory: build/zetasql-npm
         run: |
-          npm config set '//registry.npmjs.org/:_authToken' "${NODE_AUTH_TOKEN}"
-          npm publish --workspace=${{ inputs.npm-package-name }}
+          npm whoami
+          npm publish --workspace=${{ inputs.npm-package-name }} --verbose
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
 
   update-lib-archives:
     needs: build

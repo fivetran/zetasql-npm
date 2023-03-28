@@ -6,8 +6,7 @@ on:
       - 'zetasql/**'
       - '.github/workflows/zetasql.yml'
       - '.github/workflows/base-workflow.yml'
-
-  create:
+    branches:
     tags:
       - 'bq-v*'
 
@@ -16,6 +15,7 @@ on:
 jobs:
   npm-package:
     uses: ./.github/workflows/base-workflow.yml
+    secrets: inherit
     with:
       cpp-repo-name: zetasql
       npm-package-name: zetasql
