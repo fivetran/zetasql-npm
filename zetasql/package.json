@@ -17,7 +17,7 @@
     "url": "https://github.com/fivetran/zetasql-npm.git",
     "directory": "zetasql"
   },
-  "homepage": "https://github.com/fivetran/zetasql-npm/zetasql#readme",
+  "homepage": "https://github.com/fivetran/zetasql-npm/tree/main/zetasql",
   "dependencies": {
     "@grpc/grpc-js": "^1.7.3",
     "@grpc/proto-loader": "0.7.3",
