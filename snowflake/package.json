@@ -1,7 +1,7 @@
 {
   "name": "@fivetrandevelopers/zetasql-snowflake",
   "description": "ZetaSQL Snowflake gRPC server and client",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "publisher": "Fivetran",
   "license": "MIT",
   "keywords": [
@@ -17,13 +17,13 @@
     "url": "https://github.com/fivetran/zetasql-npm.git",
     "directory": "snowflake"
   },
-  "homepage": "https://github.com/fivetran/zetasql-npm/snowflake#readme",
+  "homepage": "https://github.com/fivetran/zetasql-npm/tree/main/snowflake",
   "dependencies": {
-    "@grpc/grpc-js": "^1.7.3",
-    "@grpc/proto-loader": "0.7.3",
-    "@types/ffi-napi": "^4.0.6",
+    "@grpc/grpc-js": "^1.8.13",
+    "@grpc/proto-loader": "0.7.6",
+    "@types/ffi-napi": "^4.0.7",
     "@types/long": "^4.0.2",
-    "@types/ref-napi": "^3.0.5",
+    "@types/ref-napi": "^3.0.7",
     "ffi-napi": "^4.0.3"
   },
   "scripts": {

@@ -8,7 +8,6 @@ on:
       - '.github/workflows/base-workflow.yml'
     branches:
     tags:
-      - 'sf-v*'
 
   workflow_dispatch:
 

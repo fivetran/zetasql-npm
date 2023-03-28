@@ -1,7 +1,7 @@
 // Original file: src/protos/zetasql/resolved_ast/resolved_ast.proto
 
 import type { ResolvedStatementProto as _zetasql_ResolvedStatementProto, ResolvedStatementProto__Output as _zetasql_ResolvedStatementProto__Output } from '../zetasql/ResolvedStatementProto';
-import type { _zetasql_ResolvedAuxLoadDataStmtEnums_InsertionMode } from '../zetasql/ResolvedAuxLoadDataStmtEnums';
+import type { _zetasql_ResolvedAuxLoadDataStmtEnums_InsertionMode, _zetasql_ResolvedAuxLoadDataStmtEnums_InsertionMode__Output } from '../zetasql/ResolvedAuxLoadDataStmtEnums';
 import type { ResolvedOutputColumnProto as _zetasql_ResolvedOutputColumnProto, ResolvedOutputColumnProto__Output as _zetasql_ResolvedOutputColumnProto__Output } from '../zetasql/ResolvedOutputColumnProto';
 import type { ResolvedColumnDefinitionProto as _zetasql_ResolvedColumnDefinitionProto, ResolvedColumnDefinitionProto__Output as _zetasql_ResolvedColumnDefinitionProto__Output } from '../zetasql/ResolvedColumnDefinitionProto';
 import type { ResolvedColumnProto as _zetasql_ResolvedColumnProto, ResolvedColumnProto__Output as _zetasql_ResolvedColumnProto__Output } from '../zetasql/ResolvedColumnProto';
@@ -15,7 +15,7 @@ import type { ResolvedConnectionProto as _zetasql_ResolvedConnectionProto, Resol
 
 export interface ResolvedAuxLoadDataStmtProto {
   'parent'?: (_zetasql_ResolvedStatementProto | null);
-  'insertionMode'?: (_zetasql_ResolvedAuxLoadDataStmtEnums_InsertionMode | keyof typeof _zetasql_ResolvedAuxLoadDataStmtEnums_InsertionMode);
+  'insertionMode'?: (_zetasql_ResolvedAuxLoadDataStmtEnums_InsertionMode);
   'namePath'?: (string)[];
   'outputColumnList'?: (_zetasql_ResolvedOutputColumnProto)[];
   'columnDefinitionList'?: (_zetasql_ResolvedColumnDefinitionProto)[];
@@ -33,7 +33,7 @@ export interface ResolvedAuxLoadDataStmtProto {
 
 export interface ResolvedAuxLoadDataStmtProto__Output {
   'parent': (_zetasql_ResolvedStatementProto__Output | null);
-  'insertionMode': (_zetasql_ResolvedAuxLoadDataStmtEnums_InsertionMode);
+  'insertionMode': (_zetasql_ResolvedAuxLoadDataStmtEnums_InsertionMode__Output);
   'namePath': (string)[];
   'outputColumnList': (_zetasql_ResolvedOutputColumnProto__Output)[];
   'columnDefinitionList': (_zetasql_ResolvedColumnDefinitionProto__Output)[];

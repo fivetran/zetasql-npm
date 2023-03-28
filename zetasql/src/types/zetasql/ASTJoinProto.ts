@@ -6,8 +6,8 @@ import type { ASTHintProto as _zetasql_ASTHintProto, ASTHintProto__Output as _ze
 import type { ASTOnClauseProto as _zetasql_ASTOnClauseProto, ASTOnClauseProto__Output as _zetasql_ASTOnClauseProto__Output } from '../zetasql/ASTOnClauseProto';
 import type { ASTUsingClauseProto as _zetasql_ASTUsingClauseProto, ASTUsingClauseProto__Output as _zetasql_ASTUsingClauseProto__Output } from '../zetasql/ASTUsingClauseProto';
 import type { ASTOnOrUsingClauseListProto as _zetasql_ASTOnOrUsingClauseListProto, ASTOnOrUsingClauseListProto__Output as _zetasql_ASTOnOrUsingClauseListProto__Output } from '../zetasql/ASTOnOrUsingClauseListProto';
-import type { _zetasql_ASTJoinEnums_JoinType } from '../zetasql/ASTJoinEnums';
-import type { _zetasql_ASTJoinEnums_JoinHint } from '../zetasql/ASTJoinEnums';
+import type { _zetasql_ASTJoinEnums_JoinType, _zetasql_ASTJoinEnums_JoinType__Output } from '../zetasql/ASTJoinEnums';
+import type { _zetasql_ASTJoinEnums_JoinHint, _zetasql_ASTJoinEnums_JoinHint__Output } from '../zetasql/ASTJoinEnums';
 import type { ASTLocationProto as _zetasql_ASTLocationProto, ASTLocationProto__Output as _zetasql_ASTLocationProto__Output } from '../zetasql/ASTLocationProto';
 import type { Long } from '@grpc/proto-loader';
 
@@ -19,8 +19,8 @@ export interface ASTJoinProto {
   'onClause'?: (_zetasql_ASTOnClauseProto | null);
   'usingClause'?: (_zetasql_ASTUsingClauseProto | null);
   'clauseList'?: (_zetasql_ASTOnOrUsingClauseListProto | null);
-  'joinType'?: (_zetasql_ASTJoinEnums_JoinType | keyof typeof _zetasql_ASTJoinEnums_JoinType);
-  'joinHint'?: (_zetasql_ASTJoinEnums_JoinHint | keyof typeof _zetasql_ASTJoinEnums_JoinHint);
+  'joinType'?: (_zetasql_ASTJoinEnums_JoinType);
+  'joinHint'?: (_zetasql_ASTJoinEnums_JoinHint);
   'natural'?: (boolean);
   'unmatchedJoinCount'?: (number | string | Long);
   'transformationNeeded'?: (boolean);
@@ -36,8 +36,8 @@ export interface ASTJoinProto__Output {
   'onClause': (_zetasql_ASTOnClauseProto__Output | null);
   'usingClause': (_zetasql_ASTUsingClauseProto__Output | null);
   'clauseList': (_zetasql_ASTOnOrUsingClauseListProto__Output | null);
-  'joinType': (_zetasql_ASTJoinEnums_JoinType);
-  'joinHint': (_zetasql_ASTJoinEnums_JoinHint);
+  'joinType': (_zetasql_ASTJoinEnums_JoinType__Output);
+  'joinHint': (_zetasql_ASTJoinEnums_JoinHint__Output);
   'natural': (boolean);
   'unmatchedJoinCount': (Long);
   'transformationNeeded': (boolean);
