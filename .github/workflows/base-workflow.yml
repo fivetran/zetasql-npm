@@ -183,7 +183,7 @@ jobs:
       - name: prepare config
         working-directory: build/zetasql-npm
         run: |
-          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
+          echo "//registry.npmjs.org/:_authToken=$env:NODE_AUTH_TOKEN" > .npmrc
           cat .npmrc
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
