@@ -180,8 +180,8 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           always-auth: true
 
-      # - name: Setup tmate session
-      #   uses: mxschmitt/action-tmate@v3
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
 
       - name: publish
         working-directory: build/zetasql-npm
