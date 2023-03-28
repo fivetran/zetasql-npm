@@ -15,6 +15,7 @@ on:
 jobs:
   npm-package:
     uses: ./.github/workflows/base-workflow.yml
+    secrets: inherit
     with:
       cpp-repo-name: zetasql-snowflake
       npm-package-name: snowflake
