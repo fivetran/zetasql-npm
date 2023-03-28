@@ -180,14 +180,15 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           always-auth: true
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
 
       - name: publish
         working-directory: build/zetasql-npm
         run: |
-          echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" > ~/.npmrc
-          npm config set registry https://registry.npmjs.org
+          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
+          cat .npmrc
+          npm whoami
           npm publish --workspace=${{ inputs.npm-package-name }} --verbose
 
   update-lib-archives:
