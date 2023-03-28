@@ -1,6 +1,6 @@
 // Original file: src/protos/zetasql/public/type.proto
 
-import type { TypeKind as _zetasql_TypeKind } from '../zetasql/TypeKind';
+import type { TypeKind as _zetasql_TypeKind, TypeKind__Output as _zetasql_TypeKind__Output } from '../zetasql/TypeKind';
 import type { ArrayTypeProto as _zetasql_ArrayTypeProto, ArrayTypeProto__Output as _zetasql_ArrayTypeProto__Output } from '../zetasql/ArrayTypeProto';
 import type { StructTypeProto as _zetasql_StructTypeProto, StructTypeProto__Output as _zetasql_StructTypeProto__Output } from '../zetasql/StructTypeProto';
 import type { ProtoTypeProto as _zetasql_ProtoTypeProto, ProtoTypeProto__Output as _zetasql_ProtoTypeProto__Output } from '../zetasql/ProtoTypeProto';
@@ -9,7 +9,7 @@ import type { FileDescriptorSet as _google_protobuf_FileDescriptorSet, FileDescr
 import type { RangeTypeProto as _zetasql_RangeTypeProto, RangeTypeProto__Output as _zetasql_RangeTypeProto__Output } from '../zetasql/RangeTypeProto';
 
 export interface TypeProto {
-  'typeKind'?: (_zetasql_TypeKind | keyof typeof _zetasql_TypeKind);
+  'typeKind'?: (_zetasql_TypeKind);
   'arrayType'?: (_zetasql_ArrayTypeProto | null);
   'structType'?: (_zetasql_StructTypeProto | null);
   'protoType'?: (_zetasql_ProtoTypeProto | null);
@@ -20,7 +20,7 @@ export interface TypeProto {
 }
 
 export interface TypeProto__Output {
-  'typeKind': (_zetasql_TypeKind);
+  'typeKind': (_zetasql_TypeKind__Output);
   'arrayType': (_zetasql_ArrayTypeProto__Output | null);
   'structType': (_zetasql_StructTypeProto__Output | null);
   'protoType': (_zetasql_ProtoTypeProto__Output | null);

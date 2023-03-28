@@ -5,7 +5,7 @@ import type { ASTPathExpressionProto as _zetasql_ASTPathExpressionProto, ASTPath
 import type { ASTColumnListProto as _zetasql_ASTColumnListProto, ASTColumnListProto__Output as _zetasql_ASTColumnListProto__Output } from '../zetasql/ASTColumnListProto';
 import type { ASTOptionsListProto as _zetasql_ASTOptionsListProto, ASTOptionsListProto__Output as _zetasql_ASTOptionsListProto__Output } from '../zetasql/ASTOptionsListProto';
 import type { ASTQueryProto as _zetasql_ASTQueryProto, ASTQueryProto__Output as _zetasql_ASTQueryProto__Output } from '../zetasql/ASTQueryProto';
-import type { _zetasql_ASTCreateStatementEnums_SqlSecurity } from '../zetasql/ASTCreateStatementEnums';
+import type { _zetasql_ASTCreateStatementEnums_SqlSecurity, _zetasql_ASTCreateStatementEnums_SqlSecurity__Output } from '../zetasql/ASTCreateStatementEnums';
 
 export interface ASTCreateViewStatementBaseProto {
   'parent'?: (_zetasql_ASTCreateStatementProto | null);
@@ -13,7 +13,7 @@ export interface ASTCreateViewStatementBaseProto {
   'columnList'?: (_zetasql_ASTColumnListProto | null);
   'optionsList'?: (_zetasql_ASTOptionsListProto | null);
   'query'?: (_zetasql_ASTQueryProto | null);
-  'sqlSecurity'?: (_zetasql_ASTCreateStatementEnums_SqlSecurity | keyof typeof _zetasql_ASTCreateStatementEnums_SqlSecurity);
+  'sqlSecurity'?: (_zetasql_ASTCreateStatementEnums_SqlSecurity);
   'recursive'?: (boolean);
 }
 
@@ -23,6 +23,6 @@ export interface ASTCreateViewStatementBaseProto__Output {
   'columnList': (_zetasql_ASTColumnListProto__Output | null);
   'optionsList': (_zetasql_ASTOptionsListProto__Output | null);
   'query': (_zetasql_ASTQueryProto__Output | null);
-  'sqlSecurity': (_zetasql_ASTCreateStatementEnums_SqlSecurity);
+  'sqlSecurity': (_zetasql_ASTCreateStatementEnums_SqlSecurity__Output);
   'recursive': (boolean);
 }
