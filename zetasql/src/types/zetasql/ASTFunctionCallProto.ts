@@ -9,7 +9,7 @@ import type { ASTOrderByProto as _zetasql_ASTOrderByProto, ASTOrderByProto__Outp
 import type { ASTLimitOffsetProto as _zetasql_ASTLimitOffsetProto, ASTLimitOffsetProto__Output as _zetasql_ASTLimitOffsetProto__Output } from '../zetasql/ASTLimitOffsetProto';
 import type { ASTHintProto as _zetasql_ASTHintProto, ASTHintProto__Output as _zetasql_ASTHintProto__Output } from '../zetasql/ASTHintProto';
 import type { ASTWithGroupRowsProto as _zetasql_ASTWithGroupRowsProto, ASTWithGroupRowsProto__Output as _zetasql_ASTWithGroupRowsProto__Output } from '../zetasql/ASTWithGroupRowsProto';
-import type { _zetasql_ASTFunctionCallEnums_NullHandlingModifier } from '../zetasql/ASTFunctionCallEnums';
+import type { _zetasql_ASTFunctionCallEnums_NullHandlingModifier, _zetasql_ASTFunctionCallEnums_NullHandlingModifier__Output } from '../zetasql/ASTFunctionCallEnums';
 import type { ASTWithReportModifierProto as _zetasql_ASTWithReportModifierProto, ASTWithReportModifierProto__Output as _zetasql_ASTWithReportModifierProto__Output } from '../zetasql/ASTWithReportModifierProto';
 
 export interface ASTFunctionCallProto {
@@ -22,7 +22,7 @@ export interface ASTFunctionCallProto {
   'limitOffset'?: (_zetasql_ASTLimitOffsetProto | null);
   'hint'?: (_zetasql_ASTHintProto | null);
   'withGroupRows'?: (_zetasql_ASTWithGroupRowsProto | null);
-  'nullHandlingModifier'?: (_zetasql_ASTFunctionCallEnums_NullHandlingModifier | keyof typeof _zetasql_ASTFunctionCallEnums_NullHandlingModifier);
+  'nullHandlingModifier'?: (_zetasql_ASTFunctionCallEnums_NullHandlingModifier);
   'distinct'?: (boolean);
   'isCurrentDateTimeWithoutParentheses'?: (boolean);
   'withReportModifier'?: (_zetasql_ASTWithReportModifierProto | null);
@@ -38,7 +38,7 @@ export interface ASTFunctionCallProto__Output {
   'limitOffset': (_zetasql_ASTLimitOffsetProto__Output | null);
   'hint': (_zetasql_ASTHintProto__Output | null);
   'withGroupRows': (_zetasql_ASTWithGroupRowsProto__Output | null);
-  'nullHandlingModifier': (_zetasql_ASTFunctionCallEnums_NullHandlingModifier);
+  'nullHandlingModifier': (_zetasql_ASTFunctionCallEnums_NullHandlingModifier__Output);
   'distinct': (boolean);
   'isCurrentDateTimeWithoutParentheses': (boolean);
   'withReportModifier': (_zetasql_ASTWithReportModifierProto__Output | null);

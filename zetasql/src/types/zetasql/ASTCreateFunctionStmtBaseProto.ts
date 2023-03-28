@@ -5,8 +5,8 @@ import type { ASTFunctionDeclarationProto as _zetasql_ASTFunctionDeclarationProt
 import type { ASTIdentifierProto as _zetasql_ASTIdentifierProto, ASTIdentifierProto__Output as _zetasql_ASTIdentifierProto__Output } from '../zetasql/ASTIdentifierProto';
 import type { ASTStringLiteralProto as _zetasql_ASTStringLiteralProto, ASTStringLiteralProto__Output as _zetasql_ASTStringLiteralProto__Output } from '../zetasql/ASTStringLiteralProto';
 import type { ASTOptionsListProto as _zetasql_ASTOptionsListProto, ASTOptionsListProto__Output as _zetasql_ASTOptionsListProto__Output } from '../zetasql/ASTOptionsListProto';
-import type { _zetasql_ASTCreateFunctionStmtBaseEnums_DeterminismLevel } from '../zetasql/ASTCreateFunctionStmtBaseEnums';
-import type { _zetasql_ASTCreateStatementEnums_SqlSecurity } from '../zetasql/ASTCreateStatementEnums';
+import type { _zetasql_ASTCreateFunctionStmtBaseEnums_DeterminismLevel, _zetasql_ASTCreateFunctionStmtBaseEnums_DeterminismLevel__Output } from '../zetasql/ASTCreateFunctionStmtBaseEnums';
+import type { _zetasql_ASTCreateStatementEnums_SqlSecurity, _zetasql_ASTCreateStatementEnums_SqlSecurity__Output } from '../zetasql/ASTCreateStatementEnums';
 
 export interface ASTCreateFunctionStmtBaseProto {
   'parent'?: (_zetasql_ASTCreateStatementProto | null);
@@ -14,8 +14,8 @@ export interface ASTCreateFunctionStmtBaseProto {
   'language'?: (_zetasql_ASTIdentifierProto | null);
   'code'?: (_zetasql_ASTStringLiteralProto | null);
   'optionsList'?: (_zetasql_ASTOptionsListProto | null);
-  'determinismLevel'?: (_zetasql_ASTCreateFunctionStmtBaseEnums_DeterminismLevel | keyof typeof _zetasql_ASTCreateFunctionStmtBaseEnums_DeterminismLevel);
-  'sqlSecurity'?: (_zetasql_ASTCreateStatementEnums_SqlSecurity | keyof typeof _zetasql_ASTCreateStatementEnums_SqlSecurity);
+  'determinismLevel'?: (_zetasql_ASTCreateFunctionStmtBaseEnums_DeterminismLevel);
+  'sqlSecurity'?: (_zetasql_ASTCreateStatementEnums_SqlSecurity);
 }
 
 export interface ASTCreateFunctionStmtBaseProto__Output {
@@ -24,6 +24,6 @@ export interface ASTCreateFunctionStmtBaseProto__Output {
   'language': (_zetasql_ASTIdentifierProto__Output | null);
   'code': (_zetasql_ASTStringLiteralProto__Output | null);
   'optionsList': (_zetasql_ASTOptionsListProto__Output | null);
-  'determinismLevel': (_zetasql_ASTCreateFunctionStmtBaseEnums_DeterminismLevel);
-  'sqlSecurity': (_zetasql_ASTCreateStatementEnums_SqlSecurity);
+  'determinismLevel': (_zetasql_ASTCreateFunctionStmtBaseEnums_DeterminismLevel__Output);
+  'sqlSecurity': (_zetasql_ASTCreateStatementEnums_SqlSecurity__Output);
 }

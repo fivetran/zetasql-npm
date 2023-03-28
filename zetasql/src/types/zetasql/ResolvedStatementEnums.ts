@@ -3,12 +3,24 @@
 
 // Original file: src/protos/zetasql/resolved_ast/resolved_ast_enums.proto
 
-export enum _zetasql_ResolvedStatementEnums_ObjectAccess {
-  NONE = 0,
-  READ = 1,
-  WRITE = 2,
-  READ_WRITE = 3,
-}
+export const _zetasql_ResolvedStatementEnums_ObjectAccess = {
+  NONE: 0,
+  READ: 1,
+  WRITE: 2,
+  READ_WRITE: 3,
+} as const;
+
+export type _zetasql_ResolvedStatementEnums_ObjectAccess =
+  | 'NONE'
+  | 0
+  | 'READ'
+  | 1
+  | 'WRITE'
+  | 2
+  | 'READ_WRITE'
+  | 3
+
+export type _zetasql_ResolvedStatementEnums_ObjectAccess__Output = typeof _zetasql_ResolvedStatementEnums_ObjectAccess[keyof typeof _zetasql_ResolvedStatementEnums_ObjectAccess]
 
 export interface ResolvedStatementEnums {
 }
