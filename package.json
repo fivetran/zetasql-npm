@@ -27,7 +27,7 @@
     "test": "mocha",
     "lint": "eslint --cache --no-fix --ext .ts **/src",
     "lint:fix": "eslint --cache --fix --ext .ts src",
-    "prepare": "husky install"
+    "prepare": "npx husky install"
   },
   "workspaces": [
     "zetasql",

@@ -2,11 +2,8 @@
 
 This is npm package for [ZetaSQL](https://github.com/google/zetasql) library that can be used to provide consistent behavior for all semantic analysis, name resolution, type checking, implicit casting, etc.
 
-## Installation
-
-```sh
-npm i @fivetrandevelopers/zetasql
-```
+- [zetasql](zetasql/README.md)
+- [zetasql-snowflake](snowflake/README.md)
 
 ## How to build
 
@@ -16,6 +13,5 @@ Run the following commands in the root directory
 
 ```sh
 npm install
-cd zetasql
 npm run build:all
 ```
