@@ -1,11 +1,28 @@
-import * as path from 'path';
 import { Worker } from 'worker_threads';
 
 let worker: Worker | undefined;
 
-export function runServer(port: number): Promise<void> {
+const workerCode = `
+const ffi = require('ffi-napi');
+
+const extension = process.arch.startsWith('arm') ? '_arm' : '';
+const libPath = String(process.argv[3]) + '/' + 'libremote_server' + extension;
+const zetaSQLServer = ffi.Library(libPath, {
+  RunServer: ['void', ['int']],
+});
+
+const port = Number(process.argv[2]);
+zetaSQLServer.RunServer.async(port, () => {
+  // do nothing
+});
+`;
+
+export function runServer(port: number, libsDirPath?: string): Promise<void> {
   return new Promise((resolve, reject) => {
-    worker = new Worker(path.resolve(__dirname, './runServerAddon.js'), { argv: [port] });
+    worker = new Worker(workerCode, {
+      argv: [port, libsDirPath ?? `${__dirname}/zetasql`],
+      eval: true,
+    });
     worker.on('message', resolve);
     worker.on('error', error => reject(new Error(`Worker stopped due to error ${error}`)));
     worker.on('exit', code => {
