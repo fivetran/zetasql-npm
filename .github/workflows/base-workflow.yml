@@ -124,9 +124,6 @@ jobs:
           path: build/zetasql-npm
           key: package-results-${{ inputs.npm-package-name }}-${{ github.sha }}-${{ github.ref }}
 
-      - name: delete libraries for other platforms
-        run: find ./build/zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }} ! -name 'libremote_server.dylib' -type f -exec rm -f {} +
-
       - name: run e2e test
         working-directory: build/zetasql-npm/${{ inputs.npm-package-name }}
         run: |
@@ -153,9 +150,6 @@ jobs:
         with:
           path: build/zetasql-npm
           key: package-results-${{ inputs.npm-package-name }}-${{ github.sha }}-${{ github.ref }}
-
-      - name: delete libraries for other platforms
-        run: find ./build/zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }} ! -name '*.so' -type f -exec rm -f {} +
 
       - name: run e2e test
         working-directory: build/zetasql-npm
