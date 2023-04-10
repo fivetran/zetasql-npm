@@ -1,4 +1,4 @@
-// Original file: src/zetasql-snowflake/protos/zetasql/proto/function.proto
+// Original file: src/snowflake/protos/zetasql/proto/function.proto
 
 import type { _zetasql_FunctionEnums_ArgumentCardinality, _zetasql_FunctionEnums_ArgumentCardinality__Output } from '../zetasql/FunctionEnums';
 import type { TVFRelationProto as _zetasql_TVFRelationProto, TVFRelationProto__Output as _zetasql_TVFRelationProto__Output } from '../zetasql/TVFRelationProto';

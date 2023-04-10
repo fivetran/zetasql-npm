@@ -1,4 +1,4 @@
-// Original file: src/zetasql-snowflake/protos/zetasql/parser/parse_tree.proto
+// Original file: src/snowflake/protos/zetasql/parser/parse_tree.proto
 
 import type { ASTPrimaryKeyProto as _zetasql_ASTPrimaryKeyProto, ASTPrimaryKeyProto__Output as _zetasql_ASTPrimaryKeyProto__Output } from '../zetasql/ASTPrimaryKeyProto';
 import type { ASTForeignKeyProto as _zetasql_ASTForeignKeyProto, ASTForeignKeyProto__Output as _zetasql_ASTForeignKeyProto__Output } from '../zetasql/ASTForeignKeyProto';

@@ -1,7 +1,7 @@
-// Original file: src/zetasql-snowflake/protos/zetasql/public/deprecation_warning.proto
+// Original file: src/snowflake/protos/zetasql/public/deprecation_warning.proto
 
 
-// Original file: src/zetasql-snowflake/protos/zetasql/public/deprecation_warning.proto
+// Original file: src/snowflake/protos/zetasql/public/deprecation_warning.proto
 
 export const _zetasql_DeprecationWarning_Kind = {
   __Kind__switch_must_have_a_default__: -1,

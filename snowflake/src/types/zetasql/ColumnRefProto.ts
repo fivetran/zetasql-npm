@@ -1,4 +1,4 @@
-// Original file: src/zetasql-snowflake/protos/zetasql/resolved_ast/serialization.proto
+// Original file: src/snowflake/protos/zetasql/resolved_ast/serialization.proto
 
 import type { TableRefProto as _zetasql_TableRefProto, TableRefProto__Output as _zetasql_TableRefProto__Output } from '../zetasql/TableRefProto';
 

@@ -1,4 +1,4 @@
-// Original file: src/zetasql-snowflake/protos/zetasql/public/options.proto
+// Original file: src/snowflake/protos/zetasql/public/options.proto
 
 export const ResolvedASTRewrite = {
   REWRITE_INVALID_DO_NOT_USE: 0,

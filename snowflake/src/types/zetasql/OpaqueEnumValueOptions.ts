@@ -1,4 +1,4 @@
-// Original file: src/zetasql-snowflake/protos/zetasql/public/type.proto
+// Original file: src/snowflake/protos/zetasql/public/type.proto
 
 
 export interface OpaqueEnumValueOptions {

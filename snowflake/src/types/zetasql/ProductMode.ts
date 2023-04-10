@@ -1,4 +1,4 @@
-// Original file: src/zetasql-snowflake/protos/zetasql/public/options.proto
+// Original file: src/snowflake/protos/zetasql/public/options.proto
 
 export const ProductMode = {
   PRODUCT_INTERNAL: 0,

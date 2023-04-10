@@ -1,4 +1,4 @@
-// Original file: src/zetasql-snowflake/protos/zetasql/parser/ast_enums.proto
+// Original file: src/snowflake/protos/zetasql/parser/ast_enums.proto
 
 export const SchemaObjectKind = {
   __SchemaObjectKind__switch_must_have_a_default__: -1,

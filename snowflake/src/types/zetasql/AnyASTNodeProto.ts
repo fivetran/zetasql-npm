@@ -1,4 +1,4 @@
-// Original file: src/zetasql-snowflake/protos/zetasql/parser/parse_tree.proto
+// Original file: src/snowflake/protos/zetasql/parser/parse_tree.proto
 
 import type { AnyASTStatementProto as _zetasql_AnyASTStatementProto, AnyASTStatementProto__Output as _zetasql_AnyASTStatementProto__Output } from '../zetasql/AnyASTStatementProto';
 import type { AnyASTQueryExpressionProto as _zetasql_AnyASTQueryExpressionProto, AnyASTQueryExpressionProto__Output as _zetasql_AnyASTQueryExpressionProto__Output } from '../zetasql/AnyASTQueryExpressionProto';

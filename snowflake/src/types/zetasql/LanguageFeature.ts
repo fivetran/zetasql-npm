@@ -1,4 +1,4 @@
-// Original file: src/zetasql-snowflake/protos/zetasql/public/options.proto
+// Original file: src/snowflake/protos/zetasql/public/options.proto
 
 export const LanguageFeature = {
   FEATURE_ANALYTIC_FUNCTIONS: 1,

@@ -1,7 +1,7 @@
-// Original file: src/zetasql-snowflake/protos/zetasql/parser/ast_enums.proto
+// Original file: src/snowflake/protos/zetasql/parser/ast_enums.proto
 
 
-// Original file: src/zetasql-snowflake/protos/zetasql/parser/ast_enums.proto
+// Original file: src/snowflake/protos/zetasql/parser/ast_enums.proto
 
 export const _zetasql_ASTAnySomeAllOpEnums_Op = {
   kUninitialized: 1,

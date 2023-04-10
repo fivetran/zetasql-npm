@@ -1,4 +1,4 @@
-// Original file: src/zetasql-snowflake/protos/zetasql/parser/parse_tree.proto
+// Original file: src/snowflake/protos/zetasql/parser/parse_tree.proto
 
 import type { ASTIfStatementProto as _zetasql_ASTIfStatementProto, ASTIfStatementProto__Output as _zetasql_ASTIfStatementProto__Output } from '../zetasql/ASTIfStatementProto';
 import type { ASTCaseStatementProto as _zetasql_ASTCaseStatementProto, ASTCaseStatementProto__Output as _zetasql_ASTCaseStatementProto__Output } from '../zetasql/ASTCaseStatementProto';

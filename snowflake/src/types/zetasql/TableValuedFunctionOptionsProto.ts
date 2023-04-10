@@ -1,4 +1,4 @@
-// Original file: src/zetasql-snowflake/protos/zetasql/proto/function.proto
+// Original file: src/snowflake/protos/zetasql/proto/function.proto
 
 
 export interface TableValuedFunctionOptionsProto {

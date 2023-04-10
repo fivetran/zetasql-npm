@@ -1,4 +1,4 @@
-// Original file: src/zetasql-snowflake/protos/zetasql/resolved_ast/resolved_ast.proto
+// Original file: src/snowflake/protos/zetasql/resolved_ast/resolved_ast.proto
 
 import type { ResolvedScanProto as _zetasql_ResolvedScanProto, ResolvedScanProto__Output as _zetasql_ResolvedScanProto__Output } from '../zetasql/ResolvedScanProto';
 import type { TableValuedFunctionRefProto as _zetasql_TableValuedFunctionRefProto, TableValuedFunctionRefProto__Output as _zetasql_TableValuedFunctionRefProto__Output } from '../zetasql/TableValuedFunctionRefProto';

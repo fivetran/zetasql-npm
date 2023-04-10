@@ -1,4 +1,4 @@
-// Original file: src/zetasql-snowflake/protos/zetasql/resolved_ast/resolved_ast.proto
+// Original file: src/snowflake/protos/zetasql/resolved_ast/resolved_ast.proto
 
 import type { ResolvedCreateTableStmtBaseProto as _zetasql_ResolvedCreateTableStmtBaseProto, ResolvedCreateTableStmtBaseProto__Output as _zetasql_ResolvedCreateTableStmtBaseProto__Output } from '../zetasql/ResolvedCreateTableStmtBaseProto';
 import type { ResolvedOutputColumnProto as _zetasql_ResolvedOutputColumnProto, ResolvedOutputColumnProto__Output as _zetasql_ResolvedOutputColumnProto__Output } from '../zetasql/ResolvedOutputColumnProto';

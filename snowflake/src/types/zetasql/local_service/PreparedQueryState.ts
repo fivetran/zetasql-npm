@@ -1,4 +1,4 @@
-// Original file: src/zetasql-snowflake/protos/local_service.proto
+// Original file: src/snowflake/protos/local_service.proto
 
 import type { SimpleColumnProto as _zetasql_SimpleColumnProto, SimpleColumnProto__Output as _zetasql_SimpleColumnProto__Output } from '../../zetasql/SimpleColumnProto';
 import type { DescriptorPoolIdList as _zetasql_local_service_DescriptorPoolIdList, DescriptorPoolIdList__Output as _zetasql_local_service_DescriptorPoolIdList__Output } from '../../zetasql/local_service/DescriptorPoolIdList';

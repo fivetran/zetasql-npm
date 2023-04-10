@@ -1,4 +1,4 @@
-// Original file: src/zetasql-snowflake/protos/local_service.proto
+// Original file: src/snowflake/protos/local_service.proto
 
 import type { FunctionProto as _zetasql_FunctionProto, FunctionProto__Output as _zetasql_FunctionProto__Output } from '../../zetasql/FunctionProto';
 

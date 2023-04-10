@@ -20,7 +20,7 @@ zetaSQLServer.RunServer.async(port, () => {
 export function runServer(port: number): Promise<void> {
   return new Promise((resolve, reject) => {
     worker = new Worker(workerCode, {
-      argv: [port, `${__dirname}/zetasql-snowflake`],
+      argv: [port, `${__dirname}/snowflake`],
       eval: true,
     });
     worker.on('message', resolve);

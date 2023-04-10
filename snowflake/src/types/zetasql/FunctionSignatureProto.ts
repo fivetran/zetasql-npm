@@ -1,4 +1,4 @@
-// Original file: src/zetasql-snowflake/protos/zetasql/proto/function.proto
+// Original file: src/snowflake/protos/zetasql/proto/function.proto
 
 import type { FunctionArgumentTypeProto as _zetasql_FunctionArgumentTypeProto, FunctionArgumentTypeProto__Output as _zetasql_FunctionArgumentTypeProto__Output } from '../zetasql/FunctionArgumentTypeProto';
 import type { FunctionSignatureOptionsProto as _zetasql_FunctionSignatureOptionsProto, FunctionSignatureOptionsProto__Output as _zetasql_FunctionSignatureOptionsProto__Output } from '../zetasql/FunctionSignatureOptionsProto';

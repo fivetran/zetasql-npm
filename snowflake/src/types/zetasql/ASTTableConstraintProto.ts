@@ -1,4 +1,4 @@
-// Original file: src/zetasql-snowflake/protos/zetasql/parser/parse_tree.proto
+// Original file: src/snowflake/protos/zetasql/parser/parse_tree.proto
 
 import type { ASTTableElementProto as _zetasql_ASTTableElementProto, ASTTableElementProto__Output as _zetasql_ASTTableElementProto__Output } from '../zetasql/ASTTableElementProto';
 

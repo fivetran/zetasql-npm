@@ -1,4 +1,4 @@
-// Original file: src/zetasql-snowflake/protos/local_service.proto
+// Original file: src/snowflake/protos/local_service.proto
 
 import type { LanguageOptionsProto as _zetasql_LanguageOptionsProto, LanguageOptionsProto__Output as _zetasql_LanguageOptionsProto__Output } from '../../zetasql/LanguageOptionsProto';
 

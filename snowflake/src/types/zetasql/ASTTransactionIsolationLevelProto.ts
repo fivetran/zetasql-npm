@@ -1,4 +1,4 @@
-// Original file: src/zetasql-snowflake/protos/zetasql/parser/parse_tree.proto
+// Original file: src/snowflake/protos/zetasql/parser/parse_tree.proto
 
 import type { ASTTransactionModeProto as _zetasql_ASTTransactionModeProto, ASTTransactionModeProto__Output as _zetasql_ASTTransactionModeProto__Output } from '../zetasql/ASTTransactionModeProto';
 import type { ASTIdentifierProto as _zetasql_ASTIdentifierProto, ASTIdentifierProto__Output as _zetasql_ASTIdentifierProto__Output } from '../zetasql/ASTIdentifierProto';

@@ -1,4 +1,4 @@
-// Original file: src/zetasql-snowflake/protos/zetasql/public/type_parameters.proto
+// Original file: src/snowflake/protos/zetasql/public/type_parameters.proto
 
 import type { SimpleValueProto as _zetasql_SimpleValueProto, SimpleValueProto__Output as _zetasql_SimpleValueProto__Output } from '../zetasql/SimpleValueProto';
 

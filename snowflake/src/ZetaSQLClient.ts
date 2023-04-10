@@ -39,7 +39,7 @@ export class ZetaSQLClient {
     const packageDefinition = protoLoader.loadSync('local_service.proto', {
       defaults: true,
       oneofs: true,
-      includeDirs: [`${__dirname}/zetasql-snowflake/protos`],
+      includeDirs: [`${__dirname}/snowflake/protos`],
     });
 
     const proto = grpc.loadPackageDefinition(packageDefinition) as unknown as ProtoGrpcType;

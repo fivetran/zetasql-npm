@@ -1,4 +1,4 @@
-// Original file: src/zetasql-snowflake/protos/zetasql/public/parse_resume_location.proto
+// Original file: src/snowflake/protos/zetasql/public/parse_resume_location.proto
 
 
 export interface ParseResumeLocationProto {
