@@ -3,10 +3,12 @@ import { Worker } from 'worker_threads';
 let worker: Worker | undefined;
 
 const workerCode = `
-const ffi = require('ffi-napi');
+const dirname = String(process.argv[3]);
+const ffiNapiPath = require.resolve('ffi-napi', { paths: [dirname] });
+const ffi = require(ffiNapiPath);
 
 const extension = process.arch.startsWith('arm') ? '_arm' : '';
-const libPath = String(process.argv[3]) + '/' + 'libremote_server' + extension;
+const libPath = dirname + '/zetasql/libremote_server' + extension;
 const zetaSQLServer = ffi.Library(libPath, {
   RunServer: ['void', ['int']],
 });
@@ -20,7 +22,7 @@ zetaSQLServer.RunServer.async(port, () => {
 export function runServer(port: number): Promise<void> {
   return new Promise((resolve, reject) => {
     worker = new Worker(workerCode, {
-      argv: [port, `${__dirname}/zetasql`],
+      argv: [port, __dirname],
       eval: true,
     });
     worker.on('message', resolve);

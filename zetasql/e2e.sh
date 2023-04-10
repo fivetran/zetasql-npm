@@ -1,6 +1,13 @@
 #!/bin/bash
 printf "Running e2e tests.\n"
 
+SCRIPT_DIR=$(dirname "$0")
+cd ${SCRIPT_DIR}
+echo 'Running from folder '${PWD}
+
+TESTS_DIR=lib/test
+
+
 expectedResult="Running server on 0.0.0.0:50005...
 Server listening on 0.0.0.0:50005
 Init...
@@ -8,7 +15,7 @@ Testing...
 Tests passed
 Terminating..."
 
-actualResult=$(node lib/test/TestZetaSqlServer.js)
+actualResult=$(node ${TESTS_DIR}/TestZetaSqlServer.js)
 if [[ "${expectedResult}" != "${actualResult}" ]]; then
     printf "TestZetaSqlServer error!\n"
     printf "Expected result is:\n ${expectedResult}\n\n"
@@ -19,7 +26,7 @@ fi
 expectedResult="Running server on 0.0.0.0:50005...
 Server listening on 0.0.0.0:50005
 Tests passed"
-actualResult=$(node lib/test/TestQuery.js)
+actualResult=$(node ${TESTS_DIR}/TestQuery.js)
 
 if [[ "${expectedResult}" != "${actualResult}" ]]; then
     printf "TestQuery error!\n"
@@ -31,7 +38,7 @@ fi
 expectedResult="Running server on 0.0.0.0:50005...
 Server listening on 0.0.0.0:50005
 Tests passed"
-actualResult=$(node lib/test/ManyJoins.js)
+actualResult=$(node ${TESTS_DIR}/ManyJoins.js)
 
 if [[ "${expectedResult}" != "${actualResult}" ]]; then
     printf "ManyJoins error!\n"
@@ -43,7 +50,7 @@ fi
 expectedResult="Running server on 0.0.0.0:50005...
 Server listening on 0.0.0.0:50005
 Tests passed"
-actualResult=$(node lib/test/ManyAdditionOperations.js)
+actualResult=$(node ${TESTS_DIR}/ManyAdditionOperations.js)
 
 if [[ "${expectedResult}" != "${actualResult}" ]]; then
     printf "ManyAdditionOperations error!\n"
