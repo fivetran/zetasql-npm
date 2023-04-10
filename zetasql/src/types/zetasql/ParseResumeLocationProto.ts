@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/public/parse_resume_location.proto
+// Original file: src/zetasql/protos/zetasql/public/parse_resume_location.proto
 
 
 export interface ParseResumeLocationProto {

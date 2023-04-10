@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/resolved_ast/resolved_ast.proto
+// Original file: src/zetasql/protos/zetasql/resolved_ast/resolved_ast.proto
 
 import type { ResolvedExprProto as _zetasql_ResolvedExprProto, ResolvedExprProto__Output as _zetasql_ResolvedExprProto__Output } from '../zetasql/ResolvedExprProto';
 import type { _zetasql_ResolvedArgumentDefEnums_ArgumentKind, _zetasql_ResolvedArgumentDefEnums_ArgumentKind__Output } from '../zetasql/ResolvedArgumentDefEnums';

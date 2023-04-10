@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/resolved_ast/resolved_ast.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/resolved_ast/resolved_ast.proto
 
 import type { ResolvedLiteralProto as _zetasql_ResolvedLiteralProto, ResolvedLiteralProto__Output as _zetasql_ResolvedLiteralProto__Output } from '../zetasql/ResolvedLiteralProto';
 import type { ResolvedParameterProto as _zetasql_ResolvedParameterProto, ResolvedParameterProto__Output as _zetasql_ResolvedParameterProto__Output } from '../zetasql/ResolvedParameterProto';

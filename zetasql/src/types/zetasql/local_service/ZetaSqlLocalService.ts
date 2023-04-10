@@ -1,4 +1,4 @@
-// Original file: src/protos/local_service.proto
+// Original file: src/zetasql/protos/local_service.proto
 
 import type * as grpc from '@grpc/grpc-js'
 import type { MethodDefinition } from '@grpc/proto-loader'

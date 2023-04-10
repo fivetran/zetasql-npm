@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/parser/parse_tree.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/parser/parse_tree.proto
 
 import type { ASTDropEntityStatementProto as _zetasql_ASTDropEntityStatementProto, ASTDropEntityStatementProto__Output as _zetasql_ASTDropEntityStatementProto__Output } from '../zetasql/ASTDropEntityStatementProto';
 import type { ASTDropFunctionStatementProto as _zetasql_ASTDropFunctionStatementProto, ASTDropFunctionStatementProto__Output as _zetasql_ASTDropFunctionStatementProto__Output } from '../zetasql/ASTDropFunctionStatementProto';

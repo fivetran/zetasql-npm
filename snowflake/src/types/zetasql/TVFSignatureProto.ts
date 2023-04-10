@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/proto/function.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/proto/function.proto
 
 import type { TVFArgumentProto as _zetasql_TVFArgumentProto, TVFArgumentProto__Output as _zetasql_TVFArgumentProto__Output } from '../zetasql/TVFArgumentProto';
 import type { TVFRelationProto as _zetasql_TVFRelationProto, TVFRelationProto__Output as _zetasql_TVFRelationProto__Output } from '../zetasql/TVFRelationProto';

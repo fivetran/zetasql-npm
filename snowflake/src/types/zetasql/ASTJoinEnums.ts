@@ -1,7 +1,7 @@
-// Original file: src/protos/zetasql/parser/ast_enums.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/parser/ast_enums.proto
 
 
-// Original file: src/protos/zetasql/parser/ast_enums.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/parser/ast_enums.proto
 
 export const _zetasql_ASTJoinEnums_JoinHint = {
   NO_JOIN_HINT: 0,
@@ -19,7 +19,7 @@ export type _zetasql_ASTJoinEnums_JoinHint =
 
 export type _zetasql_ASTJoinEnums_JoinHint__Output = typeof _zetasql_ASTJoinEnums_JoinHint[keyof typeof _zetasql_ASTJoinEnums_JoinHint]
 
-// Original file: src/protos/zetasql/parser/ast_enums.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/parser/ast_enums.proto
 
 export const _zetasql_ASTJoinEnums_JoinType = {
   DEFAULT_JOIN_TYPE: 0,

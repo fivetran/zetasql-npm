@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/resolved_ast/resolved_ast.proto
+// Original file: src/zetasql/protos/zetasql/resolved_ast/resolved_ast.proto
 
 import type { ResolvedCreateStatementProto as _zetasql_ResolvedCreateStatementProto, ResolvedCreateStatementProto__Output as _zetasql_ResolvedCreateStatementProto__Output } from '../zetasql/ResolvedCreateStatementProto';
 import type { ResolvedTableScanProto as _zetasql_ResolvedTableScanProto, ResolvedTableScanProto__Output as _zetasql_ResolvedTableScanProto__Output } from '../zetasql/ResolvedTableScanProto';

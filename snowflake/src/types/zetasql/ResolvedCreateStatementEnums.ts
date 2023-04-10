@@ -1,7 +1,7 @@
-// Original file: src/protos/zetasql/resolved_ast/resolved_ast_enums.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/resolved_ast/resolved_ast_enums.proto
 
 
-// Original file: src/protos/zetasql/resolved_ast/resolved_ast_enums.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/resolved_ast/resolved_ast_enums.proto
 
 export const _zetasql_ResolvedCreateStatementEnums_CreateMode = {
   CREATE_DEFAULT: 0,
@@ -19,7 +19,7 @@ export type _zetasql_ResolvedCreateStatementEnums_CreateMode =
 
 export type _zetasql_ResolvedCreateStatementEnums_CreateMode__Output = typeof _zetasql_ResolvedCreateStatementEnums_CreateMode[keyof typeof _zetasql_ResolvedCreateStatementEnums_CreateMode]
 
-// Original file: src/protos/zetasql/resolved_ast/resolved_ast_enums.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/resolved_ast/resolved_ast_enums.proto
 
 export const _zetasql_ResolvedCreateStatementEnums_CreateScope = {
   CREATE_DEFAULT_SCOPE: 0,
@@ -40,7 +40,7 @@ export type _zetasql_ResolvedCreateStatementEnums_CreateScope =
 
 export type _zetasql_ResolvedCreateStatementEnums_CreateScope__Output = typeof _zetasql_ResolvedCreateStatementEnums_CreateScope[keyof typeof _zetasql_ResolvedCreateStatementEnums_CreateScope]
 
-// Original file: src/protos/zetasql/resolved_ast/resolved_ast_enums.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/resolved_ast/resolved_ast_enums.proto
 
 export const _zetasql_ResolvedCreateStatementEnums_DeterminismLevel = {
   DETERMINISM_UNSPECIFIED: 0,
@@ -67,7 +67,7 @@ export type _zetasql_ResolvedCreateStatementEnums_DeterminismLevel =
 
 export type _zetasql_ResolvedCreateStatementEnums_DeterminismLevel__Output = typeof _zetasql_ResolvedCreateStatementEnums_DeterminismLevel[keyof typeof _zetasql_ResolvedCreateStatementEnums_DeterminismLevel]
 
-// Original file: src/protos/zetasql/resolved_ast/resolved_ast_enums.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/resolved_ast/resolved_ast_enums.proto
 
 export const _zetasql_ResolvedCreateStatementEnums_SqlSecurity = {
   SQL_SECURITY_UNSPECIFIED: 0,

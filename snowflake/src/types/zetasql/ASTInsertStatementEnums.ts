@@ -1,7 +1,7 @@
-// Original file: src/protos/zetasql/parser/ast_enums.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/parser/ast_enums.proto
 
 
-// Original file: src/protos/zetasql/parser/ast_enums.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/parser/ast_enums.proto
 
 export const _zetasql_ASTInsertStatementEnums_InsertMode = {
   DEFAULT_MODE: 0,
@@ -22,7 +22,7 @@ export type _zetasql_ASTInsertStatementEnums_InsertMode =
 
 export type _zetasql_ASTInsertStatementEnums_InsertMode__Output = typeof _zetasql_ASTInsertStatementEnums_InsertMode[keyof typeof _zetasql_ASTInsertStatementEnums_InsertMode]
 
-// Original file: src/protos/zetasql/parser/ast_enums.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/parser/ast_enums.proto
 
 export const _zetasql_ASTInsertStatementEnums_ParseProgress = {
   kInitial: 1,

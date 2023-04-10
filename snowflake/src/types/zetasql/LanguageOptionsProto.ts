@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/proto/options.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/proto/options.proto
 
 import type { NameResolutionMode as _zetasql_NameResolutionMode, NameResolutionMode__Output as _zetasql_NameResolutionMode__Output } from '../zetasql/NameResolutionMode';
 import type { ProductMode as _zetasql_ProductMode, ProductMode__Output as _zetasql_ProductMode__Output } from '../zetasql/ProductMode';

@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/public/type_parameters.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/public/type_parameters.proto
 
 import type { StringTypeParametersProto as _zetasql_StringTypeParametersProto, StringTypeParametersProto__Output as _zetasql_StringTypeParametersProto__Output } from '../zetasql/StringTypeParametersProto';
 import type { NumericTypeParametersProto as _zetasql_NumericTypeParametersProto, NumericTypeParametersProto__Output as _zetasql_NumericTypeParametersProto__Output } from '../zetasql/NumericTypeParametersProto';

@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/public/simple_value.proto
+// Original file: src/zetasql/protos/zetasql/public/simple_value.proto
 
 import type { Long } from '@grpc/proto-loader';
 

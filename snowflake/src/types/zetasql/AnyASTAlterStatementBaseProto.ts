@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/parser/parse_tree.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/parser/parse_tree.proto
 
 import type { ASTAlterDatabaseStatementProto as _zetasql_ASTAlterDatabaseStatementProto, ASTAlterDatabaseStatementProto__Output as _zetasql_ASTAlterDatabaseStatementProto__Output } from '../zetasql/ASTAlterDatabaseStatementProto';
 import type { ASTAlterSchemaStatementProto as _zetasql_ASTAlterSchemaStatementProto, ASTAlterSchemaStatementProto__Output as _zetasql_ASTAlterSchemaStatementProto__Output } from '../zetasql/ASTAlterSchemaStatementProto';

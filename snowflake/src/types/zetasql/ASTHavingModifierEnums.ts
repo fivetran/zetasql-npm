@@ -1,7 +1,7 @@
-// Original file: src/protos/zetasql/parser/ast_enums.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/parser/ast_enums.proto
 
 
-// Original file: src/protos/zetasql/parser/ast_enums.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/parser/ast_enums.proto
 
 export const _zetasql_ASTHavingModifierEnums_ModifierKind = {
   NOT_SET: 0,

@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/parser/parse_tree.proto
+// Original file: src/zetasql/protos/zetasql/parser/parse_tree.proto
 
 import type { ASTTypeProto as _zetasql_ASTTypeProto, ASTTypeProto__Output as _zetasql_ASTTypeProto__Output } from '../zetasql/ASTTypeProto';
 import type { ASTStructFieldProto as _zetasql_ASTStructFieldProto, ASTStructFieldProto__Output as _zetasql_ASTStructFieldProto__Output } from '../zetasql/ASTStructFieldProto';

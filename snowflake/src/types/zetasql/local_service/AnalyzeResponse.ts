@@ -1,4 +1,4 @@
-// Original file: src/protos/local_service.proto
+// Original file: src/zetasql-snowflake/protos/local_service.proto
 
 import type { AnyResolvedStatementProto as _zetasql_AnyResolvedStatementProto, AnyResolvedStatementProto__Output as _zetasql_AnyResolvedStatementProto__Output } from '../../zetasql/AnyResolvedStatementProto';
 import type { AnyResolvedExprProto as _zetasql_AnyResolvedExprProto, AnyResolvedExprProto__Output as _zetasql_AnyResolvedExprProto__Output } from '../../zetasql/AnyResolvedExprProto';

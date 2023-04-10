@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/proto/function.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/proto/function.proto
 
 import type { _zetasql_FunctionEnums_WindowOrderSupport, _zetasql_FunctionEnums_WindowOrderSupport__Output } from '../zetasql/FunctionEnums';
 import type { _zetasql_FunctionEnums_Volatility, _zetasql_FunctionEnums_Volatility__Output } from '../zetasql/FunctionEnums';

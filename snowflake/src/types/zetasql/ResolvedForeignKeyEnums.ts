@@ -1,7 +1,7 @@
-// Original file: src/protos/zetasql/resolved_ast/resolved_ast_enums.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/resolved_ast/resolved_ast_enums.proto
 
 
-// Original file: src/protos/zetasql/resolved_ast/resolved_ast_enums.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/resolved_ast/resolved_ast_enums.proto
 
 export const _zetasql_ResolvedForeignKeyEnums_ActionOperation = {
   NO_ACTION: 0,
@@ -22,7 +22,7 @@ export type _zetasql_ResolvedForeignKeyEnums_ActionOperation =
 
 export type _zetasql_ResolvedForeignKeyEnums_ActionOperation__Output = typeof _zetasql_ResolvedForeignKeyEnums_ActionOperation[keyof typeof _zetasql_ResolvedForeignKeyEnums_ActionOperation]
 
-// Original file: src/protos/zetasql/resolved_ast/resolved_ast_enums.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/resolved_ast/resolved_ast_enums.proto
 
 export const _zetasql_ResolvedForeignKeyEnums_MatchMode = {
   SIMPLE: 0,

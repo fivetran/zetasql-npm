@@ -1,4 +1,4 @@
-// Original file: src/protos/local_service.proto
+// Original file: src/zetasql/protos/local_service.proto
 
 import type { ValueProto as _zetasql_ValueProto, ValueProto__Output as _zetasql_ValueProto__Output } from '../../zetasql/ValueProto';
 

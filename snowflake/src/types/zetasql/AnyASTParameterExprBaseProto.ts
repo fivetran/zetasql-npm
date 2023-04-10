@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/parser/parse_tree.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/parser/parse_tree.proto
 
 import type { ASTParameterExprProto as _zetasql_ASTParameterExprProto, ASTParameterExprProto__Output as _zetasql_ASTParameterExprProto__Output } from '../zetasql/ASTParameterExprProto';
 import type { ASTSystemVariableExprProto as _zetasql_ASTSystemVariableExprProto, ASTSystemVariableExprProto__Output as _zetasql_ASTSystemVariableExprProto__Output } from '../zetasql/ASTSystemVariableExprProto';

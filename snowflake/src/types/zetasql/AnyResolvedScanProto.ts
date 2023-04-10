@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/resolved_ast/resolved_ast.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/resolved_ast/resolved_ast.proto
 
 import type { ResolvedSingleRowScanProto as _zetasql_ResolvedSingleRowScanProto, ResolvedSingleRowScanProto__Output as _zetasql_ResolvedSingleRowScanProto__Output } from '../zetasql/ResolvedSingleRowScanProto';
 import type { ResolvedTableScanProto as _zetasql_ResolvedTableScanProto, ResolvedTableScanProto__Output as _zetasql_ResolvedTableScanProto__Output } from '../zetasql/ResolvedTableScanProto';

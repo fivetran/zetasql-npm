@@ -1,4 +1,4 @@
-// Original file: src/protos/local_service.proto
+// Original file: src/zetasql-snowflake/protos/local_service.proto
 
 import type { FileDescriptorSet as _google_protobuf_FileDescriptorSet, FileDescriptorSet__Output as _google_protobuf_FileDescriptorSet__Output } from '../../google/protobuf/FileDescriptorSet';
 import type { Long } from '@grpc/proto-loader';

@@ -1,4 +1,4 @@
-// Original file: src/protos/local_service.proto
+// Original file: src/zetasql/protos/local_service.proto
 
 import type { LanguageVersion as _zetasql_LanguageVersion, LanguageVersion__Output as _zetasql_LanguageVersion__Output } from '../../zetasql/LanguageVersion';
 

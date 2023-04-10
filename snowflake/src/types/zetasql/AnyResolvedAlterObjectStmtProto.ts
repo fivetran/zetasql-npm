@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/resolved_ast/resolved_ast.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/resolved_ast/resolved_ast.proto
 
 import type { ResolvedAlterRowAccessPolicyStmtProto as _zetasql_ResolvedAlterRowAccessPolicyStmtProto, ResolvedAlterRowAccessPolicyStmtProto__Output as _zetasql_ResolvedAlterRowAccessPolicyStmtProto__Output } from '../zetasql/ResolvedAlterRowAccessPolicyStmtProto';
 import type { ResolvedAlterTableStmtProto as _zetasql_ResolvedAlterTableStmtProto, ResolvedAlterTableStmtProto__Output as _zetasql_ResolvedAlterTableStmtProto__Output } from '../zetasql/ResolvedAlterTableStmtProto';

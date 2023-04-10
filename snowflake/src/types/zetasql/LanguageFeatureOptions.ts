@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/public/options.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/public/options.proto
 
 
 export interface LanguageFeatureOptions {

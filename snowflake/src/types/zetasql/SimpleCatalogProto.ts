@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/proto/simple_catalog.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/proto/simple_catalog.proto
 
 import type { SimpleTableProto as _zetasql_SimpleTableProto, SimpleTableProto__Output as _zetasql_SimpleTableProto__Output } from '../zetasql/SimpleTableProto';
 import type { SimpleCatalogProto as _zetasql_SimpleCatalogProto, SimpleCatalogProto__Output as _zetasql_SimpleCatalogProto__Output } from '../zetasql/SimpleCatalogProto';

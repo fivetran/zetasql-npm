@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/parser/parse_tree.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/parser/parse_tree.proto
 
 import type { ASTSimpleColumnSchemaProto as _zetasql_ASTSimpleColumnSchemaProto, ASTSimpleColumnSchemaProto__Output as _zetasql_ASTSimpleColumnSchemaProto__Output } from '../zetasql/ASTSimpleColumnSchemaProto';
 import type { ASTArrayColumnSchemaProto as _zetasql_ASTArrayColumnSchemaProto, ASTArrayColumnSchemaProto__Output as _zetasql_ASTArrayColumnSchemaProto__Output } from '../zetasql/ASTArrayColumnSchemaProto';

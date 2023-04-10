@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/resolved_ast/resolved_ast.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/resolved_ast/resolved_ast.proto
 
 import type { ResolvedAlterActionProto as _zetasql_ResolvedAlterActionProto, ResolvedAlterActionProto__Output as _zetasql_ResolvedAlterActionProto__Output } from '../zetasql/ResolvedAlterActionProto';
 import type { AnyResolvedConstraintProto as _zetasql_AnyResolvedConstraintProto, AnyResolvedConstraintProto__Output as _zetasql_AnyResolvedConstraintProto__Output } from '../zetasql/AnyResolvedConstraintProto';

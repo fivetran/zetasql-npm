@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/parser/parse_tree.proto
+// Original file: src/zetasql/protos/zetasql/parser/parse_tree.proto
 
 import type { ASTColumnSchemaProto as _zetasql_ASTColumnSchemaProto, ASTColumnSchemaProto__Output as _zetasql_ASTColumnSchemaProto__Output } from '../zetasql/ASTColumnSchemaProto';
 

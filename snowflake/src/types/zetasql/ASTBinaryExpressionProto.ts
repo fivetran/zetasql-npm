@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/parser/parse_tree.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/parser/parse_tree.proto
 
 import type { ASTExpressionProto as _zetasql_ASTExpressionProto, ASTExpressionProto__Output as _zetasql_ASTExpressionProto__Output } from '../zetasql/ASTExpressionProto';
 import type { _zetasql_ASTBinaryExpressionEnums_Op, _zetasql_ASTBinaryExpressionEnums_Op__Output } from '../zetasql/ASTBinaryExpressionEnums';

@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/parser/parse_tree.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/parser/parse_tree.proto
 
 import type { ASTIntLiteralProto as _zetasql_ASTIntLiteralProto, ASTIntLiteralProto__Output as _zetasql_ASTIntLiteralProto__Output } from '../zetasql/ASTIntLiteralProto';
 import type { ASTBooleanLiteralProto as _zetasql_ASTBooleanLiteralProto, ASTBooleanLiteralProto__Output as _zetasql_ASTBooleanLiteralProto__Output } from '../zetasql/ASTBooleanLiteralProto';

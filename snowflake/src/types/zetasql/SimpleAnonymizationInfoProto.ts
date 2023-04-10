@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/public/simple_table.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/public/simple_table.proto
 
 
 export interface SimpleAnonymizationInfoProto {

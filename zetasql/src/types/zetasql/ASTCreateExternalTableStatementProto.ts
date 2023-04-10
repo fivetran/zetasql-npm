@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/parser/parse_tree.proto
+// Original file: src/zetasql/protos/zetasql/parser/parse_tree.proto
 
 import type { ASTCreateTableStmtBaseProto as _zetasql_ASTCreateTableStmtBaseProto, ASTCreateTableStmtBaseProto__Output as _zetasql_ASTCreateTableStmtBaseProto__Output } from '../zetasql/ASTCreateTableStmtBaseProto';
 import type { ASTWithPartitionColumnsClauseProto as _zetasql_ASTWithPartitionColumnsClauseProto, ASTWithPartitionColumnsClauseProto__Output as _zetasql_ASTWithPartitionColumnsClauseProto__Output } from '../zetasql/ASTWithPartitionColumnsClauseProto';

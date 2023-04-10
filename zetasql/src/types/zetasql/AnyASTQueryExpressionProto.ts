@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/parser/parse_tree.proto
+// Original file: src/zetasql/protos/zetasql/parser/parse_tree.proto
 
 import type { ASTQueryProto as _zetasql_ASTQueryProto, ASTQueryProto__Output as _zetasql_ASTQueryProto__Output } from '../zetasql/ASTQueryProto';
 import type { ASTSelectProto as _zetasql_ASTSelectProto, ASTSelectProto__Output as _zetasql_ASTSelectProto__Output } from '../zetasql/ASTSelectProto';

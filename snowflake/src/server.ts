@@ -17,10 +17,10 @@ zetaSQLServer.RunServer.async(port, () => {
 });
 `;
 
-export function runServer(port: number, libsDirPath?: string): Promise<void> {
+export function runServer(port: number): Promise<void> {
   return new Promise((resolve, reject) => {
     worker = new Worker(workerCode, {
-      argv: [port, libsDirPath ?? `${__dirname}/zetasql`],
+      argv: [port, `${__dirname}/zetasql-snowflake`],
       eval: true,
     });
     worker.on('message', resolve);

@@ -1,7 +1,7 @@
-// Original file: src/protos/zetasql/public/function.proto
+// Original file: src/zetasql/protos/zetasql/public/function.proto
 
 
-// Original file: src/protos/zetasql/public/function.proto
+// Original file: src/zetasql/protos/zetasql/public/function.proto
 
 export const _zetasql_FunctionEnums_ArgumentCardinality = {
   REQUIRED: 0,
@@ -19,7 +19,7 @@ export type _zetasql_FunctionEnums_ArgumentCardinality =
 
 export type _zetasql_FunctionEnums_ArgumentCardinality__Output = typeof _zetasql_FunctionEnums_ArgumentCardinality[keyof typeof _zetasql_FunctionEnums_ArgumentCardinality]
 
-// Original file: src/protos/zetasql/public/function.proto
+// Original file: src/zetasql/protos/zetasql/public/function.proto
 
 export const _zetasql_FunctionEnums_ArgumentCollationMode = {
   AFFECTS_NONE: 0,
@@ -40,7 +40,7 @@ export type _zetasql_FunctionEnums_ArgumentCollationMode =
 
 export type _zetasql_FunctionEnums_ArgumentCollationMode__Output = typeof _zetasql_FunctionEnums_ArgumentCollationMode[keyof typeof _zetasql_FunctionEnums_ArgumentCollationMode]
 
-// Original file: src/protos/zetasql/public/function.proto
+// Original file: src/zetasql/protos/zetasql/public/function.proto
 
 export const _zetasql_FunctionEnums_Mode = {
   SCALAR: 1,
@@ -58,7 +58,7 @@ export type _zetasql_FunctionEnums_Mode =
 
 export type _zetasql_FunctionEnums_Mode__Output = typeof _zetasql_FunctionEnums_Mode[keyof typeof _zetasql_FunctionEnums_Mode]
 
-// Original file: src/protos/zetasql/public/function.proto
+// Original file: src/zetasql/protos/zetasql/public/function.proto
 
 export const _zetasql_FunctionEnums_ProcedureArgumentMode = {
   NOT_SET: 0,
@@ -79,7 +79,7 @@ export type _zetasql_FunctionEnums_ProcedureArgumentMode =
 
 export type _zetasql_FunctionEnums_ProcedureArgumentMode__Output = typeof _zetasql_FunctionEnums_ProcedureArgumentMode[keyof typeof _zetasql_FunctionEnums_ProcedureArgumentMode]
 
-// Original file: src/protos/zetasql/public/function.proto
+// Original file: src/zetasql/protos/zetasql/public/function.proto
 
 export const _zetasql_FunctionEnums_TableValuedFunctionType = {
   INVALID: 0,
@@ -103,7 +103,7 @@ export type _zetasql_FunctionEnums_TableValuedFunctionType =
 
 export type _zetasql_FunctionEnums_TableValuedFunctionType__Output = typeof _zetasql_FunctionEnums_TableValuedFunctionType[keyof typeof _zetasql_FunctionEnums_TableValuedFunctionType]
 
-// Original file: src/protos/zetasql/public/function.proto
+// Original file: src/zetasql/protos/zetasql/public/function.proto
 
 export const _zetasql_FunctionEnums_Volatility = {
   IMMUTABLE: 0,
@@ -121,7 +121,7 @@ export type _zetasql_FunctionEnums_Volatility =
 
 export type _zetasql_FunctionEnums_Volatility__Output = typeof _zetasql_FunctionEnums_Volatility[keyof typeof _zetasql_FunctionEnums_Volatility]
 
-// Original file: src/protos/zetasql/public/function.proto
+// Original file: src/zetasql/protos/zetasql/public/function.proto
 
 export const _zetasql_FunctionEnums_WindowOrderSupport = {
   ORDER_UNSUPPORTED: 0,

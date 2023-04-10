@@ -1,7 +1,7 @@
-// Original file: src/protos/zetasql/parser/ast_enums.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/parser/ast_enums.proto
 
 
-// Original file: src/protos/zetasql/parser/ast_enums.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/parser/ast_enums.proto
 
 export const _zetasql_ASTCreateStatementEnums_Scope = {
   DEFAULT_SCOPE: 0,
@@ -22,7 +22,7 @@ export type _zetasql_ASTCreateStatementEnums_Scope =
 
 export type _zetasql_ASTCreateStatementEnums_Scope__Output = typeof _zetasql_ASTCreateStatementEnums_Scope[keyof typeof _zetasql_ASTCreateStatementEnums_Scope]
 
-// Original file: src/protos/zetasql/parser/ast_enums.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/parser/ast_enums.proto
 
 export const _zetasql_ASTCreateStatementEnums_SqlSecurity = {
   SQL_SECURITY_UNSPECIFIED: 0,

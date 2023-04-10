@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/parser/parse_tree.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/parser/parse_tree.proto
 
 import type { ASTCreateFunctionStatementProto as _zetasql_ASTCreateFunctionStatementProto, ASTCreateFunctionStatementProto__Output as _zetasql_ASTCreateFunctionStatementProto__Output } from '../zetasql/ASTCreateFunctionStatementProto';
 import type { ASTCreateTableFunctionStatementProto as _zetasql_ASTCreateTableFunctionStatementProto, ASTCreateTableFunctionStatementProto__Output as _zetasql_ASTCreateTableFunctionStatementProto__Output } from '../zetasql/ASTCreateTableFunctionStatementProto';

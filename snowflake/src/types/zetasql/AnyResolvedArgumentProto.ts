@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/resolved_ast/resolved_ast.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/resolved_ast/resolved_ast.proto
 
 import type { ResolvedMakeProtoFieldProto as _zetasql_ResolvedMakeProtoFieldProto, ResolvedMakeProtoFieldProto__Output as _zetasql_ResolvedMakeProtoFieldProto__Output } from '../zetasql/ResolvedMakeProtoFieldProto';
 import type { ResolvedColumnHolderProto as _zetasql_ResolvedColumnHolderProto, ResolvedColumnHolderProto__Output as _zetasql_ResolvedColumnHolderProto__Output } from '../zetasql/ResolvedColumnHolderProto';

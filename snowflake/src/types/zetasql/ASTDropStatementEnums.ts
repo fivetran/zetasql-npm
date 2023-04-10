@@ -1,7 +1,7 @@
-// Original file: src/protos/zetasql/parser/ast_enums.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/parser/ast_enums.proto
 
 
-// Original file: src/protos/zetasql/parser/ast_enums.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/parser/ast_enums.proto
 
 export const _zetasql_ASTDropStatementEnums_DropMode = {
   DROP_MODE_UNSPECIFIED: 0,

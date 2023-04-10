@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/parser/parse_tree.proto
+// Original file: src/zetasql/protos/zetasql/parser/parse_tree.proto
 
 import type { ASTNodeProto as _zetasql_ASTNodeProto, ASTNodeProto__Output as _zetasql_ASTNodeProto__Output } from '../zetasql/ASTNodeProto';
 import type { ASTUpdateSetValueProto as _zetasql_ASTUpdateSetValueProto, ASTUpdateSetValueProto__Output as _zetasql_ASTUpdateSetValueProto__Output } from '../zetasql/ASTUpdateSetValueProto';

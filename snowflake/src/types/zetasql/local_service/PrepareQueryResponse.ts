@@ -1,4 +1,4 @@
-// Original file: src/protos/local_service.proto
+// Original file: src/zetasql-snowflake/protos/local_service.proto
 
 import type { PreparedQueryState as _zetasql_local_service_PreparedQueryState, PreparedQueryState__Output as _zetasql_local_service_PreparedQueryState__Output } from '../../zetasql/local_service/PreparedQueryState';
 

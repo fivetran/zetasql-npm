@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/resolved_ast/resolved_ast.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/resolved_ast/resolved_ast.proto
 
 import type { ResolvedAlterColumnOptionsActionProto as _zetasql_ResolvedAlterColumnOptionsActionProto, ResolvedAlterColumnOptionsActionProto__Output as _zetasql_ResolvedAlterColumnOptionsActionProto__Output } from '../zetasql/ResolvedAlterColumnOptionsActionProto';
 import type { ResolvedAlterColumnDropNotNullActionProto as _zetasql_ResolvedAlterColumnDropNotNullActionProto, ResolvedAlterColumnDropNotNullActionProto__Output as _zetasql_ResolvedAlterColumnDropNotNullActionProto__Output } from '../zetasql/ResolvedAlterColumnDropNotNullActionProto';

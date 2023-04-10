@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/parser/parse_tree.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/parser/parse_tree.proto
 
 import type { ASTColumnDefinitionProto as _zetasql_ASTColumnDefinitionProto, ASTColumnDefinitionProto__Output as _zetasql_ASTColumnDefinitionProto__Output } from '../zetasql/ASTColumnDefinitionProto';
 import type { AnyASTTableConstraintProto as _zetasql_AnyASTTableConstraintProto, AnyASTTableConstraintProto__Output as _zetasql_AnyASTTableConstraintProto__Output } from '../zetasql/AnyASTTableConstraintProto';

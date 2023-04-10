@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/resolved_ast/resolved_ast.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/resolved_ast/resolved_ast.proto
 
 import type { ResolvedAggregateFunctionCallProto as _zetasql_ResolvedAggregateFunctionCallProto, ResolvedAggregateFunctionCallProto__Output as _zetasql_ResolvedAggregateFunctionCallProto__Output } from '../zetasql/ResolvedAggregateFunctionCallProto';
 import type { ResolvedAnalyticFunctionCallProto as _zetasql_ResolvedAnalyticFunctionCallProto, ResolvedAnalyticFunctionCallProto__Output as _zetasql_ResolvedAnalyticFunctionCallProto__Output } from '../zetasql/ResolvedAnalyticFunctionCallProto';

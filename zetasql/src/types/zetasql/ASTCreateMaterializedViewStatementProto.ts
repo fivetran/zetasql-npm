@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/parser/parse_tree.proto
+// Original file: src/zetasql/protos/zetasql/parser/parse_tree.proto
 
 import type { ASTCreateViewStatementBaseProto as _zetasql_ASTCreateViewStatementBaseProto, ASTCreateViewStatementBaseProto__Output as _zetasql_ASTCreateViewStatementBaseProto__Output } from '../zetasql/ASTCreateViewStatementBaseProto';
 import type { ASTPartitionByProto as _zetasql_ASTPartitionByProto, ASTPartitionByProto__Output as _zetasql_ASTPartitionByProto__Output } from '../zetasql/ASTPartitionByProto';

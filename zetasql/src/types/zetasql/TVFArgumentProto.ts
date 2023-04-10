@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/proto/function.proto
+// Original file: src/zetasql/protos/zetasql/proto/function.proto
 
 import type { ValueWithTypeProto as _zetasql_ValueWithTypeProto, ValueWithTypeProto__Output as _zetasql_ValueWithTypeProto__Output } from '../zetasql/ValueWithTypeProto';
 import type { TVFRelationProto as _zetasql_TVFRelationProto, TVFRelationProto__Output as _zetasql_TVFRelationProto__Output } from '../zetasql/TVFRelationProto';

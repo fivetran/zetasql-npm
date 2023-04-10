@@ -1,4 +1,4 @@
-// Original file: src/protos/local_service.proto
+// Original file: src/zetasql-snowflake/protos/local_service.proto
 
 import type { FormatterOptionsProto as _zetasql_FormatterOptionsProto, FormatterOptionsProto__Output as _zetasql_FormatterOptionsProto__Output } from '../../zetasql/FormatterOptionsProto';
 import type { FormatterRangeProto as _zetasql_FormatterRangeProto, FormatterRangeProto__Output as _zetasql_FormatterRangeProto__Output } from '../../zetasql/FormatterRangeProto';

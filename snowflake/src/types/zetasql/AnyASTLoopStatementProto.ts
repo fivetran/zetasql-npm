@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/parser/parse_tree.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/parser/parse_tree.proto
 
 import type { ASTWhileStatementProto as _zetasql_ASTWhileStatementProto, ASTWhileStatementProto__Output as _zetasql_ASTWhileStatementProto__Output } from '../zetasql/ASTWhileStatementProto';
 import type { ASTRepeatStatementProto as _zetasql_ASTRepeatStatementProto, ASTRepeatStatementProto__Output as _zetasql_ASTRepeatStatementProto__Output } from '../zetasql/ASTRepeatStatementProto';

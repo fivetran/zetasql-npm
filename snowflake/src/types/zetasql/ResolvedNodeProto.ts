@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/resolved_ast/serialization.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/resolved_ast/serialization.proto
 
 import type { ParseLocationRangeProto as _zetasql_ParseLocationRangeProto, ParseLocationRangeProto__Output as _zetasql_ParseLocationRangeProto__Output } from '../zetasql/ParseLocationRangeProto';
 

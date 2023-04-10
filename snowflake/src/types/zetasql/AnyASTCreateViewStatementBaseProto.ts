@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/parser/parse_tree.proto
+// Original file: src/zetasql-snowflake/protos/zetasql/parser/parse_tree.proto
 
 import type { ASTCreateViewStatementProto as _zetasql_ASTCreateViewStatementProto, ASTCreateViewStatementProto__Output as _zetasql_ASTCreateViewStatementProto__Output } from '../zetasql/ASTCreateViewStatementProto';
 import type { ASTCreateMaterializedViewStatementProto as _zetasql_ASTCreateMaterializedViewStatementProto, ASTCreateMaterializedViewStatementProto__Output as _zetasql_ASTCreateMaterializedViewStatementProto__Output } from '../zetasql/ASTCreateMaterializedViewStatementProto';
