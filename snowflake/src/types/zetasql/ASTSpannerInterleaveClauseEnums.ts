@@ -1,7 +1,7 @@
-// Original file: src/protos/zetasql/parser/ast_enums.proto
+// Original file: src/snowflake/protos/zetasql/parser/ast_enums.proto
 
 
-// Original file: src/protos/zetasql/parser/ast_enums.proto
+// Original file: src/snowflake/protos/zetasql/parser/ast_enums.proto
 
 export const _zetasql_ASTSpannerInterleaveClauseEnums_Type = {
   NOT_SET: 0,

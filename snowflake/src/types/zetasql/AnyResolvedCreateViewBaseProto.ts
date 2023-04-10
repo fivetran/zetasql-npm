@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/resolved_ast/resolved_ast.proto
+// Original file: src/snowflake/protos/zetasql/resolved_ast/resolved_ast.proto
 
 import type { ResolvedCreateViewStmtProto as _zetasql_ResolvedCreateViewStmtProto, ResolvedCreateViewStmtProto__Output as _zetasql_ResolvedCreateViewStmtProto__Output } from '../zetasql/ResolvedCreateViewStmtProto';
 import type { ResolvedCreateMaterializedViewStmtProto as _zetasql_ResolvedCreateMaterializedViewStmtProto, ResolvedCreateMaterializedViewStmtProto__Output as _zetasql_ResolvedCreateMaterializedViewStmtProto__Output } from '../zetasql/ResolvedCreateMaterializedViewStmtProto';

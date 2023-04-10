@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/resolved_ast/resolved_ast.proto
+// Original file: src/snowflake/protos/zetasql/resolved_ast/resolved_ast.proto
 
 import type { ResolvedGrantStmtProto as _zetasql_ResolvedGrantStmtProto, ResolvedGrantStmtProto__Output as _zetasql_ResolvedGrantStmtProto__Output } from '../zetasql/ResolvedGrantStmtProto';
 import type { ResolvedRevokeStmtProto as _zetasql_ResolvedRevokeStmtProto, ResolvedRevokeStmtProto__Output as _zetasql_ResolvedRevokeStmtProto__Output } from '../zetasql/ResolvedRevokeStmtProto';

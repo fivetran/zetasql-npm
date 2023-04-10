@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/public/type.proto
+// Original file: src/snowflake/protos/zetasql/public/type.proto
 
 import type { TypeKind as _zetasql_TypeKind, TypeKind__Output as _zetasql_TypeKind__Output } from '../zetasql/TypeKind';
 import type { ArrayTypeProto as _zetasql_ArrayTypeProto, ArrayTypeProto__Output as _zetasql_ArrayTypeProto__Output } from '../zetasql/ArrayTypeProto';

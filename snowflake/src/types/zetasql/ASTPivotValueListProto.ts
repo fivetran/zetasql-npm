@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/parser/parse_tree.proto
+// Original file: src/snowflake/protos/zetasql/parser/parse_tree.proto
 
 import type { ASTNodeProto as _zetasql_ASTNodeProto, ASTNodeProto__Output as _zetasql_ASTNodeProto__Output } from '../zetasql/ASTNodeProto';
 import type { ASTPivotValueProto as _zetasql_ASTPivotValueProto, ASTPivotValueProto__Output as _zetasql_ASTPivotValueProto__Output } from '../zetasql/ASTPivotValueProto';

@@ -1,4 +1,4 @@
-// Original file: src/protos/local_service.proto
+// Original file: src/snowflake/protos/local_service.proto
 
 import type { DescriptorPoolIdList as _zetasql_local_service_DescriptorPoolIdList, DescriptorPoolIdList__Output as _zetasql_local_service_DescriptorPoolIdList__Output } from '../../zetasql/local_service/DescriptorPoolIdList';
 import type { Long } from '@grpc/proto-loader';

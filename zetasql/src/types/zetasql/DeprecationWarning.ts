@@ -1,7 +1,7 @@
-// Original file: src/protos/zetasql/public/deprecation_warning.proto
+// Original file: src/zetasql/protos/zetasql/public/deprecation_warning.proto
 
 
-// Original file: src/protos/zetasql/public/deprecation_warning.proto
+// Original file: src/zetasql/protos/zetasql/public/deprecation_warning.proto
 
 export const _zetasql_DeprecationWarning_Kind = {
   __Kind__switch_must_have_a_default__: -1,

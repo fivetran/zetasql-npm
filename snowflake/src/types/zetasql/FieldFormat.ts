@@ -1,7 +1,7 @@
-// Original file: src/protos/zetasql/public/proto/type_annotation.proto
+// Original file: src/snowflake/protos/zetasql/public/proto/type_annotation.proto
 
 
-// Original file: src/protos/zetasql/public/proto/type_annotation.proto
+// Original file: src/snowflake/protos/zetasql/public/proto/type_annotation.proto
 
 export const _zetasql_FieldFormat_Format = {
   DEFAULT_FORMAT: 0,

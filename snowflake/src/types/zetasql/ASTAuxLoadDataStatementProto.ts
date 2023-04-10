@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/parser/parse_tree.proto
+// Original file: src/snowflake/protos/zetasql/parser/parse_tree.proto
 
 import type { ASTCreateTableStmtBaseProto as _zetasql_ASTCreateTableStmtBaseProto, ASTCreateTableStmtBaseProto__Output as _zetasql_ASTCreateTableStmtBaseProto__Output } from '../zetasql/ASTCreateTableStmtBaseProto';
 import type { _zetasql_ASTAuxLoadDataStatementEnums_InsertionMode, _zetasql_ASTAuxLoadDataStatementEnums_InsertionMode__Output } from '../zetasql/ASTAuxLoadDataStatementEnums';

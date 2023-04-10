@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/parser/parse_tree.proto
+// Original file: src/snowflake/protos/zetasql/parser/parse_tree.proto
 
 import type { ASTNodeProto as _zetasql_ASTNodeProto, ASTNodeProto__Output as _zetasql_ASTNodeProto__Output } from '../zetasql/ASTNodeProto';
 import type { ASTUnnestExpressionProto as _zetasql_ASTUnnestExpressionProto, ASTUnnestExpressionProto__Output as _zetasql_ASTUnnestExpressionProto__Output } from '../zetasql/ASTUnnestExpressionProto';

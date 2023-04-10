@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/public/options.proto
+// Original file: src/snowflake/protos/zetasql/public/options.proto
 
 export const ErrorMessageMode = {
   ERROR_MESSAGE_WITH_PAYLOAD: 0,

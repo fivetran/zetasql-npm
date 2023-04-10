@@ -92,12 +92,12 @@ jobs:
       - name: copy files
         working-directory: build
         run: |
-          mkdir -p zetasql-npm/${{ inputs.npm-package-name }}/lib/zetasql
-          cp zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib zetasql-npm/${{ inputs.npm-package-name }}/lib/zetasql/
-          tar -xzvf zetasql-npm/${{ inputs.npm-package-name }}/bin/darwin-arm-64/libremote_server_arm.dylib.tar.gz -C zetasql-npm/${{ inputs.npm-package-name }}/lib/zetasql/
-          tar -xzvf zetasql-npm/${{ inputs.npm-package-name }}/bin/linux-arm-64/libremote_server_arm.so.tar.gz -C zetasql-npm/${{ inputs.npm-package-name }}/lib/zetasql/
-          cp zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so zetasql-npm/${{ inputs.npm-package-name }}/lib/zetasql/
-          cp -R zetasql-npm/${{ inputs.npm-package-name }}/src/protos zetasql-npm/${{ inputs.npm-package-name }}/lib/protos
+          mkdir -p zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
+          cp zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
+          tar -xzvf zetasql-npm/${{ inputs.npm-package-name }}/bin/darwin-arm-64/libremote_server_arm.dylib.tar.gz -C zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
+          tar -xzvf zetasql-npm/${{ inputs.npm-package-name }}/bin/linux-arm-64/libremote_server_arm.so.tar.gz -C zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
+          cp zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
+          cp -R zetasql-npm/${{ inputs.npm-package-name }}/src/${{ inputs.npm-package-name }}/protos zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}/protos
 
       - name: build and test
         working-directory: build/zetasql-npm/${{ inputs.npm-package-name }}
@@ -123,9 +123,6 @@ jobs:
         with:
           path: build/zetasql-npm
           key: package-results-${{ inputs.npm-package-name }}-${{ github.sha }}-${{ github.ref }}
-
-      - name: delete libraries for other platforms
-        run: find ./build/zetasql-npm/${{ inputs.npm-package-name }}/lib/zetasql ! -name 'libremote_server.dylib' -type f -exec rm -f {} +
 
       - name: run e2e test
         working-directory: build/zetasql-npm/${{ inputs.npm-package-name }}
@@ -153,9 +150,6 @@ jobs:
         with:
           path: build/zetasql-npm
           key: package-results-${{ inputs.npm-package-name }}-${{ github.sha }}-${{ github.ref }}
-
-      - name: delete libraries for other platforms
-        run: find ./build/zetasql-npm/${{ inputs.npm-package-name }}/lib/zetasql ! -name '*.so' -type f -exec rm -f {} +
 
       - name: run e2e test
         working-directory: build/zetasql-npm

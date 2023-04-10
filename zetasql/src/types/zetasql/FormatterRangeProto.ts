@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/public/formatter_options.proto
+// Original file: src/zetasql/protos/zetasql/public/formatter_options.proto
 
 
 export interface FormatterRangeProto {

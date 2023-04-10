@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/resolved_ast/resolved_ast.proto
+// Original file: src/snowflake/protos/zetasql/resolved_ast/resolved_ast.proto
 
 import type { ResolvedAggregateScanBaseProto as _zetasql_ResolvedAggregateScanBaseProto, ResolvedAggregateScanBaseProto__Output as _zetasql_ResolvedAggregateScanBaseProto__Output } from '../zetasql/ResolvedAggregateScanBaseProto';
 import type { ResolvedGroupingSetProto as _zetasql_ResolvedGroupingSetProto, ResolvedGroupingSetProto__Output as _zetasql_ResolvedGroupingSetProto__Output } from '../zetasql/ResolvedGroupingSetProto';

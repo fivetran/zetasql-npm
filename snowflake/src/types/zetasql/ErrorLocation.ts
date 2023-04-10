@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/public/error_location.proto
+// Original file: src/snowflake/protos/zetasql/public/error_location.proto
 
 import type { ErrorSource as _zetasql_ErrorSource, ErrorSource__Output as _zetasql_ErrorSource__Output } from '../zetasql/ErrorSource';
 

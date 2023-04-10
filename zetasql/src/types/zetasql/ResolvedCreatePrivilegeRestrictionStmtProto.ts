@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/resolved_ast/resolved_ast.proto
+// Original file: src/zetasql/protos/zetasql/resolved_ast/resolved_ast.proto
 
 import type { ResolvedCreateStatementProto as _zetasql_ResolvedCreateStatementProto, ResolvedCreateStatementProto__Output as _zetasql_ResolvedCreateStatementProto__Output } from '../zetasql/ResolvedCreateStatementProto';
 import type { ResolvedPrivilegeProto as _zetasql_ResolvedPrivilegeProto, ResolvedPrivilegeProto__Output as _zetasql_ResolvedPrivilegeProto__Output } from '../zetasql/ResolvedPrivilegeProto';

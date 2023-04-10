@@ -1,4 +1,4 @@
-// Original file: src/protos/local_service.proto
+// Original file: src/snowflake/protos/local_service.proto
 
 import type { EvaluateRequest as _zetasql_local_service_EvaluateRequest, EvaluateRequest__Output as _zetasql_local_service_EvaluateRequest__Output } from '../../zetasql/local_service/EvaluateRequest';
 

@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/public/simple_table.proto
+// Original file: src/snowflake/protos/zetasql/public/simple_table.proto
 
 import type { SimpleColumnProto as _zetasql_SimpleColumnProto, SimpleColumnProto__Output as _zetasql_SimpleColumnProto__Output } from '../zetasql/SimpleColumnProto';
 import type { SimpleAnonymizationInfoProto as _zetasql_SimpleAnonymizationInfoProto, SimpleAnonymizationInfoProto__Output as _zetasql_SimpleAnonymizationInfoProto__Output } from '../zetasql/SimpleAnonymizationInfoProto';

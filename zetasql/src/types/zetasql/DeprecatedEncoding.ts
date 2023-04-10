@@ -1,7 +1,7 @@
-// Original file: src/protos/zetasql/public/proto/type_annotation.proto
+// Original file: src/zetasql/protos/zetasql/public/proto/type_annotation.proto
 
 
-// Original file: src/protos/zetasql/public/proto/type_annotation.proto
+// Original file: src/zetasql/protos/zetasql/public/proto/type_annotation.proto
 
 export const _zetasql_DeprecatedEncoding_Encoding = {
   DEFAULT_ENCODING: 0,

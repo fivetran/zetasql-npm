@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/parser/parse_tree.proto
+// Original file: src/snowflake/protos/zetasql/parser/parse_tree.proto
 
 import type { AnyASTLeafProto as _zetasql_AnyASTLeafProto, AnyASTLeafProto__Output as _zetasql_AnyASTLeafProto__Output } from '../zetasql/AnyASTLeafProto';
 import type { ASTIdentifierProto as _zetasql_ASTIdentifierProto, ASTIdentifierProto__Output as _zetasql_ASTIdentifierProto__Output } from '../zetasql/ASTIdentifierProto';

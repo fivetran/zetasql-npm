@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/resolved_ast/resolved_ast.proto
+// Original file: src/snowflake/protos/zetasql/resolved_ast/resolved_ast.proto
 
 import type { ResolvedScanProto as _zetasql_ResolvedScanProto, ResolvedScanProto__Output as _zetasql_ResolvedScanProto__Output } from '../zetasql/ResolvedScanProto';
 import type { _zetasql_ResolvedRecursiveScanEnums_RecursiveSetOperationType, _zetasql_ResolvedRecursiveScanEnums_RecursiveSetOperationType__Output } from '../zetasql/ResolvedRecursiveScanEnums';

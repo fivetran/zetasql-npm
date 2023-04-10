@@ -1,4 +1,4 @@
-// Original file: src/protos/local_service.proto
+// Original file: src/zetasql/protos/local_service.proto
 
 import type { TableData as _zetasql_local_service_TableData, TableData__Output as _zetasql_local_service_TableData__Output } from '../../zetasql/local_service/TableData';
 

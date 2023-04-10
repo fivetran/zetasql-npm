@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/public/type.proto
+// Original file: src/zetasql/protos/zetasql/public/type.proto
 
 
 export interface EnumTypeProto {

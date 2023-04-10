@@ -1,4 +1,4 @@
-// Original file: src/protos/local_service.proto
+// Original file: src/snowflake/protos/local_service.proto
 
 
 export interface _zetasql_local_service_ExtractTableNamesFromNextStatementResponse_TableName {

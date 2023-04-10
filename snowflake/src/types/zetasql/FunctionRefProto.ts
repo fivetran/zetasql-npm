@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/resolved_ast/serialization.proto
+// Original file: src/snowflake/protos/zetasql/resolved_ast/serialization.proto
 
 
 export interface FunctionRefProto {

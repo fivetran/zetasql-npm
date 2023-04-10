@@ -39,7 +39,7 @@ export class ZetaSQLClient {
     const packageDefinition = protoLoader.loadSync('local_service.proto', {
       defaults: true,
       oneofs: true,
-      includeDirs: [`${__dirname}/protos`],
+      includeDirs: [`${__dirname}/zetasql/protos`],
     });
 
     const proto = grpc.loadPackageDefinition(packageDefinition) as unknown as ProtoGrpcType;

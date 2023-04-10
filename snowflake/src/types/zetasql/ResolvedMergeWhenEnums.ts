@@ -1,7 +1,7 @@
-// Original file: src/protos/zetasql/resolved_ast/resolved_ast_enums.proto
+// Original file: src/snowflake/protos/zetasql/resolved_ast/resolved_ast_enums.proto
 
 
-// Original file: src/protos/zetasql/resolved_ast/resolved_ast_enums.proto
+// Original file: src/snowflake/protos/zetasql/resolved_ast/resolved_ast_enums.proto
 
 export const _zetasql_ResolvedMergeWhenEnums_ActionType = {
   INSERT: 0,
@@ -19,7 +19,7 @@ export type _zetasql_ResolvedMergeWhenEnums_ActionType =
 
 export type _zetasql_ResolvedMergeWhenEnums_ActionType__Output = typeof _zetasql_ResolvedMergeWhenEnums_ActionType[keyof typeof _zetasql_ResolvedMergeWhenEnums_ActionType]
 
-// Original file: src/protos/zetasql/resolved_ast/resolved_ast_enums.proto
+// Original file: src/snowflake/protos/zetasql/resolved_ast/resolved_ast_enums.proto
 
 export const _zetasql_ResolvedMergeWhenEnums_MatchType = {
   MATCHED: 0,

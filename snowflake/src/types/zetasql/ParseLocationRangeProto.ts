@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/public/parse_location_range.proto
+// Original file: src/snowflake/protos/zetasql/public/parse_location_range.proto
 
 
 export interface ParseLocationRangeProto {

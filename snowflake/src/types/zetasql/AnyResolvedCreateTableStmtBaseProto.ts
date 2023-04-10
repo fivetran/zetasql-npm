@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/resolved_ast/resolved_ast.proto
+// Original file: src/snowflake/protos/zetasql/resolved_ast/resolved_ast.proto
 
 import type { ResolvedCreateTableAsSelectStmtProto as _zetasql_ResolvedCreateTableAsSelectStmtProto, ResolvedCreateTableAsSelectStmtProto__Output as _zetasql_ResolvedCreateTableAsSelectStmtProto__Output } from '../zetasql/ResolvedCreateTableAsSelectStmtProto';
 import type { ResolvedCreateExternalTableStmtProto as _zetasql_ResolvedCreateExternalTableStmtProto, ResolvedCreateExternalTableStmtProto__Output as _zetasql_ResolvedCreateExternalTableStmtProto__Output } from '../zetasql/ResolvedCreateExternalTableStmtProto';

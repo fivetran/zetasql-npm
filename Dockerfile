@@ -7,5 +7,5 @@ WORKDIR /build
 RUN uname -a \
   && npm ci \
   && cd ${package_name} \
-  && ls -la lib/zetasql \
+  && ls -la lib/${package_name} \
   && ./e2e.sh

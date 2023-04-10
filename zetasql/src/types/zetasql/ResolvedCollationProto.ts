@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/resolved_ast/serialization.proto
+// Original file: src/zetasql/protos/zetasql/resolved_ast/serialization.proto
 
 import type { ResolvedCollationProto as _zetasql_ResolvedCollationProto, ResolvedCollationProto__Output as _zetasql_ResolvedCollationProto__Output } from '../zetasql/ResolvedCollationProto';
 

@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/parser/parse_tree.proto
+// Original file: src/zetasql/protos/zetasql/parser/parse_tree.proto
 
 import type { ASTLoopStatementProto as _zetasql_ASTLoopStatementProto, ASTLoopStatementProto__Output as _zetasql_ASTLoopStatementProto__Output } from '../zetasql/ASTLoopStatementProto';
 import type { ASTUntilClauseProto as _zetasql_ASTUntilClauseProto, ASTUntilClauseProto__Output as _zetasql_ASTUntilClauseProto__Output } from '../zetasql/ASTUntilClauseProto';

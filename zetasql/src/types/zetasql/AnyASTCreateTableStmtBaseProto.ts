@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/parser/parse_tree.proto
+// Original file: src/zetasql/protos/zetasql/parser/parse_tree.proto
 
 import type { ASTCreateTableStatementProto as _zetasql_ASTCreateTableStatementProto, ASTCreateTableStatementProto__Output as _zetasql_ASTCreateTableStatementProto__Output } from '../zetasql/ASTCreateTableStatementProto';
 import type { ASTCreateExternalTableStatementProto as _zetasql_ASTCreateExternalTableStatementProto, ASTCreateExternalTableStatementProto__Output as _zetasql_ASTCreateExternalTableStatementProto__Output } from '../zetasql/ASTCreateExternalTableStatementProto';

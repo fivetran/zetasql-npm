@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/parser/parse_tree.proto
+// Original file: src/zetasql/protos/zetasql/parser/parse_tree.proto
 
 import type { ASTParameterExprBaseProto as _zetasql_ASTParameterExprBaseProto, ASTParameterExprBaseProto__Output as _zetasql_ASTParameterExprBaseProto__Output } from '../zetasql/ASTParameterExprBaseProto';
 import type { ASTPathExpressionProto as _zetasql_ASTPathExpressionProto, ASTPathExpressionProto__Output as _zetasql_ASTPathExpressionProto__Output } from '../zetasql/ASTPathExpressionProto';

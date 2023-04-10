@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/public/options.proto
+// Original file: src/snowflake/protos/zetasql/public/options.proto
 
 export const StatementContext = {
   CONTEXT_DEFAULT: 0,

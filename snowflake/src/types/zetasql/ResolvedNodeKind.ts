@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/resolved_ast/resolved_node_kind.proto
+// Original file: src/snowflake/protos/zetasql/resolved_ast/resolved_node_kind.proto
 
 export const ResolvedNodeKind = {
   RESOLVED_LITERAL: 3,

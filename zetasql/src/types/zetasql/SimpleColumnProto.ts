@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/public/simple_table.proto
+// Original file: src/zetasql/protos/zetasql/public/simple_table.proto
 
 import type { TypeProto as _zetasql_TypeProto, TypeProto__Output as _zetasql_TypeProto__Output } from '../zetasql/TypeProto';
 import type { AnnotationMapProto as _zetasql_AnnotationMapProto, AnnotationMapProto__Output as _zetasql_AnnotationMapProto__Output } from '../zetasql/AnnotationMapProto';

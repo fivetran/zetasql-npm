@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/public/type.proto
+// Original file: src/zetasql/protos/zetasql/public/type.proto
 
 import type { StructFieldProto as _zetasql_StructFieldProto, StructFieldProto__Output as _zetasql_StructFieldProto__Output } from '../zetasql/StructFieldProto';
 

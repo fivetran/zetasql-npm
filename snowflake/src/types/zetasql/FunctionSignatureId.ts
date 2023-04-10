@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/public/builtin_function.proto
+// Original file: src/snowflake/protos/zetasql/public/builtin_function.proto
 
 export const FunctionSignatureId = {
   __FunctionSignatureId__switch_must_have_a_default__: -1,

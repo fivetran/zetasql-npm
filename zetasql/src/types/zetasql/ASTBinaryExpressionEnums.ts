@@ -1,7 +1,7 @@
-// Original file: src/protos/zetasql/parser/ast_enums.proto
+// Original file: src/zetasql/protos/zetasql/parser/ast_enums.proto
 
 
-// Original file: src/protos/zetasql/parser/ast_enums.proto
+// Original file: src/zetasql/protos/zetasql/parser/ast_enums.proto
 
 export const _zetasql_ASTBinaryExpressionEnums_Op = {
   NOT_SET: 0,

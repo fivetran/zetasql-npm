@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/parser/parse_tree.proto
+// Original file: src/snowflake/protos/zetasql/parser/parse_tree.proto
 
 import type { ASTTableConstraintProto as _zetasql_ASTTableConstraintProto, ASTTableConstraintProto__Output as _zetasql_ASTTableConstraintProto__Output } from '../zetasql/ASTTableConstraintProto';
 import type { ASTPrimaryKeyElementListProto as _zetasql_ASTPrimaryKeyElementListProto, ASTPrimaryKeyElementListProto__Output as _zetasql_ASTPrimaryKeyElementListProto__Output } from '../zetasql/ASTPrimaryKeyElementListProto';

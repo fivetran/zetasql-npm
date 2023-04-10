@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/public/annotation.proto
+// Original file: src/snowflake/protos/zetasql/public/annotation.proto
 
 import type { AnnotationProto as _zetasql_AnnotationProto, AnnotationProto__Output as _zetasql_AnnotationProto__Output } from '../zetasql/AnnotationProto';
 import type { AnnotationMapProto as _zetasql_AnnotationMapProto, AnnotationMapProto__Output as _zetasql_AnnotationMapProto__Output } from '../zetasql/AnnotationMapProto';

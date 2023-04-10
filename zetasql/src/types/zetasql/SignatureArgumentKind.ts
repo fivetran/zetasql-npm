@@ -1,4 +1,4 @@
-// Original file: src/protos/zetasql/public/function.proto
+// Original file: src/zetasql/protos/zetasql/public/function.proto
 
 export const SignatureArgumentKind = {
   ARG_TYPE_FIXED: 0,
