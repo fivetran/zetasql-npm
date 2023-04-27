@@ -32,8 +32,10 @@ jobs:
 
           - os: ubuntu-20.04
             working-directory: build/zetasql-linux
-            cache-path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
-            build-commands: npx @bazel/bazelisk build --copt "-O3" //zetasql/local_service:libremote_server.so
+            cache-path: out/linux/amd64/libremote_server.so
+            build-commands: |
+              docker build --file Dockerfile.build --output out --platform linux/amd64 .
+              ls -la out
 
     steps:
       - name: checkout C++ library
@@ -80,7 +82,7 @@ jobs:
       - name: load linux build
         uses: actions/cache@v3
         with:
-          path: build/zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so
+          path: out/linux/amd64/libremote_server.so
           key: ubuntu-20.04-${{ needs.build.outputs.sha_short }}-6
 
       - name: load macos build
@@ -96,7 +98,7 @@ jobs:
           cp zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
           tar -xzvf zetasql-npm/${{ inputs.npm-package-name }}/bin/darwin-arm-64/libremote_server_arm.dylib.tar.gz -C zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
           tar -xzvf zetasql-npm/${{ inputs.npm-package-name }}/bin/linux-arm-64/libremote_server_arm.so.tar.gz -C zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
-          cp zetasql-linux/bazel-bin/zetasql/local_service/libremote_server.so zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
+          cp out/linux/amd64/libremote_server.so zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
           cp -R zetasql-npm/${{ inputs.npm-package-name }}/src/${{ inputs.npm-package-name }}/protos zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}/protos
 
       - name: build and test
