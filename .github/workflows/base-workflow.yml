@@ -30,12 +30,12 @@ jobs:
               npx @bazel/bazelisk build --copt "-O3" --config=clang //zetasql/local_service:libremote_server.dylib
               install_name_tool -id "@loader_path/libremote_server.dylib" bazel-bin/zetasql/local_service/libremote_server.dylib
 
-          - os: ubuntu-20.04
+          - os: ubuntu-latest
             working-directory: build/zetasql-linux
             cache-path: out/linux/amd64/libremote_server.so
             build-commands: |
-              docker build --file Dockerfile.build --output out --platform linux/amd64 .
-              ls -la out
+              docker buildx build --file Dockerfile.build --output out --platform linux/amd64 .
+              ls -la
 
     steps:
       - name: checkout C++ library
