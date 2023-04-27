@@ -55,6 +55,7 @@ jobs:
         with:
           path: ${{ matrix.cache-path }}
           key: ${{ matrix.os }}-${{ steps.vars.outputs.sha_short }}-1
+          enableCrossOsArchive: true
 
       - name: build
         if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
@@ -81,12 +82,14 @@ jobs:
         with:
           path: out/linux/amd64/libremote_server.so
           key: ubuntu-latest-${{ needs.build.outputs.sha_short }}-1
+          enableCrossOsArchive: true
 
       - name: load macos build
         uses: actions/cache@v3
         with:
           path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
           key: macos-latest-${{ needs.build.outputs.sha_short }}-1
+          enableCrossOsArchive: true
 
       - name: copy files
         working-directory: build
@@ -111,6 +114,7 @@ jobs:
         with:
           path: build/zetasql-npm
           key: package-results-${{ inputs.npm-package-name }}-${{ github.sha }}-${{ github.ref }}
+          enableCrossOsArchive: true
 
   e2e-macos:
     needs: package
@@ -122,6 +126,7 @@ jobs:
         with:
           path: build/zetasql-npm
           key: package-results-${{ inputs.npm-package-name }}-${{ github.sha }}-${{ github.ref }}
+          enableCrossOsArchive: true
 
       - name: run e2e test
         working-directory: build/zetasql-npm/${{ inputs.npm-package-name }}
@@ -149,6 +154,7 @@ jobs:
         with:
           path: build/zetasql-npm
           key: package-results-${{ inputs.npm-package-name }}-${{ github.sha }}-${{ github.ref }}
+          enableCrossOsArchive: true
 
       - name: run e2e test
         working-directory: build/zetasql-npm
@@ -164,6 +170,7 @@ jobs:
         with:
           path: build/zetasql-npm
           key: package-results-${{ inputs.npm-package-name }}-${{ github.sha }}-${{ github.ref }}
+          enableCrossOsArchive: true
 
       - uses: actions/setup-node@v3
         with:
