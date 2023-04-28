@@ -33,7 +33,7 @@ jobs:
             cache-path: out/linux/amd64/libremote_server.so
             build-commands: |
               docker buildx build --file Dockerfile.build --output out --platform linux/amd64 .
-              ls -la
+              ls -la out
 
     steps:
       - name: checkout C++ library
@@ -93,6 +93,7 @@ jobs:
       - name: copy files
         working-directory: build
         run: |
+          find .. -type f -name "libremote_server.*"
           mkdir -p zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
           cp bazel-bin/zetasql/local_service/libremote_server.dylib zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
           tar -xzvf zetasql-npm/${{ inputs.npm-package-name }}/bin/darwin-arm-64/libremote_server_arm.dylib.tar.gz -C zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
