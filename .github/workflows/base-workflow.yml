@@ -81,18 +81,20 @@ jobs:
         with:
           path: out/linux/amd64/libremote_server.so
           key: ubuntu-latest-${{ needs.build.outputs.sha_short }}-2
+          fail-on-cache-miss: true
 
       - name: load macos build
         uses: actions/cache@v3
         with:
-          path: build/zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib
+          path: bazel-bin/zetasql/local_service/libremote_server.dylib
           key: macos-latest-${{ needs.build.outputs.sha_short }}-2
+          fail-on-cache-miss: true
 
       - name: copy files
         working-directory: build
         run: |
           mkdir -p zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
-          cp zetasql-macos/bazel-bin/zetasql/local_service/libremote_server.dylib zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
+          cp bazel-bin/zetasql/local_service/libremote_server.dylib zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
           tar -xzvf zetasql-npm/${{ inputs.npm-package-name }}/bin/darwin-arm-64/libremote_server_arm.dylib.tar.gz -C zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
           tar -xzvf zetasql-npm/${{ inputs.npm-package-name }}/bin/linux-arm-64/libremote_server_arm.so.tar.gz -C zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
           cp out/linux/amd64/libremote_server.so zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
@@ -122,6 +124,7 @@ jobs:
         with:
           path: build/zetasql-npm
           key: package-results-${{ inputs.npm-package-name }}-${{ github.sha }}-${{ github.ref }}
+          fail-on-cache-miss: true
 
       - name: run e2e test
         working-directory: build/zetasql-npm/${{ inputs.npm-package-name }}
@@ -139,6 +142,7 @@ jobs:
         with:
           path: build/zetasql-npm
           key: package-results-${{ inputs.npm-package-name }}-${{ github.sha }}-${{ github.ref }}
+          fail-on-cache-miss: true
 
       - name: run e2e test
         working-directory: build/zetasql-npm
@@ -154,6 +158,7 @@ jobs:
         with:
           path: build/zetasql-npm
           key: package-results-${{ inputs.npm-package-name }}-${{ github.sha }}-${{ github.ref }}
+          fail-on-cache-miss: true
 
       - uses: actions/setup-node@v3
         with:
