@@ -42,6 +42,8 @@ export interface ProtoGrpcType {
     ASTAddToRestricteeListClauseProto: MessageTypeDefinition
     ASTAddTtlActionProto: MessageTypeDefinition
     ASTAliasProto: MessageTypeDefinition
+    ASTAliasedQueryListProto: MessageTypeDefinition
+    ASTAliasedQueryProto: MessageTypeDefinition
     ASTAlterActionListProto: MessageTypeDefinition
     ASTAlterActionProto: MessageTypeDefinition
     ASTAlterAllRowAccessPoliciesStatementProto: MessageTypeDefinition
@@ -76,6 +78,7 @@ export interface ProtoGrpcType {
     ASTAssertStatementProto: MessageTypeDefinition
     ASTAssignmentFromStructProto: MessageTypeDefinition
     ASTAuxLoadDataFromFilesOptionsListProto: MessageTypeDefinition
+    ASTAuxLoadDataPartitionsClauseProto: MessageTypeDefinition
     ASTAuxLoadDataStatementEnums: MessageTypeDefinition
     ASTAuxLoadDataStatementProto: MessageTypeDefinition
     ASTBeginEndBlockProto: MessageTypeDefinition
@@ -113,6 +116,8 @@ export interface ProtoGrpcType {
     ASTColumnPositionEnums: MessageTypeDefinition
     ASTColumnPositionProto: MessageTypeDefinition
     ASTColumnSchemaProto: MessageTypeDefinition
+    ASTColumnWithOptionsListProto: MessageTypeDefinition
+    ASTColumnWithOptionsProto: MessageTypeDefinition
     ASTCommitStatementProto: MessageTypeDefinition
     ASTConnectionClauseProto: MessageTypeDefinition
     ASTContinueStatementProto: MessageTypeDefinition
@@ -142,6 +147,7 @@ export interface ProtoGrpcType {
     ASTDateOrTimeLiteralProto: MessageTypeDefinition
     ASTDdlStatementProto: MessageTypeDefinition
     ASTDefaultLiteralProto: MessageTypeDefinition
+    ASTDefineMacroStatementProto: MessageTypeDefinition
     ASTDefineTableStatementProto: MessageTypeDefinition
     ASTDeleteStatementProto: MessageTypeDefinition
     ASTDescribeStatementProto: MessageTypeDefinition
@@ -168,6 +174,7 @@ export interface ProtoGrpcType {
     ASTDropSubEntityActionProto: MessageTypeDefinition
     ASTDropTableFunctionStatementProto: MessageTypeDefinition
     ASTDropTtlActionProto: MessageTypeDefinition
+    ASTElementTypeColumnSchemaProto: MessageTypeDefinition
     ASTElseifClauseListProto: MessageTypeDefinition
     ASTElseifClauseProto: MessageTypeDefinition
     ASTExceptionHandlerListProto: MessageTypeDefinition
@@ -249,6 +256,7 @@ export interface ProtoGrpcType {
     ASTLimitOffsetProto: MessageTypeDefinition
     ASTLocationProto: MessageTypeDefinition
     ASTLoopStatementProto: MessageTypeDefinition
+    ASTMacroBodyProto: MessageTypeDefinition
     ASTMaxLiteralProto: MessageTypeDefinition
     ASTMergeActionEnums: MessageTypeDefinition
     ASTMergeActionProto: MessageTypeDefinition
@@ -297,6 +305,7 @@ export interface ProtoGrpcType {
     ASTQueryProto: MessageTypeDefinition
     ASTQueryStatementProto: MessageTypeDefinition
     ASTRaiseStatementProto: MessageTypeDefinition
+    ASTRangeColumnSchemaProto: MessageTypeDefinition
     ASTRangeLiteralProto: MessageTypeDefinition
     ASTRangeTypeProto: MessageTypeDefinition
     ASTRemoveFromRestricteeListClauseProto: MessageTypeDefinition
@@ -327,10 +336,17 @@ export interface ProtoGrpcType {
     ASTSelectColumnProto: MessageTypeDefinition
     ASTSelectListProto: MessageTypeDefinition
     ASTSelectProto: MessageTypeDefinition
+    ASTSelectWithProto: MessageTypeDefinition
     ASTSetAsActionProto: MessageTypeDefinition
     ASTSetCollateClauseProto: MessageTypeDefinition
+    ASTSetOperationAllOrDistinctProto: MessageTypeDefinition
+    ASTSetOperationColumnMatchModeProto: MessageTypeDefinition
+    ASTSetOperationColumnPropagationModeProto: MessageTypeDefinition
     ASTSetOperationEnums: MessageTypeDefinition
+    ASTSetOperationMetadataListProto: MessageTypeDefinition
+    ASTSetOperationMetadataProto: MessageTypeDefinition
     ASTSetOperationProto: MessageTypeDefinition
+    ASTSetOperationTypeProto: MessageTypeDefinition
     ASTSetOptionsActionProto: MessageTypeDefinition
     ASTSetTransactionStatementProto: MessageTypeDefinition
     ASTShowStatementProto: MessageTypeDefinition
@@ -389,6 +405,7 @@ export interface ProtoGrpcType {
     ASTTypeProto: MessageTypeDefinition
     ASTUnaryExpressionEnums: MessageTypeDefinition
     ASTUnaryExpressionProto: MessageTypeDefinition
+    ASTUndropStatementProto: MessageTypeDefinition
     ASTUnnestExpressionProto: MessageTypeDefinition
     ASTUnnestExpressionWithOptAliasAndOffsetProto: MessageTypeDefinition
     ASTUnpivotClauseEnums: MessageTypeDefinition
@@ -414,7 +431,6 @@ export interface ProtoGrpcType {
     ASTWindowFrameExprProto: MessageTypeDefinition
     ASTWindowFrameProto: MessageTypeDefinition
     ASTWindowSpecificationProto: MessageTypeDefinition
-    ASTWithClauseEntryProto: MessageTypeDefinition
     ASTWithClauseProto: MessageTypeDefinition
     ASTWithConnectionClauseProto: MessageTypeDefinition
     ASTWithExpressionProto: MessageTypeDefinition
@@ -437,6 +453,7 @@ export interface ProtoGrpcType {
     AnyASTCreateTableStmtBaseProto: MessageTypeDefinition
     AnyASTCreateViewStatementBaseProto: MessageTypeDefinition
     AnyASTDdlStatementProto: MessageTypeDefinition
+    AnyASTElementTypeColumnSchemaProto: MessageTypeDefinition
     AnyASTExpressionProto: MessageTypeDefinition
     AnyASTGeneralizedPathExpressionProto: MessageTypeDefinition
     AnyASTLeafProto: MessageTypeDefinition
@@ -470,11 +487,13 @@ export interface ProtoGrpcType {
     AnyResolvedStatementProto: MessageTypeDefinition
     ArgumentTypeLambdaProto: MessageTypeDefinition
     ArrayTypeProto: MessageTypeDefinition
+    CollationProto: MessageTypeDefinition
     ColumnRefProto: MessageTypeDefinition
     ConnectionRefProto: MessageTypeDefinition
     ConstantRefProto: MessageTypeDefinition
     DeprecatedEncoding: MessageTypeDefinition
     DeprecationWarning: MessageTypeDefinition
+    EnabledRewriteProto: MessageTypeDefinition
     EnumTypeProto: MessageTypeDefinition
     ErrorLocation: MessageTypeDefinition
     ErrorMessageMode: EnumTypeDefinition
@@ -495,6 +514,7 @@ export interface ProtoGrpcType {
     FunctionSignatureId: EnumTypeDefinition
     FunctionSignatureOptionsProto: MessageTypeDefinition
     FunctionSignatureProto: MessageTypeDefinition
+    FunctionSignatureRewriteOptionsProto: MessageTypeDefinition
     LanguageFeature: EnumTypeDefinition
     LanguageFeatureOptions: MessageTypeDefinition
     LanguageOptionsProto: MessageTypeDefinition
@@ -560,6 +580,7 @@ export interface ProtoGrpcType {
     ResolvedAssertRowsModifiedProto: MessageTypeDefinition
     ResolvedAssertStmtProto: MessageTypeDefinition
     ResolvedAssignmentStmtProto: MessageTypeDefinition
+    ResolvedAuxLoadDataPartitionFilterProto: MessageTypeDefinition
     ResolvedAuxLoadDataStmtEnums: MessageTypeDefinition
     ResolvedAuxLoadDataStmtProto: MessageTypeDefinition
     ResolvedBeginStmtEnums: MessageTypeDefinition
@@ -588,6 +609,7 @@ export interface ProtoGrpcType {
     ResolvedCreateFunctionStmtProto: MessageTypeDefinition
     ResolvedCreateIndexStmtProto: MessageTypeDefinition
     ResolvedCreateMaterializedViewStmtProto: MessageTypeDefinition
+    ResolvedCreateModelAliasedQueryProto: MessageTypeDefinition
     ResolvedCreateModelStmtProto: MessageTypeDefinition
     ResolvedCreatePrivilegeRestrictionStmtProto: MessageTypeDefinition
     ResolvedCreateProcedureStmtProto: MessageTypeDefinition
@@ -608,6 +630,7 @@ export interface ProtoGrpcType {
     ResolvedDeleteStmtProto: MessageTypeDefinition
     ResolvedDescribeStmtProto: MessageTypeDefinition
     ResolvedDescriptorProto: MessageTypeDefinition
+    ResolvedDifferentialPrivacyAggregateScanProto: MessageTypeDefinition
     ResolvedDropColumnActionProto: MessageTypeDefinition
     ResolvedDropConstraintActionProto: MessageTypeDefinition
     ResolvedDropFunctionStmtProto: MessageTypeDefinition
@@ -771,6 +794,7 @@ export interface ProtoGrpcType {
     TableValuedFunctionProto: MessageTypeDefinition
     TableValuedFunctionRefProto: MessageTypeDefinition
     TypeKind: EnumTypeDefinition
+    TypeModifiersProto: MessageTypeDefinition
     TypeParametersProto: MessageTypeDefinition
     TypeProto: MessageTypeDefinition
     ValueProto: MessageTypeDefinition

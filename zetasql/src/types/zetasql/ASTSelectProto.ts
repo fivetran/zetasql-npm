@@ -2,7 +2,7 @@
 
 import type { ASTQueryExpressionProto as _zetasql_ASTQueryExpressionProto, ASTQueryExpressionProto__Output as _zetasql_ASTQueryExpressionProto__Output } from '../zetasql/ASTQueryExpressionProto';
 import type { ASTHintProto as _zetasql_ASTHintProto, ASTHintProto__Output as _zetasql_ASTHintProto__Output } from '../zetasql/ASTHintProto';
-import type { ASTOptionsListProto as _zetasql_ASTOptionsListProto, ASTOptionsListProto__Output as _zetasql_ASTOptionsListProto__Output } from '../zetasql/ASTOptionsListProto';
+import type { ASTSelectWithProto as _zetasql_ASTSelectWithProto, ASTSelectWithProto__Output as _zetasql_ASTSelectWithProto__Output } from '../zetasql/ASTSelectWithProto';
 import type { ASTSelectAsProto as _zetasql_ASTSelectAsProto, ASTSelectAsProto__Output as _zetasql_ASTSelectAsProto__Output } from '../zetasql/ASTSelectAsProto';
 import type { ASTSelectListProto as _zetasql_ASTSelectListProto, ASTSelectListProto__Output as _zetasql_ASTSelectListProto__Output } from '../zetasql/ASTSelectListProto';
 import type { ASTFromClauseProto as _zetasql_ASTFromClauseProto, ASTFromClauseProto__Output as _zetasql_ASTFromClauseProto__Output } from '../zetasql/ASTFromClauseProto';
@@ -15,7 +15,7 @@ import type { ASTWindowClauseProto as _zetasql_ASTWindowClauseProto, ASTWindowCl
 export interface ASTSelectProto {
   'parent'?: (_zetasql_ASTQueryExpressionProto | null);
   'hint'?: (_zetasql_ASTHintProto | null);
-  'anonymizationOptions'?: (_zetasql_ASTOptionsListProto | null);
+  'selectWith'?: (_zetasql_ASTSelectWithProto | null);
   'distinct'?: (boolean);
   'selectAs'?: (_zetasql_ASTSelectAsProto | null);
   'selectList'?: (_zetasql_ASTSelectListProto | null);
@@ -30,7 +30,7 @@ export interface ASTSelectProto {
 export interface ASTSelectProto__Output {
   'parent': (_zetasql_ASTQueryExpressionProto__Output | null);
   'hint': (_zetasql_ASTHintProto__Output | null);
-  'anonymizationOptions': (_zetasql_ASTOptionsListProto__Output | null);
+  'selectWith': (_zetasql_ASTSelectWithProto__Output | null);
   'distinct': (boolean);
   'selectAs': (_zetasql_ASTSelectAsProto__Output | null);
   'selectList': (_zetasql_ASTSelectListProto__Output | null);

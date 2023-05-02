@@ -9,6 +9,8 @@ export const _zetasql_DeprecationWarning_Kind = {
   DEPRECATED_FUNCTION: 1,
   DEPRECATED_FUNCTION_SIGNATURE: 2,
   PROTO3_FIELD_PRESENCE: 3,
+  QUERY_TOO_COMPLEX: 4,
+  DEPRECATED_ANONYMIZATION_OPTION_KAPPA: 5,
 } as const;
 
 export type _zetasql_DeprecationWarning_Kind =
@@ -22,6 +24,10 @@ export type _zetasql_DeprecationWarning_Kind =
   | 2
   | 'PROTO3_FIELD_PRESENCE'
   | 3
+  | 'QUERY_TOO_COMPLEX'
+  | 4
+  | 'DEPRECATED_ANONYMIZATION_OPTION_KAPPA'
+  | 5
 
 export type _zetasql_DeprecationWarning_Kind__Output = typeof _zetasql_DeprecationWarning_Kind[keyof typeof _zetasql_DeprecationWarning_Kind]
 

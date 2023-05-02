@@ -28,6 +28,7 @@ option optimize_for = CODE_SIZE;
 import "zetasql/public/annotation.proto";
 import "zetasql/public/proto/type_annotation.proto";
 import "zetasql/public/type.proto";
+import "zetasql/public/type_modifiers.proto";
 import "zetasql/public/type_parameters.proto";
 import "zetasql/proto/function.proto";
 import "zetasql/resolved_ast/serialization.proto";
@@ -99,6 +100,8 @@ message AnyResolvedArgumentProto {
     ResolvedTableAndColumnInfoProto resolved_table_and_column_info_node = 179;
     ResolvedColumnDefaultValueProto resolved_column_default_value_node = 188;
     ResolvedObjectUnitProto resolved_object_unit_node = 200;
+    ResolvedAuxLoadDataPartitionFilterProto resolved_aux_load_data_partition_filter_node = 222;
+    ResolvedCreateModelAliasedQueryProto resolved_create_model_aliased_query_node = 226;
   }
 }
 
@@ -532,22 +535,35 @@ message ResolvedCastProto {
   // The time zone expression by the optional AT TIME ZONE clause. It
   // is nullptr when the clause does not exist.
   optional AnyResolvedExprProto time_zone = 6;
-  // Contains the TypeParametersProto, which stores the type parameters
-  // if specified in a cast. If there are no type parameters, this
-  // proto will be empty.
+  // Contains the TypeModifiers object which wraps all modifiers
+  // following the type name in a type string (e.g. type parameters,
+  // collation) in a cast. If there are no type modifiers specified,
+  // this object will be empty.
   //
-  // If type parameters are specified, the result of the cast should
-  // conform to the type parameters. Engines are expected to enforce
-  // type parameter constraints by erroring out or truncating the cast
-  // result, depending on the output type.
+  // Type parameters can be specified inside parentheses following the
+  // type name (e.g. STRING(2)). If specified, the result of the cast
+  // should conform to the type parameters. Engines are expected to
+  // enforce type parameter constraints by erroring out or truncating
+  // the cast result, depending on the output type. See
+  // (broken link) for more details.
   //
   // For example:
   //   CAST("ABC" as STRING(2)) should error out
   //   CAST(1234 as NUMERIC(2)) should error out
   //   CAST(1.234 as NUMERIC(2,1)) should return a NumericValue of 1.2
   //
-  // See (broken link) for more details.
-  optional TypeParametersProto type_parameters = 7;
+  // Collation can be specified with the COLLATE keyword on a string
+  // type, e.g. STRING COLLATE 'und:ci'. If specified, the
+  // <type_annotation_map> of the ResolvedCast node will have equal
+  // collation annotations. See
+  // (broken link) for more details.
+  //
+  // For example:
+  //   CAST("abc" AS STRING COLLATE "und:ci") should return value "abc"
+  //     in STRING type with collation "und:ci".
+  //   CAST(["abc"] AS ARRAY<STRING COLLATE "und:ci">) should return
+  //     the array ["abc"] with collation "und:ci" at the element type.
+  optional TypeModifiersProto type_modifiers = 8;
 }
 
 // Construct a struct value.  <type> is always a StructType.
@@ -920,11 +936,17 @@ message ResolvedScanProto {
   optional bool is_ordered = 4;
 }
 
-// This node provides the role context for its subtree. The role object is
-// attached to this node and covers the whole subtree underneath it, except
-// subtrees under other nested ResolvedExecuteAsRoleScan nodes.
+// This node provides the role context for its subtree. Currently, it only
+// handles subtrees from inlined TVFs and VIEWs created with DEFINER rights.
+// Due to the lack of a ROLE catalog object, we are using the original
+// catalog object (VIEW or TVF) as a proxy. The engine is expected to extract
+// the target role of these objects.
 //
-// This node is useful when inlining definer-rights functions or views.
+// In the future, when we have catalog objects for roles, this node should
+// be updated to attach role object, rather than the original inlined object.
+//
+// The node's role context covers the whole subtree underneath it, except
+// subtrees under other nested ResolvedExecuteAsRoleScan nodes.
 //
 // Always creates new output columns in <column_list>, which map 1:1 with
 // the <input_scan>'s output columns. Most rewriters trace their columns all
@@ -936,6 +958,13 @@ message ResolvedExecuteAsRoleScanProto {
   // The input scan whose subtree is to be encompassed by the current
   // role context.
   optional AnyResolvedScanProto input_scan = 2;
+  // The original view that was inlined. If set, then
+  // 'original_inlined_tvf' is null. The validator checks that this
+  // table is indeed a SqlView, not some other subclass of Table.
+  optional TableRefProto original_inlined_view = 3;
+  // The original TVF that was inlined. If set, then
+  // 'original_inlined_view' is null.
+  optional TableValuedFunctionRefProto original_inlined_tvf = 4;
 }
 
 // Represents a machine learning model as a TVF argument.
@@ -1124,6 +1153,7 @@ message AnyResolvedAggregateScanBaseProto {
   oneof node {
     ResolvedAggregateScanProto resolved_aggregate_scan_node = 25;
     ResolvedAnonymizedAggregateScanProto resolved_anonymized_aggregate_scan_node = 112;
+    ResolvedDifferentialPrivacyAggregateScanProto resolved_differential_privacy_aggregate_scan_node = 221;
   }
 }
 
@@ -1172,13 +1202,35 @@ message ResolvedAggregateScanProto {
 // into a separate stage.
 //
 // <anonymization_option_list> provides user-specified options, and
-// requires that option names are one of: delta, epsilon, kappa, or
-// k_threshold.
+// requires that option names are one of: delta, epsilon, kappa,
+// max_groups_contributed, max_rows_contributed, or k_threshold.
 message ResolvedAnonymizedAggregateScanProto {
   optional ResolvedAggregateScanBaseProto parent = 1;
 
-  optional ResolvedColumnRefProto k_threshold_expr = 5;
+  optional AnyResolvedExprProto k_threshold_expr = 5;
   repeated ResolvedOptionProto anonymization_option_list = 6;
+}
+
+// Apply differentially private aggregation (anonymization) to rows produced
+// from input_scan, and output anonymized rows.
+// Spec: (broken link)
+//
+// <group_selection_threshold_expr> when non-null, points to a function call
+// in the <aggregate_list> and adds a filter that acts like:
+//   HAVING <group_selection_threshold_expr> >=
+//   <implementation-defined group_selection_threshold>
+// omitting any rows that would not pass this condition.
+// TODO: Update this comment after splitting the rewriter out
+// into a separate stage.
+//
+// <option_list> provides user-specified options, and
+// requires that option names are one of: delta, epsilon,
+// max_groups_contributed or max_rows_contributed.
+message ResolvedDifferentialPrivacyAggregateScanProto {
+  optional ResolvedAggregateScanBaseProto parent = 1;
+
+  optional AnyResolvedExprProto group_selection_threshold_expr = 5;
+  repeated ResolvedOptionProto option_list = 6;
 }
 
 // This is one input item in a ResolvedSetOperation.
@@ -2025,6 +2077,7 @@ message ResolvedCreateTableStmtBaseProto {
   optional bool is_value_table = 8;
   optional TableRefProto like_table = 11;
   optional AnyResolvedExprProto collation_name = 12;
+  optional ResolvedConnectionProto connection = 13;
 }
 
 // This statement:
@@ -2035,6 +2088,7 @@ message ResolvedCreateTableStmtBaseProto {
 //           [WHERE <where_clause>]]
 //   [DEFAULT COLLATE <collation_name>]
 //   [PARTITION BY expr, ...] [CLUSTER BY expr, ...]
+//   [WITH CONNECTION connection_name]
 //   [OPTIONS (...)]
 //
 // One of <clone_from> or <copy_from> can be present for CLONE or COPY.
@@ -2067,7 +2121,9 @@ message ResolvedCreateTableStmtProto {
 // This statement:
 //   CREATE [TEMP] TABLE <name> [(column schema, ...) | LIKE <name_path>]
 //   [DEFAULT COLLATE <collation_name>] [PARTITION BY expr, ...]
-//   [CLUSTER BY expr, ...] [OPTIONS (...)]
+//   [CLUSTER BY expr, ...]
+//   [WITH CONNECTION connection_name]
+//   [OPTIONS (...)]
 //   AS SELECT ...
 //
 // The <output_column_list> matches 1:1 with the <column_definition_list> in
@@ -2093,38 +2149,60 @@ message ResolvedCreateTableAsSelectStmtProto {
   optional AnyResolvedScanProto query = 3;
 }
 
+// Resolves a create model aliased query:
+// identifier AS <query>
+//
+// <alias> is the string representation of identifier.
+// <query> is the ResolvedScan of the subquery.
+// <output_column_list> matches 1:1 with the <query>'s column_list and
+// identifies the names and types of the columns output from the query.
+message ResolvedCreateModelAliasedQueryProto {
+  optional ResolvedArgumentProto parent = 1;
+
+  optional string alias = 2;
+  optional AnyResolvedScanProto query = 3;
+  repeated ResolvedOutputColumnProto output_column_list = 4;
+}
+
 // This statement:
 //   CREATE [TEMP] MODEL <name> [INPUT(...) OUTPUT(...)] [TRANSFORM(...)]
-//   [REMOTE [WITH CONNECTION ...]] [OPTIONS (...)] [AS SELECT ...]
+//   [REMOTE [WITH CONNECTION ...]] [OPTIONS (...)]
+//   [AS <query> | (<identifier> AS (<query>) [, ...])]
+//
+// At most one of <query> and <aliased_query_list> can be set. <query> is
+// used when there is a single query as input. <aliased_query_list> is used
+// for the syntax with multiple queries with identifiers. For below, let
+// <has_query> be true if either of these are present.
 //
 // Models can be evaluated either locally or remotely. Orthogonally, they can
 // be either trained using SQL or come from external source. Depending on
 // these properties, different clauses are expected to be present.
 //
 // * Local models <is_remote> = FALSE
-//   * Trained: <query> IS NOT NULL
-//   * External: <query> IS NULL
+//   * Trained: <has_query>
+//   * External: !<has_query>
 // * Remote models <is_remote> = TRUE
-//   * Trained: <query> IS NOT NULL [Not supported yet]
-//   * External: <query> IS NULL
+//   * Trained: <has_query> [Not supported yet]
+//   * External: !<has_query>
 //
 // <option_list> has engine-specific directives for how to train this model.
-// <query> is the select statement. It can be only set when <is_remote> is
-//   false and both <input_column_definition_list>,
-//   <output_column_definition_list> are empty.
+// <query> is the AS SELECT statement. It can be only set when <is_remote> is
+//   false and all of <input_column_definition_list>,
+//   <output_column_definition_list> and <aliased_query_list> are empty.
+// TODO: consider rename to <query_output_column_list>.
 // <output_column_list> matches 1:1 with the <query>'s column_list and
 //   identifies the names and types of the columns output from the select
 //   statement. Set only when <query> is present.
 // <input_column_definition_list> contains names and types of model's input
-//   columns. Cannot be set when <query> and <output_column_list> are
-//   present. Might be absent when <is_remote> is true, meaning schema is
-//   read from the remote model itself.
+//   columns. Cannot be set if <has_query> is true. Might be absent when
+//   <is_remote> is true, meaning schema is read from the remote model
+//   itself.
 // <output_column_definition_list> contains names and types of model's output
-//   columns. Cannot be set when <query> and <output_column_list> are
-//   present. Might be absent when <is_remote> is true, meaning schema is
-//   read from the remote model itself.
-// <is_remote> is true if this is a remote model. Cannot be set when <query>
-//   is present.
+//   columns. Cannot be set if <has_query> is true. Might be absent when
+//   <is_remote> is true, meaning schema is read from the remote model
+//   itself.
+// <is_remote> is true if this is a remote model. Cannot be set when
+//   <has_query> is true.
 // <connection> is the identifier path of the connection object. It can be
 //   only set when <is_remote> is true.
 // <transform_list> is the list of ResolvedComputedColumn in TRANSFORM
@@ -2159,12 +2237,16 @@ message ResolvedCreateTableAsSelectStmtProto {
 //                 | +-WindowFrameExpr(boundary_type=UNBOUNDED PRECEDING)
 //                 +-end_expr=
 //                   +-WindowFrameExpr(boundary_type=UNBOUNDED FOLLOWING)
+// <aliased_query_list> is the aliased query list. It can only be set when
+//   <is_remote> is false and <query> is null. It cannot coexist with any
+//   transform related resolved nodes.
 message ResolvedCreateModelStmtProto {
   optional ResolvedCreateStatementProto parent = 1;
 
   repeated ResolvedOptionProto option_list = 2;
   repeated ResolvedOutputColumnProto output_column_list = 3;
   optional AnyResolvedScanProto query = 4;
+  repeated ResolvedCreateModelAliasedQueryProto aliased_query_list = 13;
   repeated ResolvedColumnDefinitionProto transform_input_column_list = 8;
   repeated ResolvedComputedColumnProto transform_list = 5;
   repeated ResolvedOutputColumnProto transform_output_column_list = 6;
@@ -2196,6 +2278,17 @@ message ResolvedCreateModelStmtProto {
 //    include 'INVOKER', 'DEFINER'.
 // <recursive> specifies whether or not the view is created with the
 //   RECURSIVE keyword.
+// <column_definition_list> matches 1:1 with the <output_column_list> and
+//   provides explicit definition for each output column. Output column names
+//   and types must match column definition names and types. If the table is
+//   a value table, <column_definition_list> must have exactly one column,
+//   with a generated name such as "$struct".
+//
+// Currently <column_definition_list> contains the same schema information
+// (column names and types) as <output_column_list>, but also contains the
+// column OPTIONS. Therefore, consumers are encouraged to read from
+// <column_definition_list> rather than from <output_column_list> to
+// determine the schema, if possible.
 //
 // Note that <query> and <sql> are both marked as IGNORABLE because
 // an engine could look at either one (but might not look at both).
@@ -2227,6 +2320,7 @@ message ResolvedCreateViewBaseProto {
   // True if the view uses the RECURSIVE keyword. <query>
   // can be a ResolvedRecursiveScan only if this is true.
   optional bool recursive = 8;
+  repeated ResolvedColumnDefinitionProto column_definition_list = 10;
 }
 
 // This statement:
@@ -2278,7 +2372,6 @@ message ResolvedCreateExternalTableStmtProto {
   optional ResolvedCreateTableStmtBaseProto parent = 1;
 
   optional ResolvedWithPartitionColumnsProto with_partition_columns = 2;
-  optional ResolvedConnectionProto connection = 3;
 }
 
 // This statement:
@@ -2713,7 +2806,7 @@ message ResolvedWindowFrameProto {
 // (broken link) for more details.
 //
 // All expressions in <analytic_function_list> have a
-// ResolvedAggregateFunctionCall with a function in mode
+// ResolvedAnalyticFunctionCall with a function in mode
 // Function::AGGREGATE or Function::ANALYTIC.
 message ResolvedAnalyticFunctionGroupProto {
   optional ResolvedArgumentProto parent = 1;
@@ -4345,20 +4438,6 @@ message ResolvedAggregateHavingModifierProto {
 //   CREATE MATERIALIZED VIEW <name> [(...)] [PARTITION BY expr, ...]
 //   [CLUSTER BY expr, ...] [OPTIONS (...)] AS SELECT ...
 //
-// <column_definition_list> matches 1:1 with the <output_column_list> in
-// ResolvedCreateViewBase and provides explicit definition for each
-// ResolvedColumn produced by <query>. Output column names and types must
-// match column definition names and types. If the table is a value table,
-// <column_definition_list> must have exactly one column, with a generated
-// name such as "$struct".
-//
-// Currently <column_definition_list> contains the same schema information
-// (column names and types) as <output_definition_list>, but when/if we
-// allow specifying column OPTIONS as part of CMV statement, this information
-// will be available only in <column_definition_list>. Therefore, consumers
-// are encouraged to read from <column_definition_list> rather than from
-// <output_column_list> to determine the schema, if possible.
-//
 // <partition_by_list> specifies the partitioning expressions for the
 //                     materialized view.
 // <cluster_by_list> specifies the clustering expressions for the
@@ -4366,7 +4445,6 @@ message ResolvedAggregateHavingModifierProto {
 message ResolvedCreateMaterializedViewStmtProto {
   optional ResolvedCreateViewBaseProto parent = 1;
 
-  repeated ResolvedColumnDefinitionProto column_definition_list = 2;
   repeated AnyResolvedExprProto partition_by_list = 3;
   repeated AnyResolvedExprProto cluster_by_list = 4;
 }
@@ -4723,11 +4801,32 @@ message ResolvedAnalyzeStmtProto {
   repeated ResolvedTableAndColumnInfoProto table_and_column_index_list = 3;
 }
 
-// LOAD DATA {OVERWRITE|INTO} <table_name> ... FROM FILES ...
+// Indicates that the LOAD DATA statement will load to or overwrite the
+// selected partitions:
+//   [OVERWRITE] PARTITIONS (<filter>)
+message ResolvedAuxLoadDataPartitionFilterProto {
+  optional ResolvedArgumentProto parent = 1;
+
+  // Expression to find the partitions to load.
+  // Scan rows from source file, and fail the query if filter
+  // evaluates some rows to false.
+  // <filter> is always of type bool.
+  // When this expression produces NULL, the query should fail.
+  optional AnyResolvedExprProto filter = 2;
+  // Indicates whether the load data will append to or overwrite the
+  // selected partition.
+  optional bool is_overwrite = 3;
+}
+
+// LOAD DATA {OVERWRITE|INTO} [{TEMP|TEMPORARY} TABLE] <table_name>
+// [[OVERWRITE] PARTITIONS(...)] ...
+// FROM FILES ...
 //   This statement loads an external file to a new or existing table.
 //   See (broken link).
 //
 // <insertion_mode> either OVERWRITE or APPEND (INTO) the destination table.
+// <is_temp_table> True if the destination table should be a temporary table.
+//   Otherwise, the destination table should be a persistent table.
 // <name_path> the table to load data into.
 // <output_column_list> the list of visible columns of the destination table.
 //   If <column_definition_list> is explicitly specified:
@@ -4765,6 +4864,8 @@ message ResolvedAnalyzeStmtProto {
 // <cluster_by_list> The list of columns to cluster the destination
 //     table. Similar to <column_definition_list>, it must match the
 //     destination table's partitioning spec if it already exists.
+// <partition_filter> specifies the destination partition selections and
+//     whether load to or overwrite the selected partitions.
 // <option_list> the options list describing the destination table.
 //     If the destination doesn't already exist, it will be created with
 //     these options; otherwise it must match the existing destination
@@ -4784,7 +4885,9 @@ message ResolvedAuxLoadDataStmtProto {
   optional ResolvedStatementProto parent = 1;
 
   optional ResolvedAuxLoadDataStmtEnums.InsertionMode insertion_mode = 2;
+  optional bool is_temp_table = 17;
   repeated string name_path = 3;
+  optional ResolvedAuxLoadDataPartitionFilterProto partition_filter = 16;
   repeated ResolvedOutputColumnProto output_column_list = 4;
   repeated ResolvedColumnDefinitionProto column_definition_list = 5;
   repeated ResolvedColumnProto pseudo_column_list = 6;
