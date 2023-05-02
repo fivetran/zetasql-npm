@@ -12,6 +12,7 @@ import type { ASTBytesLiteralProto as _zetasql_ASTBytesLiteralProto, ASTBytesLit
 import type { ASTMaxLiteralProto as _zetasql_ASTMaxLiteralProto, ASTMaxLiteralProto__Output as _zetasql_ASTMaxLiteralProto__Output } from '../zetasql/ASTMaxLiteralProto';
 import type { ASTJSONLiteralProto as _zetasql_ASTJSONLiteralProto, ASTJSONLiteralProto__Output as _zetasql_ASTJSONLiteralProto__Output } from '../zetasql/ASTJSONLiteralProto';
 import type { ASTIndexAllColumnsProto as _zetasql_ASTIndexAllColumnsProto, ASTIndexAllColumnsProto__Output as _zetasql_ASTIndexAllColumnsProto__Output } from '../zetasql/ASTIndexAllColumnsProto';
+import type { ASTMacroBodyProto as _zetasql_ASTMacroBodyProto, ASTMacroBodyProto__Output as _zetasql_ASTMacroBodyProto__Output } from '../zetasql/ASTMacroBodyProto';
 
 export interface AnyASTLeafProto {
   'astIntLiteralNode'?: (_zetasql_ASTIntLiteralProto | null);
@@ -26,7 +27,8 @@ export interface AnyASTLeafProto {
   'astMaxLiteralNode'?: (_zetasql_ASTMaxLiteralProto | null);
   'astJsonLiteralNode'?: (_zetasql_ASTJSONLiteralProto | null);
   'astIndexAllColumnsNode'?: (_zetasql_ASTIndexAllColumnsProto | null);
-  'node'?: "astIntLiteralNode"|"astBooleanLiteralNode"|"astStringLiteralNode"|"astStarNode"|"astFloatLiteralNode"|"astNullLiteralNode"|"astNumericLiteralNode"|"astBignumericLiteralNode"|"astBytesLiteralNode"|"astMaxLiteralNode"|"astJsonLiteralNode"|"astIndexAllColumnsNode";
+  'astMacroBodyNode'?: (_zetasql_ASTMacroBodyProto | null);
+  'node'?: "astIntLiteralNode"|"astBooleanLiteralNode"|"astStringLiteralNode"|"astStarNode"|"astFloatLiteralNode"|"astNullLiteralNode"|"astNumericLiteralNode"|"astBignumericLiteralNode"|"astBytesLiteralNode"|"astMaxLiteralNode"|"astJsonLiteralNode"|"astIndexAllColumnsNode"|"astMacroBodyNode";
 }
 
 export interface AnyASTLeafProto__Output {
@@ -42,5 +44,6 @@ export interface AnyASTLeafProto__Output {
   'astMaxLiteralNode'?: (_zetasql_ASTMaxLiteralProto__Output | null);
   'astJsonLiteralNode'?: (_zetasql_ASTJSONLiteralProto__Output | null);
   'astIndexAllColumnsNode'?: (_zetasql_ASTIndexAllColumnsProto__Output | null);
-  'node': "astIntLiteralNode"|"astBooleanLiteralNode"|"astStringLiteralNode"|"astStarNode"|"astFloatLiteralNode"|"astNullLiteralNode"|"astNumericLiteralNode"|"astBignumericLiteralNode"|"astBytesLiteralNode"|"astMaxLiteralNode"|"astJsonLiteralNode"|"astIndexAllColumnsNode";
+  'astMacroBodyNode'?: (_zetasql_ASTMacroBodyProto__Output | null);
+  'node': "astIntLiteralNode"|"astBooleanLiteralNode"|"astStringLiteralNode"|"astStarNode"|"astFloatLiteralNode"|"astNullLiteralNode"|"astNumericLiteralNode"|"astBignumericLiteralNode"|"astBytesLiteralNode"|"astMaxLiteralNode"|"astJsonLiteralNode"|"astIndexAllColumnsNode"|"astMacroBodyNode";
 }

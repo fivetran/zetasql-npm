@@ -60,6 +60,27 @@ export type _zetasql_FunctionEnums_Mode__Output = typeof _zetasql_FunctionEnums_
 
 // Original file: src/snowflake/protos/zetasql/public/function.proto
 
+export const _zetasql_FunctionEnums_NamedArgumentKind = {
+  NAMED_ARGUMENT_KIND_UNSPECIFIED: 0,
+  POSITIONAL_ONLY: 1,
+  POSITIONAL_OR_NAMED: 2,
+  NAMED_ONLY: 3,
+} as const;
+
+export type _zetasql_FunctionEnums_NamedArgumentKind =
+  | 'NAMED_ARGUMENT_KIND_UNSPECIFIED'
+  | 0
+  | 'POSITIONAL_ONLY'
+  | 1
+  | 'POSITIONAL_OR_NAMED'
+  | 2
+  | 'NAMED_ONLY'
+  | 3
+
+export type _zetasql_FunctionEnums_NamedArgumentKind__Output = typeof _zetasql_FunctionEnums_NamedArgumentKind[keyof typeof _zetasql_FunctionEnums_NamedArgumentKind]
+
+// Original file: src/snowflake/protos/zetasql/public/function.proto
+
 export const _zetasql_FunctionEnums_ProcedureArgumentMode = {
   NOT_SET: 0,
   IN: 1,

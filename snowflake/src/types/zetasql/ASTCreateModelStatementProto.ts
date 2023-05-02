@@ -7,6 +7,7 @@ import type { ASTOptionsListProto as _zetasql_ASTOptionsListProto, ASTOptionsLis
 import type { ASTQueryProto as _zetasql_ASTQueryProto, ASTQueryProto__Output as _zetasql_ASTQueryProto__Output } from '../zetasql/ASTQueryProto';
 import type { ASTInputOutputClauseProto as _zetasql_ASTInputOutputClauseProto, ASTInputOutputClauseProto__Output as _zetasql_ASTInputOutputClauseProto__Output } from '../zetasql/ASTInputOutputClauseProto';
 import type { ASTWithConnectionClauseProto as _zetasql_ASTWithConnectionClauseProto, ASTWithConnectionClauseProto__Output as _zetasql_ASTWithConnectionClauseProto__Output } from '../zetasql/ASTWithConnectionClauseProto';
+import type { ASTAliasedQueryListProto as _zetasql_ASTAliasedQueryListProto, ASTAliasedQueryListProto__Output as _zetasql_ASTAliasedQueryListProto__Output } from '../zetasql/ASTAliasedQueryListProto';
 
 export interface ASTCreateModelStatementProto {
   'parent'?: (_zetasql_ASTCreateStatementProto | null);
@@ -17,6 +18,7 @@ export interface ASTCreateModelStatementProto {
   'inputOutputClause'?: (_zetasql_ASTInputOutputClauseProto | null);
   'isRemote'?: (boolean);
   'withConnectionClause'?: (_zetasql_ASTWithConnectionClauseProto | null);
+  'aliasedQueryList'?: (_zetasql_ASTAliasedQueryListProto | null);
 }
 
 export interface ASTCreateModelStatementProto__Output {
@@ -28,4 +30,5 @@ export interface ASTCreateModelStatementProto__Output {
   'inputOutputClause': (_zetasql_ASTInputOutputClauseProto__Output | null);
   'isRemote': (boolean);
   'withConnectionClause': (_zetasql_ASTWithConnectionClauseProto__Output | null);
+  'aliasedQueryList': (_zetasql_ASTAliasedQueryListProto__Output | null);
 }

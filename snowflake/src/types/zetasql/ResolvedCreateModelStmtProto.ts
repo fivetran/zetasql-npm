@@ -8,6 +8,7 @@ import type { ResolvedComputedColumnProto as _zetasql_ResolvedComputedColumnProt
 import type { ResolvedAnalyticFunctionGroupProto as _zetasql_ResolvedAnalyticFunctionGroupProto, ResolvedAnalyticFunctionGroupProto__Output as _zetasql_ResolvedAnalyticFunctionGroupProto__Output } from '../zetasql/ResolvedAnalyticFunctionGroupProto';
 import type { ResolvedColumnDefinitionProto as _zetasql_ResolvedColumnDefinitionProto, ResolvedColumnDefinitionProto__Output as _zetasql_ResolvedColumnDefinitionProto__Output } from '../zetasql/ResolvedColumnDefinitionProto';
 import type { ResolvedConnectionProto as _zetasql_ResolvedConnectionProto, ResolvedConnectionProto__Output as _zetasql_ResolvedConnectionProto__Output } from '../zetasql/ResolvedConnectionProto';
+import type { ResolvedCreateModelAliasedQueryProto as _zetasql_ResolvedCreateModelAliasedQueryProto, ResolvedCreateModelAliasedQueryProto__Output as _zetasql_ResolvedCreateModelAliasedQueryProto__Output } from '../zetasql/ResolvedCreateModelAliasedQueryProto';
 
 export interface ResolvedCreateModelStmtProto {
   'parent'?: (_zetasql_ResolvedCreateStatementProto | null);
@@ -22,6 +23,7 @@ export interface ResolvedCreateModelStmtProto {
   'outputColumnDefinitionList'?: (_zetasql_ResolvedColumnDefinitionProto)[];
   'isRemote'?: (boolean);
   'connection'?: (_zetasql_ResolvedConnectionProto | null);
+  'aliasedQueryList'?: (_zetasql_ResolvedCreateModelAliasedQueryProto)[];
 }
 
 export interface ResolvedCreateModelStmtProto__Output {
@@ -37,4 +39,5 @@ export interface ResolvedCreateModelStmtProto__Output {
   'outputColumnDefinitionList': (_zetasql_ResolvedColumnDefinitionProto__Output)[];
   'isRemote': (boolean);
   'connection': (_zetasql_ResolvedConnectionProto__Output | null);
+  'aliasedQueryList': (_zetasql_ResolvedCreateModelAliasedQueryProto__Output)[];
 }
