@@ -1,3 +1,4 @@
+import { setTimeout } from 'node:timers/promises';
 import * as tcpPortUsed from 'tcp-port-used';
 import { runServer, terminateServer, ZetaSQLClient } from '..';
 
@@ -6,6 +7,7 @@ import { runServer, terminateServer, ZetaSQLClient } from '..';
 const port = 50005;
 tcpPortUsed
   .waitUntilUsed(port, 500, 1000 * 60 * 5)
+  .then(() => setTimeout(500))
   .then(() => {
     console.log('Init...');
     ZetaSQLClient.init(port);

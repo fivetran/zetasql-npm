@@ -13,7 +13,8 @@ Server listening on 0.0.0.0:50005
 Init...
 Testing...
 Tests passed
-Terminating..."
+Terminating...
+Terminated"
 
 actualResult=$(node ${TESTS_DIR}/TestZetaSqlServer.js)
 if [[ "${expectedResult}" != "${actualResult}" ]]; then
