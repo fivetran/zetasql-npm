@@ -41,7 +41,7 @@ async function runTest(): Promise<void> {
     console.log('Tests failed');
     console.error(e);
   }
-  await terminateServer();
+  terminateServer();
 }
 
 async function analyze(sqlStatement: string): Promise<AnalyzeResponse__Output> {
