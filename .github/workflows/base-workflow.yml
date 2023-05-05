@@ -97,7 +97,7 @@ jobs:
           mv ../bazel-bin/zetasql/local_service/libremote_server.dylib zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
           mv ../out/linux/amd64/libremote_server.so zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
 
-          tar -xzvf zetasql-npm/${{ inputs.npm-package-name }}/bin/darwin-arm-64/libremote_server_arm.dylib.tar.gz -C zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
+          tar -xzvf zetasql-npm/${{ inputs.npm-package-name }}/bin/darwin-arm-64/remote_server_arm.tar.gz -C zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
           tar -xzvf zetasql-npm/${{ inputs.npm-package-name }}/bin/linux-arm-64/libremote_server_arm.so.tar.gz -C zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
 
           cp -R zetasql-npm/${{ inputs.npm-package-name }}/src/${{ inputs.npm-package-name }}/protos zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}/protos
