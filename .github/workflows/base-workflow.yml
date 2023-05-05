@@ -103,6 +103,9 @@ jobs:
 
           cp -R zetasql-npm/${{ inputs.npm-package-name }}/src/${{ inputs.npm-package-name }}/protos zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}/protos
 
+          cd zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
+          chmod +x remote_server*
+
       - name: build and test
         working-directory: build/zetasql-npm/${{ inputs.npm-package-name }}
         run: |
