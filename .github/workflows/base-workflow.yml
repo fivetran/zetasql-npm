@@ -49,6 +49,7 @@ jobs:
         id: vars
         run: |
           echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+          echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
           echo $(git rev-parse --short HEAD)
 
       - name: cache zetasql build
@@ -57,6 +58,21 @@ jobs:
         with:
           path: ${{ matrix.cache-path }}
           key: ${{ matrix.os }}-${{ steps.vars.outputs.sha_short }}-2
+
+      - name: download artifact
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          github_token: ${{ secrets.TOKEN }}
+          repo: fivetran/${{ inputs.cpp-repo-name }}
+          commit: ${{ steps.vars.outputs.sha }}
+          name: artifacts
+          workflow: main.yml
+          workflow_conclusion: success
+
+      - run: |
+          ls -la
+          ls -la artifacts
 
       - name: build
         if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
