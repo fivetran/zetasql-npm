@@ -203,7 +203,7 @@ jobs:
       - run: |
           mkdir -p old
           tar -xzvf ${{ inputs.npm-package-name }}/bin/darwin-x86-64/remote_server.tar.gz -C old
-          tar -xzvf ${{ inputs.npm-package-name }}/bin/linux-x86-64/remote_server.so.gz -C old
+          tar -xzvf ${{ inputs.npm-package-name }}/bin/linux-x86-64/remote_server.so.tar.gz -C old
 
           if ! diff -q remote_server old/remote_server &>/dev/null; then
             tar -zcf ${{ inputs.npm-package-name }}/bin/darwin-x86-64/remote_server.tar.gz remote_server
