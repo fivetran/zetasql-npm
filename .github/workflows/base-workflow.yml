@@ -28,12 +28,14 @@ jobs:
             build-commands: |
               npx @bazel/bazelisk build --copt "-O3" --config=clang //zetasql/local_service:remote_server_executable
               mv bazel-bin/zetasql/local_service/remote_server_executable bazel-bin/zetasql/local_service/remote_server
+              chmod +x bazel-bin/zetasql/local_service/remote_server
 
           - os: ubuntu-latest
             cache-path: out/linux/amd64/remote_server.so
             build-commands: |
               docker buildx build --file Dockerfile.build --output out --platform linux/amd64 .
               mv out/linux/amd64/remote_server_executable out/linux/amd64/remote_server.so
+              chmod +x out/linux/amd64/remote_server.so
 
     steps:
       - name: checkout C++ library
@@ -162,7 +164,7 @@ jobs:
 
       - name: run e2e test
         working-directory: build/zetasql-npm
-        run: docker buildx build --build-arg package_name=${{ inputs.npm-package-name }} --platform=linux/amd64,linux/arm64 --progress=plain --no-cache .
+        run: docker buildx build --build-arg package_name=${{ inputs.npm-package-name }} --platform=linux/amd64 --progress=plain --no-cache . # TODO: ,linux/arm64
 
   publish-npm:
     runs-on: ubuntu-latest
@@ -206,6 +208,7 @@ jobs:
           name: ${{ inputs.cpp-repo-name }}-macos-latest
 
       - run: |
+          chmod +x remote_server*
           ls -la
           mkdir -p old
           tar -xzvf ${{ inputs.npm-package-name }}/bin/darwin-x86-64/remote_server.tar.gz -C old
