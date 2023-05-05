@@ -24,14 +24,16 @@ jobs:
       matrix:
         include:
           - os: macos-latest
-            cache-path: bazel-bin/zetasql/local_service/remote_server_executable
+            cache-path: bazel-bin/zetasql/local_service/remote_server
             build-commands: |
               npx @bazel/bazelisk build --copt "-O3" --config=clang //zetasql/local_service:remote_server_executable
+              mv bazel-bin/zetasql/local_service/remote_server_executable bazel-bin/zetasql/local_service/remote_server
 
           - os: ubuntu-latest
-            cache-path: out/linux/amd64/remote_server_executable
+            cache-path: out/linux/amd64/remote_server.so
             build-commands: |
               docker buildx build --file Dockerfile.build --output out --platform linux/amd64 .
+              mv out/linux/amd64/remote_server_executable out/linux/amd64/remote_server.so
 
     steps:
       - name: checkout C++ library
@@ -77,14 +79,14 @@ jobs:
       - name: load linux build
         uses: actions/cache@v3
         with:
-          path: out/linux/amd64/remote_server_executable
+          path: out/linux/amd64/remote_server.so
           key: ubuntu-latest-${{ needs.build.outputs.sha_short }}-2
           fail-on-cache-miss: true
 
       - name: load macos build
         uses: actions/cache@v3
         with:
-          path: bazel-bin/zetasql/local_service/remote_server_executable
+          path: bazel-bin/zetasql/local_service/remote_server
           key: macos-latest-${{ needs.build.outputs.sha_short }}-2
           fail-on-cache-miss: true
 
@@ -93,8 +95,8 @@ jobs:
         run: |
           mkdir -p zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
 
-          mv ../bazel-bin/zetasql/local_service/remote_server_executable zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}/remote_server
-          mv ../out/linux/amd64/remote_server_executable zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}/remote_server.so
+          mv ../bazel-bin/zetasql/local_service/remote_server zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
+          mv ../out/linux/amd64/remote_server.so zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
 
           tar -xzvf zetasql-npm/${{ inputs.npm-package-name }}/bin/darwin-arm-64/remote_server_arm.tar.gz -C zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
           tar -xzvf zetasql-npm/${{ inputs.npm-package-name }}/bin/linux-arm-64/libremote_server_arm.so.tar.gz -C zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
