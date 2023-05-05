@@ -201,6 +201,7 @@ jobs:
           name: ${{ inputs.cpp-repo-name }}-macos-latest
 
       - run: |
+          ls -la
           mkdir -p old
           tar -xzvf ${{ inputs.npm-package-name }}/bin/darwin-x86-64/remote_server.tar.gz -C old
           tar -xzvf ${{ inputs.npm-package-name }}/bin/linux-x86-64/remote_server.so.tar.gz -C old
