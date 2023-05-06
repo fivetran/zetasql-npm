@@ -29,6 +29,9 @@ jobs:
               npx @bazel/bazelisk build --copt "-O3" --config=clang //zetasql/local_service:remote_server_executable
               mv bazel-bin/zetasql/local_service/remote_server_executable bazel-bin/zetasql/local_service/remote_server
               chmod +x bazel-bin/zetasql/local_service/remote_server
+            correct-paths: |
+              mkdir -p bazel-bin/zetasql/local_service/remote_server
+              mv darwin_x86_64/remote_server_executable bazel-bin/zetasql/local_service/remote_server
 
           - os: ubuntu-latest
             cache-path: out/linux/amd64/remote_server.so
@@ -36,6 +39,9 @@ jobs:
               docker buildx build --file Dockerfile.build --output out --platform linux/amd64 .
               mv out/linux/amd64/remote_server_executable out/linux/amd64/remote_server.so
               chmod +x out/linux/amd64/remote_server.so
+            correct-paths: |
+              mkdir -p out/linux/amd64/
+              mv linux_x86_64/remote_server_executable bazel-bin/zetasql/local_service/remote_server
 
     steps:
       - name: checkout C++ library
@@ -60,24 +66,26 @@ jobs:
           key: ${{ matrix.os }}-${{ steps.vars.outputs.sha_short }}-2
 
       - name: download artifact
+        if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
         id: download-artifact
         uses: dawidd6/action-download-artifact@v2
         with:
           github_token: ${{ secrets.TOKEN }}
           repo: fivetran/${{ inputs.cpp-repo-name }}
-          commit: ${{ steps.vars.outputs.sha }}
+          # commit: ${{ steps.vars.outputs.sha }}
+          commit: 769f4135070664068774a3c558520f79e1f772bc
           name: artifacts
           workflow: main.yml
           workflow_conclusion: success
 
-      - run: |
-          ls -la
-          ls -la artifacts
-
-      - name: build
+      - name: correct paths
         if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
-        run: |
-          ${{ matrix.build-commands }}
+        run: ${{ matrix.correct-paths }}
+
+      # - name: build
+      #   if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
+      #   run: |
+      #     ${{ matrix.build-commands }}
 
       - name: upload build result
         uses: actions/upload-artifact@v3
