@@ -30,7 +30,7 @@ jobs:
               mv bazel-bin/zetasql/local_service/remote_server_executable bazel-bin/zetasql/local_service/remote_server
               chmod +x bazel-bin/zetasql/local_service/remote_server
             correct-paths: |
-              mkdir -p bazel-bin/zetasql/local_service/remote_server
+              mkdir -p bazel-bin/zetasql/local_service/
               mv darwin_x86_64/remote_server_executable bazel-bin/zetasql/local_service/remote_server
 
           - os: ubuntu-latest
@@ -63,7 +63,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ matrix.cache-path }}
-          key: ${{ matrix.os }}-${{ steps.vars.outputs.sha_short }}-3
+          key: ${{ matrix.os }}-${{ steps.vars.outputs.sha_short }}-4
 
       - name: download artifact
         if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
@@ -92,6 +92,7 @@ jobs:
         with:
           name: ${{ inputs.cpp-repo-name }}-${{ matrix.os }}
           path: ${{ matrix.cache-path }}
+          if-no-files-found: error
 
   package:
     runs-on: ubuntu-20.04
@@ -106,14 +107,14 @@ jobs:
         uses: actions/cache@v3
         with:
           path: out/linux/amd64/remote_server.so
-          key: ubuntu-latest-${{ needs.build.outputs.sha_short }}-3
+          key: ubuntu-latest-${{ needs.build.outputs.sha_short }}-4
           fail-on-cache-miss: true
 
       - name: load macos build
         uses: actions/cache@v3
         with:
           path: bazel-bin/zetasql/local_service/remote_server
-          key: macos-latest-${{ needs.build.outputs.sha_short }}-3
+          key: macos-latest-${{ needs.build.outputs.sha_short }}-4
           fail-on-cache-miss: true
 
       - name: copy files
