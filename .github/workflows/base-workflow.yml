@@ -41,7 +41,7 @@ jobs:
               chmod +x out/linux/amd64/remote_server.so
             correct-paths: |
               mkdir -p out/linux/amd64/
-              mv linux_x86_64/remote_server_executable bazel-bin/zetasql/local_service/remote_server
+              mv linux_x86_64/remote_server_executable out/linux/amd64/remote_server.so
 
     steps:
       - name: checkout C++ library
@@ -63,7 +63,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ matrix.cache-path }}
-          key: ${{ matrix.os }}-${{ steps.vars.outputs.sha_short }}-2
+          key: ${{ matrix.os }}-${{ steps.vars.outputs.sha_short }}-3
 
       - name: download artifact
         if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
@@ -106,14 +106,14 @@ jobs:
         uses: actions/cache@v3
         with:
           path: out/linux/amd64/remote_server.so
-          key: ubuntu-latest-${{ needs.build.outputs.sha_short }}-2
+          key: ubuntu-latest-${{ needs.build.outputs.sha_short }}-3
           fail-on-cache-miss: true
 
       - name: load macos build
         uses: actions/cache@v3
         with:
           path: bazel-bin/zetasql/local_service/remote_server
-          key: macos-latest-${{ needs.build.outputs.sha_short }}-2
+          key: macos-latest-${{ needs.build.outputs.sha_short }}-3
           fail-on-cache-miss: true
 
       - name: copy files
