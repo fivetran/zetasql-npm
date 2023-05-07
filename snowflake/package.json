@@ -1,7 +1,7 @@
 {
   "name": "@fivetrandevelopers/zetasql-snowflake",
   "description": "ZetaSQL Snowflake gRPC server and client",
-  "version": "0.3.1",
+  "version": "0.4.0-0",
   "publisher": "Fivetran",
   "license": "MIT",
   "keywords": [
