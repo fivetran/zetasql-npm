@@ -72,8 +72,7 @@ jobs:
         with:
           github_token: ${{ secrets.TOKEN }}
           repo: fivetran/${{ inputs.cpp-repo-name }}
-          # commit: ${{ steps.vars.outputs.sha }}
-          commit: 769f4135070664068774a3c558520f79e1f772bc
+          commit: ${{ steps.vars.outputs.sha }}
           name: artifacts
           workflow: main.yml
           workflow_conclusion: success
@@ -82,6 +81,7 @@ jobs:
         if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
         run: ${{ matrix.correct-paths }}
 
+      # We also can build it here if needed
       # - name: build
       #   if: steps.cache-zetasql-build.outputs.cache-hit != 'true'
       #   run: |
@@ -126,7 +126,7 @@ jobs:
           mv ../out/linux/amd64/remote_server.so zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
 
           tar -xzvf zetasql-npm/${{ inputs.npm-package-name }}/bin/darwin-arm-64/remote_server_arm.tar.gz -C zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
-          tar -xzvf zetasql-npm/${{ inputs.npm-package-name }}/bin/linux-arm-64/libremote_server_arm.so.tar.gz -C zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
+          tar -xzvf zetasql-npm/${{ inputs.npm-package-name }}/bin/linux-arm-64/remote_server_arm.so.tar.gz -C zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}
 
           cp -R zetasql-npm/${{ inputs.npm-package-name }}/src/${{ inputs.npm-package-name }}/protos zetasql-npm/${{ inputs.npm-package-name }}/lib/${{ inputs.npm-package-name }}/protos
 
