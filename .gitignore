@@ -3,8 +3,8 @@ snowflake/lib
 zetasql/lib
 node_modules
 *.DS_Store
-libremote_server.dylib
-libremote_server_arm.dylib
-libremote_server.so
-libremote_server_arm.so
+remote_server
+remote_server_arm
+remote_server.so
+remote_server_arm.so
 .eslintcache

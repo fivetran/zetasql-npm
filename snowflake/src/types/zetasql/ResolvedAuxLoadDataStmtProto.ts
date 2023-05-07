@@ -12,6 +12,7 @@ import type { AnyResolvedExprProto as _zetasql_AnyResolvedExprProto, AnyResolved
 import type { ResolvedOptionProto as _zetasql_ResolvedOptionProto, ResolvedOptionProto__Output as _zetasql_ResolvedOptionProto__Output } from '../zetasql/ResolvedOptionProto';
 import type { ResolvedWithPartitionColumnsProto as _zetasql_ResolvedWithPartitionColumnsProto, ResolvedWithPartitionColumnsProto__Output as _zetasql_ResolvedWithPartitionColumnsProto__Output } from '../zetasql/ResolvedWithPartitionColumnsProto';
 import type { ResolvedConnectionProto as _zetasql_ResolvedConnectionProto, ResolvedConnectionProto__Output as _zetasql_ResolvedConnectionProto__Output } from '../zetasql/ResolvedConnectionProto';
+import type { ResolvedAuxLoadDataPartitionFilterProto as _zetasql_ResolvedAuxLoadDataPartitionFilterProto, ResolvedAuxLoadDataPartitionFilterProto__Output as _zetasql_ResolvedAuxLoadDataPartitionFilterProto__Output } from '../zetasql/ResolvedAuxLoadDataPartitionFilterProto';
 
 export interface ResolvedAuxLoadDataStmtProto {
   'parent'?: (_zetasql_ResolvedStatementProto | null);
@@ -29,6 +30,8 @@ export interface ResolvedAuxLoadDataStmtProto {
   'withPartitionColumns'?: (_zetasql_ResolvedWithPartitionColumnsProto | null);
   'connection'?: (_zetasql_ResolvedConnectionProto | null);
   'fromFilesOptionList'?: (_zetasql_ResolvedOptionProto)[];
+  'partitionFilter'?: (_zetasql_ResolvedAuxLoadDataPartitionFilterProto | null);
+  'isTempTable'?: (boolean);
 }
 
 export interface ResolvedAuxLoadDataStmtProto__Output {
@@ -47,4 +50,6 @@ export interface ResolvedAuxLoadDataStmtProto__Output {
   'withPartitionColumns': (_zetasql_ResolvedWithPartitionColumnsProto__Output | null);
   'connection': (_zetasql_ResolvedConnectionProto__Output | null);
   'fromFilesOptionList': (_zetasql_ResolvedOptionProto__Output)[];
+  'partitionFilter': (_zetasql_ResolvedAuxLoadDataPartitionFilterProto__Output | null);
+  'isTempTable': (boolean);
 }

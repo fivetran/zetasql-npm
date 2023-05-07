@@ -34,6 +34,8 @@ copy zetasql/public/type_annotation.proto protos/zetasql/public/type_annotation.
 copy zetasql/public/type_parameters.proto protos/zetasql/public/type_parameters.proto
 copy zetasql/public/type.proto protos/zetasql/public/type.proto
 copy zetasql/public/value.proto protos/zetasql/public/value.proto
+copy zetasql/public/type_modifiers.proto protos/zetasql/public/type_modifiers.proto
+copy zetasql/public/collation.proto protos/zetasql/public/collation.proto
 copy zetasql/resolved_ast/resolved_ast_enums.proto protos/zetasql/resolved_ast/resolved_ast_enums.proto
 copy zetasql/resolved_ast/serialization.proto protos/zetasql/resolved_ast/serialization.proto
 chmod -R 755 protos

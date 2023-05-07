@@ -2,6 +2,7 @@
 
 import type { FreestandingDeprecationWarning as _zetasql_FreestandingDeprecationWarning, FreestandingDeprecationWarning__Output as _zetasql_FreestandingDeprecationWarning__Output } from '../zetasql/FreestandingDeprecationWarning';
 import type { LanguageFeature as _zetasql_LanguageFeature, LanguageFeature__Output as _zetasql_LanguageFeature__Output } from '../zetasql/LanguageFeature';
+import type { FunctionSignatureRewriteOptionsProto as _zetasql_FunctionSignatureRewriteOptionsProto, FunctionSignatureRewriteOptionsProto__Output as _zetasql_FunctionSignatureRewriteOptionsProto__Output } from '../zetasql/FunctionSignatureRewriteOptionsProto';
 
 export interface FunctionSignatureOptionsProto {
   'isDeprecated'?: (boolean);
@@ -11,6 +12,7 @@ export interface FunctionSignatureOptionsProto {
   'propagatesCollation'?: (boolean);
   'usesOperationCollation'?: (boolean);
   'rejectsCollation'?: (boolean);
+  'rewriteOptions'?: (_zetasql_FunctionSignatureRewriteOptionsProto | null);
 }
 
 export interface FunctionSignatureOptionsProto__Output {
@@ -21,4 +23,5 @@ export interface FunctionSignatureOptionsProto__Output {
   'propagatesCollation': (boolean);
   'usesOperationCollation': (boolean);
   'rejectsCollation': (boolean);
+  'rewriteOptions': (_zetasql_FunctionSignatureRewriteOptionsProto__Output | null);
 }

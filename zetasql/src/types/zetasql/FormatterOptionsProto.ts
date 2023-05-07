@@ -10,6 +10,7 @@ export interface FormatterOptionsProto {
   'preserveLineBreaks'?: (boolean);
   'expandFormatRanges'?: (boolean);
   'enforceSingleQuotes'?: (boolean);
+  'capitalizeFunctions'?: (boolean);
 }
 
 export interface FormatterOptionsProto__Output {
@@ -21,4 +22,5 @@ export interface FormatterOptionsProto__Output {
   'preserveLineBreaks': (boolean);
   'expandFormatRanges': (boolean);
   'enforceSingleQuotes': (boolean);
+  'capitalizeFunctions': (boolean);
 }

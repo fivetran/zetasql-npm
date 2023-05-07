@@ -18,6 +18,9 @@ export const _zetasql_FieldFormat_Format = {
   BIGNUMERIC: 11,
   JSON: 12,
   INTERVAL: 14,
+  RANGE_DATES_ENCODED: 16,
+  RANGE_DATETIMES_ENCODED: 17,
+  RANGE_TIMESTAMPS_ENCODED: 18,
   __FieldFormat_Type__switch_must_have_a_default__: -1,
 } as const;
 
@@ -50,6 +53,12 @@ export type _zetasql_FieldFormat_Format =
   | 12
   | 'INTERVAL'
   | 14
+  | 'RANGE_DATES_ENCODED'
+  | 16
+  | 'RANGE_DATETIMES_ENCODED'
+  | 17
+  | 'RANGE_TIMESTAMPS_ENCODED'
+  | 18
   | '__FieldFormat_Type__switch_must_have_a_default__'
   | -1
 

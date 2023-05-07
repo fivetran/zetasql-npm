@@ -1,14 +1,11 @@
 // Original file: src/snowflake/protos/zetasql/parser/parse_tree.proto
 
-import type { ASTColumnSchemaProto as _zetasql_ASTColumnSchemaProto, ASTColumnSchemaProto__Output as _zetasql_ASTColumnSchemaProto__Output } from '../zetasql/ASTColumnSchemaProto';
-import type { AnyASTColumnSchemaProto as _zetasql_AnyASTColumnSchemaProto, AnyASTColumnSchemaProto__Output as _zetasql_AnyASTColumnSchemaProto__Output } from '../zetasql/AnyASTColumnSchemaProto';
+import type { ASTElementTypeColumnSchemaProto as _zetasql_ASTElementTypeColumnSchemaProto, ASTElementTypeColumnSchemaProto__Output as _zetasql_ASTElementTypeColumnSchemaProto__Output } from '../zetasql/ASTElementTypeColumnSchemaProto';
 
 export interface ASTArrayColumnSchemaProto {
-  'parent'?: (_zetasql_ASTColumnSchemaProto | null);
-  'elementSchema'?: (_zetasql_AnyASTColumnSchemaProto | null);
+  'parent'?: (_zetasql_ASTElementTypeColumnSchemaProto | null);
 }
 
 export interface ASTArrayColumnSchemaProto__Output {
-  'parent': (_zetasql_ASTColumnSchemaProto__Output | null);
-  'elementSchema': (_zetasql_AnyASTColumnSchemaProto__Output | null);
+  'parent': (_zetasql_ASTElementTypeColumnSchemaProto__Output | null);
 }

@@ -44,7 +44,7 @@ message AnyASTNodeProto {
     ASTOrderByProto ast_order_by_node = 28;
     ASTLimitOffsetProto ast_limit_offset_node = 29;
     ASTOnClauseProto ast_on_clause_node = 32;
-    ASTWithClauseEntryProto ast_with_clause_entry_node = 33;
+    ASTAliasedQueryProto ast_aliased_query_node = 33;
     ASTWithClauseProto ast_with_clause_node = 35;
     ASTHavingProto ast_having_node = 36;
     AnyASTTypeProto ast_type_node = 37;
@@ -177,9 +177,20 @@ message AnyASTNodeProto {
     ASTTtlClauseProto ast_ttl_clause_node = 348;
     ASTInputOutputClauseProto ast_input_output_clause_node = 355;
     ASTTopProto ast_top_node = 364;
-    ASTGroupingSetsProto ast_grouping_sets_node = 365;
-    ASTOffsetFetchProto ast_offset_fetch_node = 366;
-    ASTCubeProto ast_cube_node = 367;
+    ASTAliasedQueryListProto ast_aliased_query_list_node = 365;
+    ASTColumnWithOptionsProto ast_column_with_options_node = 366;
+    ASTColumnWithOptionsListProto ast_column_with_options_list_node = 367;
+    ASTOffsetFetchProto ast_offset_fetch_node = 370;
+    ASTCubeProto ast_cube_node = 371;
+    ASTAuxLoadDataPartitionsClauseProto ast_aux_load_data_partitions_clause_node = 378;
+    ASTSetOperationMetadataListProto ast_set_operation_metadata_list_node = 384;
+    ASTSetOperationAllOrDistinctProto ast_set_operation_all_or_distinct_node = 385;
+    ASTSetOperationTypeProto ast_set_operation_type_node = 386;
+    ASTSetOperationMetadataProto ast_set_operation_metadata_node = 387;
+    ASTSetOperationColumnMatchModeProto ast_set_operation_column_match_mode_node = 389;
+    ASTSetOperationColumnPropagationModeProto ast_set_operation_column_propagation_mode_node = 390;
+    ASTSelectWithProto ast_select_with_node = 395;
+    ASTGroupingSetsProto ast_grouping_sets_node = 396;
   }
 }
 
@@ -230,6 +241,7 @@ message AnyASTStatementProto {
     ASTParameterAssignmentProto ast_parameter_assignment_node = 292;
     ASTSystemVariableAssignmentProto ast_system_variable_assignment_node = 293;
     ASTExecuteImmediateStatementProto ast_execute_immediate_statement_node = 321;
+    ASTDefineMacroStatementProto ast_define_macro_statement_node = 369;
   }
 }
 message ASTStatementProto {
@@ -281,16 +293,17 @@ message ASTSelectProto {
   optional ASTQueryExpressionProto parent = 1;
   optional ASTHintProto hint = 2;
   optional ASTTopProto top = 3;
-  optional ASTOptionsListProto anonymization_options = 4;
-  optional bool distinct = 5;
-  optional ASTSelectAsProto select_as = 6;
-  optional ASTSelectListProto select_list = 7;
-  optional ASTFromClauseProto from_clause = 8;
-  optional ASTWhereClauseProto where_clause = 9;
-  optional ASTGroupByProto group_by = 10;
-  optional ASTHavingProto having = 11;
-  optional ASTQualifyProto qualify = 12;
-  optional ASTWindowClauseProto window_clause = 13;
+  optional ASTSelectWithProto select_with = 4;
+  optional ASTOptionsListProto anonymization_options = 5;
+  optional bool distinct = 6;
+  optional ASTSelectAsProto select_as = 7;
+  optional ASTSelectListProto select_list = 8;
+  optional ASTFromClauseProto from_clause = 9;
+  optional ASTWhereClauseProto where_clause = 10;
+  optional ASTGroupByProto group_by = 11;
+  optional ASTHavingProto having = 12;
+  optional ASTQualifyProto qualify = 13;
+  optional ASTWindowClauseProto window_clause = 14;
 }
 
 message ASTSelectListProto {
@@ -365,6 +378,7 @@ message AnyASTLeafProto {
     ASTMaxLiteralProto ast_max_literal_node = 57;
     ASTJSONLiteralProto ast_json_literal_node = 58;
     ASTIndexAllColumnsProto ast_index_all_columns_node = 171;
+    ASTMacroBodyProto ast_macro_body_node = 368;
   }
 }
 message ASTLeafProto {
@@ -562,7 +576,7 @@ message ASTOnClauseProto {
   optional AnyASTExpressionProto expression = 2;
 }
 
-message ASTWithClauseEntryProto {
+message ASTAliasedQueryProto {
   optional ASTNodeProto parent = 1;
   optional ASTIdentifierProto alias = 2;
   optional ASTQueryProto query = 3;
@@ -594,7 +608,7 @@ message ASTJoinProto {
 
 message ASTWithClauseProto {
   optional ASTNodeProto parent = 1;
-  repeated ASTWithClauseEntryProto with = 2;
+  repeated ASTAliasedQueryProto with = 2;
   optional bool recursive = 3;
 }
 
@@ -919,6 +933,64 @@ message ASTSetOperationProto {
   repeated AnyASTQueryExpressionProto inputs = 3;
   optional ASTSetOperationEnums.OperationType op_type = 4;
   optional bool distinct = 5;
+  optional ASTSetOperationMetadataListProto metadata = 6;
+}
+
+// Contains the list of metadata for each set operation. Note the parser
+// range of this node can span the inner SELECT clauses, if any. For example,
+// for the following SQL query:
+//   ```
+//   SELECT 1
+//   UNION ALL
+//   SELECT 2
+//   UNION ALL
+//   SELECT 3
+//   ```
+// the parser range of `ASTSetOperationMetadataList` starts from the first
+// "UNION ALL" to the last "UNION ALL", including the "SELECT 2" in middle.
+message ASTSetOperationMetadataListProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTSetOperationMetadataProto set_operation_metadata_list = 2;
+}
+
+// Wrapper node for the enum ASTSetOperation::AllOrDistinct to provide parse
+// location range.
+message ASTSetOperationAllOrDistinctProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTSetOperationEnums.AllOrDistinct value = 2;
+}
+
+// Wrapper node for the enum ASTSetOperation::OperationType to provide parse
+// location range.
+message ASTSetOperationTypeProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTSetOperationEnums.OperationType value = 2;
+}
+
+// Wrapper node for the enum ASTSetOperation::ColumnMatchMode to provide
+// parse location range.
+message ASTSetOperationColumnMatchModeProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTSetOperationEnums.ColumnMatchMode value = 2;
+}
+
+// Wrapper node for the enum ASTSetOperation::ColumnPropagationMode to
+// provide parse location range.
+message ASTSetOperationColumnPropagationModeProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTSetOperationEnums.ColumnPropagationMode value = 2;
+}
+
+message ASTSetOperationMetadataProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTSetOperationTypeProto op_type = 2;
+  optional ASTSetOperationAllOrDistinctProto all_or_distinct = 3;
+  optional ASTHintProto hint = 4;
+  optional ASTSetOperationColumnMatchModeProto column_match_mode = 5;
+  optional ASTSetOperationColumnPropagationModeProto column_propagation_mode = 6;
+  // Stores the column list for the CORRESPONDING BY clause, only
+  // populated when `column_match_mode` = CORRESPONDING_BY.
+  optional ASTColumnListProto corresponding_by_column_list = 7;
 }
 
 message ASTStarExceptListProto {
@@ -1168,6 +1240,7 @@ message AnyASTDdlStatementProto {
     ASTDropStatementProto ast_drop_statement_node = 289;
     AnyASTAlterStatementBaseProto ast_alter_statement_base_node = 305;
     ASTDropPrivilegeRestrictionStatementProto ast_drop_privilege_restriction_statement_node = 326;
+    ASTUndropStatementProto ast_undrop_statement_node = 388;
   }
 }
 message ASTDdlStatementProto {
@@ -1449,7 +1522,8 @@ message ASTOptionsListProto {
 message ASTOptionsEntryProto {
   optional ASTNodeProto parent = 1;
   optional ASTIdentifierProto name = 2;
-  // Value is always an identifier, literal, or parameter.
+  // Value may be any expression; engines can decide whether they
+  // support identifiers, literals, parameters, constants, etc.
   optional AnyASTExpressionProto value = 3;
 }
 
@@ -1654,11 +1728,25 @@ message ASTCreateSchemaStatementProto {
   optional ASTOptionsListProto options_list = 4;
 }
 
+message ASTAliasedQueryListProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTAliasedQueryProto aliased_query_list = 2;
+}
+
 message ASTTransformClauseProto {
   optional ASTNodeProto parent = 1;
   optional ASTSelectListProto select_list = 2;
 }
 
+// This represents a CREATE MODEL statement, i.e.,
+// CREATE OR REPLACE MODEL model
+// TRANSFORM(...)
+// OPTIONS(...)
+// AS
+// <query> | (<identifier> AS (<query>) [, ...]).
+//
+// Note that at most one of `query` and `aliased_query_list` will be
+// populated, and if so the other will be null.
 message ASTCreateModelStatementProto {
   optional ASTCreateStatementProto parent = 1;
   optional ASTPathExpressionProto name = 2;
@@ -1668,6 +1756,7 @@ message ASTCreateModelStatementProto {
   optional ASTInputOutputClauseProto input_output_clause = 6;
   optional bool is_remote = 7;
   optional ASTWithConnectionClauseProto with_connection_clause = 8;
+  optional ASTAliasedQueryListProto aliased_query_list = 9;
 }
 
 // Represents 'ALL COLUMNS' index key expression.
@@ -2471,7 +2560,8 @@ message ASTHintEntryProto {
   optional ASTNodeProto parent = 1;
   optional ASTIdentifierProto qualifier = 2;
   optional ASTIdentifierProto name = 3;
-  // Value is always an identifier, literal, or parameter.
+  // Value may be any expression; engines can decide whether they
+  // support identifiers, literals, parameters, constants, etc.
   optional AnyASTExpressionProto value = 4;
 }
 
@@ -2501,9 +2591,9 @@ message ASTDescriptorProto {
 message AnyASTColumnSchemaProto {
   oneof node {
     ASTSimpleColumnSchemaProto ast_simple_column_schema_node = 268;
-    ASTArrayColumnSchemaProto ast_array_column_schema_node = 269;
     ASTStructColumnSchemaProto ast_struct_column_schema_node = 316;
     ASTInferredTypeColumnSchemaProto ast_inferred_type_column_schema_node = 317;
+    AnyASTElementTypeColumnSchemaProto ast_element_type_column_schema_node = 382;
   }
 }
 message ASTColumnSchemaProto {
@@ -2521,9 +2611,25 @@ message ASTSimpleColumnSchemaProto {
   optional ASTPathExpressionProto type_name = 2;
 }
 
-message ASTArrayColumnSchemaProto {
+// Base class for column schemas that are also defined by an element type (eg
+// ARRAY and RANGE).
+message AnyASTElementTypeColumnSchemaProto {
+  oneof node {
+    ASTArrayColumnSchemaProto ast_array_column_schema_node = 269;
+    ASTRangeColumnSchemaProto ast_range_column_schema_node = 383;
+  }
+}
+message ASTElementTypeColumnSchemaProto {
   optional ASTColumnSchemaProto parent = 1;
   optional AnyASTColumnSchemaProto element_schema = 2;
+}
+
+message ASTArrayColumnSchemaProto {
+  optional ASTElementTypeColumnSchemaProto parent = 1;
+}
+
+message ASTRangeColumnSchemaProto {
+  optional ASTElementTypeColumnSchemaProto parent = 1;
 }
 
 message ASTPrimaryKeyElementProto {
@@ -2765,6 +2871,7 @@ message ASTCreateTableStmtBaseProto {
   optional ASTOptionsListProto options_list = 4;
   optional ASTPathExpressionProto like_table_name = 5;
   optional ASTCollateProto collate = 6;
+  optional ASTWithConnectionClauseProto with_connection_clause = 7;
 }
 
 message ASTCreateTableStatementProto {
@@ -2781,7 +2888,6 @@ message ASTCreateTableStatementProto {
 message ASTCreateExternalTableStatementProto {
   optional ASTCreateTableStmtBaseProto parent = 1;
   optional ASTWithPartitionColumnsClauseProto with_partition_columns_clause = 2;
-  optional ASTWithConnectionClauseProto with_connection_clause = 3;
 }
 
 message AnyASTCreateViewStatementBaseProto {
@@ -2793,7 +2899,7 @@ message AnyASTCreateViewStatementBaseProto {
 message ASTCreateViewStatementBaseProto {
   optional ASTCreateStatementProto parent = 1;
   optional ASTPathExpressionProto name = 2;
-  optional ASTColumnListProto column_list = 3;
+  optional ASTColumnWithOptionsListProto column_with_options_list = 3;
   optional ASTOptionsListProto options_list = 4;
   optional ASTQueryProto query = 5;
   optional ASTCreateStatementEnums.SqlSecurity sql_security = 6;
@@ -3004,6 +3110,12 @@ message ASTAuxLoadDataFromFilesOptionsListProto {
   optional ASTOptionsListProto options_list = 2;
 }
 
+message ASTAuxLoadDataPartitionsClauseProto {
+  optional ASTNodeProto parent = 1;
+  optional AnyASTExpressionProto partition_filter = 2;
+  optional bool is_overwrite = 3;
+}
+
 // Auxiliary statement used by some engines but not formally part of the
 // ZetaSQL language.
 message ASTAuxLoadDataStatementProto {
@@ -3013,7 +3125,8 @@ message ASTAuxLoadDataStatementProto {
   optional ASTClusterByProto cluster_by = 4;
   optional ASTAuxLoadDataFromFilesOptionsListProto from_files = 5;
   optional ASTWithPartitionColumnsClauseProto with_partition_columns_clause = 6;
-  optional ASTWithConnectionClauseProto with_connection_clause = 7;
+  optional ASTAuxLoadDataPartitionsClauseProto load_data_partitions_clause = 8;
+  optional bool is_temp_table = 9;
 }
 
 message ASTLabelProto {
@@ -3095,6 +3208,45 @@ message ASTRangeTypeProto {
   optional AnyASTTypeProto element_type = 2;
   optional ASTTypeParameterListProto type_parameters = 3;
   optional ASTCollateProto collate = 4;
+}
+
+// Represents SELECT WITH clause.
+message ASTSelectWithProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTIdentifierProto identifier = 2;
+  optional ASTOptionsListProto options = 3;
+}
+
+message ASTColumnWithOptionsProto {
+  optional ASTNodeProto parent = 1;
+  optional ASTIdentifierProto name = 2;
+  optional ASTOptionsListProto options_list = 3;
+}
+
+message ASTColumnWithOptionsListProto {
+  optional ASTNodeProto parent = 1;
+  repeated ASTColumnWithOptionsProto column_with_options = 2;
+}
+
+// Represents the body of a DEFINE MACRO statement.
+message ASTMacroBodyProto {
+  optional ASTLeafProto parent = 1;
+}
+
+// Represents a DEFINE MACRO statement.
+message ASTDefineMacroStatementProto {
+  optional ASTStatementProto parent = 1;
+  optional ASTIdentifierProto name = 2;
+  optional ASTMacroBodyProto body = 3;
+}
+
+// This represents an UNDROP statement (broken link)
+message ASTUndropStatementProto {
+  optional ASTDdlStatementProto parent = 1;
+  optional SchemaObjectKind schema_object_kind = 2;
+  optional ASTPathExpressionProto name = 3;
+  optional bool is_if_not_exists = 4;
+  optional ASTForSystemTimeProto for_system_time = 5;
 }
 
 message ASTGroupingSetsProto {

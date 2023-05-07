@@ -7,6 +7,7 @@ import type { _zetasql_FunctionEnums_ProcedureArgumentMode, _zetasql_FunctionEnu
 import type { ValueProto as _zetasql_ValueProto, ValueProto__Output as _zetasql_ValueProto__Output } from '../zetasql/ValueProto';
 import type { TypeProto as _zetasql_TypeProto, TypeProto__Output as _zetasql_TypeProto__Output } from '../zetasql/TypeProto';
 import type { _zetasql_FunctionEnums_ArgumentCollationMode, _zetasql_FunctionEnums_ArgumentCollationMode__Output } from '../zetasql/FunctionEnums';
+import type { _zetasql_FunctionEnums_NamedArgumentKind, _zetasql_FunctionEnums_NamedArgumentKind__Output } from '../zetasql/FunctionEnums';
 import type { Long } from '@grpc/proto-loader';
 
 export interface FunctionArgumentTypeOptionsProto {
@@ -34,6 +35,7 @@ export interface FunctionArgumentTypeOptionsProto {
   'arrayElementMustSupportEquality'?: (boolean);
   'arrayElementMustSupportOrdering'?: (boolean);
   'arrayElementMustSupportGrouping'?: (boolean);
+  'namedArgumentKind'?: (_zetasql_FunctionEnums_NamedArgumentKind);
 }
 
 export interface FunctionArgumentTypeOptionsProto__Output {
@@ -61,4 +63,5 @@ export interface FunctionArgumentTypeOptionsProto__Output {
   'arrayElementMustSupportEquality': (boolean);
   'arrayElementMustSupportOrdering': (boolean);
   'arrayElementMustSupportGrouping': (boolean);
+  'namedArgumentKind': (_zetasql_FunctionEnums_NamedArgumentKind__Output);
 }

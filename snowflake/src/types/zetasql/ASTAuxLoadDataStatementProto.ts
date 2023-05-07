@@ -6,7 +6,7 @@ import type { ASTPartitionByProto as _zetasql_ASTPartitionByProto, ASTPartitionB
 import type { ASTClusterByProto as _zetasql_ASTClusterByProto, ASTClusterByProto__Output as _zetasql_ASTClusterByProto__Output } from '../zetasql/ASTClusterByProto';
 import type { ASTAuxLoadDataFromFilesOptionsListProto as _zetasql_ASTAuxLoadDataFromFilesOptionsListProto, ASTAuxLoadDataFromFilesOptionsListProto__Output as _zetasql_ASTAuxLoadDataFromFilesOptionsListProto__Output } from '../zetasql/ASTAuxLoadDataFromFilesOptionsListProto';
 import type { ASTWithPartitionColumnsClauseProto as _zetasql_ASTWithPartitionColumnsClauseProto, ASTWithPartitionColumnsClauseProto__Output as _zetasql_ASTWithPartitionColumnsClauseProto__Output } from '../zetasql/ASTWithPartitionColumnsClauseProto';
-import type { ASTWithConnectionClauseProto as _zetasql_ASTWithConnectionClauseProto, ASTWithConnectionClauseProto__Output as _zetasql_ASTWithConnectionClauseProto__Output } from '../zetasql/ASTWithConnectionClauseProto';
+import type { ASTAuxLoadDataPartitionsClauseProto as _zetasql_ASTAuxLoadDataPartitionsClauseProto, ASTAuxLoadDataPartitionsClauseProto__Output as _zetasql_ASTAuxLoadDataPartitionsClauseProto__Output } from '../zetasql/ASTAuxLoadDataPartitionsClauseProto';
 
 export interface ASTAuxLoadDataStatementProto {
   'parent'?: (_zetasql_ASTCreateTableStmtBaseProto | null);
@@ -15,7 +15,8 @@ export interface ASTAuxLoadDataStatementProto {
   'clusterBy'?: (_zetasql_ASTClusterByProto | null);
   'fromFiles'?: (_zetasql_ASTAuxLoadDataFromFilesOptionsListProto | null);
   'withPartitionColumnsClause'?: (_zetasql_ASTWithPartitionColumnsClauseProto | null);
-  'withConnectionClause'?: (_zetasql_ASTWithConnectionClauseProto | null);
+  'loadDataPartitionsClause'?: (_zetasql_ASTAuxLoadDataPartitionsClauseProto | null);
+  'isTempTable'?: (boolean);
 }
 
 export interface ASTAuxLoadDataStatementProto__Output {
@@ -25,5 +26,6 @@ export interface ASTAuxLoadDataStatementProto__Output {
   'clusterBy': (_zetasql_ASTClusterByProto__Output | null);
   'fromFiles': (_zetasql_ASTAuxLoadDataFromFilesOptionsListProto__Output | null);
   'withPartitionColumnsClause': (_zetasql_ASTWithPartitionColumnsClauseProto__Output | null);
-  'withConnectionClause': (_zetasql_ASTWithConnectionClauseProto__Output | null);
+  'loadDataPartitionsClause': (_zetasql_ASTAuxLoadDataPartitionsClauseProto__Output | null);
+  'isTempTable': (boolean);
 }

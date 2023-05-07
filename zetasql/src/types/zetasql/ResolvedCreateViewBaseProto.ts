@@ -5,6 +5,7 @@ import type { ResolvedOptionProto as _zetasql_ResolvedOptionProto, ResolvedOptio
 import type { ResolvedOutputColumnProto as _zetasql_ResolvedOutputColumnProto, ResolvedOutputColumnProto__Output as _zetasql_ResolvedOutputColumnProto__Output } from '../zetasql/ResolvedOutputColumnProto';
 import type { AnyResolvedScanProto as _zetasql_AnyResolvedScanProto, AnyResolvedScanProto__Output as _zetasql_AnyResolvedScanProto__Output } from '../zetasql/AnyResolvedScanProto';
 import type { _zetasql_ResolvedCreateStatementEnums_SqlSecurity, _zetasql_ResolvedCreateStatementEnums_SqlSecurity__Output } from '../zetasql/ResolvedCreateStatementEnums';
+import type { ResolvedColumnDefinitionProto as _zetasql_ResolvedColumnDefinitionProto, ResolvedColumnDefinitionProto__Output as _zetasql_ResolvedColumnDefinitionProto__Output } from '../zetasql/ResolvedColumnDefinitionProto';
 
 export interface ResolvedCreateViewBaseProto {
   'parent'?: (_zetasql_ResolvedCreateStatementProto | null);
@@ -16,6 +17,7 @@ export interface ResolvedCreateViewBaseProto {
   'sqlSecurity'?: (_zetasql_ResolvedCreateStatementEnums_SqlSecurity);
   'recursive'?: (boolean);
   'hasExplicitColumns'?: (boolean);
+  'columnDefinitionList'?: (_zetasql_ResolvedColumnDefinitionProto)[];
 }
 
 export interface ResolvedCreateViewBaseProto__Output {
@@ -28,4 +30,5 @@ export interface ResolvedCreateViewBaseProto__Output {
   'sqlSecurity': (_zetasql_ResolvedCreateStatementEnums_SqlSecurity__Output);
   'recursive': (boolean);
   'hasExplicitColumns': (boolean);
+  'columnDefinitionList': (_zetasql_ResolvedColumnDefinitionProto__Output)[];
 }

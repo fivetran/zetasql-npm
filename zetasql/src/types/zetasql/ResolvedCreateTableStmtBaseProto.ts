@@ -9,6 +9,7 @@ import type { ResolvedForeignKeyProto as _zetasql_ResolvedForeignKeyProto, Resol
 import type { ResolvedCheckConstraintProto as _zetasql_ResolvedCheckConstraintProto, ResolvedCheckConstraintProto__Output as _zetasql_ResolvedCheckConstraintProto__Output } from '../zetasql/ResolvedCheckConstraintProto';
 import type { TableRefProto as _zetasql_TableRefProto, TableRefProto__Output as _zetasql_TableRefProto__Output } from '../zetasql/TableRefProto';
 import type { AnyResolvedExprProto as _zetasql_AnyResolvedExprProto, AnyResolvedExprProto__Output as _zetasql_AnyResolvedExprProto__Output } from '../zetasql/AnyResolvedExprProto';
+import type { ResolvedConnectionProto as _zetasql_ResolvedConnectionProto, ResolvedConnectionProto__Output as _zetasql_ResolvedConnectionProto__Output } from '../zetasql/ResolvedConnectionProto';
 
 export interface ResolvedCreateTableStmtBaseProto {
   'parent'?: (_zetasql_ResolvedCreateStatementProto | null);
@@ -21,6 +22,7 @@ export interface ResolvedCreateTableStmtBaseProto {
   'checkConstraintList'?: (_zetasql_ResolvedCheckConstraintProto)[];
   'likeTable'?: (_zetasql_TableRefProto | null);
   'collationName'?: (_zetasql_AnyResolvedExprProto | null);
+  'connection'?: (_zetasql_ResolvedConnectionProto | null);
 }
 
 export interface ResolvedCreateTableStmtBaseProto__Output {
@@ -34,4 +36,5 @@ export interface ResolvedCreateTableStmtBaseProto__Output {
   'checkConstraintList': (_zetasql_ResolvedCheckConstraintProto__Output)[];
   'likeTable': (_zetasql_TableRefProto__Output | null);
   'collationName': (_zetasql_AnyResolvedExprProto__Output | null);
+  'connection': (_zetasql_ResolvedConnectionProto__Output | null);
 }
