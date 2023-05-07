@@ -176,6 +176,12 @@ jobs:
     needs: package
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        include:
+          - dockerFile: Dockerfile.node19
+          - dockerFile: Dockerfile.ubuntu23.04
+
     steps:
       - name: set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -196,7 +202,7 @@ jobs:
 
       - name: run e2e test
         working-directory: build/zetasql-npm
-        run: docker buildx build --build-arg package_name=${{ inputs.npm-package-name }} --platform=linux/amd64 --progress=plain --no-cache . # TODO: ,linux/arm64
+        run: docker buildx build --file ${{ matrix.dockerFile }} --build-arg package_name=${{ inputs.npm-package-name }} --platform=linux/amd64 --progress=plain --no-cache . # TODO: ,linux/arm64
 
   publish-npm:
     runs-on: ubuntu-latest
