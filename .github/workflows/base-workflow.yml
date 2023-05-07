@@ -230,7 +230,7 @@ jobs:
   publish-npm:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, format('refs/tags/{0}', inputs.tag))
-    needs: [build, package, e2e-macos-latest, e2e-macos-13, e2e-macos-11, e2e-linux]
+    needs: [build, package, e2e-macos-latest, e2e-macos-13, e2e-linux]
     steps:
       - name: load package results
         uses: actions/cache@v3
