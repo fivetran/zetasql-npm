@@ -1,21 +1,21 @@
-# name: CI-snowflake
+name: CI-snowflake
 
-# on:
-#   push:
-#     paths:
-#       - 'snowflake/**'
-#       - '.github/workflows/snowflake.yml'
-#       - '.github/workflows/base-workflow.yml'
-#     branches:
-#     tags:
+on:
+  push:
+    paths:
+      - 'snowflake/**'
+      - '.github/workflows/snowflake.yml'
+      - '.github/workflows/base-workflow.yml'
+    branches:
+    tags:
 
-#   workflow_dispatch:
+  workflow_dispatch:
 
-# jobs:
-#   npm-package:
-#     uses: ./.github/workflows/base-workflow.yml
-#     secrets: inherit
-#     with:
-#       cpp-repo-name: zetasql-snowflake
-#       npm-package-name: snowflake
-#       tag: sf-v
+jobs:
+  npm-package:
+    uses: ./.github/workflows/base-workflow.yml
+    secrets: inherit
+    with:
+      cpp-repo-name: zetasql-snowflake
+      npm-package-name: snowflake
+      tag: sf-v
