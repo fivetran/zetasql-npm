@@ -72,7 +72,7 @@ jobs:
         with:
           github_token: ${{ secrets.TOKEN }}
           repo: fivetran/${{ inputs.cpp-repo-name }}
-          commit: ${{ steps.vars.outputs.sha }}
+          commit: ab3b90b8f8bbd040bdbfe7a1fac10174eba95614
           name: artifacts
           workflow: main.yml
           workflow_conclusion: success
@@ -230,7 +230,7 @@ jobs:
   publish-npm:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, format('refs/tags/{0}', inputs.tag))
-    needs: [build, package, e2e-macos-latest, e2e-macos-13, e2e-linux]
+    needs: [build, package, e2e-macos-latest, e2e-macos-13, e2e-macos-11, e2e-linux]
     steps:
       - name: load package results
         uses: actions/cache@v3
