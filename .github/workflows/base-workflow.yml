@@ -202,7 +202,7 @@ jobs:
 
       - name: run e2e test
         working-directory: build/zetasql-npm
-        run: docker buildx build --file ${{ matrix.dockerFile }} --build-arg package_name=${{ inputs.npm-package-name }} --platform=linux/amd64 --progress=plain --no-cache . # TODO: ,linux/arm64
+        run: docker buildx build --file ${{ matrix.dockerFile }} --build-arg package_name=${{ inputs.npm-package-name }} --platform=linux/amd64,linux/arm64 --progress=plain --no-cache .
 
   publish-npm:
     runs-on: ubuntu-latest
