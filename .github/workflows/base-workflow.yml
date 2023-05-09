@@ -147,45 +147,16 @@ jobs:
           path: build/zetasql-npm
           key: package-results-${{ inputs.npm-package-name }}-${{ github.sha }}-${{ github.ref }}
 
-  e2e-macos-latest:
+  e2e-macos:
     needs: package
-    runs-on: macos-latest
+    runs-on: ${{ matrix.os }}
 
-    steps:
-      - name: load package results
-        uses: actions/cache@v3
-        with:
-          path: build/zetasql-npm
-          key: package-results-${{ inputs.npm-package-name }}-${{ github.sha }}-${{ github.ref }}
-          fail-on-cache-miss: true
-
-      - name: run e2e test
-        working-directory: build/zetasql-npm/${{ inputs.npm-package-name }}
-        run: |
-          npm ci --prefix ..
-          ./e2e.sh
-
-  e2e-macos-13:
-    needs: package
-    runs-on: macos-13
-
-    steps:
-      - name: load package results
-        uses: actions/cache@v3
-        with:
-          path: build/zetasql-npm
-          key: package-results-${{ inputs.npm-package-name }}-${{ github.sha }}-${{ github.ref }}
-          fail-on-cache-miss: true
-
-      - name: run e2e test
-        working-directory: build/zetasql-npm/${{ inputs.npm-package-name }}
-        run: |
-          npm ci --prefix ..
-          ./e2e.sh
-
-  e2e-macos-11:
-    needs: package
-    runs-on: macos-11
+    strategy:
+      matrix:
+        include:
+          - os: macos-11
+          - os: macos-latest
+          - os: macos-13
 
     steps:
       - name: load package results
@@ -204,6 +175,12 @@ jobs:
   e2e-linux:
     needs: package
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        include:
+          - dockerFile: Dockerfile.node19
+          - dockerFile: Dockerfile.ubuntu23.04
 
     steps:
       - name: set up QEMU
@@ -225,12 +202,12 @@ jobs:
 
       - name: run e2e test
         working-directory: build/zetasql-npm
-        run: docker buildx build --build-arg package_name=${{ inputs.npm-package-name }} --platform=linux/amd64 --progress=plain --no-cache . # TODO: ,linux/arm64
+        run: docker buildx build --file ${{ matrix.dockerFile }} --build-arg package_name=${{ inputs.npm-package-name }} --platform=linux/amd64,linux/arm64 --progress=plain --no-cache .
 
   publish-npm:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, format('refs/tags/{0}', inputs.tag))
-    needs: [build, package, e2e-macos-latest, e2e-macos-13, e2e-linux]
+    needs: [build, package, e2e-macos, e2e-linux]
     steps:
       - name: load package results
         uses: actions/cache@v3

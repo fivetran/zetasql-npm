@@ -1,0 +1,13 @@
+FROM ubuntu:23.04
+ARG package_name
+
+RUN apt-get update && apt-get -y install nodejs npm tzdata
+
+ADD . /build
+WORKDIR /build
+
+RUN uname -a \
+  && npm ci \
+  && cd ${package_name} \
+  && ls -la lib/${package_name} \
+  && ./e2e.sh
