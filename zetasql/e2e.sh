@@ -8,8 +8,8 @@ echo 'Running from folder '${PWD}
 TESTS_DIR=lib/test
 
 
-expectedResult="Running server on 0.0.0.0:50005...
-Server listening on 0.0.0.0:50005
+expectedResult="Running server on localhost:50005...
+Server listening on localhost:50005
 Init...
 Testing...
 Tests passed
@@ -24,8 +24,8 @@ if [[ "${expectedResult}" != "${actualResult}" ]]; then
     exit 1;
 fi
 
-expectedResult="Running server on 0.0.0.0:50005...
-Server listening on 0.0.0.0:50005
+expectedResult="Running server on localhost:50005...
+Server listening on localhost:50005
 Tests passed"
 actualResult=$(node ${TESTS_DIR}/TestQuery.js)
 
@@ -36,8 +36,8 @@ if [[ "${expectedResult}" != "${actualResult}" ]]; then
     exit 1;
 fi
 
-expectedResult="Running server on 0.0.0.0:50005...
-Server listening on 0.0.0.0:50005
+expectedResult="Running server on localhost:50005...
+Server listening on localhost:50005
 Tests passed"
 actualResult=$(node ${TESTS_DIR}/ManyJoins.js)
 
@@ -48,8 +48,8 @@ if [[ "${expectedResult}" != "${actualResult}" ]]; then
     exit 1;
 fi
 
-expectedResult="Running server on 0.0.0.0:50005...
-Server listening on 0.0.0.0:50005
+expectedResult="Running server on localhost:50005...
+Server listening on localhost:50005
 Tests passed"
 actualResult=$(node ${TESTS_DIR}/ManyAdditionOperations.js)
 
