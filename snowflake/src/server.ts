@@ -7,7 +7,10 @@ export function runServer(port: number): Promise<void> {
     (process.arch.startsWith('arm') ? '_arm' : '') + (process.platform === 'darwin' ? '' : '.so');
 
   return new Promise<void>(() => {
-    childProcess = execFile(`${__dirname}/snowflake/remote_server${extension}`, [port.toString()]);
+    childProcess = execFile(`${__dirname}/snowflake/remote_server${extension}`, [
+      'localhost',
+      port.toString(),
+    ]);
     childProcess.stdout?.on('data', data => process.stdout.write(data));
     childProcess.stderr?.on('data', data => process.stdout.write(data));
   });
