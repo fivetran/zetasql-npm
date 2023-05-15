@@ -180,6 +180,7 @@ jobs:
       matrix:
         include:
           - dockerFile: Dockerfile.node19
+          - dockerFile: Dockerfile.ubuntu20.04
           - dockerFile: Dockerfile.ubuntu23.04
 
     steps:
