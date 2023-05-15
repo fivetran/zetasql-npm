@@ -1,0 +1,16 @@
+FROM ubuntu:20.04
+ARG package_name
+
+RUN apt-get update \
+  && apt-get install -y curl \
+  && curl -fsSL https://deb.nodesource.com/setup_current.x | bash - \
+  && apt-get install -y nodejs tzdata
+
+ADD . /build
+WORKDIR /build
+
+RUN uname -a \
+  && npm i --loglevel verbose \
+  && cd ${package_name} \
+  && ls -la lib/${package_name} \
+  && ./e2e.sh
