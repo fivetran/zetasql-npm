@@ -1,8 +1,6 @@
 import { runServer, terminateServer, TypeKind, ZetaSQLClient } from '..';
 import { LanguageOptions } from '../LanguageOptions';
 import { AnalyzeResponse__Output } from '../types/zetasql/local_service/AnalyzeResponse';
-import { ProductMode } from '../types/zetasql/ProductMode';
-import { ResolvedNodeKind } from '../types/zetasql/ResolvedNodeKind';
 import { SimpleCatalogProto } from '../types/zetasql/SimpleCatalogProto';
 import { SimpleColumnProto } from '../types/zetasql/SimpleColumnProto';
 import { SimpleTableProto } from '../types/zetasql/SimpleTableProto';
@@ -53,10 +51,9 @@ async function analyze(sqlStatement: string): Promise<AnalyzeResponse__Output> {
 async function registerAllLanguageFeatures(): Promise<void> {
   if (!catalog.builtinFunctionOptions) {
     languageOptions = await new LanguageOptions().enableMaximumLanguageFeatures();
-
-    languageOptions.options.errorOnDeprecatedSyntax = false;
-    languageOptions.options.productMode = ProductMode.PRODUCT_INTERNAL;
-    languageOptions.options.supportedStatementKinds = [ResolvedNodeKind.RESOLVED_QUERY_STMT];
+    catalog.builtinFunctionOptions = {
+      languageOptions: languageOptions.serialize(),
+    };
 
     const simpleTableA: SimpleTableProto = { name: 'table_a' };
     const column1: SimpleColumnProto = {
