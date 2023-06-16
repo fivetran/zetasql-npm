@@ -23,7 +23,9 @@ async function runTest(): Promise<void> {
   await registerAllLanguageFeatures();
 
   try {
-    await analyze(`select * from table_a as A inner join lateral (select * from table_b as B);`);
+    await analyze(
+      `select *, array_construct(1) from table_a as A inner join lateral (select * from table_b as B);`,
+    );
     console.log('Tests passed');
   } catch (e) {
     console.log('Tests failed');
