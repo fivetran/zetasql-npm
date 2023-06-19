@@ -22,7 +22,10 @@ async function runTest(): Promise<void> {
 
   try {
     await analyze(
-      `select *, array_construct(1) from table_a as A inner join lateral (select * from table_b as B);`,
+      `select *,
+       array_construct(1),
+       's'::varchar,
+       from table_a as A inner join lateral (select * from table_b as B);`,
     );
     console.log('Tests passed');
   } catch (e) {
