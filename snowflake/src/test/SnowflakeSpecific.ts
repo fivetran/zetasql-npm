@@ -25,6 +25,8 @@ async function runTest(): Promise<void> {
       `select *,
        array_construct(1),
        's'::varchar,
+       try_cast('s' as int64),
+       try_parse_json('{}'),
        from table_a as A inner join lateral (select * from table_b as B);`,
     );
     console.log('Tests passed');
