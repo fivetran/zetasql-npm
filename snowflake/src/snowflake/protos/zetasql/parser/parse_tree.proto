@@ -664,7 +664,7 @@ message ASTCastExpressionProto {
   optional AnyASTExpressionProto expr = 2;
   optional AnyASTTypeProto type = 3;
   optional ASTFormatClauseProto format = 4;
-  optional bool is_safe_cast = 5;
+  optional bool is_try_cast = 5;
 }
 
 // This represents a SELECT with an AS clause giving it an output type.

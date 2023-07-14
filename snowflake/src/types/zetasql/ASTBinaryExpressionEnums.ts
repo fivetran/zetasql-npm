@@ -23,6 +23,9 @@ export const _zetasql_ASTBinaryExpressionEnums_Op = {
   DIVIDE: 16,
   CONCAT_OP: 17,
   DISTINCT: 18,
+  CAST_OP: 19,
+  GET_PATH_OP: 20,
+  MOD_OP: 21,
 } as const;
 
 export type _zetasql_ASTBinaryExpressionEnums_Op =
@@ -64,6 +67,12 @@ export type _zetasql_ASTBinaryExpressionEnums_Op =
   | 17
   | 'DISTINCT'
   | 18
+  | 'CAST_OP'
+  | 19
+  | 'GET_PATH_OP'
+  | 20
+  | 'MOD_OP'
+  | 21
 
 export type _zetasql_ASTBinaryExpressionEnums_Op__Output = typeof _zetasql_ASTBinaryExpressionEnums_Op[keyof typeof _zetasql_ASTBinaryExpressionEnums_Op]
 

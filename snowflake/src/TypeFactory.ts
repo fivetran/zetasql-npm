@@ -11,12 +11,10 @@ export abstract class TypeFactory {
   static SIMPLE_TYPE_KIND_NAMES: Map<string, TypeKind> = new Map<string, TypeKind>([
     ['int32', TypeKind.TYPE_INT32],
     ['int64', TypeKind.TYPE_INT64], // external
-    ['integer', TypeKind.TYPE_INT64], // external
     ['uint32', TypeKind.TYPE_UINT32],
     ['uint64', TypeKind.TYPE_UINT64],
     ['bool', TypeKind.TYPE_BOOL], // external
     ['boolean', TypeKind.TYPE_BOOL], // external
-    ['float', TypeKind.TYPE_FLOAT],
     ['float32', TypeKind.TYPE_FLOAT],
     ['double', TypeKind.TYPE_DOUBLE],
     ['float', TypeKind.TYPE_DOUBLE], // external
@@ -29,19 +27,37 @@ export abstract class TypeFactory {
     ['datetime', TypeKind.TYPE_DATETIME], // external
     ['interval', TypeKind.TYPE_INTERVAL], // external
     ['geography', TypeKind.TYPE_GEOGRAPHY], // external
-    ['numeric', TypeKind.TYPE_NUMERIC], // external
     ['bignumeric', TypeKind.TYPE_BIGNUMERIC], // external
     ['json', TypeKind.TYPE_JSON], // external
 
     // Snowflake types
+    ['number', TypeKind.TYPE_NUMERIC], // external
+    ['decimal', TypeKind.TYPE_NUMERIC], // external
+    ['numeric', TypeKind.TYPE_NUMERIC], // external
+
     ['int', TypeKind.TYPE_INT64], // external
     ['integer', TypeKind.TYPE_INT64], // external
     ['bigint', TypeKind.TYPE_INT64], // external
     ['smallint', TypeKind.TYPE_INT64], // external
     ['tinyint', TypeKind.TYPE_INT64], // external
     ['byteint', TypeKind.TYPE_INT64], // external
+
+    ['float', TypeKind.TYPE_FLOAT],
     ['float4', TypeKind.TYPE_DOUBLE], // external
     ['float8', TypeKind.TYPE_DOUBLE], // external
+
+    ['text', TypeKind.TYPE_STRING], // external
+
+    ['timestamp_ntz', TypeKind.TYPE_TIMESTAMP], // external
+
+    ['binary', TypeKind.TYPE_BYTES], // external
+
+    ['array', TypeKind.TYPE_ARRAY], // external
+
+    ['variant', TypeKind.TYPE_VARIANT], // external
+
+    ['object', TypeKind.TYPE_OBJECT], // external
+
     ['double precision', TypeKind.TYPE_DOUBLE], // external
     ['real', TypeKind.TYPE_DOUBLE], // external
   ]);
