@@ -27,6 +27,8 @@ export const TypeKind = {
   TYPE_JSON: 26,
   TYPE_INTERVAL: 27,
   TYPE_RANGE: 29,
+  TYPE_VARIANT: 1000,
+  TYPE_OBJECT: 1001,
 } as const;
 
 export type TypeKind =
@@ -82,5 +84,9 @@ export type TypeKind =
   | 27
   | 'TYPE_RANGE'
   | 29
+  | 'TYPE_VARIANT'
+  | 1000
+  | 'TYPE_OBJECT'
+  | 1001
 
 export type TypeKind__Output = typeof TypeKind[keyof typeof TypeKind]

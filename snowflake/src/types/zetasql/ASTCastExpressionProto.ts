@@ -10,7 +10,7 @@ export interface ASTCastExpressionProto {
   'expr'?: (_zetasql_AnyASTExpressionProto | null);
   'type'?: (_zetasql_AnyASTTypeProto | null);
   'format'?: (_zetasql_ASTFormatClauseProto | null);
-  'isSafeCast'?: (boolean);
+  'isTryCast'?: (boolean);
 }
 
 export interface ASTCastExpressionProto__Output {
@@ -18,5 +18,5 @@ export interface ASTCastExpressionProto__Output {
   'expr': (_zetasql_AnyASTExpressionProto__Output | null);
   'type': (_zetasql_AnyASTTypeProto__Output | null);
   'format': (_zetasql_ASTFormatClauseProto__Output | null);
-  'isSafeCast': (boolean);
+  'isTryCast': (boolean);
 }
