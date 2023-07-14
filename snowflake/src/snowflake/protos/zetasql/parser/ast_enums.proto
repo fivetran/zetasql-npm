@@ -72,6 +72,9 @@ message ASTBinaryExpressionEnums {
     DIVIDE = 16;          // "/"
     CONCAT_OP = 17;       // "||"
     DISTINCT = 18;        // "IS DISTINCT FROM"
+    CAST_OP = 19;         // "::"
+    GET_PATH_OP = 20;     // ":"
+    MOD_OP = 21;          // "%"
   }
 }
 

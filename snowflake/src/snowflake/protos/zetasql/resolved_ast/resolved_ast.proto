@@ -523,7 +523,7 @@ message ResolvedCastProto {
 
   optional AnyResolvedExprProto expr = 2;
   // Whether to return NULL if the cast fails. This is set to true for
-  // SAFE_CAST.
+  // TRY_CAST.
   optional bool return_null_on_error = 3;
   // If at least one of types involved in this cast is or contains an
   // extended (TYPE_EXTENDED) type, this field contains information

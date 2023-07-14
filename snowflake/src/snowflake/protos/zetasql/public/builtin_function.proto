@@ -39,7 +39,7 @@ enum FunctionSignatureId {
   // other special functions (CASE).  FunctionSignatureIds are assigned
   // in ranges:
   //
-  // 0002-0999 Non-standard function calls    (NextId: 302)
+  // 0002-0999 Non-standard function calls    (NextId: 312)
   // 1000-1099 String functions               (NextId: 1083)
   // 1100-1199 Control flow functions         (NextId: 1107)
   // 1200-1299 Time functions                 (Fully used)
@@ -64,7 +64,7 @@ enum FunctionSignatureId {
   // 100000-100099 Snowflake Aggregate functions                (NextId: 100008)
   // 100100-100199 Snowflake Bitwise functions                  (NextId: 100109)
   // 100200-100299 Snowflake Conditional expression functions   (NextId: 100208)
-  // 100300-100399 Snowflake Conversion functions               (NextId: 100319)
+  // 100300-100399 Snowflake Conversion functions               (NextId: 100330)
   // 100400-100499 Snowflake Data generation functions          (NextId: 100407)
   // 100500-100599 Snowflake String and binary functions        (NextId: 100505)
   // 100600-100699 Snowflake String functions                   (NextId: 100603)
@@ -108,6 +108,16 @@ enum FunctionSignatureId {
   FN_EQUAL = 42;                           // $equal
   FN_EQUAL_INT64_UINT64 = 230;             // $equal
   FN_EQUAL_UINT64_INT64 = 231;             // $equal
+  FN_EQUAL_BOOL_STRING = 302;              // $equal
+  FN_EQUAL_STRING_BOOL = 303;              // $equal
+  FN_EQUAL_INT64_STRING = 304;             // $equal
+  FN_EQUAL_STRING_INT64 = 305;             // $equal
+  FN_EQUAL_FLOAT_STRING = 306;             // $equal
+  FN_EQUAL_STRING_FLOAT = 307;             // $equal
+  FN_EQUAL_NUMERIC_STRING = 308;           // $equal
+  FN_EQUAL_STRING_NUMERIC = 309;           // $equal
+  FN_EQUAL_DOUBLE_STRING = 310;            // $equal
+  FN_EQUAL_STRING_DOUBLE = 311;            // $equal
   FN_STRING_ARRAY_LIKE_ANY = 291;          // $like_any_array
   FN_STRING_ARRAY_LIKE_ALL = 292;          // $like_all_array
   FN_STRING_LIKE = 97;                     // $like
@@ -1262,6 +1272,42 @@ enum FunctionSignatureId {
   FN_REGR_AVGY_DIFF_ARGS = 100005;          // regr_avgy (ARG_TYPE_ANY_1, ARG_TYPE_ANY_2)
   FN_REGR_COUNT_SAME_ARGS = 100006;         // regr_count (ARG_TYPE_ANY_1, ARG_TYPE_ANY_1)
   FN_REGR_COUNT_DIFF_ARGS = 100007;         // regr_count (ARG_TYPE_ANY_1, ARG_TYPE_ANY_2)
+  FN_APPROX_PERCENTILE = 100008;            // approx_percentile(FLOAT, FLOAT) -> FLOAT
+  FN_APPROX_PERCENTILE_ACCUMULATE = 100009; // approx_percentile_accumulate(FLOAT) -> OBJECT
+  FN_APPROX_PERCENTILE_COMBINE = 100010;    // approx_percentile_combine(OBJECT) -> OBJECT
+  FN_APPROX_PERCENTILE_ESTIMATE = 100011;   // approx_percentile_estimate(OBJECT, FLOAT) -> FLOAT
+  FN_APPROX_TOP_K_COMBINE = 100012;         // approx_top_k_combine(OBJECT [, NUMBER]) -> OBJECT
+  FN_APPROX_TOP_K_ESTIMATE = 100013;        // approx_top_k_estimate(OBJECT [, NUMBER]) -> ARRAY
+  FN_APPROXIMATE_JACCARD_INDEX = 100014;    // approximate_jaccard_index(VARIANT) -> FLOAT
+  FN_APPROXIMATE_SIMILARITY = 100015;       // approximate_similarity(VARIANT) -> FLOAT
+  FN_BITAND_AGG = 100016;                   // bitand_agg(NUMBER) -> NUMBER
+  FN_BITOR_AGG = 100017;                    // bitor_agg(NUMBER) -> NUMBER
+  FN_BITXOR_AGG = 100018;                   // bitxor_agg(NUMBER) -> NUMBER
+  FN_BOOLAND_AGG = 100019;                  // booland_agg(NUMBER) -> BOOL
+  FN_BOOLOR_AGG = 100020;                   // boolor_agg(NUMBER) -> BOOL
+  FN_BOOLXOR_AGG = 100021;                  // boolxor_agg(NUMBER) -> BOOL
+  FN_GROUPING_ID = 100022;                  // grouping_id(ANY) -> NUMBER
+  FN_HASH_AGG = 100023;                     // hash_agg(ANY) -> NUMBER
+  FN_HLL = 100024;                          // hll(ANY) -> INT64
+  FN_HLL_ACCUMULATE = 100025;               // hll_accumulate(ANY) -> BYTES
+  FN_HLL_COMBINE = 100026;                  // hll_combine(ANY) -> BYTES
+  FN_HLL_ESTIMATE = 100027;                 // hll_estimate(BYTES) -> NUMBER
+  FN_HLL_EXPORT = 100028;                   // hll_export(BYTES) -> OBJECT
+  FN_HLL_IMPORT = 100029;                   // hll_import(OBJECT) -> BYTES
+  FN_KURTOSIS = 100030;                     // kurtosis(FLOAT) -> FLOAT
+  FN_LISTAGG = 100031;                      // listagg(ANY, VARCHAR) -> VARCHAR
+  FN_MEDIAN = 100032;                       // median(NUMBER) -> FLOAT
+  FN_MINHASH = 100033;                      // minhash(NUMBER, ANY) -> BYTES
+  FN_MINHASH_COMBINE = 100034;              // minhash_combine(ANY) -> ANY
+  FN_MODE = 100035;                         // mode(ANY) -> ANY
+  FN_OBJECT_AGG = 100036;                   // object_agg(ANY, ANY) -> OBJECT
+  FN_REGR_INTERCEPT = 100037;               // regr_intercept(FLOAT, FLOAT) -> FLOAT
+  FN_REGR_R2 = 100038;                      // regr_r2(FLOAT, FLOAT) -> FLOAT
+  FN_REGR_SLOPE = 100039;                   // regr_slope(FLOAT, FLOAT) -> FLOAT
+  FN_REGR_SXX = 100040;                     // regr_sxx(FLOAT, FLOAT) -> FLOAT
+  FN_REGR_SYY = 100041;                     // regr_syy(FLOAT, FLOAT) -> FLOAT
+  FN_SKEW = 100042;                         // skew(FLOAT) -> FLOAT
+  FN_VARIANCE_POP = 100043;                 // variance_pop(FLOAT) -> FLOAT
 
   // Snowflake Bitwise functions
   FN_BIT_AND_SAME_ARGS = 100100;        // bitand(ARG_TYPE_ANY_1, ARG_TYPE_ANY_1) -> INT64
@@ -1304,6 +1350,63 @@ enum FunctionSignatureId {
   FN_TRY_TO_DOUBLE = 100316;              // try_to_double(STRING, <STRING>) -> DOUBLE
   FN_TRY_TO_DATE = 100317;                // try_to_date(STRING, <STRING>) -> DATE
   FN_TRY_TO_TIME = 100318;                // try_to_time(STRING, <STRING>) -> TIME
+  FN_TO_VARIANT_INT64 = 100319;           // to_variant(INT64) -> VARIANT
+  FN_TO_VARIANT_UINT64 = 100320;          // to_variant(UINT64) -> VARIANT
+  FN_TO_VARIANT_DOUBLE = 100321;          // to_variant(DOUBLE) -> VARIANT
+  FN_TO_VARIANT_FLOAT = 100322;           // to_variant(FLOAT) -> VARIANT
+  FN_TO_VARIANT_NUMERIC = 100323;         // to_variant(NUMERIC) -> VARIANT
+  FN_TO_VARIANT_BIGNUMERIC = 100324;      // to_variant(BIGNUMERIC) -> VARIANT
+  FN_TO_VARIANT_STRING = 100325;          // to_variant(STRING) -> VARIANT
+  FN_TO_VARIANT_BOOL = 100326;            // to_variant(BOOL) -> VARIANT
+  FN_TO_VARIANT_DATE = 100327;            // to_variant(DATE) -> VARIANT
+  FN_TO_VARIANT_DATETIME = 100328;        // to_variant(DATETIME) -> VARIANT
+  FN_TO_VARIANT_TIMESTAMP = 100329;       // to_variant(TIMESTAMP) -> VARIANT
+  FN_TO_VARCHAR_INT64 = 100330;           // to_varchar(INT64) -> STRING
+  FN_TO_VARCHAR_UINT64 = 100331;          // to_varchar(UINT64) -> STRING
+  FN_TO_VARCHAR_DOUBLE = 100332;          // to_varchar(DOUBLE) -> STRING
+  FN_TO_VARCHAR_FLOAT = 100333;           // to_varchar(FLOAT) -> STRING
+  FN_TO_VARCHAR_NUMERIC = 100334;         // to_varchar(NUMERIC) -> STRING
+  FN_TO_VARCHAR_BIGNUMERIC = 100335;      // to_varchar(BIGNUMERIC) -> STRING
+  FN_TO_VARCHAR_STRING = 100336;          // to_varchar(STRING) -> STRING
+  FN_TO_VARCHAR_BOOL = 100337;            // to_varchar(BOOL) -> STRING
+  FN_TO_VARCHAR_DATE = 100338;            // to_varchar(DATE) -> STRING
+  FN_TO_VARCHAR_DATETIME = 100339;        // to_varchar(DATETIME) -> STRING
+  FN_TO_VARCHAR_TIMESTAMP = 100340;       // to_varchar(TIMESTAMP) -> STRING
+  FN_TO_VARCHAR_TIME = 100341;            // to_varchar(TIME) -> STRING
+  FN_TO_VARCHAR_VARIANT = 100342;         // to_varchar(VARIANT) -> STRING
+  FN_TO_OBJECT_VARIANT = 100343;          // to_object(VARIANT) -> OBJECT
+  FN_TO_OBJECT_OBJECT = 100344;           // to_object(OBJECT) -> OBJECT
+  FN_TO_BINARY_STRING = 100345;           // to_binary(STRING [, STRING]) -> BINARY
+  FN_TO_BINARY_VARIANT = 100346;          // to_binary(VARIANT) -> BINARY
+  FN_TO_VARIANT_BYTES = 100347;           // to_variant(BYTES) -> VARIANT
+  FN_TRY_TO_BINARY_STRING = 100348;       // try_to_binary(STRING [, STRING]) -> BINARY
+  FN_TO_VARIANT_ARRAY = 100349;           // to_variant(ARRAY) -> VARIANT
+  FN_TO_ARRAY = 100350;                   // to_array(ANY) -> ARRAY
+  FN_TO_DATE = 100351;                    // to_date(STRING, <STRING>) -> DATE
+  FN_TO_DECIMAL_NUMERIC_1 = 100352;       // to_decimal(NUMERIC, <STRING>, <INT64>, <INT64>) -> DECIMAL
+  FN_TO_DECIMAL_NUMERIC_2 = 100353;       // to_decimal(NUMERIC, <INT64>, <INT64>) -> DECIMAL
+  FN_TO_DECIMAL_STRING_1 = 100354;        // to_decimal(STRING, <STRING>, <INT64>, <INT64>) -> DECIMAL
+  FN_TO_DECIMAL_STRING_2 = 100355;        // to_decimal(STRING, <INT64>, <INT64>) -> DECIMAL
+  FN_TO_DECIMAL_VARIANT_1 = 100356;       // to_decimal(VARIANT, <STRING>, <INT64>, <INT64>) -> DECIMAL
+  FN_TO_DECIMAL_VARIANT_2 = 100357;       // to_decimal(VARIANT, <INT64>, <INT64>) -> DECIMAL
+  FN_TO_TIME_STRING = 100358;             // to_time(STRING, <STRING>) -> TIME
+  FN_TO_TIME_VARIANT = 100359;            // to_time(VARIANT) -> TIME
+  FN_TO_TIMESTAMP_NUMERIC = 100360;       // to_timestamp(NUMERIC, <INT64>) -> TIMESTAMP
+  FN_TO_TIMESTAMP_DATE = 100361;          // to_timestamp(DATE) -> TIMESTAMP
+  FN_TO_TIMESTAMP_TIMESTAMP = 100362;     // to_timestamp(TIMESTAMP) -> TIMESTAMP
+  FN_TO_TIMESTAMP_STRING = 100363;        // to_timestamp(STRING, <STRING>) -> TIMESTAMP
+  FN_TO_TIMESTAMP_VARIANT = 100364;       // to_timestamp(VARIANT) -> TIMESTAMP
+  FN_TO_XML_VARIANT = 100365;             // to_xml(STRING) -> STRING
+  FN_TO_XML_ARRAY = 100366;               // to_xml(ARRAY) -> STRING
+  FN_TO_XML_INT64 = 100367;               // to_xml(INT64) -> STRING
+  FN_TO_XML_OBJECT = 100368;              // to_xml(OBJECT) -> STRING
+  FN_TO_XML_FLOAT = 100369;               // to_xml(FLOAT) -> STRING
+  FN_TO_XML_BOOL = 100370;                // to_xml(BOOL) -> STRING
+  FN_TRY_TO_DECIMAL_STRING_1 = 100371;    // try_to_decimal(STRING, <STRING>, <INT64>, <INT64>) -> DECIMAL
+  FN_TRY_TO_DECIMAL_STRING_2 = 100372;    // try_to_decimal(STRING, <INT64>, <INT64>) -> DECIMAL
+  FN_TRY_TO_TIMESTAMP = 100373;           // try_to_timestamp(STRING, <STRING>) -> TIMESTAMP
+  FN_TO_JSON_SNOWFLAKE = 100374;          // to_json(VARIANT) -> STRING
+  FN_TO_VARIANT_TIME = 100375;            // to_variant(TIME) -> VARIANT
 
   // Snowflake Data generation functions
   FN_RANDOM = 100400;                   // RANDOM(ARG_TYPE_ANY_1) -> INT64
@@ -1339,4 +1442,61 @@ enum FunctionSignatureId {
   FN_NEXT_DAY_DATE = 100709;                   // NEXT_DAY(DATE, VARCHAR) -> DATE
   FN_NEXT_DAY_DATETIME = 100710;               // NEXT_DAY(DATETIME, VARCHAR) -> DATE
   FN_NEXT_DAY_TIMESTAMP = 100711;              // NEXT_DAY(TIMESTAMP, VARCHAR) -> DATE
+
+  FN_PARSE_JSON_SNOWFLAKE = 100712;            // PARSE_JSON(STRING) -> VARIANT
+  FN_OBJECT_CONSTRUCT = 100713;                // OBJECT_CONSTRUCT(STRING, <ARG_TYPE_ANY_1>, ...) -> OBJECT
+  FN_OBJECT_DELETE = 100714;                   // OBJECT_DELETE(OBJECT, STRING [, STRING...]) -> OBJECT
+  FN_OBJECT_INSERT = 100715;                   // OBJECT_INSERT(OBJECT, STRING, ARG_TYPE_ANY_1 [, BOOLEAN]) -> OBJECT
+  FN_IS_OBJECT = 100716;                       // IS_OBJECT(ANY) -> BOOLEAN
+  FN_AS_OBJECT = 100717;                       // AS_OBJECT(ANY) -> OBJECT
+  FN_ARRAY_CONSTRUCT = 100718;                 // ARRAY_CONSTRUCT(<ARG_TYPE_ANY_1>, ...) -> ARRAY
+  FN_ARRAY_CONSTRUCT_COMPACT = 100719;         // ARRAY_CONSTRUCT_COMPACT(<ARG_TYPE_ANY_1>, ...) -> ARRAY
+  FN_ARRAY_APPEND = 100720;                    // ARRAY_APPEND(ARRAY, ARG_TYPE_ANY_1) -> ARRAY
+  FN_ARRAY_CAT = 100721;                       // ARRAY_CAT(ARRAY, ARRAY) -> ARRAY
+  FN_ARRAY_COMPACT = 100722;                   // ARRAY_COMPACT(ARRAY) -> ARRAY
+  FN_ARRAY_CONTAINS = 100723;                  // ARRAY_CONTAINS(ARG_TYPE_ANY_1, ARRAY) -> BOOLEAN
+  FN_ARRAY_INSERT = 100724;                    // ARRAY_INSERT(ARRAY, INT64, ARG_TYPE_ANY_1) -> ARRAY
+  FN_ARRAY_INTERSECTION = 100725;              // ARRAY_INTERSECTION(ARRAY, ARRAY) -> ARRAY
+  FN_ARRAY_POSITION = 100726;                  // ARRAY_POSITION(VARIANT, ARRAY) -> INT64
+  FN_ARRAY_PREPEND = 100727;                   // ARRAY_PREPEND(ARRAY, VARIANT) -> ARRAY
+  FN_ARRAY_SIZE_ARRAY = 100728;                // ARRAY_SIZE(ARRAY) -> INT64
+  FN_ARRAY_SIZE_VARIANT = 100729;              // ARRAY_SIZE(VARIANT) -> INT64
+  FN_ARRAYS_OVERLAP = 100730;                  // ARRAYS_OVERLAP(ARRAY, ARRAY) -> BOOLEAN
+  FN_AS_ARRAY = 100731;                        // AS_ARRAY(ANY) -> ARRAY
+  FN_IS_ARRAY = 100732;                        // IS_ARRAY(ANY) -> BOOLEAN
+  FN_AS_BOOLEAN = 100733;                      // AS_BOOLEAN(ANY) -> BOOLEAN
+  FN_AS_CHAR = 100734;                         // AS_CHAR(ANY) -> STRING
+  FN_AS_DATE = 100735;                         // AS_DATE(VARIANT) -> DATE
+  FN_AS_DECIMAL = 100736;                      // AS_DECIMAL(VARIANT, <INT64>, <INT64>) -> DECIMAL
+  FN_AS_DOUBLE = 100737;                       // AS_DOUBLE(VARIANT) -> DOUBLE
+  FN_AS_INTEGER = 100738;                      // AS_INTEGER(VARIANT) -> INTEGER
+  FN_AS_TIME = 100739;                         // AS_TIME(VARIANT) -> TIME
+  FN_AS_TIMESTAMP = 100740;                    // AS_TIMESTAMP(VARIANT) -> TIMESTAMP
+  FN_CHECK_JSON_STRING = 100741;               // CHECK_JSON(STRING) -> STRING
+  FN_CHECK_JSON_VARIANT = 100742;              // CHECK_JSON(VARIANT) -> STRING
+  FN_CHECK_XML = 100743;                       // CHECK_XML(STRING) -> STRING
+  FN_GET_ARRAY = 100744;                       // GET(ARRAY, INT64) -> VARIANT
+  FN_GET_OBJECT = 100745;                      // GET(OBJECT, STRING) -> VARIANT
+  FN_GET_VARIANT_INT64 = 100746;               // GET(VARIANT, INT64) -> VARIANT
+  FN_GET_OBJECT_STRING = 100747;               // GET(OBJECT, STRING) -> VARIANT
+  FN_GET_PATH = 100748;                        // GET_PATH(VARIANT, STRING) -> VARIANT
+  FN_IS_BINARY = 100749;                       // IS_BINARY(VARIANT) -> BOOLEAN
+  FN_IS_BOOLEAN = 100750;                      // IS_BOOLEAN(VARIANT) -> BOOLEAN
+  FN_IS_CHAR = 100751;                         // IS_CHAR(VARIANT) -> BOOLEAN
+  FN_IS_DATE = 100752;                         // IS_DATE(VARIANT) -> BOOLEAN
+  FN_IS_DECIMAL = 100753;                      // IS_DECIMAL(VARIANT) -> BOOLEAN
+  FN_IS_INTEGER = 100754;                      // IS_INTEGER(VARIANT) -> BOOLEAN
+  FN_IS_DOUBLE = 100755;                       // IS_DOUBLE(VARIANT) -> BOOLEAN
+  FN_IS_NULL_VALUE = 100756;                   // IS_NULL_VALUE(VARIANT) -> BOOLEAN
+  FN_IS_TIME = 100757;                         // IS_TIME(VARIANT) -> BOOLEAN
+  FN_IS_TIMESTAMP = 100758;                    // IS_TIMESTAMP(VARIANT) -> BOOLEAN
+  FN_PARSE_XML_STRING = 100759;                // PARSE_XML(STRING, <BOOL>) -> OBJECT
+  FN_PARSE_XML_VARIANT = 100760;               // PARSE_XML(VARIANT, <BOOL>) -> OBJECT
+  FN_STRIP_NULL_VALUE = 100761;                // STRIP_NULL_VALUE(VARIANT) -> VARIANT
+  FN_STRTOK_TO_ARRAY = 100762;                 // STRTOK_TO_ARRAY(STRING, <STRING>) -> ARRAY
+  FN_TRY_PARSE_JSON_STRING = 100763;           // TRY_PARSE_JSON(STRING) -> VARIANT
+  FN_TRY_PARSE_JSON_VARIANT = 100764;          // TRY_PARSE_JSON(VARIANT) -> VARIANT
+  FN_XMLGET = 100765;                          // XMLGET(ANY, STRING, <INT64>) -> VARIANT
+  FN_GET_PATH_OP = 100766;                     // GET_PATH_OP(VARIANT, STRING) -> VARIANT
+  FN_MOD_OP = 100767;                          // MOD_OP(NUMERIC, NUMERIC) -> NUMERIC
 }
