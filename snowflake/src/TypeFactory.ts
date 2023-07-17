@@ -1,12 +1,5 @@
 import { TypeKind } from './types/zetasql/TypeKind';
 
-/**
- * A factory for {@link Type} objects.
- *
- * A {@code TypeFactory} can be obtained via {@link #uniqueNames()} or {@link #nonUniqueNames()}
- * static factory methods, depending if you want to guarantee uniqueness of descriptor full names
- * for non-simple types or not, respectively.
- */
 export abstract class TypeFactory {
   static SIMPLE_TYPE_KIND_NAMES: Map<string, TypeKind> = new Map<string, TypeKind>([
     ['int32', TypeKind.TYPE_INT32],
@@ -62,33 +55,36 @@ export abstract class TypeFactory {
     ['real', TypeKind.TYPE_DOUBLE], // external
   ]);
 
-  static EXTERNAL_MODE_SIMPLE_TYPE_KIND_NAMES = new Set([
-    'int64',
-    'bool',
-    'boolean',
-    'float64',
-    'string',
-    'bytes',
-    'date',
-    'timestamp',
-    'time',
-    'datetime',
-    'interval',
-    'geography',
-    'numeric',
-    'bignumeric',
-    'json',
-    'tokenlist',
-    // Snowflake types
-    'int',
-    'integer',
-    'bigint',
-    'smallint',
-    'tinyint',
-    'byteint',
-    'float4',
-    'float8',
-    'double precision',
-    'real',
+  static TYPE_KIND_NAMES = new Map<number, string>([
+    [TypeKind.TYPE_UNKNOWN.valueOf(), 'UNKNOWN'],
+    [TypeKind.TYPE_INT32.valueOf(), 'INT32'],
+    [TypeKind.TYPE_INT64.valueOf(), 'INT64'],
+    [TypeKind.TYPE_UINT32.valueOf(), 'UINT32'],
+    [TypeKind.TYPE_UINT64.valueOf(), 'UINT64'],
+    [TypeKind.TYPE_BOOL.valueOf(), 'BOOL'],
+    [TypeKind.TYPE_FLOAT.valueOf(), 'FLOAT'],
+    [TypeKind.TYPE_DOUBLE.valueOf(), 'DOUBLE'],
+    [TypeKind.TYPE_STRING.valueOf(), 'STRING'],
+    [TypeKind.TYPE_BYTES.valueOf(), 'BYTES'],
+    [TypeKind.TYPE_DATE.valueOf(), 'DATE'],
+    [11, 'TIMESTAMP_SECONDS'],
+    [12, 'TIMESTAMP_MILLIS'],
+    [13, 'TIMESTAMP_MICROS'],
+    [14, ''], // Used to be TIMESTAMP_NANOS, removed.
+    [TypeKind.TYPE_ENUM.valueOf(), 'ENUM'],
+    [TypeKind.TYPE_ARRAY.valueOf(), 'ARRAY'],
+    [TypeKind.TYPE_STRUCT.valueOf(), 'STRUCT'],
+    [TypeKind.TYPE_PROTO.valueOf(), 'PROTO'],
+    [TypeKind.TYPE_TIMESTAMP.valueOf(), 'TIMESTAMP'],
+    [TypeKind.TYPE_TIME.valueOf(), 'TIME'],
+    [TypeKind.TYPE_DATETIME.valueOf(), 'DATETIME'],
+    [TypeKind.TYPE_GEOGRAPHY.valueOf(), 'GEOGRAPHY'],
+    [TypeKind.TYPE_NUMERIC.valueOf(), 'NUMERIC'],
+    [TypeKind.TYPE_BIGNUMERIC.valueOf(), 'BIGNUMERIC'],
+    [TypeKind.TYPE_EXTENDED.valueOf(), 'EXTENDED'],
+    [TypeKind.TYPE_JSON.valueOf(), 'JSON'],
+    [TypeKind.TYPE_INTERVAL.valueOf(), 'INTERVAL'],
+    [TypeKind.TYPE_VARIANT.valueOf(), 'VARIANT'],
+    [TypeKind.TYPE_OBJECT.valueOf(), 'OBJECT'],
   ]);
 }
