@@ -7,7 +7,7 @@ import type { AnyResolvedExprProto as _zetasql_AnyResolvedExprProto, AnyResolved
 export interface ResolvedGrantOrRevokeStmtProto {
   'parent'?: (_zetasql_ResolvedStatementProto | null);
   'privilegeList'?: (_zetasql_ResolvedPrivilegeProto)[];
-  'objectType'?: (string);
+  'objectTypeList'?: (string)[];
   'namePath'?: (string)[];
   'granteeList'?: (string)[];
   'granteeExprList'?: (_zetasql_AnyResolvedExprProto)[];
@@ -16,7 +16,7 @@ export interface ResolvedGrantOrRevokeStmtProto {
 export interface ResolvedGrantOrRevokeStmtProto__Output {
   'parent': (_zetasql_ResolvedStatementProto__Output | null);
   'privilegeList': (_zetasql_ResolvedPrivilegeProto__Output)[];
-  'objectType': (string);
+  'objectTypeList': (string)[];
   'namePath': (string)[];
   'granteeList': (string)[];
   'granteeExprList': (_zetasql_AnyResolvedExprProto__Output)[];

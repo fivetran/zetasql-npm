@@ -50,6 +50,7 @@ export interface AllowedHintsAndOptionsProto {
   'option'?: (_zetasql_AllowedHintsAndOptionsProto_OptionProto)[];
   'anonymizationOption'?: (_zetasql_AllowedHintsAndOptionsProto_OptionProto)[];
   'differentialPrivacyOption'?: (_zetasql_AllowedHintsAndOptionsProto_OptionProto)[];
+  'disallowDuplicateOptionNames'?: (boolean);
 }
 
 export interface AllowedHintsAndOptionsProto__Output {
@@ -59,4 +60,5 @@ export interface AllowedHintsAndOptionsProto__Output {
   'option': (_zetasql_AllowedHintsAndOptionsProto_OptionProto__Output)[];
   'anonymizationOption': (_zetasql_AllowedHintsAndOptionsProto_OptionProto__Output)[];
   'differentialPrivacyOption': (_zetasql_AllowedHintsAndOptionsProto_OptionProto__Output)[];
+  'disallowDuplicateOptionNames': (boolean);
 }

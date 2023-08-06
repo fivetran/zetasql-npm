@@ -17,6 +17,9 @@ export const ResolvedASTRewrite = {
   REWRITE_LIKE_ANY_ALL: 14,
   REWRITE_BUILTIN_FUNCTION_INLINER: 16,
   REWRITE_INLINE_SQL_VIEWS: 17,
+  REWRITE_INLINE_SQL_UDAS: 22,
+  REWRITE_SET_OPERATION_CORRESPONDING: 21,
+  REWRITE_GROUPING_SET: 23,
 } as const;
 
 export type ResolvedASTRewrite =
@@ -52,5 +55,11 @@ export type ResolvedASTRewrite =
   | 16
   | 'REWRITE_INLINE_SQL_VIEWS'
   | 17
+  | 'REWRITE_INLINE_SQL_UDAS'
+  | 22
+  | 'REWRITE_SET_OPERATION_CORRESPONDING'
+  | 21
+  | 'REWRITE_GROUPING_SET'
+  | 23
 
 export type ResolvedASTRewrite__Output = typeof ResolvedASTRewrite[keyof typeof ResolvedASTRewrite]
