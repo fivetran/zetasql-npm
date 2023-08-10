@@ -49,6 +49,8 @@ export abstract class TypeFactory {
     ['text', TypeKind.TYPE_STRING], // external
 
     ['timestamp_ntz', TypeKind.TYPE_TIMESTAMP], // external
+    ['timestamp_tz', TypeKind.TYPE_TIMESTAMP], // external
+    ['timestamp_ltz', TypeKind.TYPE_TIMESTAMP], // external
 
     ['binary', TypeKind.TYPE_BYTES], // external
 
