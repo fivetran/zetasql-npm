@@ -14,14 +14,13 @@
 // limitations under the License.
 //
 
-// This is a forwarding file.
 syntax = "proto2";
 
-package zetasql.storage;
-
-import "zetasql/public/proto/type_annotation.proto";
+package zetasql;
 
 option java_package = "com.google.zetasql";
+option java_outer_classname = "SimpleConnectionProtos";
 
-// To avoid conflicts with type_annotation.proto
-option objc_class_prefix = "ZETASQL";
+message SimpleConnectionProto {
+  optional string name = 1;
+}

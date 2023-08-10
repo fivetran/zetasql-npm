@@ -26,7 +26,7 @@ option java_outer_classname = "ZetaSQLFunction";
 // A unique ID for ZetaSQL function signatures.  Resolved ZetaSQL functions
 // will provide one of these enums, and ZetaSQL implementations should map
 // them to something they can evaluate.
-// Next id: 1947
+// Next id: 1948
 enum FunctionSignatureId {
   // User code that switches on this enum must have a default case so
   // builds won't break if new enums get added.
@@ -52,12 +52,12 @@ enum FunctionSignatureId {
   // 1900-1999 Hashing/encryption functions   (NextId: 1938)
   // 2000-2199 Geography functions            (NextId: 2090)
   // 2200-2231 Anonymization functions        (NextId: 2232)
-  // 2300-2499 Numeric & more math functions  (NextId: 2325)
-  // 2500-2599 Array and proto map functions  (NextId: 2542)
-  // 2600-2699 More misc functions.           (NextId: 2613)
+  // 2300-2499 Numeric & more math functions  (NextId: 2345)
+  // 2500-2599 Array and proto map functions  (NextId: 2552)
+  // 2600-2699 More misc functions.           (NextId: 2622)
   // 2700-2799 Aggregate functions II         (NextId: 2746)
   // 2800-2899 Differential Privacy functions (NextId: 2832)
-  // 2900-2999 Range functions                (NextId: 2916)
+  // 2900-2999 Range functions                (NextId: 2921)
 
   // Snowflake FunctionSignatureIds are assigned in ranges:
   //
@@ -362,7 +362,7 @@ enum FunctionSignatureId {
   FN_DATETIME_SUB = 1814;   // datetime_sub
   FN_TIME_SUB = 1815;       // time_sub
   FN_TIMESTAMP_SUB = 1263;  // timestamp_sub
-  FN_DATE_TRUNC_DATE = 1220;  // date_trunc
+  //FN_DATE_TRUNC_DATE = 1220;  // date_trunc
   FN_DATETIME_TRUNC = 1818;   // datetime_trunc
   FN_TIME_TRUNC = 1819;       // time_trunc
   FN_TIMESTAMP_TRUNC = 1264;  // timestamp_trunc
@@ -438,8 +438,8 @@ enum FunctionSignatureId {
   FN_PARSE_TIME = 1823;        // parse_time
   FN_PARSE_TIMESTAMP = 1296;   // parse_timestamp
 
-  FN_LAST_DAY_DATE = 1843;      // last_day date
-  FN_LAST_DAY_DATETIME = 1844;  // last_day datetime
+//   FN_LAST_DAY_DATE = 1843;      // last_day date
+//   FN_LAST_DAY_DATETIME = 1844;  // last_day datetime
 
   FN_INTERVAL_CONSTRUCTOR = 1855;  // $interval
   FN_MAKE_INTERVAL = 1856;         // make_interval
@@ -567,6 +567,27 @@ enum FunctionSignatureId {
   FN_PARSE_NUMERIC = 2314;         // parse_numeric(string) -> numeric
   FN_PARSE_BIGNUMERIC = 2315;      // parse_bignumeric(string) -> bignumeric
 
+  FN_PI_DOUBLE = 2325;      // pi -> double
+  FN_PI_NUMERIC = 2326;     // pi_numeric -> numeric
+  FN_PI_BIGNUMERIC = 2327;  // pi_bignumeric -> bignumeric
+
+  FN_NULLIFZERO_INT32 = 2329;       // nullifzero
+  FN_NULLIFZERO_UINT32 = 2330;      // nullifzero
+  FN_NULLIFZERO_INT64 = 2331;       // nullifzero
+  FN_NULLIFZERO_UINT64 = 2332;      // nullifzero
+  FN_NULLIFZERO_FLOAT = 2333;       // nullifzero
+  FN_NULLIFZERO_DOUBLE = 2334;      // nullifzero
+  FN_NULLIFZERO_NUMERIC = 2335;     // nullifzero
+  FN_NULLIFZERO_BIGNUMERIC = 2336;  // nullifzero
+  FN_ZEROIFNULL_INT32 = 2337;       // zeroifnull
+  FN_ZEROIFNULL_UINT32 = 2338;      // zeroifnull
+  FN_ZEROIFNULL_INT64 = 2339;       // zeroifnull
+  FN_ZEROIFNULL_UINT64 = 2340;      // zeroifnull
+  FN_ZEROIFNULL_FLOAT = 2341;       // zeroifnull
+  FN_ZEROIFNULL_DOUBLE = 2342;      // zeroifnull
+  FN_ZEROIFNULL_NUMERIC = 2343;     // zeroifnull
+  FN_ZEROIFNULL_BIGNUMERIC = 2344;  // zeroifnull
+
   FN_COS_DOUBLE = 1328;    // cos
   FN_COSH_DOUBLE = 1329;   // cosh
   FN_ACOS_DOUBLE = 1330;   // acos
@@ -599,6 +620,7 @@ enum FunctionSignatureId {
   FN_AVG_BIGNUMERIC = 1479;           // avg
   FN_AVG_INTERVAL = 1490;             // avg
   FN_COUNT = 1405;                    // count
+  FN_GROUPING = 1947;                 // grouping
   FN_MAX = 1406;                      // max
   FN_MIN = 1407;                      // min
   FN_STRING_AGG_STRING = 1408;        // string_agg(s)
@@ -1210,58 +1232,77 @@ enum FunctionSignatureId {
   FN_ARRAY_AVG_NUMERIC = 2533;     // ARRAY_AVG(array<NUMERIC>) -> NUMERIC
   FN_ARRAY_AVG_BIGNUMERIC = 2534;  // ARRAY_AVG(array<BIGNUMERIC>) -> BIGNUMERIC
   FN_ARRAY_AVG_INTERVAL = 2535;    // ARRAY_AVG(array<INTERVAL>) -> INTERVAL
-  FN_ARRAY_OFFSET = 2536;      // ARRAY_OFFSET(array<T>, T [, ENUM]) -> INT64
-  FN_ARRAY_OFFSETS = 2537;     // ARRAY_OFFSETS(array<T>, T) -> ARRAY<INT64>
-  FN_ARRAY_FIND = 2538;        // ARRAY_FIND(array<T>, T [, ENUM]) -> T
-  FN_ARRAY_FIND_ALL = 2539;    // ARRAY_FIND_ALL(array<T>, T) -> ARRAY<T>
+  FN_ARRAY_OFFSET = 2536;    // ARRAY_OFFSET(array<T>, T [, ENUM]) -> INT64
+  FN_ARRAY_OFFSETS = 2537;   // ARRAY_OFFSETS(array<T>, T) -> ARRAY<INT64>
+  FN_ARRAY_FIND = 2538;      // ARRAY_FIND(array<T>, T [, ENUM]) -> T
+  FN_ARRAY_FIND_ALL = 2539;  // ARRAY_FIND_ALL(array<T>, T) -> ARRAY<T>
+  FN_ARRAY_OFFSET_LAMBDA =
+      2548;  // ARRAY_OFFSET(array<T>, lambda [, ENUM]) -> INT64
+  FN_ARRAY_OFFSETS_LAMBDA =
+      2549;  // ARRAY_OFFSETS(array<T>, lambda) -> ARRAY<INT64>
+  FN_ARRAY_FIND_LAMBDA = 2550;  // ARRAY_FIND(array<T>, lambda [, ENUM]) -> T
+  FN_ARRAY_FIND_ALL_LAMBDA =
+      2551;                    // ARRAY_FIND_ALL(array<T>, lambda) -> ARRAY<T>
   FN_ARRAY_MIN = 2540;         // ARRAY_MIN(array<T>) -> T
   FN_ARRAY_MAX = 2541;         // ARRAY_MAX(array<T>) -> T
   FN_ARRAY_MAX_FLOAT = 2542;   // ARRAY_MAX(array<FLOAT>) -> FLOAT
   FN_ARRAY_MAX_DOUBLE = 2543;  // ARRAY_MAX(array<DOUBLE>) -> DOUBLE
+
+  FN_ARRAY_FIRST_N = 2544;  // ARRAY_FIRST(array<T>, N) -> ARRAY<T>
+  FN_ARRAY_LAST_N = 2545;   // ARRAY_LAST(array<T>, N) -> ARRAY<T>
+  // ARRAY_REMOVE_FIRST(array<T>, N) -> ARRAY<T>
+  FN_ARRAY_REMOVE_FIRST_N = 2546;
+  FN_ARRAY_REMOVE_LAST_N = 2547;  // ARRAY_REMOVE_LAST(array<T>, N) -> ARRAY<T>
 
   // More misc functions
   FN_JSON_TO_INT64 = 2600;   // int64(json) -> int64
   FN_JSON_TO_BOOL = 2601;    // bool(json) -> bool
   FN_JSON_TO_STRING = 2602;  // string(json) -> string
   FN_JSON_TYPE = 2603;       // json_type(json) -> type
-  FN_JSON_TO_DOUBLE = 2604;  // double(json[, string]) -> double
+  FN_JSON_TO_DOUBLE = 2604;  // float64(json[, string]) -> double
 
   FN_JSON_LAX_TO_INT64 = 2606;   // lax_int64(json) -> int64
   FN_JSON_LAX_TO_BOOL = 2607;    // lax_bool(json) -> bool
   FN_JSON_LAX_TO_STRING = 2608;  // lax_string(json) -> string
-  FN_JSON_LAX_TO_DOUBLE = 2609;  // lax_double(json) -> double
+  FN_JSON_LAX_TO_DOUBLE = 2609;  // lax_float64(json) -> double
+
+  FN_JSON_ARRAY = 2614;   // json_array(any, ...) -> json
+  FN_JSON_OBJECT = 2615;  // json_object(string, any, ...) -> json
+  FN_JSON_OBJECT_ARRAYS =
+      2616;               // json_object(array<string>, array<any>) -> json
+  FN_JSON_REMOVE = 2617;  // json_remove(json, string, ...) -> json
+  FN_JSON_SET =
+      2618;  // json_set(json, string, any[, string, any, ...]) -> json
+  FN_JSON_STRIP_NULLS =
+      2619;  // json_strip_nulls(json[, string][, bool][, bool]) -> json
+  FN_JSON_ARRAY_INSERT =
+      2620;  // json_array_insert(json, string, any[, string, any, ...][, bool])
+  FN_JSON_ARRAY_APPEND =
+      2621;  // json_array_append(json, string, any[, string, any, ...][, bool])
 
   // Range functions
   FN_RANGE = 2605;                     // RANGE(T start, T end) -> range
   FN_RANGE_IS_START_UNBOUNDED = 2900;  // is_start_unbounded(range) -> bool
-  // This was added to handle untyped NULL for RANGE_IS_START_UNBOUNDED
-  FN_RANGE_IS_START_UNBOUNDED_INT64 =
-      2901;                          // is_start_unbounded(int64) -> bool
-  FN_RANGE_IS_END_UNBOUNDED = 2902;  // is_end_unbounded(range) -> bool
-  // This was added to handle untyped NULL for RANGE_IS_END_UNBOUNDED
-  FN_RANGE_IS_END_UNBOUNDED_INT64 = 2903;  // is_end_unbounded(int64) -> bool
-  FN_RANGE_START = 2904;                   // range_start(range<T>) -> T
-  // This was added to handle untyped NULL for FN_RANGE_START
-  FN_RANGE_START_INT64 = 2905;  // range_start(int64) -> int64
-  FN_RANGE_END = 2906;          // range_end(range<T>) -> T
-  // This was added to handle untyped NULL for FN_RANGE_END
-  FN_RANGE_END_INT64 = 2907;  // range_end(int64) -> int64
+  FN_RANGE_IS_END_UNBOUNDED = 2902;    // is_end_unbounded(range) -> bool
+  FN_RANGE_START = 2904;               // range_start(range<T>) -> T
+  FN_RANGE_END = 2906;                 // range_end(range<T>) -> T
   FN_RANGE_OVERLAPS = 2908;   // range_overlaps(range<T>, range<T>) -> bool
-  // These were added to handle untyped NULL for FN_RANGE_OVERLAPS
-  // range_overlaps(int64, range<T>) -> bool
-  FN_RANGE_OVERLAPS_LEFT_INT64 = 2909;
-  // range_overlaps(range<T>, int64) -> bool
-  FN_RANGE_OVERLAPS_RIGHT_INT64 = 2910;
-  // range_overlaps(int64, int64) -> bool
-  FN_RANGE_OVERLAPS_BOTH_INT64 = 2911;
   FN_RANGE_INTERSECT = 2912;  // range_intersect(range<T>, range<T>) -> range<T>
-  // These were added to handle untyped NULL for FN_RANGE_INTERSECT
-  // range_intersect(int64, range<T>) -> int64
-  FN_RANGE_INTERSECT_LEFT_INT64 = 2913;
-  // range_intersect(range<T>, int64) -> int64
-  FN_RANGE_INTERSECT_RIGHT_INT64 = 2914;
-  // range_intersect(int64, int64) -> int64
-  FN_RANGE_INTERSECT_BOTH_INT64 = 2915;
+  reserved 2901, 2903, 2905, 2907, 2909, 2910, 2911, 2913, 2914, 2915;
+
+  // generate_range_array(range<date>, INTERVAL, bool) -> array<range<date>>
+  FN_GENERATE_DATE_RANGE_ARRAY = 2916;
+  // generate_range_array(range<datetime>, INTERVAL, bool) ->
+  // array<range<datetime>>
+  FN_GENERATE_DATETIME_RANGE_ARRAY = 2917;
+  // generate_range_array(range<timestamp>, INTERVAL, bool) ->
+  // array<range<timestamp>>
+  FN_GENERATE_TIMESTAMP_RANGE_ARRAY = 2918;
+
+  // range_contains(range<T>, range<T>) -> bool
+  FN_RANGE_CONTAINS_RANGE = 2919;
+  // range_contains(range<T>, T) -> bool
+  FN_RANGE_CONTAINS_ELEMENT = 2920;
 
   // Snowflake Aggregate functions
   FN_APPROX_TOP_K = 100000;                 // approx_top_k
@@ -1442,6 +1483,19 @@ enum FunctionSignatureId {
   FN_NEXT_DAY_DATE = 100709;                   // NEXT_DAY(DATE, VARCHAR) -> DATE
   FN_NEXT_DAY_DATETIME = 100710;               // NEXT_DAY(DATETIME, VARCHAR) -> DATE
   FN_NEXT_DAY_TIMESTAMP = 100711;              // NEXT_DAY(TIMESTAMP, VARCHAR) -> DATE
+  FN_DATEDIFF_DATE = 100768;                   // DATEDIFF(STRING, DATE, DATE) -> INT64
+  FN_DATEDIFF_TIMESTAMP = 100769;              // DATEDIFF(STRING, TIMESTAMP, TIMESTAMP) -> INT64
+  FN_DATEADD_DATE = 100770;                    // DATEADD(STRING, INT64, DATE) -> DATE
+  FN_DATEADD_TIME = 100771;                    // DATEADD(STRING, INT64, TIME) -> TIME
+  FN_DATEADD_TIMESTAMP = 100772;               // DATEADD(STRING, INT64, TIMESTAMP) -> TIMESTAMP
+  FN_DATE_PART_DATE = 100773;                  // DATE_PART(STRING, DATE) -> INT64
+  FN_DATE_PART_TIME = 100774;                  // DATE_PART(STRING, TIME) -> INT64
+  FN_DATE_PART_TIMESTAMP = 100775;             // DATE_PART(STRING, TIMESTAMP) -> INT64
+  FN_DATE_TRUNC_DATE = 100776;                 // DATE_TRUNC(STRING, DATE) -> DATE
+  FN_DATE_TRUNC_TIME = 100777;                 // DATE_TRUNC(STRING, TIME) -> TIME
+  FN_DATE_TRUNC_TIMESTAMP = 100778;            // DATE_TRUNC(STRING, TIMESTAMP) -> TIMESTAMP
+  FN_LAST_DAY_DATE = 100779;                   // LAST_DAY(DATE, <STRING>) -> DATE
+  FN_LAST_DAY_TIMESTAMP = 100780;              // LAST_DAY(TIMESTAMP, <STRING>) -> TIMESTAMP
 
   FN_PARSE_JSON_SNOWFLAKE = 100712;            // PARSE_JSON(STRING) -> VARIANT
   FN_OBJECT_CONSTRUCT = 100713;                // OBJECT_CONSTRUCT(STRING, <ARG_TYPE_ANY_1>, ...) -> OBJECT
@@ -1497,6 +1551,38 @@ enum FunctionSignatureId {
   FN_TRY_PARSE_JSON_STRING = 100763;           // TRY_PARSE_JSON(STRING) -> VARIANT
   FN_TRY_PARSE_JSON_VARIANT = 100764;          // TRY_PARSE_JSON(VARIANT) -> VARIANT
   FN_XMLGET = 100765;                          // XMLGET(ANY, STRING, <INT64>) -> VARIANT
-  FN_GET_PATH_OP = 100766;                     // GET_PATH_OP(VARIANT, STRING) -> VARIANT
+  FN_GET_PATH_OP_VARIANT = 100766;             // GET_PATH_OP(VARIANT, STRING) -> VARIANT
   FN_MOD_OP = 100767;                          // MOD_OP(NUMERIC, NUMERIC) -> NUMERIC
+  FN_PREVIOUS_DAY_DATE = 100781;               // PREVIOUS_DAY(DATE, VARCHAR) -> DATE
+  FN_PREVIOUS_DAY_DATETIME = 100782;           // PREVIOUS_DAY(DATETIME, VARCHAR) -> DATE
+  FN_PREVIOUS_DAY_TIMESTAMP = 100783;          // PREVIOUS_DAY(TIMESTAMP, VARCHAR) -> DATE
+  FN_TIME_FROM_PARTS = 100784;                 // TIME_FROM_PARTS(INT64, INT64, INT64 [, INT64]) -> TIME
+  FN_TIME_SLICE_TIMESTAMP = 100785;            // TIME_SLICE(TIMESTAMP, INT64, VARCHAR [, VARCHAR]) -> TIMESTAMP
+  FN_TIME_SLICE_DATE = 100786;                 // TIME_SLICE(DATE, INT64, VARCHAR [, VARCHAR]) -> DATE
+  FN_DATE_FROM_PARTS = 100787;                 // DATE_FROM_PARTS(DOUBLE, DOUBLE, DOUBLE) -> DATE
+  FN_CONVERT_TIMESTAMP_NTZ = 100788;           // CONVERT_TIMESTAMP_NTZ(VARCHAR, VARCHAR, TIMESTAMP_NTZ) -> TIMESTAMP_NTZ
+  FN_CONVERT_TIMESTAMP = 100789;               // CONVERT_TIMESTAMP(VARCHAR, TIMESTAMP) -> TIMESTAMP_TZ
+  FN_TIMEDIFF_DATE = 100790;                   // TIMEDIFF(VARCHAR, DATE, DATE) -> INT64
+  FN_TIMEDIFF_TIMESTAMP = 100791;              // TIMEDIFF(VARCHAR, TIMESTAMP, TIMESTAMP) -> INT64
+  FN_TIMESTAMP_FROM_PART_DOUBLE = 100792;      // TIMESTAMP_FROM_PARTS(DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, [,DOUBLE]) -> TIMESTAMP
+  FN_TIMESTAMP_FROM_PART_DATE = 100793;        // TIMESTAMP_FROM_PARTS(DATE, TIME) -> TIMESTAMP
+  FN_TIMESTAMP_TZ_FROM_PART_DOUBLE = 100794;   // TIMESTAMP_TZ_FROM_PARTS(DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, DOUBLE, [,DOUBLE] [,DOUBLE]) -> TIMESTAMP_TZ
+  FN_TIMESTAMP_TZ_FROM_PART_DATE = 100795;     // TIMESTAMP_TZ_FROM_PARTS(DATE, TIME, VARCHAR) -> TIMESTAMP_TZ
+  FN_TRUNC_DATE = 100796;                      // TRUNC(TIMESTAMP, VARCHAR) -> DATE
+  FN_EXTRACT_PART = 100797;                    // YEAR* / DAY* / WEEK* / MONTH / QUARTER(TIMESTAMP) -> INT64
+  FN_HOUR_TIMESTAMP = 100798;                  // HOUR(TIMESTAMP) -> INT64
+  FN_HOUR_TIME = 100799;                       // HOUR(TIME) -> INT64
+  FN_MINUTE_TIMESTAMP = 100800;                // MINUTE(TIMESTAMP) -> INT64
+  FN_MINUTE_TIME = 100801;                     // MINUTE(TIME) -> INT64
+  FN_SECOND_TIMESTAMP = 100802;                // SECOND(TIMESTAMP) -> INT64
+  FN_SECOND_TIME = 100803;                     // SECOND(TIME) -> INT64
+
+  FN_PI = 100804;            // pi
+  FN_DEGREES = 100805;       // degrees
+  FN_FACTORIAL = 100806;     // factorial
+  FN_HAVERSINE = 100807;     // haversine
+  FN_RADIANS = 100808;       // radians
+  FN_SQUARE = 100809;        // square
+
+  // Next: 100810
 }
