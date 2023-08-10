@@ -9,6 +9,7 @@ export interface ResolvedScanProto {
   'columnList'?: (_zetasql_ResolvedColumnProto)[];
   'hintList'?: (_zetasql_ResolvedOptionProto)[];
   'isOrdered'?: (boolean);
+  'nodeSource'?: (string);
 }
 
 export interface ResolvedScanProto__Output {
@@ -16,4 +17,5 @@ export interface ResolvedScanProto__Output {
   'columnList': (_zetasql_ResolvedColumnProto__Output)[];
   'hintList': (_zetasql_ResolvedOptionProto__Output)[];
   'isOrdered': (boolean);
+  'nodeSource': (string);
 }

@@ -1,18 +1,11 @@
 // Original file: src/zetasql/protos/zetasql/parser/parse_tree.proto
 
-import type { ASTDdlStatementProto as _zetasql_ASTDdlStatementProto, ASTDdlStatementProto__Output as _zetasql_ASTDdlStatementProto__Output } from '../zetasql/ASTDdlStatementProto';
-import type { ASTPathExpressionProto as _zetasql_ASTPathExpressionProto, ASTPathExpressionProto__Output as _zetasql_ASTPathExpressionProto__Output } from '../zetasql/ASTPathExpressionProto';
+import type { ASTDropIndexStatementProto as _zetasql_ASTDropIndexStatementProto, ASTDropIndexStatementProto__Output as _zetasql_ASTDropIndexStatementProto__Output } from '../zetasql/ASTDropIndexStatementProto';
 
 export interface ASTDropSearchIndexStatementProto {
-  'parent'?: (_zetasql_ASTDdlStatementProto | null);
-  'name'?: (_zetasql_ASTPathExpressionProto | null);
-  'tableName'?: (_zetasql_ASTPathExpressionProto | null);
-  'isIfExists'?: (boolean);
+  'parent'?: (_zetasql_ASTDropIndexStatementProto | null);
 }
 
 export interface ASTDropSearchIndexStatementProto__Output {
-  'parent': (_zetasql_ASTDdlStatementProto__Output | null);
-  'name': (_zetasql_ASTPathExpressionProto__Output | null);
-  'tableName': (_zetasql_ASTPathExpressionProto__Output | null);
-  'isIfExists': (boolean);
+  'parent': (_zetasql_ASTDropIndexStatementProto__Output | null);
 }

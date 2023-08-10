@@ -20,6 +20,7 @@ export const SignatureArgumentKind = {
   ARG_TYPE_DESCRIPTOR: 13,
   ARG_TYPE_LAMBDA: 17,
   ARG_RANGE_TYPE_ANY: 18,
+  ARG_TYPE_SEQUENCE: 22,
   __SignatureArgumentKind__switch_must_have_a_default__: -1,
 } as const;
 
@@ -62,6 +63,8 @@ export type SignatureArgumentKind =
   | 17
   | 'ARG_RANGE_TYPE_ANY'
   | 18
+  | 'ARG_TYPE_SEQUENCE'
+  | 22
   | '__SignatureArgumentKind__switch_must_have_a_default__'
   | -1
 

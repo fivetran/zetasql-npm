@@ -40,20 +40,20 @@ export type _zetasql_ASTSetOperationEnums_ColumnMatchMode__Output = typeof _zeta
 // Original file: src/zetasql/protos/zetasql/parser/ast_enums.proto
 
 export const _zetasql_ASTSetOperationEnums_ColumnPropagationMode = {
-  INNER: 1,
-  LEFT: 2,
-  FULL: 3,
-  STRICT: 4,
+  STRICT: 1,
+  INNER: 2,
+  LEFT: 3,
+  FULL: 4,
 } as const;
 
 export type _zetasql_ASTSetOperationEnums_ColumnPropagationMode =
-  | 'INNER'
-  | 1
-  | 'LEFT'
-  | 2
-  | 'FULL'
-  | 3
   | 'STRICT'
+  | 1
+  | 'INNER'
+  | 2
+  | 'LEFT'
+  | 3
+  | 'FULL'
   | 4
 
 export type _zetasql_ASTSetOperationEnums_ColumnPropagationMode__Output = typeof _zetasql_ASTSetOperationEnums_ColumnPropagationMode[keyof typeof _zetasql_ASTSetOperationEnums_ColumnPropagationMode]

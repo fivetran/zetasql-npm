@@ -22,5 +22,6 @@ package zetasql.storage;
 import "zetasql/public/proto/type_annotation.proto";
 
 option java_package = "com.google.zetasql";
+
 // To avoid conflicts with type_annotation.proto
 option objc_class_prefix = "ZETASQL";

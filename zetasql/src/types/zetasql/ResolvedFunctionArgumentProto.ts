@@ -8,6 +8,7 @@ import type { ResolvedModelProto as _zetasql_ResolvedModelProto, ResolvedModelPr
 import type { ResolvedConnectionProto as _zetasql_ResolvedConnectionProto, ResolvedConnectionProto__Output as _zetasql_ResolvedConnectionProto__Output } from '../zetasql/ResolvedConnectionProto';
 import type { ResolvedDescriptorProto as _zetasql_ResolvedDescriptorProto, ResolvedDescriptorProto__Output as _zetasql_ResolvedDescriptorProto__Output } from '../zetasql/ResolvedDescriptorProto';
 import type { ResolvedInlineLambdaProto as _zetasql_ResolvedInlineLambdaProto, ResolvedInlineLambdaProto__Output as _zetasql_ResolvedInlineLambdaProto__Output } from '../zetasql/ResolvedInlineLambdaProto';
+import type { ResolvedSequenceProto as _zetasql_ResolvedSequenceProto, ResolvedSequenceProto__Output as _zetasql_ResolvedSequenceProto__Output } from '../zetasql/ResolvedSequenceProto';
 
 export interface ResolvedFunctionArgumentProto {
   'parent'?: (_zetasql_ResolvedArgumentProto | null);
@@ -18,6 +19,7 @@ export interface ResolvedFunctionArgumentProto {
   'connection'?: (_zetasql_ResolvedConnectionProto | null);
   'descriptorArg'?: (_zetasql_ResolvedDescriptorProto | null);
   'inlineLambda'?: (_zetasql_ResolvedInlineLambdaProto | null);
+  'sequence'?: (_zetasql_ResolvedSequenceProto | null);
 }
 
 export interface ResolvedFunctionArgumentProto__Output {
@@ -29,4 +31,5 @@ export interface ResolvedFunctionArgumentProto__Output {
   'connection': (_zetasql_ResolvedConnectionProto__Output | null);
   'descriptorArg': (_zetasql_ResolvedDescriptorProto__Output | null);
   'inlineLambda': (_zetasql_ResolvedInlineLambdaProto__Output | null);
+  'sequence': (_zetasql_ResolvedSequenceProto__Output | null);
 }

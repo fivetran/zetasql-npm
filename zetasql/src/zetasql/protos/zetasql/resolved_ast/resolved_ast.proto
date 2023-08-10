@@ -74,7 +74,6 @@ message AnyResolvedArgumentProto {
     ResolvedFunctionSignatureHolderProto resolved_function_signature_holder_node = 84;
     ResolvedAggregateHavingModifierProto resolved_aggregate_having_modifier_node = 85;
     ResolvedColumnDefinitionProto resolved_column_definition_node = 91;
-    ResolvedGroupingSetProto resolved_grouping_set_node = 93;
     ResolvedSetOperationItemProto resolved_set_operation_item_node = 94;
     ResolvedIndexItemProto resolved_index_item_node = 96;
     ResolvedMergeWhenProto resolved_merge_when_node = 100;
@@ -102,6 +101,10 @@ message AnyResolvedArgumentProto {
     ResolvedObjectUnitProto resolved_object_unit_node = 200;
     ResolvedAuxLoadDataPartitionFilterProto resolved_aux_load_data_partition_filter_node = 222;
     ResolvedCreateModelAliasedQueryProto resolved_create_model_aliased_query_node = 226;
+    ResolvedSequenceProto resolved_sequence_node = 233;
+    ResolvedGroupingSetMultiColumnProto resolved_grouping_set_multi_column_node = 237;
+    AnyResolvedGroupingSetBaseProto resolved_grouping_set_base_node = 238;
+    ResolvedGroupingCallProto resolved_grouping_call_node = 241;
   }
 }
 
@@ -228,6 +231,20 @@ message ResolvedColumnRefProto {
   optional bool is_correlated = 3;
 }
 
+// A list of ResolvedColumnRef expression references that will be batched
+// together in rollup/cube when being expanded to grouping sets. For
+// example, ROLLUP((a, b), c) will be expanded to 3 grouping sets [(a, b, c),
+// (a, b), ()], (a, b) is a multi-column.
+//
+// Duplicated columns are not allowed in the ResolvedGroupingSetMultiColumn
+// as they are equivalent to deduplicated columns. column_list must have
+// at least one element inside.
+message ResolvedGroupingSetMultiColumnProto {
+  optional ResolvedArgumentProto parent = 1;
+
+  repeated ResolvedColumnRefProto column_list = 2;
+}
+
 // A reference to a named constant.
 message ResolvedConstantProto {
   optional ResolvedExprProto parent = 1;
@@ -273,6 +290,13 @@ message ResolvedInlineLambdaProto {
   repeated ResolvedColumnProto argument_list = 2;
   repeated ResolvedColumnRefProto parameter_list = 3;
   optional AnyResolvedExprProto body = 4;
+}
+
+// Represents a sequence as a function argument
+message ResolvedSequenceProto {
+  optional ResolvedArgumentProto parent = 1;
+
+  optional SequenceRefProto sequence = 2;
 }
 
 // An argument to the FILTER_FIELDS() function which specifies a sign to show
@@ -891,16 +915,22 @@ message ResolvedWithExprProto {
 // represented as a single Scan that composes all input sources into
 // a single row stream.
 //
-// Each Scan has a <column_list> that says what columns are produced.
+// Each Scan has a `column_list` that says what columns are produced.
 // The Scan logically produces a stream of output rows, where each row
 // has exactly these columns.
 //
-// Each Scan may have an attached <hint_list>, storing each hint as
+// Each Scan may have an attached `hint_list`, storing each hint as
 // a ResolvedOption.
 //
-// If <is_ordered> is true, this Scan produces an ordered output, either
+// If `is_ordered` is true, this Scan produces an ordered output, either
 // by generating order itself (OrderByScan) or by preserving the order
 // of its single input scan (LimitOffsetScan, ProjectScan, or WithScan).
+//
+// Each Scan has a `node_source` field that, if populated, represents where
+// the scan was from or why it was added. This is used in some cases by the
+// resolver, rewriters or the random query generator to record why a node was
+// added. The SQLBuilder may also use `node_source` to influence which query
+// patterns to generate.
 message AnyResolvedScanProto {
   oneof node {
     ResolvedSingleRowScanProto resolved_single_row_scan_node = 19;
@@ -934,6 +964,7 @@ message ResolvedScanProto {
   repeated ResolvedColumnProto column_list = 2;
   repeated ResolvedOptionProto hint_list = 3;
   optional bool is_ordered = 4;
+  optional string node_source = 5;
 }
 
 // This node provides the role context for its subtree. Currently, it only
@@ -1115,6 +1146,35 @@ message ResolvedFilterScanProto {
   optional AnyResolvedExprProto filter_expr = 3;
 }
 
+// A GROUPING function call. `group_by_column` must be a column from
+// the `group_by_list` in `ResolvedAggregateScan`.
+// `output_column` is a new column of type int64.
+// Its output value is 0 if `group_by_column` is included in the current
+// grouping set, or 1 if not.
+message ResolvedGroupingCallProto {
+  optional ResolvedArgumentProto parent = 1;
+
+  optional ResolvedColumnRefProto group_by_column = 2;
+  optional ResolvedColumnProto output_column = 3;
+}
+
+// The parent node for grouping set, rollup and cube nodes.
+//
+// This node exists for organizational purposes only, to cluster
+// grouping set, rollup and cube nodes. It doesn't have any actual fields.
+message AnyResolvedGroupingSetBaseProto {
+  oneof node {
+    ResolvedGroupingSetProto resolved_grouping_set_node = 93;
+    ResolvedRollupProto resolved_rollup_node = 239;
+    ResolvedCubeProto resolved_cube_node = 240;
+  }
+}
+
+message ResolvedGroupingSetBaseProto {
+  optional ResolvedArgumentProto parent = 1;
+
+}
+
 // List of group by columns that form a grouping set.
 //
 // Columns must come from group_by_list in ResolvedAggregateScan.
@@ -1122,9 +1182,36 @@ message ResolvedFilterScanProto {
 // than one ResolvedGroupingSet in the ResolvedAggregateScan with the same
 // columns, however.
 message ResolvedGroupingSetProto {
-  optional ResolvedArgumentProto parent = 1;
+  optional ResolvedGroupingSetBaseProto parent = 1;
 
   repeated ResolvedColumnRefProto group_by_column_list = 2;
+}
+
+// List of ResolvedGroupingSetMultiColumn that forms a rollup.
+//
+// Each ResolvedGroupingSetMultiColumn is a list of column references that
+// will be batched together when expanding to grouping sets. E.g.
+// ROLLUP((a, b), c) is expanded to grouping sets [(a, b, c), (a, b), ()].
+// Both (a, b) and c are store in ResolvedGroupingSetMultiColumn for
+// convenience.
+//
+// Column references in each ResolvedGroupingSetMultiColumn must come from
+// group_by_list in ResolvedAggregateScan. It is allowed to have
+// duplicated ResolvedGroupingSetMultiColumn in rollup_column_list.
+message ResolvedRollupProto {
+  optional ResolvedGroupingSetBaseProto parent = 1;
+
+  repeated ResolvedGroupingSetMultiColumnProto rollup_column_list = 2;
+}
+
+// List of ResolvedGroupingSetMultiColumn that forms a cube in grouping sets.
+//
+// See comments in ResolvdRollup for explanation about
+// ResolvedGroupingSetMultiColumn.
+message ResolvedCubeProto {
+  optional ResolvedGroupingSetBaseProto parent = 1;
+
+  repeated ResolvedGroupingSetMultiColumnProto cube_column_list = 2;
 }
 
 // Base class for aggregation scans. Apply aggregation to rows produced from
@@ -1149,28 +1236,18 @@ message ResolvedGroupingSetProto {
 // The output <column_list> contains only columns produced from
 // <group_by_list> and <aggregate_list>.  No other columns are visible after
 // aggregation.
-message AnyResolvedAggregateScanBaseProto {
-  oneof node {
-    ResolvedAggregateScanProto resolved_aggregate_scan_node = 25;
-    ResolvedAnonymizedAggregateScanProto resolved_anonymized_aggregate_scan_node = 112;
-    ResolvedDifferentialPrivacyAggregateScanProto resolved_differential_privacy_aggregate_scan_node = 221;
-  }
-}
-
-message ResolvedAggregateScanBaseProto {
-  optional ResolvedScanProto parent = 1;
-
-  optional AnyResolvedScanProto input_scan = 2;
-  repeated ResolvedComputedColumnProto group_by_list = 3;
-  repeated ResolvedCollationProto collation_list = 5;
-  repeated ResolvedComputedColumnProto aggregate_list = 4;
-}
-
-// Apply aggregation to rows produced from input_scan, and output aggregated
-// rows.
 //
-// For each item in <grouping_set_list>, output additional rows computing the
+// If <grouping_set_list> is empty, output rows grouped by the full
+// <group_by_list>.
+//
+// If <grouping_set_list> is non-empty, then
+// for each item in <grouping_set_list>, output rows computing the
 // same <aggregate_list> over the input rows using a particular grouping set.
+// Each item in <grouping_set_list> is either a ResolvedGroupingSet,
+// ResolvedRollup, or ResolvedCube before the grouping set rewriter expands
+// the grouping set list. After rewriting, it will only contain
+// ResolvedGroupingSet that are expanded from grouping set, rollup and cube.
+//
 // The aggregation input values, including <input_scan>, computed columns in
 // <group_by_list>, and aggregate function arguments in <aggregate_list>,
 // should be computed just once and then reused as aggregation input for each
@@ -1183,11 +1260,36 @@ message ResolvedAggregateScanBaseProto {
 // GROUP BY ROLLUP(...), if there was a ROLLUP clause, and is used only for
 // rebuilding equivalent SQL for the resolved AST. Engines should refer to
 // <grouping_set_list> rather than <rollup_column_list>.
+//
+// <grouping_call_list> is the list of resolved group-by columns referenced
+// in GROUPING aggregate function calls. Each item in the grouping_call_list
+// is associated with a unique GROUPING function call in the SELECT list.
+message AnyResolvedAggregateScanBaseProto {
+  oneof node {
+    ResolvedAggregateScanProto resolved_aggregate_scan_node = 25;
+    ResolvedAnonymizedAggregateScanProto resolved_anonymized_aggregate_scan_node = 112;
+    ResolvedDifferentialPrivacyAggregateScanProto resolved_differential_privacy_aggregate_scan_node = 221;
+    ResolvedAggregationThresholdAggregateScanProto resolved_aggregation_threshold_aggregate_scan_node = 228;
+  }
+}
+
+message ResolvedAggregateScanBaseProto {
+  optional ResolvedScanProto parent = 1;
+
+  optional AnyResolvedScanProto input_scan = 2;
+  repeated ResolvedComputedColumnProto group_by_list = 3;
+  repeated ResolvedCollationProto collation_list = 5;
+  repeated ResolvedComputedColumnProto aggregate_list = 4;
+  repeated AnyResolvedGroupingSetBaseProto grouping_set_list = 6;
+  repeated ResolvedColumnRefProto rollup_column_list = 7;
+  repeated ResolvedGroupingCallProto grouping_call_list = 8;
+}
+
+// Apply aggregation to rows produced from input_scan, and output aggregated
+// rows.
 message ResolvedAggregateScanProto {
   optional ResolvedAggregateScanBaseProto parent = 1;
 
-  repeated ResolvedGroupingSetProto grouping_set_list = 5;
-  repeated ResolvedColumnRefProto rollup_column_list = 6;
 }
 
 // Apply differentially private aggregation (anonymization) to rows produced
@@ -1233,6 +1335,19 @@ message ResolvedDifferentialPrivacyAggregateScanProto {
   repeated ResolvedOptionProto option_list = 6;
 }
 
+// Apply aggregation to rows produced from input_scan and output rows to
+// that pass aggregation thresholds. It adds:
+// HAVING COUNT(DISTINCT `privacy_unit_column`) >= `threshold`.
+// Spec: (broken link)
+//
+// <option_list> provides user-specified options. Allowed options are defined
+// in GetAllowedAggregationThresholdOptions function.
+message ResolvedAggregationThresholdAggregateScanProto {
+  optional ResolvedAggregateScanBaseProto parent = 1;
+
+  repeated ResolvedOptionProto option_list = 5;
+}
+
 // This is one input item in a ResolvedSetOperation.
 // The <output_column_list> matches 1:1 with the ResolvedSetOperation's
 // <column_list> and specifies how columns from <scan> map to output columns.
@@ -1266,12 +1381,24 @@ message ResolvedSetOperationItemProto {
 //   appear once in the output if m > 0 and n = 0.
 //
 // - For n (>2) input scans, the above operations generalize so the output is
-//   the same as if the inputs were combined incrementally from left to right.
+//   the same as if the inputs were combined incrementally from left to
+//   right.
+//
+// <column_match_mode> represents how columns from different queries were
+// matched, for example BY_POSITION or CORRESPONDING (by name). Engines can
+// ignore this field; it is included for informational purposes.
+//
+// <column_propagation_mode> represents how non-matching columns were
+// treated, for example INNER (non-matching columns are dropped) or STRICT
+// (non-matching columns are not allowed). Engines can ignore this field;
+// it is included for informational purposes.
 message ResolvedSetOperationScanProto {
   optional ResolvedScanProto parent = 1;
 
   optional ResolvedSetOperationScanEnums.SetOperationType op_type = 2;
   repeated ResolvedSetOperationItemProto input_item_list = 4;
+  optional ResolvedSetOperationScanEnums.SetOperationColumnMatchMode column_match_mode = 5;
+  optional ResolvedSetOperationScanEnums.SetOperationColumnPropagationMode column_propagation_mode = 6;
 }
 
 // Apply ordering to rows produced from input_scan, and output ordered
@@ -1614,10 +1741,10 @@ message ResolvedForeignKeyProto {
   repeated string referencing_column_list = 11;
 }
 
-// This represents the ZETASQL_CHECK constraint on a table. It is of the form:
+// This represents the ABSL_CHECK constraint on a table. It is of the form:
 //
 //   CONSTRAINT <constraint_name>
-//   ZETASQL_CHECK <expression>
+//   ABSL_CHECK <expression>
 //   <enforced>
 //   <option_list>
 //
@@ -1761,18 +1888,20 @@ message ResolvedGroupRowsScanProto {
 }
 
 // This represents a generic argument to a function. The argument can be
-// semantically an expression, relation, model, connection or descriptor.
-// Only one of the five fields will be set.
+// semantically an expression, relation, model, connection descriptor, or
+// sequence.
+// Only one of the six fields will be set.
 //
 // <expr> represents a scalar function argument.
 // <scan> represents a table-typed argument.
 // <model> represents a ML model function argument.
 // <connection> represents a connection object function argument.
 // <descriptor_arg> represents a descriptor object function argument.
+// <sequence> represents a sequence object function argument.
 //
 // This node could be used in multiple places:
 // * ResolvedTVFScan supports all of these.
-// * ResolvedFunctionCall supports only <expr>.
+// * ResolvedFunctionCall supports <expr> and <sequence>.
 // * ResolvedCallStmt supports only <expr>.
 //
 // If the argument has type <scan>, <argument_column_list> maps columns from
@@ -1790,6 +1919,7 @@ message ResolvedFunctionArgumentProto {
   optional ResolvedDescriptorProto descriptor_arg = 7;
   repeated ResolvedColumnProto argument_column_list = 4;
   optional ResolvedInlineLambdaProto inline_lambda = 8;
+  optional ResolvedSequenceProto sequence = 9;
 }
 
 // The superclass of all ZetaSQL statements.
@@ -1836,8 +1966,10 @@ message AnyResolvedStatementProto {
     ResolvedAnalyzeStmtProto resolved_analyze_stmt_node = 180;
     ResolvedDropSnapshotTableStmtProto resolved_drop_snapshot_table_stmt_node = 183;
     ResolvedAuxLoadDataStmtProto resolved_aux_load_data_stmt_node = 186;
-    ResolvedDropSearchIndexStmtProto resolved_drop_search_index_stmt_node = 190;
     ResolvedDropPrivilegeRestrictionStmtProto resolved_drop_privilege_restriction_stmt_node = 192;
+    ResolvedUndropStmtProto resolved_undrop_stmt_node = 227;
+    ResolvedExportMetadataStmtProto resolved_export_metadata_stmt_node = 234;
+    ResolvedDropIndexStmtProto resolved_drop_index_stmt_node = 242;
   }
 }
 
@@ -1954,7 +2086,7 @@ message ResolvedUnnestItemProto {
 }
 
 // This statement:
-// CREATE [OR REPLACE] [UNIQUE] [SEARCH] INDEX [IF NOT EXISTS]
+// CREATE [OR REPLACE] [UNIQUE] [SEARCH | VECTOR] INDEX [IF NOT EXISTS]
 //  <index_name_path> ON <table_name_path>
 // [STORING (Expression, ...)]
 // [UNNEST(path_expression) [[AS] alias] [WITH OFFSET [[AS] alias]], ...]
@@ -1963,7 +2095,10 @@ message ResolvedUnnestItemProto {
 // <table_name_path> is the name of table being indexed.
 // <table_scan> is a TableScan on the table being indexed.
 // <is_unique> specifies if the index has unique entries.
-// <is_search> specifies if the index is for search.
+// <is_search> specifies if the index is for search. It is mutually exclusive
+//             with is_vector.
+// <is_vector> specifies if the index is for vector search. It is mutually
+//             exclusive with is_search.
 // <index_all_columns> specifies if indexing all the columns of the table.
 //                     When this field is true, index_item_list must be
 //                     empty and is_search must be true.
@@ -1986,6 +2121,7 @@ message ResolvedCreateIndexStmtProto {
   optional ResolvedTableScanProto table_scan = 3;
   optional bool is_unique = 4;
   optional bool is_search = 10;
+  optional bool is_vector = 12;
   optional bool index_all_columns = 11;
   repeated ResolvedIndexItemProto index_item_list = 5;
   repeated AnyResolvedExprProto storing_expression_list = 9;
@@ -2036,7 +2172,7 @@ message ResolvedCreateSchemaStmtProto {
 // <primary_key> specifies the PRIMARY KEY constraint on the table, it is
 //               nullptr when no PRIMARY KEY is specified.
 // <foreign_key_list> specifies the FOREIGN KEY constraints on the table.
-// <check_constraint_list> specifies the ZETASQL_CHECK constraints on the table.
+// <check_constraint_list> specifies the ABSL_CHECK constraints on the table.
 // <partition_by_list> specifies the partitioning expressions for the table.
 // <cluster_by_list> specifies the clustering expressions for the table.
 // TODO: Return error when the PARTITION BY / CLUSTER BY
@@ -2300,6 +2436,7 @@ message AnyResolvedCreateViewBaseProto {
   oneof node {
     ResolvedCreateViewStmtProto resolved_create_view_stmt_node = 41;
     ResolvedCreateMaterializedViewStmtProto resolved_create_materialized_view_stmt_node = 119;
+    ResolvedCreateApproxViewStmtProto resolved_create_approx_view_stmt_node = 235;
   }
 }
 
@@ -2415,6 +2552,26 @@ message ResolvedExportDataStmtProto {
   // column, with an empty name. See (broken link).
   optional bool is_value_table = 4;
   optional AnyResolvedScanProto query = 5;
+}
+
+// This statement:
+//   EXPORT <schema_object_kind> METADATA FROM <name_path>
+//   [WITH CONNECTION <connection>] [OPTIONS(<option_list>)]
+//
+// <schema_object_kind> is a string identifier for the object for which the
+// metadata should be exported. Currently, only 'TABLE' object is supported.
+// <name_path> is a vector giving the identifier path for the object for
+// which the metadata should be exported.
+// <connection> connection reference for accessing destination source.
+// <option_list> identifies user specified options to use when exporting
+// object's metadata.
+message ResolvedExportMetadataStmtProto {
+  optional ResolvedStatementProto parent = 1;
+
+  optional string schema_object_kind = 2;
+  repeated string name_path = 3;
+  optional ResolvedConnectionProto connection = 4;
+  repeated ResolvedOptionProto option_list = 5;
 }
 
 // This statement: DEFINE TABLE name (...);
@@ -2761,11 +2918,21 @@ message ResolvedOptionProto {
 // Window partitioning specification for an analytic function call.
 //
 // PARTITION BY keys in <partition_by_list>.
+//
+// <collation_list> is either empty to indicate that all the elements in
+// <partition_by_list> have the default collation, or <collation_list> has
+// the same number of elements as <partition_by_list>.  Each element is the
+// collation for the element in <partition_by_list> with the same index, or
+// can be empty to indicate default collation or when the type is not
+// collatable. <collation_list> is only set when
+// FEATURE_V_1_3_COLLATION_SUPPORT is enabled.
+// See (broken link).
 message ResolvedWindowPartitioningProto {
   optional ResolvedArgumentProto parent = 1;
 
   repeated ResolvedColumnRefProto partition_by_list = 2;
   repeated ResolvedOptionProto hint_list = 3;
+  repeated ResolvedCollationProto collation_list = 4;
 }
 
 // Window ordering specification for an analytic function call.
@@ -3334,7 +3501,8 @@ message ResolvedPrivilegeProto {
 //
 // <privilege_list> is the list of privileges to be granted/revoked. ALL
 // PRIVILEGES should be granted/fromed if it is empty.
-// <object_type> is an optional string identifier, e.g., TABLE, VIEW.
+// <object_type_list> is an optional list of string identifiers, e.g., TABLE,
+// VIEW, MATERIALIZED VIEW.
 // <name_path> is a vector of segments of the object identifier's pathname.
 // <grantee_list> (DEPRECATED) is the list of grantees (strings).
 // <grantee_expr_list> is the list of grantees, and may include parameters.
@@ -3356,7 +3524,7 @@ message ResolvedGrantOrRevokeStmtProto {
   optional ResolvedStatementProto parent = 1;
 
   repeated ResolvedPrivilegeProto privilege_list = 2;
-  optional string object_type = 3;
+  repeated string object_type_list = 3;
   repeated string name_path = 4;
   repeated string grantee_list = 5;
   repeated AnyResolvedExprProto grantee_expr_list = 6;
@@ -3396,6 +3564,7 @@ message AnyResolvedAlterObjectStmtProto {
     ResolvedAlterSchemaStmtProto resolved_alter_schema_stmt_node = 160;
     ResolvedAlterPrivilegeRestrictionStmtProto resolved_alter_privilege_restriction_stmt_node = 196;
     ResolvedAlterModelStmtProto resolved_alter_model_stmt_node = 205;
+    ResolvedAlterApproxViewStmtProto resolved_alter_approx_view_stmt_node = 236;
   }
 }
 
@@ -3419,6 +3588,13 @@ message ResolvedAlterDatabaseStmtProto {
 // This statement:
 // ALTER MATERIALIZED VIEW [IF EXISTS] <name_path> <alter_action_list>
 message ResolvedAlterMaterializedViewStmtProto {
+  optional ResolvedAlterObjectStmtProto parent = 1;
+
+}
+
+// This statement:
+// ALTER APPROX VIEW [IF EXISTS] <name_path> <alter_action_list>
+message ResolvedAlterApproxViewStmtProto {
   optional ResolvedAlterObjectStmtProto parent = 1;
 
 }
@@ -3851,17 +4027,21 @@ message ResolvedDropRowAccessPolicyStmtProto {
   repeated string target_name_path = 5;
 }
 
-// DROP SEARCH INDEX [IF EXISTS] <name> [ON <table_name_path>];
+// DROP SEARCH|VECTOR INDEX [IF EXISTS] <name> [ON <table_name_path>];
+// Note: DROP INDEX without SEARCH or VECTOR is currently resolved to a
+// generic ResolvedDropStmt. The index_type currently would never be
+// INDEX_DEFAULT.
 //
 // <name> is the name of the search index to be dropped.
 // <table_name_path> is a vector giving the identifier path of the target
 //                   table.
-message ResolvedDropSearchIndexStmtProto {
+message ResolvedDropIndexStmtProto {
   optional ResolvedStatementProto parent = 1;
 
   optional bool is_if_exists = 2;
   optional string name = 3;
   repeated string table_name_path = 4;
+  optional ResolvedDropIndexStmtEnums.IndexType index_type = 5;
 }
 
 // GRANT TO action for ALTER ROW ACCESS POLICY statement
@@ -4436,7 +4616,8 @@ message ResolvedAggregateHavingModifierProto {
 
 // This statement:
 //   CREATE MATERIALIZED VIEW <name> [(...)] [PARTITION BY expr, ...]
-//   [CLUSTER BY expr, ...] [OPTIONS (...)] AS SELECT ...
+//   [CLUSTER BY expr, ...] [OPTIONS (...)]
+//   {AS SELECT ... | AS REPLICA OF ...}
 //
 // <partition_by_list> specifies the partitioning expressions for the
 //                     materialized view.
@@ -4447,11 +4628,27 @@ message ResolvedCreateMaterializedViewStmtProto {
 
   repeated AnyResolvedExprProto partition_by_list = 3;
   repeated AnyResolvedExprProto cluster_by_list = 4;
+  optional AnyResolvedScanProto replica_source = 5;
+}
+
+// This statement creates an APPROX VIEW:
+//   CREATE APPROX VIEW <name> [(...)] [OPTIONS (...)] AS SELECT ...
+//
+// An APPROX VIEW provides approximate results from the view query, as
+// opposed to a regular view which returns exact results from its view query.
+// APPROX VIEW is a generic operator whose behavior is implementation-defined
+// based on the OPTIONS and query engines.
+//
+// See (broken link) for more details on APPROX VIEW.
+message ResolvedCreateApproxViewStmtProto {
+  optional ResolvedCreateViewBaseProto parent = 1;
+
 }
 
 // This statement creates a user-defined procedure:
 // CREATE [OR REPLACE] [TEMP] PROCEDURE [IF NOT EXISTS] <name_path>
-// (<arg_list>) [WITH CONNECTION <connection>] [OPTIONS (<option_list>)]
+// (<arg_list>) [EXTERNAL SECURITY <external_security>]
+// [WITH CONNECTION <connection>] [OPTIONS (<option_list>)]
 // [BEGIN <procedure_body> END | LANGUAGE <language> [AS <code>]];
 //
 // <name_path> is the identifier path of the procedure.
@@ -4459,6 +4656,8 @@ message ResolvedCreateMaterializedViewStmtProto {
 // <signature> is the FunctionSignature of the created procedure, with all
 //        options.  This can be used to create a procedure to load into a
 //        Catalog for future queries.
+// <external_security> is the external security mode for the created
+//        procedure. Values include 'INVOKER', 'DEFINER'.
 // <connection> is the identifier path of the connection object.
 // <option_list> has engine-specific directives for modifying procedures.
 // <procedure_body> is a string literal that contains the SQL procedure
@@ -4490,6 +4689,7 @@ message ResolvedCreateProcedureStmtProto {
   optional ResolvedConnectionProto connection = 6;
   optional string language = 7;
   optional string code = 8;
+  optional ResolvedCreateStatementEnums.SqlSecurity external_security = 9;
 }
 
 // An argument for an EXECUTE IMMEDIATE's USING clause.
@@ -4525,9 +4725,12 @@ message ResolvedExecuteImmediateStmtProto {
 message ResolvedAssignmentStmtProto {
   optional ResolvedStatementProto parent = 1;
 
-  // Target of the assignment.  Currently, this will be either ResolvedSystemVariable, or a chain of ResolveGetField operations around it.
+  // Target of the assignment.  Currently, this will be
+  // either ResolvedSystemVariable, or a chain of ResolveGetField
+  // operations around it.
   optional AnyResolvedExprProto target = 2;
-  // Value to assign into the target.  This will always be the same type as the target.
+  // Value to assign into the target.  This will always be
+  // the same type as the target.
   optional AnyResolvedExprProto expr = 3;
 }
 
@@ -4855,7 +5058,7 @@ message ResolvedAuxLoadDataPartitionFilterProto {
 // <foreign_key_list> specifies the FOREIGN KEY constraints on the table.
 //     If specified, and the table already exists, the foreign keys are
 //     required to be the same as that of the existing.
-// <check_constraint_list> specifies the ZETASQL_CHECK constraints on the table.
+// <check_constraint_list> specifies the ABSL_CHECK constraints on the table.
 //     If specified, and the table already exists, the constraints are
 //     required to be the same as that of the existing.
 // <partition_by_list> The list of columns to partition the destination
@@ -4900,5 +5103,29 @@ message ResolvedAuxLoadDataStmtProto {
   optional ResolvedWithPartitionColumnsProto with_partition_columns = 13;
   optional ResolvedConnectionProto connection = 14;
   repeated ResolvedOptionProto from_files_option_list = 15;
+}
+
+// This statement:
+//   UNDROP <schema_object_kind> [IF NOT EXISTS] <name_path>
+//   FOR SYSTEM_TIME AS OF [<for_system_time_expr>];
+//
+// <schema_object_kind> is a string identifier for the entity to be
+// undroped. Currently, only 'SCHEMA' object is supported.
+//
+// <name_path> is a vector giving the identifier path for the object to
+// be undropped.
+//
+// <is_if_not_exists> if set, skip the undrop if the resource already
+// exists.
+//
+// <for_system_time_expr> specifies point in time from which entity is to
+// be undropped.
+message ResolvedUndropStmtProto {
+  optional ResolvedStatementProto parent = 1;
+
+  optional string schema_object_kind = 2;
+  optional bool is_if_not_exists = 3;
+  repeated string name_path = 4;
+  optional AnyResolvedExprProto for_system_time_expr = 5;
 }
 

@@ -9,6 +9,7 @@ import type { ASTAlterRowAccessPolicyStatementProto as _zetasql_ASTAlterRowAcces
 import type { ASTAlterEntityStatementProto as _zetasql_ASTAlterEntityStatementProto, ASTAlterEntityStatementProto__Output as _zetasql_ASTAlterEntityStatementProto__Output } from '../zetasql/ASTAlterEntityStatementProto';
 import type { ASTAlterPrivilegeRestrictionStatementProto as _zetasql_ASTAlterPrivilegeRestrictionStatementProto, ASTAlterPrivilegeRestrictionStatementProto__Output as _zetasql_ASTAlterPrivilegeRestrictionStatementProto__Output } from '../zetasql/ASTAlterPrivilegeRestrictionStatementProto';
 import type { ASTAlterModelStatementProto as _zetasql_ASTAlterModelStatementProto, ASTAlterModelStatementProto__Output as _zetasql_ASTAlterModelStatementProto__Output } from '../zetasql/ASTAlterModelStatementProto';
+import type { ASTAlterApproxViewStatementProto as _zetasql_ASTAlterApproxViewStatementProto, ASTAlterApproxViewStatementProto__Output as _zetasql_ASTAlterApproxViewStatementProto__Output } from '../zetasql/ASTAlterApproxViewStatementProto';
 
 export interface AnyASTAlterStatementBaseProto {
   'astAlterDatabaseStatementNode'?: (_zetasql_ASTAlterDatabaseStatementProto | null);
@@ -20,7 +21,8 @@ export interface AnyASTAlterStatementBaseProto {
   'astAlterEntityStatementNode'?: (_zetasql_ASTAlterEntityStatementProto | null);
   'astAlterPrivilegeRestrictionStatementNode'?: (_zetasql_ASTAlterPrivilegeRestrictionStatementProto | null);
   'astAlterModelStatementNode'?: (_zetasql_ASTAlterModelStatementProto | null);
-  'node'?: "astAlterDatabaseStatementNode"|"astAlterSchemaStatementNode"|"astAlterTableStatementNode"|"astAlterViewStatementNode"|"astAlterMaterializedViewStatementNode"|"astAlterRowAccessPolicyStatementNode"|"astAlterEntityStatementNode"|"astAlterPrivilegeRestrictionStatementNode"|"astAlterModelStatementNode";
+  'astAlterApproxViewStatementNode'?: (_zetasql_ASTAlterApproxViewStatementProto | null);
+  'node'?: "astAlterDatabaseStatementNode"|"astAlterSchemaStatementNode"|"astAlterTableStatementNode"|"astAlterViewStatementNode"|"astAlterMaterializedViewStatementNode"|"astAlterRowAccessPolicyStatementNode"|"astAlterEntityStatementNode"|"astAlterPrivilegeRestrictionStatementNode"|"astAlterModelStatementNode"|"astAlterApproxViewStatementNode";
 }
 
 export interface AnyASTAlterStatementBaseProto__Output {
@@ -33,5 +35,6 @@ export interface AnyASTAlterStatementBaseProto__Output {
   'astAlterEntityStatementNode'?: (_zetasql_ASTAlterEntityStatementProto__Output | null);
   'astAlterPrivilegeRestrictionStatementNode'?: (_zetasql_ASTAlterPrivilegeRestrictionStatementProto__Output | null);
   'astAlterModelStatementNode'?: (_zetasql_ASTAlterModelStatementProto__Output | null);
-  'node': "astAlterDatabaseStatementNode"|"astAlterSchemaStatementNode"|"astAlterTableStatementNode"|"astAlterViewStatementNode"|"astAlterMaterializedViewStatementNode"|"astAlterRowAccessPolicyStatementNode"|"astAlterEntityStatementNode"|"astAlterPrivilegeRestrictionStatementNode"|"astAlterModelStatementNode";
+  'astAlterApproxViewStatementNode'?: (_zetasql_ASTAlterApproxViewStatementProto__Output | null);
+  'node': "astAlterDatabaseStatementNode"|"astAlterSchemaStatementNode"|"astAlterTableStatementNode"|"astAlterViewStatementNode"|"astAlterMaterializedViewStatementNode"|"astAlterRowAccessPolicyStatementNode"|"astAlterEntityStatementNode"|"astAlterPrivilegeRestrictionStatementNode"|"astAlterModelStatementNode"|"astAlterApproxViewStatementNode";
 }

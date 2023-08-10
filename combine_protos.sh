@@ -1,13 +1,14 @@
 #!/bin/bash
 
+SCRIPT_DIR=$(dirname "$0")
+cd ${SCRIPT_DIR}
+echo 'Running from folder '${PWD}
+
 function copy() {
     mkdir -p `dirname $2`
     cp $1 $2
 }
 
-copy bazel-bin/external/com_google_protobuf/_virtual_imports/descriptor_proto/google/protobuf/descriptor.proto protos/zetasql/descriptor_proto/google/protobuf/descriptor.proto
-copy bazel-bin/external/com_google_protobuf/_virtual_imports/empty_proto/google/protobuf/empty.proto protos/zetasql/empty_proto/google/protobuf/empty.proto
-copy bazel-bin/external/com_google_protobuf/_virtual_imports/timestamp_proto/google/protobuf/timestamp.proto protos/zetasql/timestamp_proto/google/protobuf/timestamp.proto
 copy bazel-bin/zetasql/resolved_ast/_virtual_imports/resolved_ast_proto/zetasql/resolved_ast/resolved_ast.proto protos/zetasql/resolved_ast/resolved_ast.proto
 copy bazel-bin/zetasql/resolved_ast/_virtual_imports/resolved_node_kind_proto/zetasql/resolved_ast/resolved_node_kind.proto protos/zetasql/resolved_ast/resolved_node_kind.proto
 copy bazel-bin/zetasql/parser/parse_tree.proto protos/zetasql/parser/parse_tree.proto
@@ -28,6 +29,8 @@ copy zetasql/public/parse_resume_location.proto protos/zetasql/public/parse_resu
 copy zetasql/public/proto/type_annotation.proto protos/zetasql/public/proto/type_annotation.proto
 copy zetasql/public/proto/wire_format_annotation.proto protos/zetasql/public/proto/wire_format_annotation.proto
 copy zetasql/public/simple_constant.proto protos/zetasql/public/simple_constant.proto
+copy zetasql/public/simple_model.proto protos/zetasql/public/simple_model.proto
+copy zetasql/public/simple_connection.proto protos/zetasql/public/simple_connection.proto
 copy zetasql/public/simple_table.proto protos/zetasql/public/simple_table.proto
 copy zetasql/public/simple_value.proto protos/zetasql/public/simple_value.proto
 copy zetasql/public/type_annotation.proto protos/zetasql/public/type_annotation.proto

@@ -4,6 +4,7 @@ export const SchemaObjectKind = {
   __SchemaObjectKind__switch_must_have_a_default__: -1,
   kInvalidSchemaObjectKind: 1,
   kAggregateFunction: 2,
+  kApproxView: 17,
   kConstant: 3,
   kDatabase: 4,
   kExternalTable: 5,
@@ -26,6 +27,8 @@ export type SchemaObjectKind =
   | 1
   | 'kAggregateFunction'
   | 2
+  | 'kApproxView'
+  | 17
   | 'kConstant'
   | 3
   | 'kDatabase'

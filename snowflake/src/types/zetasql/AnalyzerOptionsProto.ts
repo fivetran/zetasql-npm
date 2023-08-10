@@ -8,6 +8,7 @@ import type { ParameterMode as _zetasql_ParameterMode, ParameterMode__Output as 
 import type { StatementContext as _zetasql_StatementContext, StatementContext__Output as _zetasql_StatementContext__Output } from '../zetasql/StatementContext';
 import type { ResolvedASTRewrite as _zetasql_ResolvedASTRewrite, ResolvedASTRewrite__Output as _zetasql_ResolvedASTRewrite__Output } from '../zetasql/ResolvedASTRewrite';
 import type { ParseLocationRecordType as _zetasql_ParseLocationRecordType, ParseLocationRecordType__Output as _zetasql_ParseLocationRecordType__Output } from '../zetasql/ParseLocationRecordType';
+import type { RewriteOptions as _zetasql_RewriteOptions, RewriteOptions__Output as _zetasql_RewriteOptions__Output } from '../zetasql/RewriteOptions';
 import type { Long } from '@grpc/proto-loader';
 
 export interface _zetasql_AnalyzerOptionsProto_QueryParameterProto {
@@ -53,6 +54,8 @@ export interface AnalyzerOptionsProto {
   'preserveUnnecessaryCast'?: (boolean);
   'defaultAnonFunctionReportFormat'?: (string);
   'defaultAnonKappaValue'?: (number | string | Long);
+  'showFunctionSignatureMismatchDetails'?: (boolean);
+  'rewriteOptions'?: (_zetasql_RewriteOptions | null);
 }
 
 export interface AnalyzerOptionsProto__Output {
@@ -78,4 +81,6 @@ export interface AnalyzerOptionsProto__Output {
   'preserveUnnecessaryCast': (boolean);
   'defaultAnonFunctionReportFormat': (string);
   'defaultAnonKappaValue': (Long);
+  'showFunctionSignatureMismatchDetails': (boolean);
+  'rewriteOptions': (_zetasql_RewriteOptions__Output | null);
 }

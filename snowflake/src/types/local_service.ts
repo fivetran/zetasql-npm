@@ -47,6 +47,7 @@ export interface ProtoGrpcType {
     ASTAlterActionListProto: MessageTypeDefinition
     ASTAlterActionProto: MessageTypeDefinition
     ASTAlterAllRowAccessPoliciesStatementProto: MessageTypeDefinition
+    ASTAlterApproxViewStatementProto: MessageTypeDefinition
     ASTAlterColumnDropDefaultActionProto: MessageTypeDefinition
     ASTAlterColumnDropNotNullActionProto: MessageTypeDefinition
     ASTAlterColumnOptionsActionProto: MessageTypeDefinition
@@ -122,6 +123,7 @@ export interface ProtoGrpcType {
     ASTConnectionClauseProto: MessageTypeDefinition
     ASTContinueStatementProto: MessageTypeDefinition
     ASTCopyDataSourceProto: MessageTypeDefinition
+    ASTCreateApproxViewStatementProto: MessageTypeDefinition
     ASTCreateConstantStatementProto: MessageTypeDefinition
     ASTCreateDatabaseStatementProto: MessageTypeDefinition
     ASTCreateEntityStatementProto: MessageTypeDefinition
@@ -164,6 +166,7 @@ export interface ProtoGrpcType {
     ASTDropConstraintActionProto: MessageTypeDefinition
     ASTDropEntityStatementProto: MessageTypeDefinition
     ASTDropFunctionStatementProto: MessageTypeDefinition
+    ASTDropIndexStatementProto: MessageTypeDefinition
     ASTDropMaterializedViewStatementProto: MessageTypeDefinition
     ASTDropPrimaryKeyActionProto: MessageTypeDefinition
     ASTDropPrivilegeRestrictionStatementProto: MessageTypeDefinition
@@ -175,6 +178,7 @@ export interface ProtoGrpcType {
     ASTDropSubEntityActionProto: MessageTypeDefinition
     ASTDropTableFunctionStatementProto: MessageTypeDefinition
     ASTDropTtlActionProto: MessageTypeDefinition
+    ASTDropVectorIndexStatementProto: MessageTypeDefinition
     ASTElementTypeColumnSchemaProto: MessageTypeDefinition
     ASTElseifClauseListProto: MessageTypeDefinition
     ASTElseifClauseProto: MessageTypeDefinition
@@ -186,10 +190,13 @@ export interface ProtoGrpcType {
     ASTExecuteUsingClauseProto: MessageTypeDefinition
     ASTExplainStatementProto: MessageTypeDefinition
     ASTExportDataStatementProto: MessageTypeDefinition
+    ASTExportMetadataStatementProto: MessageTypeDefinition
     ASTExportModelStatementProto: MessageTypeDefinition
     ASTExpressionProto: MessageTypeDefinition
     ASTExpressionSubqueryEnums: MessageTypeDefinition
     ASTExpressionSubqueryProto: MessageTypeDefinition
+    ASTExpressionWithAliasProto: MessageTypeDefinition
+    ASTExpressionWithOptAliasProto: MessageTypeDefinition
     ASTExtractExpressionProto: MessageTypeDefinition
     ASTFilterFieldsArgEnums: MessageTypeDefinition
     ASTFilterFieldsArgProto: MessageTypeDefinition
@@ -212,15 +219,19 @@ export interface ProtoGrpcType {
     ASTFunctionParameterEnums: MessageTypeDefinition
     ASTFunctionParameterProto: MessageTypeDefinition
     ASTFunctionParametersProto: MessageTypeDefinition
+    ASTFunctionTypeArgListProto: MessageTypeDefinition
+    ASTFunctionTypeProto: MessageTypeDefinition
     ASTGeneralizedPathExpressionProto: MessageTypeDefinition
     ASTGeneratedColumnInfoEnums: MessageTypeDefinition
     ASTGeneratedColumnInfoProto: MessageTypeDefinition
     ASTGrantStatementProto: MessageTypeDefinition
     ASTGrantToClauseProto: MessageTypeDefinition
     ASTGranteeListProto: MessageTypeDefinition
+    ASTGroupByAllProto: MessageTypeDefinition
     ASTGroupByProto: MessageTypeDefinition
     ASTGroupingItemProto: MessageTypeDefinition
-    ASTGroupingSetsProto: MessageTypeDefinition
+    ASTGroupingSetListProto: MessageTypeDefinition
+    ASTGroupingSetProto: MessageTypeDefinition
     ASTHavingModifierEnums: MessageTypeDefinition
     ASTHavingModifierProto: MessageTypeDefinition
     ASTHavingProto: MessageTypeDefinition
@@ -340,6 +351,7 @@ export interface ProtoGrpcType {
     ASTSelectListProto: MessageTypeDefinition
     ASTSelectProto: MessageTypeDefinition
     ASTSelectWithProto: MessageTypeDefinition
+    ASTSequenceArgProto: MessageTypeDefinition
     ASTSetAsActionProto: MessageTypeDefinition
     ASTSetCollateClauseProto: MessageTypeDefinition
     ASTSetOperationAllOrDistinctProto: MessageTypeDefinition
@@ -457,6 +469,7 @@ export interface ProtoGrpcType {
     AnyASTCreateTableStmtBaseProto: MessageTypeDefinition
     AnyASTCreateViewStatementBaseProto: MessageTypeDefinition
     AnyASTDdlStatementProto: MessageTypeDefinition
+    AnyASTDropIndexStatementProto: MessageTypeDefinition
     AnyASTElementTypeColumnSchemaProto: MessageTypeDefinition
     AnyASTExpressionProto: MessageTypeDefinition
     AnyASTGeneralizedPathExpressionProto: MessageTypeDefinition
@@ -485,6 +498,7 @@ export interface ProtoGrpcType {
     AnyResolvedExprProto: MessageTypeDefinition
     AnyResolvedFunctionCallBaseProto: MessageTypeDefinition
     AnyResolvedGrantOrRevokeStmtProto: MessageTypeDefinition
+    AnyResolvedGroupingSetBaseProto: MessageTypeDefinition
     AnyResolvedNodeProto: MessageTypeDefinition
     AnyResolvedNonScalarFunctionCallBaseProto: MessageTypeDefinition
     AnyResolvedScanProto: MessageTypeDefinition
@@ -501,6 +515,7 @@ export interface ProtoGrpcType {
     EnumTypeProto: MessageTypeDefinition
     ErrorLocation: MessageTypeDefinition
     ErrorMessageMode: EnumTypeDefinition
+    ErrorMessageModeForPayload: MessageTypeDefinition
     ErrorSource: MessageTypeDefinition
     ExpressionAttributeProto: MessageTypeDefinition
     ExtendedTypeParametersProto: MessageTypeDefinition
@@ -519,6 +534,7 @@ export interface ProtoGrpcType {
     FunctionSignatureOptionsProto: MessageTypeDefinition
     FunctionSignatureProto: MessageTypeDefinition
     FunctionSignatureRewriteOptionsProto: MessageTypeDefinition
+    GroupingSetRewriteOptions: MessageTypeDefinition
     LanguageFeature: EnumTypeDefinition
     LanguageFeatureOptions: MessageTypeDefinition
     LanguageOptionsProto: MessageTypeDefinition
@@ -550,8 +566,10 @@ export interface ProtoGrpcType {
     ResolvedAggregateHavingModifierProto: MessageTypeDefinition
     ResolvedAggregateScanBaseProto: MessageTypeDefinition
     ResolvedAggregateScanProto: MessageTypeDefinition
+    ResolvedAggregationThresholdAggregateScanProto: MessageTypeDefinition
     ResolvedAlterActionProto: MessageTypeDefinition
     ResolvedAlterAllRowAccessPoliciesStmtProto: MessageTypeDefinition
+    ResolvedAlterApproxViewStmtProto: MessageTypeDefinition
     ResolvedAlterColumnActionProto: MessageTypeDefinition
     ResolvedAlterColumnDropDefaultActionProto: MessageTypeDefinition
     ResolvedAlterColumnDropNotNullActionProto: MessageTypeDefinition
@@ -606,6 +624,7 @@ export interface ProtoGrpcType {
     ResolvedConnectionProto: MessageTypeDefinition
     ResolvedConstantProto: MessageTypeDefinition
     ResolvedConstraintProto: MessageTypeDefinition
+    ResolvedCreateApproxViewStmtProto: MessageTypeDefinition
     ResolvedCreateConstantStmtProto: MessageTypeDefinition
     ResolvedCreateDatabaseStmtProto: MessageTypeDefinition
     ResolvedCreateEntityStmtProto: MessageTypeDefinition
@@ -628,6 +647,7 @@ export interface ProtoGrpcType {
     ResolvedCreateTableStmtProto: MessageTypeDefinition
     ResolvedCreateViewBaseProto: MessageTypeDefinition
     ResolvedCreateViewStmtProto: MessageTypeDefinition
+    ResolvedCubeProto: MessageTypeDefinition
     ResolvedDMLDefaultProto: MessageTypeDefinition
     ResolvedDMLValueProto: MessageTypeDefinition
     ResolvedDefineTableStmtProto: MessageTypeDefinition
@@ -638,11 +658,12 @@ export interface ProtoGrpcType {
     ResolvedDropColumnActionProto: MessageTypeDefinition
     ResolvedDropConstraintActionProto: MessageTypeDefinition
     ResolvedDropFunctionStmtProto: MessageTypeDefinition
+    ResolvedDropIndexStmtEnums: MessageTypeDefinition
+    ResolvedDropIndexStmtProto: MessageTypeDefinition
     ResolvedDropMaterializedViewStmtProto: MessageTypeDefinition
     ResolvedDropPrimaryKeyActionProto: MessageTypeDefinition
     ResolvedDropPrivilegeRestrictionStmtProto: MessageTypeDefinition
     ResolvedDropRowAccessPolicyStmtProto: MessageTypeDefinition
-    ResolvedDropSearchIndexStmtProto: MessageTypeDefinition
     ResolvedDropSnapshotTableStmtProto: MessageTypeDefinition
     ResolvedDropStmtEnums: MessageTypeDefinition
     ResolvedDropStmtProto: MessageTypeDefinition
@@ -653,6 +674,7 @@ export interface ProtoGrpcType {
     ResolvedExecuteImmediateStmtProto: MessageTypeDefinition
     ResolvedExplainStmtProto: MessageTypeDefinition
     ResolvedExportDataStmtProto: MessageTypeDefinition
+    ResolvedExportMetadataStmtProto: MessageTypeDefinition
     ResolvedExportModelStmtProto: MessageTypeDefinition
     ResolvedExprProto: MessageTypeDefinition
     ResolvedExpressionColumnProto: MessageTypeDefinition
@@ -681,6 +703,9 @@ export interface ProtoGrpcType {
     ResolvedGrantStmtProto: MessageTypeDefinition
     ResolvedGrantToActionProto: MessageTypeDefinition
     ResolvedGroupRowsScanProto: MessageTypeDefinition
+    ResolvedGroupingCallProto: MessageTypeDefinition
+    ResolvedGroupingSetBaseProto: MessageTypeDefinition
+    ResolvedGroupingSetMultiColumnProto: MessageTypeDefinition
     ResolvedGroupingSetProto: MessageTypeDefinition
     ResolvedImportStmtEnums: MessageTypeDefinition
     ResolvedImportStmtProto: MessageTypeDefinition
@@ -734,10 +759,12 @@ export interface ProtoGrpcType {
     ResolvedRevokeFromActionProto: MessageTypeDefinition
     ResolvedRevokeStmtProto: MessageTypeDefinition
     ResolvedRollbackStmtProto: MessageTypeDefinition
+    ResolvedRollupProto: MessageTypeDefinition
     ResolvedRunBatchStmtProto: MessageTypeDefinition
     ResolvedSampleScanEnums: MessageTypeDefinition
     ResolvedSampleScanProto: MessageTypeDefinition
     ResolvedScanProto: MessageTypeDefinition
+    ResolvedSequenceProto: MessageTypeDefinition
     ResolvedSetAsActionProto: MessageTypeDefinition
     ResolvedSetCollateClauseProto: MessageTypeDefinition
     ResolvedSetOperationItemProto: MessageTypeDefinition
@@ -758,6 +785,7 @@ export interface ProtoGrpcType {
     ResolvedTableScanProto: MessageTypeDefinition
     ResolvedTopScanProto: MessageTypeDefinition
     ResolvedTruncateStmtProto: MessageTypeDefinition
+    ResolvedUndropStmtProto: MessageTypeDefinition
     ResolvedUnnestItemProto: MessageTypeDefinition
     ResolvedUnpivotArgProto: MessageTypeDefinition
     ResolvedUnpivotScanProto: MessageTypeDefinition
@@ -775,12 +803,16 @@ export interface ProtoGrpcType {
     ResolvedWithPartitionColumnsProto: MessageTypeDefinition
     ResolvedWithRefScanProto: MessageTypeDefinition
     ResolvedWithScanProto: MessageTypeDefinition
+    RewriteOptions: MessageTypeDefinition
     SchemaObjectKind: EnumTypeDefinition
+    SequenceRefProto: MessageTypeDefinition
     SignatureArgumentKind: EnumTypeDefinition
     SimpleAnonymizationInfoProto: MessageTypeDefinition
     SimpleCatalogProto: MessageTypeDefinition
     SimpleColumnProto: MessageTypeDefinition
+    SimpleConnectionProto: MessageTypeDefinition
     SimpleConstantProto: MessageTypeDefinition
+    SimpleModelProto: MessageTypeDefinition
     SimpleTableProto: MessageTypeDefinition
     SimpleValueProto: MessageTypeDefinition
     StatementContext: EnumTypeDefinition
