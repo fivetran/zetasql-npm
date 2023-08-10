@@ -9,7 +9,7 @@ import type { ASTGranteeListProto as _zetasql_ASTGranteeListProto, ASTGranteeLis
 export interface ASTGrantStatementProto {
   'parent'?: (_zetasql_ASTStatementProto | null);
   'privileges'?: (_zetasql_ASTPrivilegesProto | null);
-  'targetType'?: (_zetasql_ASTIdentifierProto | null);
+  'targetTypeParts'?: (_zetasql_ASTIdentifierProto)[];
   'targetPath'?: (_zetasql_ASTPathExpressionProto | null);
   'granteeList'?: (_zetasql_ASTGranteeListProto | null);
 }
@@ -17,7 +17,7 @@ export interface ASTGrantStatementProto {
 export interface ASTGrantStatementProto__Output {
   'parent': (_zetasql_ASTStatementProto__Output | null);
   'privileges': (_zetasql_ASTPrivilegesProto__Output | null);
-  'targetType': (_zetasql_ASTIdentifierProto__Output | null);
+  'targetTypeParts': (_zetasql_ASTIdentifierProto__Output)[];
   'targetPath': (_zetasql_ASTPathExpressionProto__Output | null);
   'granteeList': (_zetasql_ASTGranteeListProto__Output | null);
 }

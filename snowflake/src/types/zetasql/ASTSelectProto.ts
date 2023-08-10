@@ -4,7 +4,6 @@ import type { ASTQueryExpressionProto as _zetasql_ASTQueryExpressionProto, ASTQu
 import type { ASTHintProto as _zetasql_ASTHintProto, ASTHintProto__Output as _zetasql_ASTHintProto__Output } from '../zetasql/ASTHintProto';
 import type { ASTTopProto as _zetasql_ASTTopProto, ASTTopProto__Output as _zetasql_ASTTopProto__Output } from '../zetasql/ASTTopProto';
 import type { ASTSelectWithProto as _zetasql_ASTSelectWithProto, ASTSelectWithProto__Output as _zetasql_ASTSelectWithProto__Output } from '../zetasql/ASTSelectWithProto';
-import type { ASTOptionsListProto as _zetasql_ASTOptionsListProto, ASTOptionsListProto__Output as _zetasql_ASTOptionsListProto__Output } from '../zetasql/ASTOptionsListProto';
 import type { ASTSelectAsProto as _zetasql_ASTSelectAsProto, ASTSelectAsProto__Output as _zetasql_ASTSelectAsProto__Output } from '../zetasql/ASTSelectAsProto';
 import type { ASTSelectListProto as _zetasql_ASTSelectListProto, ASTSelectListProto__Output as _zetasql_ASTSelectListProto__Output } from '../zetasql/ASTSelectListProto';
 import type { ASTFromClauseProto as _zetasql_ASTFromClauseProto, ASTFromClauseProto__Output as _zetasql_ASTFromClauseProto__Output } from '../zetasql/ASTFromClauseProto';
@@ -19,7 +18,6 @@ export interface ASTSelectProto {
   'hint'?: (_zetasql_ASTHintProto | null);
   'top'?: (_zetasql_ASTTopProto | null);
   'selectWith'?: (_zetasql_ASTSelectWithProto | null);
-  'anonymizationOptions'?: (_zetasql_ASTOptionsListProto | null);
   'distinct'?: (boolean);
   'selectAs'?: (_zetasql_ASTSelectAsProto | null);
   'selectList'?: (_zetasql_ASTSelectListProto | null);
@@ -36,7 +34,6 @@ export interface ASTSelectProto__Output {
   'hint': (_zetasql_ASTHintProto__Output | null);
   'top': (_zetasql_ASTTopProto__Output | null);
   'selectWith': (_zetasql_ASTSelectWithProto__Output | null);
-  'anonymizationOptions': (_zetasql_ASTOptionsListProto__Output | null);
   'distinct': (boolean);
   'selectAs': (_zetasql_ASTSelectAsProto__Output | null);
   'selectList': (_zetasql_ASTSelectListProto__Output | null);

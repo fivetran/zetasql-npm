@@ -20,6 +20,7 @@ export interface ResolvedCreateIndexStmtProto {
   'storingExpressionList'?: (_zetasql_AnyResolvedExprProto)[];
   'isSearch'?: (boolean);
   'indexAllColumns'?: (boolean);
+  'isVector'?: (boolean);
 }
 
 export interface ResolvedCreateIndexStmtProto__Output {
@@ -34,4 +35,5 @@ export interface ResolvedCreateIndexStmtProto__Output {
   'storingExpressionList': (_zetasql_AnyResolvedExprProto__Output)[];
   'isSearch': (boolean);
   'indexAllColumns': (boolean);
+  'isVector': (boolean);
 }
