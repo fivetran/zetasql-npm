@@ -166,6 +166,7 @@ export interface ProtoGrpcType {
     ASTDropConstraintActionProto: MessageTypeDefinition
     ASTDropEntityStatementProto: MessageTypeDefinition
     ASTDropFunctionStatementProto: MessageTypeDefinition
+    ASTDropIndexStatementProto: MessageTypeDefinition
     ASTDropMaterializedViewStatementProto: MessageTypeDefinition
     ASTDropPrimaryKeyActionProto: MessageTypeDefinition
     ASTDropPrivilegeRestrictionStatementProto: MessageTypeDefinition
@@ -177,6 +178,7 @@ export interface ProtoGrpcType {
     ASTDropSubEntityActionProto: MessageTypeDefinition
     ASTDropTableFunctionStatementProto: MessageTypeDefinition
     ASTDropTtlActionProto: MessageTypeDefinition
+    ASTDropVectorIndexStatementProto: MessageTypeDefinition
     ASTElementTypeColumnSchemaProto: MessageTypeDefinition
     ASTElseifClauseListProto: MessageTypeDefinition
     ASTElseifClauseProto: MessageTypeDefinition
@@ -465,6 +467,7 @@ export interface ProtoGrpcType {
     AnyASTCreateTableStmtBaseProto: MessageTypeDefinition
     AnyASTCreateViewStatementBaseProto: MessageTypeDefinition
     AnyASTDdlStatementProto: MessageTypeDefinition
+    AnyASTDropIndexStatementProto: MessageTypeDefinition
     AnyASTElementTypeColumnSchemaProto: MessageTypeDefinition
     AnyASTExpressionProto: MessageTypeDefinition
     AnyASTGeneralizedPathExpressionProto: MessageTypeDefinition
@@ -653,11 +656,12 @@ export interface ProtoGrpcType {
     ResolvedDropColumnActionProto: MessageTypeDefinition
     ResolvedDropConstraintActionProto: MessageTypeDefinition
     ResolvedDropFunctionStmtProto: MessageTypeDefinition
+    ResolvedDropIndexStmtEnums: MessageTypeDefinition
+    ResolvedDropIndexStmtProto: MessageTypeDefinition
     ResolvedDropMaterializedViewStmtProto: MessageTypeDefinition
     ResolvedDropPrimaryKeyActionProto: MessageTypeDefinition
     ResolvedDropPrivilegeRestrictionStmtProto: MessageTypeDefinition
     ResolvedDropRowAccessPolicyStmtProto: MessageTypeDefinition
-    ResolvedDropSearchIndexStmtProto: MessageTypeDefinition
     ResolvedDropSnapshotTableStmtProto: MessageTypeDefinition
     ResolvedDropStmtEnums: MessageTypeDefinition
     ResolvedDropStmtProto: MessageTypeDefinition

@@ -22,6 +22,7 @@ export interface ASTCreateIndexStatementProto {
   'isSearch'?: (boolean);
   'spannerInterleaveClause'?: (_zetasql_ASTSpannerInterleaveClauseProto | null);
   'spannerIsNullFiltered'?: (boolean);
+  'isVector'?: (boolean);
 }
 
 export interface ASTCreateIndexStatementProto__Output {
@@ -37,4 +38,5 @@ export interface ASTCreateIndexStatementProto__Output {
   'isSearch': (boolean);
   'spannerInterleaveClause': (_zetasql_ASTSpannerInterleaveClauseProto__Output | null);
   'spannerIsNullFiltered': (boolean);
+  'isVector': (boolean);
 }
