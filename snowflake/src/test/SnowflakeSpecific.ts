@@ -1,5 +1,6 @@
 import { runServer, terminateServer, TypeKind, ZetaSQLClient } from '..';
 import { LanguageOptions } from '../LanguageOptions';
+import { LanguageFeature } from '../types/zetasql/LanguageFeature';
 import { AnalyzeResponse__Output } from '../types/zetasql/local_service/AnalyzeResponse';
 import { SimpleCatalogProto } from '../types/zetasql/SimpleCatalogProto';
 import { SimpleColumnProto } from '../types/zetasql/SimpleColumnProto';
@@ -90,6 +91,7 @@ async function registerAllLanguageFeatures(): Promise<void> {
     catalog.builtinFunctionOptions = {
       languageOptions: languageOptions.serialize(),
     };
+    languageOptions.enableLanguageFeature(LanguageFeature.FEATURE_V_1_4_GROUPING_SETS);
 
     const simpleTableA: SimpleTableProto = { name: 'table_a' };
     const column1: SimpleColumnProto = {
