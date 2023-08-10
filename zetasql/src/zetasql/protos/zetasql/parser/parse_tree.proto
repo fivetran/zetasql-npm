@@ -1307,13 +1307,13 @@ message AnyASTDdlStatementProto {
     ASTDropTableFunctionStatementProto ast_drop_table_function_statement_node = 114;
     ASTDropMaterializedViewStatementProto ast_drop_materialized_view_statement_node = 116;
     ASTDropSnapshotTableStatementProto ast_drop_snapshot_table_statement_node = 117;
-    ASTDropSearchIndexStatementProto ast_drop_search_index_statement_node = 118;
     AnyASTCreateStatementProto ast_create_statement_node = 150;
     ASTDropRowAccessPolicyStatementProto ast_drop_row_access_policy_statement_node = 287;
     ASTDropStatementProto ast_drop_statement_node = 289;
     AnyASTAlterStatementBaseProto ast_alter_statement_base_node = 305;
     ASTDropPrivilegeRestrictionStatementProto ast_drop_privilege_restriction_statement_node = 326;
     ASTUndropStatementProto ast_undrop_statement_node = 388;
+    AnyASTDropIndexStatementProto ast_drop_index_statement_node = 407;
   }
 }
 message ASTDdlStatementProto {
@@ -1367,12 +1367,29 @@ message ASTDropSnapshotTableStatementProto {
   optional bool is_if_exists = 3;
 }
 
-// Represents a DROP SEARCH INDEX statement.
-message ASTDropSearchIndexStatementProto {
+// Represents a DROP SEARCH|VECTOR INDEX statement. It is different from the
+// regular drop index in that it has a trailing "ON PATH" clause.
+message AnyASTDropIndexStatementProto {
+  oneof node {
+    ASTDropSearchIndexStatementProto ast_drop_search_index_statement_node = 118;
+    ASTDropVectorIndexStatementProto ast_drop_vector_index_statement_node = 406;
+  }
+}
+message ASTDropIndexStatementProto {
   optional ASTDdlStatementProto parent = 1;
   optional ASTPathExpressionProto name = 2;
   optional ASTPathExpressionProto table_name = 3;
   optional bool is_if_exists = 4;
+}
+
+// Represents a DROP SEARCH INDEX statement.
+message ASTDropSearchIndexStatementProto {
+  optional ASTDropIndexStatementProto parent = 1;
+}
+
+// Represents a DROP VECTOR INDEX statement.
+message ASTDropVectorIndexStatementProto {
+  optional ASTDropIndexStatementProto parent = 1;
 }
 
 // Represents a RENAME statement.
@@ -1871,6 +1888,7 @@ message ASTCreateIndexStatementProto {
   optional bool is_search = 10;
   optional ASTSpannerInterleaveClauseProto spanner_interleave_clause = 11;
   optional bool spanner_is_null_filtered = 12;
+  optional bool is_vector = 13;
 }
 
 message ASTExportDataStatementProto {

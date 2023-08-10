@@ -1966,10 +1966,10 @@ message AnyResolvedStatementProto {
     ResolvedAnalyzeStmtProto resolved_analyze_stmt_node = 180;
     ResolvedDropSnapshotTableStmtProto resolved_drop_snapshot_table_stmt_node = 183;
     ResolvedAuxLoadDataStmtProto resolved_aux_load_data_stmt_node = 186;
-    ResolvedDropSearchIndexStmtProto resolved_drop_search_index_stmt_node = 190;
     ResolvedDropPrivilegeRestrictionStmtProto resolved_drop_privilege_restriction_stmt_node = 192;
     ResolvedUndropStmtProto resolved_undrop_stmt_node = 227;
     ResolvedExportMetadataStmtProto resolved_export_metadata_stmt_node = 234;
+    ResolvedDropIndexStmtProto resolved_drop_index_stmt_node = 242;
   }
 }
 
@@ -2086,7 +2086,7 @@ message ResolvedUnnestItemProto {
 }
 
 // This statement:
-// CREATE [OR REPLACE] [UNIQUE] [SEARCH] INDEX [IF NOT EXISTS]
+// CREATE [OR REPLACE] [UNIQUE] [SEARCH | VECTOR] INDEX [IF NOT EXISTS]
 //  <index_name_path> ON <table_name_path>
 // [STORING (Expression, ...)]
 // [UNNEST(path_expression) [[AS] alias] [WITH OFFSET [[AS] alias]], ...]
@@ -2095,7 +2095,10 @@ message ResolvedUnnestItemProto {
 // <table_name_path> is the name of table being indexed.
 // <table_scan> is a TableScan on the table being indexed.
 // <is_unique> specifies if the index has unique entries.
-// <is_search> specifies if the index is for search.
+// <is_search> specifies if the index is for search. It is mutually exclusive
+//             with is_vector.
+// <is_vector> specifies if the index is for vector search. It is mutually
+//             exclusive with is_search.
 // <index_all_columns> specifies if indexing all the columns of the table.
 //                     When this field is true, index_item_list must be
 //                     empty and is_search must be true.
@@ -2118,6 +2121,7 @@ message ResolvedCreateIndexStmtProto {
   optional ResolvedTableScanProto table_scan = 3;
   optional bool is_unique = 4;
   optional bool is_search = 10;
+  optional bool is_vector = 12;
   optional bool index_all_columns = 11;
   repeated ResolvedIndexItemProto index_item_list = 5;
   repeated AnyResolvedExprProto storing_expression_list = 9;
@@ -4023,17 +4027,21 @@ message ResolvedDropRowAccessPolicyStmtProto {
   repeated string target_name_path = 5;
 }
 
-// DROP SEARCH INDEX [IF EXISTS] <name> [ON <table_name_path>];
+// DROP SEARCH|VECTOR INDEX [IF EXISTS] <name> [ON <table_name_path>];
+// Note: DROP INDEX without SEARCH or VECTOR is currently resolved to a
+// generic ResolvedDropStmt. The index_type currently would never be
+// INDEX_DEFAULT.
 //
 // <name> is the name of the search index to be dropped.
 // <table_name_path> is a vector giving the identifier path of the target
 //                   table.
-message ResolvedDropSearchIndexStmtProto {
+message ResolvedDropIndexStmtProto {
   optional ResolvedStatementProto parent = 1;
 
   optional bool is_if_exists = 2;
   optional string name = 3;
   repeated string table_name_path = 4;
+  optional ResolvedDropIndexStmtEnums.IndexType index_type = 5;
 }
 
 // GRANT TO action for ALTER ROW ACCESS POLICY statement

@@ -1,5 +1,9 @@
 #!/bin/bash
 
+SCRIPT_DIR=$(dirname "$0")
+cd ${SCRIPT_DIR}
+echo 'Running from folder '${PWD}
+
 function copy() {
     mkdir -p `dirname $2`
     cp $1 $2
