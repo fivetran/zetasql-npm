@@ -40,7 +40,7 @@ async function runTest(): Promise<void> {
   await registerAllLanguageFeatures();
 
   try {
-    await analyze('SELECT * FROM `test_project`.data_set.users where id = "1"');
+    await analyze(`SELECT * FROM "test_project".data_set.users where id = '1'`);
     console.log('Tests passed');
   } catch (e) {
     console.error(e);

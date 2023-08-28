@@ -31,6 +31,7 @@ async function runTest(): Promise<void> {
        try_parse_json('{}'), parse_json('{"a":"b"}'):a,
        -'1', +'1', 1 + '5', 3 % 2, null / 2,
        pi(), truncate(12.2, 2), datediff(year, '2021-01-01', '2021-02-28'),
+       42 as "a",
        from table_a as A inner join lateral (select * from table_b as B);`,
     );
     await analyze(
