@@ -29,9 +29,10 @@ async function runTest(): Promise<void> {
        try_cast('s' as int),
        as_boolean(true),
        try_parse_json('{}'), parse_json('{"a":"b"}'):a,
-       -'1', +'1', 1 + '5', 3 % 2, null / 2,
+       -'1', +'1', 1 + '5', 3 % 2, null / 2, to_variant(1) + 1,
        pi(), truncate(12.2, 2), datediff(year, '2021-01-01', '2021-02-28'),
        42 as "a",
+       nvl(null, 1),
        from table_a as A inner join lateral (select * from table_b as B);`,
     );
     await analyze(
