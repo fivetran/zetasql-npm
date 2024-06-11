@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/fivetran/zetasql-npm/tree/main/zetasql",
   "dependencies": {
-    "@grpc/grpc-js": "^1.8.13",
+    "@grpc/grpc-js": "^1.8.22",
     "@grpc/proto-loader": "0.7.6"
   },
   "scripts": {
